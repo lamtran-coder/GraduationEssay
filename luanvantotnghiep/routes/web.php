@@ -12,7 +12,16 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//forntend
+Route::get('/', 'Homecontroller@index');
+Route::get('/trang-chu','Homecontroller@index');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+//bachend
+Route::get('/admin','Admincontroller@index');
+Route::get('/dashboard','Admincontroller@show_dashboard');
+Route::get('/logout','Admincontroller@logout');
+Route::get('/trang-ca-nhan','Admincontroller@personal_information');
+
+
+Route::post('/admin-dashboard','Admincontroller@dashboard');
