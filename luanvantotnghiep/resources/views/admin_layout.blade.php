@@ -186,8 +186,8 @@ Thông báo</p>
                         <span>Danh mục sản phẩm</span>
                     </a>
                     <ul class="sub">
-						<li><a href="#">Tạo danh mục mới</a></li>
-						<li><a href="#">Danh mục</a></li>
+						<li><a href="{{URL::to('/add-Category')}}">Tạo danh mục mới</a></li>
+						<li><a href="{{URL::to('/all-Category')}}">Danh mục</a></li>
 					</ul>
                     
                 </li>
@@ -197,8 +197,37 @@ Thông báo</p>
                         <span>sản phẩm</span>
                     </a>
                      <ul class="sub">
-						<li><a href="#">Tạo sản phẩm mới</a></li>
-						<li><a href="#">Danh sách sản phẩm</a></li>    
+						<li><a href="{{URL::to('/add-product')}}">Tạo sản phẩm mới</a></li>
+						<li><a href="{{URL::to('/all-product')}}">Danh sách sản phẩm</a></li>    
+                    </ul>
+                </li>
+                 <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Màu</span>
+                    </a>
+                     <ul class="sub">
+                        <li><a href="{{URL::to('/add-product')}}">Tạo màu mới</a></li>
+                        <li><a href="{{URL::to('/all-product')}}">Danh sách màu</a></li>    
+                    </ul>
+                </li>
+                 <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>size</span>
+                    </a>
+                     <ul class="sub">
+                        <li><a href="{{URL::to('/add-product')}}">Tạo size mới</a></li>
+                        <li><a href="{{URL::to('/all-product')}}">Danh sách size</a></li>    
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Đơn đặt hàng</span>
+                    </a>
+                     <ul class="sub">
+                        <li><a href="{{URL::to('/all-order')}}">Danh sách đơn đặt hàng</a></li>    
                     </ul>
                 </li>
                

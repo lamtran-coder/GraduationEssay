@@ -13,7 +13,7 @@ html, body{
 	font-family: 'Roboto', sans-serif;
     font-size: 100%;
     overflow-x: hidden;
-    background: url(../images/bg.jpg) no-repeat 0px 0px;
+    background: url('../images/bg.jpg') no-repeat 0px 0px;
 	background-size:cover;
 }
 body a{
@@ -57,6 +57,17 @@ body a:hover{
 .right-stat-bar ul {
     list-style-type: none;
     padding-left: 0;
+}
+span.fa-thumbs-styling.fa.fa-thumbs-down {
+    font-size: 20px;
+    color: red;
+}
+span.fa-thumbs-styling.fa.fa-thumbs-up {
+    font-size: 20px;
+    color: green;
+}
+a.active.styling-edit {
+    font-size: 21px;
 }
 /*LEFT NAVIGATION ICON*/
 .dcjq-icon {
