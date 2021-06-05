@@ -24,6 +24,10 @@
                                 <form role="form" action="{{URL::to('/update-Category/'.$edit_value->ma_dm)}}" method="post">
                                     @csrf
                                     <div class="form-group">
+                                        <label for="exampleInputEmail1">Mã mục sản phẩm : <h4>{{$edit_value->ma_dm}}</h4></label>
+                                        
+                                    </div>
+                                    <div class="form-group">
                                         <label for="exampleInputEmail1">Tên danh mục sản phẩm </label>
                                         <input type="text" class="form-control" name="category_name" placeholder="tên danh mục" value="{{$edit_value->danh_muc}}">
                                     </div>

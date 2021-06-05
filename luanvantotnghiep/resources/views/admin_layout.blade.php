@@ -186,7 +186,7 @@ Thông báo</p>
                         <span>Danh mục sản phẩm</span>
                     </a>
                     <ul class="sub">
-						<li><a href="{{URL::to('/add-Category')}}">Tạo danh mục mới</a></li>
+						<li><a href="{{URL::to('/add-Category')}}">Danh mục mới</a></li>
 						<li><a href="{{URL::to('/all-Category')}}">Danh mục</a></li>
 					</ul>
                     
@@ -194,10 +194,10 @@ Thông báo</p>
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-book"></i>
-                        <span>sản phẩm</span>
+                        <span>Sản phẩm</span>
                     </a>
                      <ul class="sub">
-						<li><a href="{{URL::to('/add-product')}}">Tạo sản phẩm mới</a></li>
+						<li><a href="{{URL::to('/add-product')}}">Sản phẩm mới</a></li>
 						<li><a href="{{URL::to('/all-product')}}">Danh sách sản phẩm</a></li>    
                     </ul>
                 </li>
@@ -207,14 +207,14 @@ Thông báo</p>
                         <span>Màu</span>
                     </a>
                      <ul class="sub">
-                        <li><a href="{{URL::to('/add-product')}}">Tạo màu mới</a></li>
+                        <li><a href="{{URL::to('/add-product')}}">Màu mới</a></li>
                         <li><a href="{{URL::to('/all-product')}}">Danh sách màu</a></li>    
                     </ul>
                 </li>
                  <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-book"></i>
-                        <span>size</span>
+                        <span>Size</span>
                     </a>
                      <ul class="sub">
                         <li><a href="{{URL::to('/add-product')}}">Tạo size mới</a></li>
@@ -228,6 +228,36 @@ Thông báo</p>
                     </a>
                      <ul class="sub">
                         <li><a href="{{URL::to('/all-order')}}">Danh sách đơn đặt hàng</a></li>    
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Chi tiết sản phẩm</span>
+                    </a>
+                     <ul class="sub">
+                        <li><a href="{{URL::to('/add-product')}}">Chi tiết mới</a></li>
+                        <li><a href="{{URL::to('/all-product')}}">Danh sách chi tiết sản phẩm</a></li>    
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Hình ảnh sản phẩm</span>
+                    </a>
+                     <ul class="sub">
+                        <li><a href="{{URL::to('/add-product')}}">Hình ảnh mới</a></li>
+                        <li><a href="{{URL::to('/all-product')}}">Danh sách hình ảnh sản phẩm</a></li>    
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Phiếu giao</span>
+                    </a>
+                     <ul class="sub">
+                        <li><a href="{{URL::to('/add-product')}}">Phiếu giao mới</a></li>
+                        <li><a href="{{URL::to('/all-product')}}">Danh sách phiếu giao</a></li>    
                     </ul>
                 </li>
                
