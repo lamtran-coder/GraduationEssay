@@ -37,7 +37,7 @@
                                         <input type="text" class="form-control" name="sale_pricee" placeholder="tên danh mục">
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">Hiện thị</label>
+                                        <label for="exampleInputPassword1">Trang thị</label>
                                         <select name="product_status" class="form-control input-sm m-bot15">
                                             <option value="0">Còn hàng</option>
                                             <option value="1">Tạm hết</option>
@@ -48,14 +48,21 @@
                                         <input type="text" class="form-control" name="discount" placeholder="Chiết khấu">
                                     </div>
                                     <div class="form-group">
+                                        <label for="exampleInputPassword1">Số lượng</label>
+                                        <input type="text" class="form-control" name="amount_product" placeholder="số lượng" value="0">
+                                    </div>
+                                    <div class="form-group">
                                         <label for="exampleInputPassword1">Danh mục</label>
-                                        <select name="category_status" class="form-control input-sm m-bot15">
-                                            <option value="0">Quần-dai-kaki</option>
-                                            <option value="1">Áo-thung-dai</option>
+                                        <select name="category_product_id" class="form-control input-sm m-bot15">
+
+                                            <?php foreach ($cate_product as $key => $value_cate): ?>
+                                                <option value="{{$value_cate->ma_dm}}">{{$value_cate->danh_muc}}</option>
+                                            <?php endforeach ?>     
+                                            
                                         </select>
                                     </div>
                                     
-                                    <button type="submit" class="btn btn-info"	name="add_category">Thêm Danh Mục</button>
+                                    <button type="submit" class="btn btn-info"	name="add_product">Thêm Danh Mục</button>
                                 </form>
                             </div>
                         </div>

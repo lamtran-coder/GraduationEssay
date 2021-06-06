@@ -39,6 +39,12 @@ Route::post('/save-Category','Categorycontroller@save_Category');
 	//san pham
 Route::get('/add-product','Productcontroller@add_product');
 Route::get('/all-product','Productcontroller@all_product');
+Route::post('/save-product','Productcontroller@save_product');
 
 	//đơn đặt hàng
 Route::get('/all-order','Ordercontroller@all_order_product');
+
+	//hình ảnh sản phẩm
+Route::get('/add-images-product','Imagescontroller@add_images_product');
+Route::get('/all-images-product','Imagescontroller@all_images_product');
+Route::post('/save-images-product','Imagescontroller@save_images_product');

@@ -246,8 +246,8 @@ Thông báo</p>
                         <span>Hình ảnh sản phẩm</span>
                     </a>
                      <ul class="sub">
-                        <li><a href="{{URL::to('/add-product')}}">Hình ảnh mới</a></li>
-                        <li><a href="{{URL::to('/all-product')}}">Danh sách hình ảnh sản phẩm</a></li>    
+                        <li><a href="{{URL::to('/add-images-product')}}">Hình ảnh mới</a></li>
+                        <li><a href="{{URL::to('/all-images-product')}}">Danh sách hình ảnh sản phẩm</a></li>    
                     </ul>
                 </li>
                 <li class="sub-menu">
