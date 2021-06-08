@@ -5,7 +5,7 @@
         <div class="table-agile-info">
   <div class="panel panel-default">
     <div class="panel-heading">
-      liệt kê danh mục
+      Danh sách khách hàng
     </div>
     <div class="row w3-res-tb">
       <div class="col-sm-5 m-b-xs">
@@ -37,46 +37,44 @@
                 <input type="checkbox"><i></i>
               </label>
             </th>
-            <th>Tên danh mục</th>
-            <th>Trang thái</th>
-            <th>Chất liệu</th>
-            <th>Thiết kế</th>
-            <th>Mô tả</th>
-            <th>Cài đặt</th>
+            <th>tên khách hàng</th>
+            <th>email</th>
+            <th>so điện thoại</th>
+            <th>trang thái</th>
+            <th>địa chỉ</th>
+            <th></th>
             <th style="width:30px;"></th>
           </tr>
         </thead>
         <tbody>
-          @foreach($all_Category as $key => $value)
+          <?php foreach ($customer_id as $key => $value_cus): ?>
+            
+         
           <tr>
             <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-            <td><span class="text-ellipsis">{{$value->danh_muc}}</span></td>
+            <td><span class="text-ellipsis">{{$value_cus->ma_kh}}</span></td>
+            <td><span class="text-ellipsis">{{$value_cus->ten_kh}}</span></td>
+            <td><span class="text-ellipsis">{{$value_cus->email}}</span></td>
+            <td><span class="text-ellipsis">{{$value_cus->sodt}}</span></td>
             <td><span class="text-ellipsis">
-            <?php 
-              if ($value->trang_thai==0) {
-                ?>
-                <a href="{{URL::to('/unactive-category/'.$value->ma_dm)}}" ><span class="fa-thumbs-styling fa fa-thumbs-up">Hiện thị</span></a>
-            <?php 
-             }else{
-              ?>
-               <a href="{{URL::to('/active-category/'.$value->ma_dm)}}"><span class="fa-thumbs-styling fa fa-thumbs-down">Ẩn</span></a>
-            <?php
-             }
-             ?>
-
+           <?php if($value_cus->trangthai==0){
+                  echo"khách hàng tìm năng";
+                }else{
+                  echo"khách hàng chính thức";
+                }
+            ?>
+                  
             </span></td>
-            <td><span class="text-ellipsis">{{$value->chat_lieu}}</span></td>
-            <td><span class="text-ellipsis">{{$value->thiet_ke}}</span></td>
-            <td><span class="text-ellipsis">{{$value->mo_ta}}</span></td>
+            <td><span class="text-ellipsis">{{$value_cus->diachi}}</span></td>
             <td>
-              <a href="{{URL::to('/edit-Category/'.$value->ma_dm)}}" class="active styling-edit" ui-toggle-class="">
+              <a href="" class="active styling-edit" ui-toggle-class="">
                 <i class="fa fa-pencil-square-o text-success text-active"></i></a>
                 <br>
-              <a href="{{URL::to('/delete-Category/'.$value->ma_dm)}}" class="active styling-edit" ui-toggle-class="" onclick="return confirm('bạn muốn xóa danh mục này?')">
+              <a href="" class="active styling-edit" ui-toggle-class="" onclick="return confirm('bạn muốn xóa danh mục này?')">
               <i class="fa fa-times text-danger text"></i></a>
             </td>
           </tr>
-         @endforeach
+          <?php endforeach ?>
          
           
         </tbody>

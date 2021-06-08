@@ -13,7 +13,7 @@ html, body{
 	font-family: 'Roboto', sans-serif;
     font-size: 100%;
     overflow-x: hidden;
-    background: url('../images/congnghe.jpg') no-repeat 0px 0px;
+    background: url('../images/nengo.jpeg') no-repeat 0px 0px;
 	background-size:cover;
 }
 body a{
@@ -230,7 +230,7 @@ ul.sidebar-menu li a.active i {
     left:0;
     right:0;
     z-index:1002;
-    background:rgb(240, 188, 180);
+    background:#ED962D;
     -webkit-transition:all .3s ease-in-out;
     -moz-transition:all .3s ease-in-out;
     -o-transition:all .3s ease-in-out;
@@ -250,7 +250,7 @@ ul.sidebar-menu li a.active i {
     width:100%;
 }
 .brand {
-    background:#8b5c7e;
+    background:#E36A2B;
     float:left;
     width:240px;
     height:80px;
@@ -286,7 +286,7 @@ ul.top-menu {
 ul.top-menu > li > a {
     color: #fff;
     font-size: 16px;
-    background: #8b5c7e;
+    background: #ecb807;
     padding: 4px 8px;
     margin-right: 15px;
     border-radius: 50%;
@@ -294,7 +294,7 @@ ul.top-menu > li > a {
     padding-right: 8px !important;
 }
 ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
-    background:#fa9fa4;
+    background:#cb1e1e;
     text-decoration:none;
     color:#fff !important;
     padding-right:8px !important;
@@ -517,8 +517,8 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
     padding: 0px;
     background: none;
     margin-right: 0;
-    border: 1px solid #8b5c7e;
-    background: #8b5c7e;
+    border: 2px solid #ae7418f5;
+    background: #d66734;
 }
 .top-nav ul.top-menu>li.language>a {
     margin-top:-2px;
@@ -540,7 +540,7 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
 }
 .top-nav ul.top-menu>li>a:hover,.top-nav ul.top-menu>li>a:focus {
     border:1px solid #fa9fa4;
-    background:#fa9fa4 !important;
+    background:#b2151d !important;
     border-radius:100px;
     -webkit-border-radius:100px;
 }
@@ -612,9 +612,10 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
     float:left;
     margin-top:23px;
     margin-left:-15px;
-    background:#8b5c7e;
+    background:#d11d1d;
     border-radius:50%;
     -webkit-border-radius:50%;
+   
     width:32px;
     height:32px;
     position:absolute;
@@ -956,10 +957,10 @@ div#graph1,div#graph4,div#graph5,div#graph6,div#graph7,div#graph8,div#graph9 {
     color: #555;
 }
 .table>thead>tr>th {
-    border-bottom: 1px solid #e1ab91 ! important;
+    border-bottom: 2px solid #e1ab91 ! important;
 }
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-    border-bottom: 1px solid #e9e9e9 ! important;
+    border-bottom: 2px solid #e9e9e9 ! important;
 }
 .progress.progress-right {
     width: 25%;
@@ -1432,7 +1433,7 @@ li.list-group-item1 {
 	background-color: #03a9f4;
 }
 .badge-success {
-	background-color: #fb5710;
+	background-color: #108530;
 }
 .badge-warning {
 	background-color: #ffc107;
@@ -1855,10 +1856,10 @@ select.input-sm {
     margin-top: 11px;
 }
 .badge.bg-important {
-    background: #ff6c60;
+    background: #215bbe;
 }
 .badge.bg-warning {
-    background: #FCB322;
+    background: #e30d22f0;
 }
 /* mail inbox */
 .mail-nav {
@@ -2366,7 +2367,7 @@ ul.inbox-pagination li {
 }
 /*-- gallery --*/
 .w3layouts-main h2 {
-	color: #F5A731;
+	color: #e2f531;
     font-size: 29px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -2375,8 +2376,9 @@ ul.inbox-pagination li {
 }
 .w3layouts-main {
     width: 30%;
+    height: 500px;
     margin:5em auto;
-    background:#72092B;
+    background:#d454059c;
     padding: 42px 35px;
     border-radius:40px 40px 40px 40px;
 
@@ -2397,7 +2399,7 @@ input.ggg{
     font-size: 16px;
     color: #fff;
     float: left;
-    width: 32%;
+    width: 300px;
 	margin-top: 8px;
 }
 .w3layouts-main h6 {
@@ -2430,7 +2432,7 @@ input.ggg{
     font-size: 18px;
     text-transform: uppercase;
     letter-spacing: 2px;
-    background: #95B825;
+    background: #253fb87d;
     color: white;
     border: none;
     outline: none;
@@ -2446,7 +2448,7 @@ input.ggg{
     border-radius:50px 50px 50px 50px;
 }
 .w3layouts-main input[type="submit"]:hover {
-	background:#396B0D;
+	background:#021881;
 	transition:0.5s all;
 	-webkit-transition:0.5s all;
 	-o-transition:0.5s all;
@@ -2475,6 +2477,7 @@ h4 input[type="checkbox"] {
 	font-weight:400;
 	font-size:14px;
 }
+    
  /*--placeholder-color--*/
 ::-webkit-input-placeholder {
 	color:#fff !important;

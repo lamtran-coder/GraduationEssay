@@ -28,15 +28,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 <body>
 <div class="log-w3">
+	
 <div class="w3layouts-main" >
 	<h2>Đăng nhập</h2>
-	<?php 
-		$message=Session::get('message');
-		if($message){
-			echo '<span>'.$message.'<span>';
-			Session::put('message',null);
-		}
-	 ?>
 		<form action="{{URL::to('/admin-dashboard')}}" method="post">
 			@csrf			
 
@@ -46,8 +40,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<h6><a href="#">Quên mật khẩu?</a></h6>
 				<div class="clearfix"></div>
 				<input type="submit" value="Đăng nhập" name="login">
+				
 		</form>
-		<!-- <p>Don't Have an Account ?<a href="registration.html">Create an account</a></p>-->
+		<div>
+		<!--<ul>
+          <li>
+          	<a href="#" class="facebook">
+          		<i class="fa fa-facebook-f">
+          		</i><span>facebook</span></a>
+          </li>
+          <li>
+          	<a href="#" class="twitter">
+          	<i class="fa fa-twitter"></i>
+          	<span>twitter</span></a>
+          </li>
+      	</ul>
+      	</div>-->
+		<?php 
+		$message=Session::get('message');
+		if($message){
+			echo '<div><span>'.$message.'</span></div>';
+			Session::put('message',null);
+		}
+	 ?>
 </div>
 </div>
 <script src="{{asset('public/backend/js/jquery2.0.3.min.js')}}"></script>

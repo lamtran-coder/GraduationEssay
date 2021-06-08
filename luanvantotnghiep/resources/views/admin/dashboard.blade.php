@@ -4,6 +4,7 @@
 <section id="main-content">
 	<section class="wrapper">
 		<!-- //market-->
+		<div>
 			<div class="market-updates">
 				<div class="col-md-3 market-update-gd">
 					<div class="market-update-block clr-block-2">
@@ -267,6 +268,7 @@
 					</div>
 					<div class="clearfix"> </div>
 				</div>
+		</div>
+	</section>
 </section>
-
 @endsection
