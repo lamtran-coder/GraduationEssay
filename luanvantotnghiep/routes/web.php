@@ -17,6 +17,9 @@ Route::get('/', 'Homecontroller@index');
 Route::get('/trang-chu','Homecontroller@index');
 
 
+Route::get('/ke-hang','Show_productcontroller@show_product');
+
+
 //bachend
 Route::get('/admin','Admincontroller@index');
 Route::get('/dashboard','Admincontroller@show_dashboard');

@@ -120,6 +120,8 @@ body{
 .index-banner{
 	padding:10px 0;
 }
+
+
 .banner-wrap{
 	width: 80%;
 	margin: 0 auto;
@@ -196,6 +198,17 @@ body{
 	background:#08080b;
 	width:10px;
 	height:10px;
+}
+i.fa.fa-shopping-cart.fa-shopping-cart-styling {
+    font-size: 40px;
+    color: #79660e;
+}
+.sub-icon2.list {
+    padding: 20px 0px;
+    border-radius: 30px;
+    border: solid darkgray;
+    width: 500px;
+    height: auto;
 }
 .slider-left{
 	float: left;
@@ -1538,11 +1551,11 @@ p.m_desc{
 .info {
    display: inline-block;
    text-decoration: none;
-   padding: 7px 14px;
+   padding: 40px 14px;
    background: #000;
    color: #fff;
    text-transform: uppercase;
-  	font-size:0.9em;
+  	font-size:1em;
 }
 .info:hover {
    background:#FFAF02;
