@@ -78,10 +78,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
            </ul>
         </div>
         <ul class="icon2 sub-icon2 profile_img">
+            <form action="">
             <li><a class="" href="#"><i class="fa fa-shopping-cart fa-shopping-cart-styling"></i></a>
                 <ul class="sub-icon2 list">
                     <li><a href=""><h3>Giỏ hàng</h3></a></li> 
-                    <table border="1px">
+                    <table class="styling-table" >
                         <tr>
                             <th style="width:250px;"><b>Hình Ảnh</b></th>
                             <th style="width:70px;">Số Lượng</th>
@@ -90,20 +91,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         </tr>
                         <tr>
                             <td><img src="{{asset('public/frontend/images/hinh140x175.jpg')}}" alt=""></td>
-                            <td>X 50</td>
-                            <td>50000000</td>
-                            <td><input type="Submit" name="" id="" value="UP"></td>
-                        </tr>
-                        <tr>
-                            <td><img src="{{asset('public/frontend/images/hinh140x175.jpg')}}" alt=""></td>
-                            <td>X 50</td>
+                            <td><input type="number" value="1" style="width:45px;height: 30px;font-size: 20px;"></td>
                             <td>50000000</td>
                             <td><input type="Submit" name="" id="" value="UP"></td>
                         </tr>
                     </table>
-                    <li>tổng thanh toán : </li>
+                    <div style="text-align:left;margin-left: 30px;font-size:20px; font-display: initial;"><span>tổng thanh toán :</span></div>
                 </ul>
             </li>
+            </form>
         </ul>
         <div class="clear"></div>
     </div>

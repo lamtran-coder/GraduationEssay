@@ -1556,9 +1556,14 @@ p.m_desc{
    color: #fff;
    text-transform: uppercase;
   	font-size:1em;
+  	border-radius: 400px;
 }
 .info:hover {
    background:#FFAF02;
+}
+table.styling-table,tr,td{
+	border: 2px solid black;
+	margin: 20px 20px 20px 20px;
 }
 .view-fifth1 img {
    -webkit-transition: all 0.3s ease-in-out;
