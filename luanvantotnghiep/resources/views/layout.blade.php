@@ -71,10 +71,25 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
         <div class="cssmenu">
            <ul>
-            <li class="active"><a href="register.html">đăng ký</a></li> 
+            <li class="active"><a href="{{URL::to('/sign-up')}}">đăng ký</a></li> 
             <li><a href="{{URL::to('/ke-hang')}}">cửa hàng</a></li> 
-            <li><a href="login.html">đăng nhập</a></li> 
             <li><a href="checkout.html">thanh toán</a></li>
+            <?php 
+                    $user_id=Session::get('user_id');
+                    
+                    if ($user_id !=NULL) {
+             ?>
+             
+               <li class="active"><a href="{{URL::to('/logout-us')}}">Đăng Xuất</a></li>
+               <li class="active"><?php echo "MKH:".$user_id;?> </li>  
+               <?php 
+           }else{
+               ?>
+               <li class="active"><a href="{{URL::to('/login-user')}}">đăng nhập</a></li> 
+               <?php 
+           }
+
+           ?>   
            </ul>
         </div>
         <ul class="icon2 sub-icon2 profile_img">
@@ -114,178 +129,42 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="row">
                         <div class="col1">
                             <div class="h_nav">
-                                <h4>popular</h4>
+                                <h4>Áo</h4>
                                 <ul>
-                                    <li><a href="shop.html">new arrivals</a></li>
-                                    <li><a href="shop.html">men</a></li>
-                                    <li><a href="shop.html">women</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">login</a></li>
-                                </ul>   
-                            </div>
-                            <div class="h_nav">
-                                <h4 class="top">men</h4>
-                                <ul>
-                                    <li><a href="shop.html">new arrivals</a></li>
-                                    <li><a href="shop.html">men</a></li>
-                                    <li><a href="shop.html">women</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
+                                    <li><a href="#"></a></li>
                                 </ul>   
                             </div>
                         </div>
                         <div class="col1">
                             <div class="h_nav">
-                                <h4>style zone</h4>
+                                <h4>Quần</h4>
                                 <ul>
-                                    <li><a href="shop.html">men</a></li>
-                                    <li><a href="shop.html">women</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">brands</a></li>
+                                    <li><a href="#"></a></li>
                                 </ul>   
-                            </div>                          
+                            </div>
                         </div>
-                        <div class="col1"></div>
-                        <div class="col1"></div>
-                        <div class="col1"></div>
-                        <div class="col1"></div>
-                        <img src="{{asset('public/frontend/images/nav_img.jpg')}}" alt=""/>
+                        <div class="col1">
+                            <div class="h_nav">
+                                <h4>Trang Sức</h4>
+                                <ul>
+                                    <li><a href="#"></a></li>
+                                </ul>   
+                            </div>
+                        </div> 
+                        <div class="col1">
+                            <div class="h_nav">
+                                <h4>Phụ Kiện</h4>
+                                <ul>
+                                    <li><a href="#"></a></li>
+                                </ul>   
+                            </div>
+                        </div>
+                              
                     </div>
                 </div>
                 </li>
-               <li class="active grid"><a class="color4" href="#">Giới thiệu</a>
-                <div class="megapanel">
-                    <div class="row">
-                        <div class="col1">
-                            <div class="h_nav">
-                                <h4>shop</h4>
-                                <ul>
-                                    <li><a href="shop.html">new arrivals</a></li>
-                                    <li><a href="shop.html">men</a></li>
-                                    <li><a href="shop.html">women</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">brands</a></li>
-                                </ul>   
-                            </div>                          
-                        </div>
-                        <div class="col1">
-                            <div class="h_nav">
-                                <h4>help</h4>
-                                <ul>
-                                    <li><a href="shop.html">trends</a></li>
-                                    <li><a href="shop.html">sale</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
-                                </ul>   
-                            </div>                          
-                        </div>
-                        <div class="col1">
-                            <div class="h_nav">
-                                <h4>my company</h4>
-                                <ul>
-                                    <li><a href="shop.html">trends</a></li>
-                                    <li><a href="shop.html">sale</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
-                                </ul>   
-                            </div>                                              
-                        </div>
-                        <div class="col1">
-                            <div class="h_nav">
-                                <h4>account</h4>
-                                <ul>
-                                    <li><a href="shop.html">login</a></li>
-                                    <li><a href="shop.html">create an account</a></li>
-                                    <li><a href="shop.html">create wishlist</a></li>
-                                    <li><a href="shop.html">my shopping bag</a></li>
-                                    <li><a href="shop.html">brands</a></li>
-                                    <li><a href="shop.html">create wishlist</a></li>
-                                </ul>   
-                            </div>                      
-                        </div>
-                        <div class="col1">
-                            <div class="h_nav">
-                                <h4>popular</h4>
-                                <ul>
-                                    <li><a href="shop.html">new arrivals</a></li>
-                                    <li><a href="shop.html">men</a></li>
-                                    <li><a href="shop.html">women</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
-                                </ul>   
-                            </div>
-                        </div>
-                        <div class="col1">
-                         <div class="h_nav">
-                           <img src="{{asset('public/frontend/images/nav_img1.jpg')}}" alt=""/>
-                         </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col2"></div>
-                        <div class="col1"></div>
-                        <div class="col1"></div>
-                        <div class="col1"></div>
-                        <div class="col1"></div>
-                    </div>
-                    </div>
-                </li>               
-                <li><a class="color5" href="#">Chính sách</a>
-                <div class="megapanel">
-                    <div class="row">
-                        <div class="col1">
-                            <div class="h_nav">
-                                <h4>popular</h4>
-                                <ul>
-                                    <li><a href="shop.html">new arrivals</a></li>
-                                    <li><a href="shop.html">men</a></li>
-                                    <li><a href="shop.html">women</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">login</a></li>
-                                </ul>   
-                            </div>
-                            <div class="h_nav">
-                                <h4 class="top">man</h4>
-                                <ul>
-                                    <li><a href="shop.html">new arrivals</a></li>
-                                    <li><a href="shop.html">men</a></li>
-                                    <li><a href="shop.html">women</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
-                                </ul>   
-                            </div>
-                        </div>
-                        <div class="col1">
-                            <div class="h_nav">
-                                <h4>style zone</h4>
-                                <ul>
-                                    <li><a href="shop.html">men</a></li>
-                                    <li><a href="shop.html">women</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">brands</a></li>
-                                </ul>   
-                            </div>                          
-                        </div>
-                        <div class="col1"></div>
-                        <div class="col1"></div>
-                        <div class="col1"></div>
-                        <div class="col1"></div>
-                        <img src="{{asset('public/frontend/images/nav_img2.jpg')}}" alt=""/>
-                    </div>
-                </div>
-                </li>
+               <li class="active grid"><a class="color4" href="#">Giới thiệu</a></li>               
+                <li><a class="color5" href="#">Chính sách</a></li>
                 <li><a class="color6" href="#">khuyến mãi</a>
                 <div class="megapanel">
                     <div class="row">
@@ -294,61 +173,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <h4>shop</h4>
                                 <ul>
                                     <li><a href="shop.html">new arrivals</a></li>
-                                    <li><a href="shop.html">men</a></li>
-                                    <li><a href="shop.html">women</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">brands</a></li>
                                 </ul>   
-                            </div>  
-                            <div class="h_nav">
-                                <h4 class="top">my company</h4>
-                                <ul>
-                                    <li><a href="shop.html">trends</a></li>
-                                    <li><a href="shop.html">sale</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
-                                </ul>   
-                            </div>                                              
-                        </div>
-                        <div class="col1">
-                            <div class="h_nav">
-                                <h4>man</h4>
-                                <ul>
-                                    <li><a href="shop.html">new arrivals</a></li>
-                                    <li><a href="shop.html">men</a></li>
-                                    <li><a href="shop.html">women</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
-                                </ul>   
-                            </div>                      
-                        </div>
-                        <div class="col1">
-                            <div class="h_nav">
-                                <h4>help</h4>
-                                <ul>
-                                    <li><a href="shop.html">trends</a></li>
-                                    <li><a href="shop.html">sale</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
-                                </ul>   
-                            </div>                          
+                            </div>                                            
                         </div>
                         <div class="col1">
                             <div class="h_nav">
                                 <h4>account</h4>
                                 <ul>
                                     <li><a href="shop.html">login</a></li>
-                                    <li><a href="shop.html">create an account</a></li>
-                                    <li><a href="shop.html">create wishlist</a></li>
-                                    <li><a href="shop.html">my shopping bag</a></li>
-                                    <li><a href="shop.html">brands</a></li>
-                                    <li><a href="shop.html">create wishlist</a></li>
                                 </ul>   
                             </div>                      
                         </div>
@@ -357,27 +189,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <h4>my company</h4>
                                 <ul>
                                     <li><a href="shop.html">trends</a></li>
-                                    <li><a href="shop.html">sale</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
                                 </ul>   
                             </div>
                         </div>
-                        <div class="col1">
-                            <div class="h_nav">
-                                <h4>popular</h4>
-                                <ul>
-                                    <li><a href="shop.html">new arrivals</a></li>
-                                    <li><a href="shop.html">men</a></li>
-                                    <li><a href="shop.html">women</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
-                                </ul>   
-                            </div>
-                        </div>
+                        
                     </div>
                     <div class="row">
                         <div class="col2"></div>
@@ -396,11 +211,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <h4>shop</h4>
                                 <ul>
                                     <li><a href="shop.html">new arrivals</a></li>
-                                    <li><a href="shop.html">men</a></li>
-                                    <li><a href="shop.html">women</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">brands</a></li>
                                 </ul>   
                             </div>                          
                         </div>
@@ -409,11 +219,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <h4>help</h4>
                                 <ul>
                                     <li><a href="shop.html">trends</a></li>
-                                    <li><a href="shop.html">sale</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
                                 </ul>   
                             </div>                          
                         </div>
@@ -422,11 +227,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <h4>my company</h4>
                                 <ul>
                                     <li><a href="shop.html">trends</a></li>
-                                    <li><a href="shop.html">sale</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
                                 </ul>   
                             </div>                                              
                         </div>
@@ -435,11 +235,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <h4>account</h4>
                                 <ul>
                                     <li><a href="shop.html">login</a></li>
-                                    <li><a href="shop.html">create an account</a></li>
-                                    <li><a href="shop.html">create wishlist</a></li>
-                                    <li><a href="shop.html">my shopping bag</a></li>
-                                    <li><a href="shop.html">brands</a></li>
-                                    <li><a href="shop.html">create wishlist</a></li>
                                 </ul>   
                             </div>                      
                         </div>
@@ -448,11 +243,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <h4>my company</h4>
                                 <ul>
                                     <li><a href="shop.html">trends</a></li>
-                                    <li><a href="shop.html">sale</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
                                 </ul>   
                             </div>
                         </div>
@@ -461,11 +251,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <h4>popular</h4>
                                 <ul>
                                     <li><a href="shop.html">new arrivals</a></li>
-                                    <li><a href="shop.html">men</a></li>
-                                    <li><a href="shop.html">women</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
                                 </ul>   
                             </div>
                         </div>
@@ -479,48 +264,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     </div>
                     </div>
                 </li>
-                <li><a class="color8" href="#">Tin tức</a>
-                <div class="megapanel">
-                    <div class="row">
-                        <div class="col1">
-                            <div class="h_nav">
-                                <h4>style zone</h4>
-                                <ul>
-                                    <li><a href="shop.html">men</a></li>
-                                    <li><a href="shop.html">women</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">brands</a></li>
-                                </ul>   
-                            </div>                          
-                        </div>
-                        <div class="col1">
-                            <div class="h_nav">
-                                <h4>popular</h4>
-                                <ul>
-                                    <li><a href="shop.html">new arrivals</a></li>
-                                    <li><a href="shop.html">men</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">login</a></li>
-                                </ul>   
-                            </div>
-                            <div class="h_nav">
-                                <h4 class="top">man</h4>
-                                <ul>
-                                    <li><a href="shop.html">new arrivals</a></li>
-                                    <li><a href="shop.html">accessories</a></li>
-                                    <li><a href="shop.html">kids</a></li>
-                                    <li><a href="shop.html">style videos</a></li>
-                                </ul>   
-                            </div>
-                        <div class="col1"></div>
-                        <div class="col1"></div>
-                        <div class="col1"></div>
-                        <div class="col1"></div>
-                    </div>
-                </div>
-                </li>
+                <li><a class="color8" href="#">Tin tức</a></li>
                 <li><a class="color9" href="#"><input type="text" style="width: 320px;" value=""></a></li>
                 <li><a class="color10 styling-search" href="">  Tìm</a></li>
            </ul>

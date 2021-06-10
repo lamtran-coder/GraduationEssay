@@ -37,6 +37,7 @@
                 <input type="checkbox"><i></i>
               </label>
             </th>
+            <th>Mã danh mục</th>
             <th>Tên danh mục</th>
             <th>Trang thái</th>
             <th>Chất liệu</th>
@@ -50,16 +51,17 @@
           @foreach($all_Category as $key => $value)
           <tr>
             <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-            <td><span class="text-ellipsis">{{$value->danh_muc}}</span></td>
+            <td><span class="text-ellipsis">{{$value->ma_dm}}</span></td>
+             <td><span class="text-ellipsis">{{$value->danh_muc}}</span></td>
             <td><span class="text-ellipsis">
             <?php 
               if ($value->trang_thai==0) {
                 ?>
-                <a href="{{URL::to('/unactive-category/'.$value->ma_dm)}}" ><span class="fa-thumbs-styling fa fa-thumbs-up">Hiện thị</span></a>
+                <a href="{{URL::to('/unactive-category/'.$value->ma_dm)}}" ><span class="fa-thumbs-styling fa fa-thumbs-up"></span></a>
             <?php 
              }else{
               ?>
-               <a href="{{URL::to('/active-category/'.$value->ma_dm)}}"><span class="fa-thumbs-styling fa fa-thumbs-down">Ẩn</span></a>
+               <a href="{{URL::to('/active-category/'.$value->ma_dm)}}"><span class="fa-thumbs-styling fa fa-thumbs-down"></span></a>
             <?php
              }
              ?>

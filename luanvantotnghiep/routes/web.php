@@ -17,6 +17,13 @@ Route::get('/', 'Homecontroller@index');
 Route::get('/trang-chu','Homecontroller@index');
 
 
+Route::get('/login-user','UserController@login_user');
+Route::get('/sign-up','UserController@sign_up');
+Route::post('/add-user','UserController@add_user');
+Route::post('/login-us','UserController@login_us');
+Route::get('/logout-us','UserController@logout_us');
+
+
 Route::get('/ke-hang','Show_productcontroller@show_product');
 
 
