@@ -10,10 +10,26 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <title>Free Adidas Website Template | Home :: w3layouts</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <link href="{{asset('public/frontend/css/bootstrap.min.css')}}" rel="stylesheet">
 <link href="{{asset('public/frontend/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
 <link href="{{asset('public/frontend/css/form.css')}}" rel="stylesheet" type="text/css" media="all" />
 <link href="{{asset('public/backend/css/font-awesome.css')}}" rel="stylesheet"> 
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href="{{asset('public/frontend/css/bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{asset('public/frontend/css/font-awesome.min.css')}}" rel="stylesheet">
+<link href="{{asset('public/frontend/css/prettyPhoto.css')}}" rel="stylesheet">
+<link href="{{asset('public/frontend/css/price-range.css')}}" rel="stylesheet">
+
+<link href="{{asset('public/frontend/css/animate.css')}}" rel="stylesheet">
+<link href="{{asset('public/frontend/css/main.css')}}" rel="stylesheet">
+<link href="{{asset('public/frontend/css/responsive.css')}}" rel="stylesheet">
+<link href="{{asset('public/frontend/css/sweetalert.css')}}" rel="stylesheet">
+<link href="{{asset('public/frontend/css/lightgallery.min.css')}}" rel="stylesheet">
+<link href="{{asset('public/frontend/css/lightslider.css')}}" rel="stylesheet">
+<link href="{{asset('public/frontend/css/prettify.css')}}" rel="stylesheet">
+<link href="{{asset('public/frontend/css/vlite.css')}}" rel="stylesheet">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="{{asset('public/frontend/js/jquery.min.js')}}"></script>
 <script type="text/javascript">
         $(document).ready(function() {
@@ -74,14 +90,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <li class="active"><a href="{{URL::to('/sign-up')}}">đăng ký</a></li> 
             <li><a href="{{URL::to('/ke-hang')}}">cửa hàng</a></li> 
             <li><a href="checkout.html">thanh toán</a></li>
+            
+
             <?php 
                     $user_id=Session::get('user_id');
-                    
                     if ($user_id !=NULL) {
              ?>
              
-               <li class="active"><a href="{{URL::to('/logout-us')}}">Đăng Xuất</a></li>
-               <li class="active"><?php echo "MKH:".$user_id;?> </li>  
+               <li class="active"><a href="{{URL::to('/logout-us')}}">Đăng Xuất</a></li> 
                <?php 
            }else{
                ?>
@@ -89,15 +105,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                <?php 
            }
 
-           ?>   
+           ?>
+            
            </ul>
         </div>
         <ul class="icon2 sub-icon2 profile_img">
-            <form action="">
             <li><a class="" href="#"><i class="fa fa-shopping-cart fa-shopping-cart-styling"></i></a>
                 <ul class="sub-icon2 list">
                     <li><a href=""><h3>Giỏ hàng</h3></a></li> 
-                    <table class="styling-table" >
+                    <table border="1px">
                         <tr>
                             <th style="width:250px;"><b>Hình Ảnh</b></th>
                             <th style="width:70px;">Số Lượng</th>
@@ -106,15 +122,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         </tr>
                         <tr>
                             <td><img src="{{asset('public/frontend/images/hinh140x175.jpg')}}" alt=""></td>
-                            <td><input type="number" value="1" style="width:45px;height: 30px;font-size: 20px;"></td>
+                            <td>X 50</td>
+                            <td>50000000</td>
+                            <td><input type="Submit" name="" id="" value="UP"></td>
+                        </tr>
+                        <tr>
+                            <td><img src="{{asset('public/frontend/images/hinh140x175.jpg')}}" alt=""></td>
+                            <td>X 50</td>
                             <td>50000000</td>
                             <td><input type="Submit" name="" id="" value="UP"></td>
                         </tr>
                     </table>
-                    <div style="text-align:left;margin-left: 30px;font-size:20px; font-display: initial;"><span>tổng thanh toán :</span></div>
+                    <li>tổng thanh toán : </li>
                 </ul>
             </li>
-            </form>
         </ul>
         <div class="clear"></div>
     </div>
@@ -129,43 +150,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="row">
                         <div class="col1">
                             <div class="h_nav">
-                                <h4>Áo</h4>
+                                <h4>popular</h4>
                                 <ul>
-                                    <li><a href="#"></a></li>
+                                    @foreach ($cate_product as $key =>$cate)
+                                    <li><a href="{{URL::to('danh-muc-san-pham/'.$cate->ma_dm)}}">{{$cate->danh_muc}}</a></li>
+                                    @endforeach
                                 </ul>   
                             </div>
                         </div>
-                        <div class="col1">
-                            <div class="h_nav">
-                                <h4>Quần</h4>
-                                <ul>
-                                    <li><a href="#"></a></li>
-                                </ul>   
-                            </div>
-                        </div>
-                        <div class="col1">
-                            <div class="h_nav">
-                                <h4>Trang Sức</h4>
-                                <ul>
-                                    <li><a href="#"></a></li>
-                                </ul>   
-                            </div>
-                        </div> 
-                        <div class="col1">
-                            <div class="h_nav">
-                                <h4>Phụ Kiện</h4>
-                                <ul>
-                                    <li><a href="#"></a></li>
-                                </ul>   
-                            </div>
-                        </div>
-                              
+                        <img src="{{asset('public/frontend/images/nav_img.jpg')}}" alt=""/>
                     </div>
                 </div>
                 </li>
-               <li class="active grid"><a class="color4" href="#">Giới thiệu</a></li>               
-                <li><a class="color5" href="#">Chính sách</a></li>
-                <li><a class="color6" href="#">khuyến mãi</a>
+               <li class="active grid"><a class="color4" href="#">Giới thiệu</a>
                 <div class="megapanel">
                     <div class="row">
                         <div class="col1">
@@ -173,26 +170,71 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <h4>shop</h4>
                                 <ul>
                                     <li><a href="shop.html">new arrivals</a></li>
+                                    <li><a href="shop.html">men</a></li>
+                                    <li><a href="shop.html">women</a></li>
+                                    <li><a href="shop.html">accessories</a></li>
+                                    <li><a href="shop.html">kids</a></li>
+                                    <li><a href="shop.html">brands</a></li>
                                 </ul>   
-                            </div>                                            
+                            </div>                          
                         </div>
                         <div class="col1">
                             <div class="h_nav">
-                                <h4>account</h4>
+                                <h4>help</h4>
                                 <ul>
-                                    <li><a href="shop.html">login</a></li>
+                                    <li><a href="shop.html">trends</a></li>
+                                    <li><a href="shop.html">sale</a></li>
+                                    <li><a href="shop.html">style videos</a></li>
+                                    <li><a href="shop.html">accessories</a></li>
+                                    <li><a href="shop.html">kids</a></li>
+                                    <li><a href="shop.html">style videos</a></li>
                                 </ul>   
-                            </div>                      
+                            </div>                          
                         </div>
                         <div class="col1">
                             <div class="h_nav">
                                 <h4>my company</h4>
                                 <ul>
                                     <li><a href="shop.html">trends</a></li>
+                                    <li><a href="shop.html">sale</a></li>
+                                    <li><a href="shop.html">style videos</a></li>
+                                    <li><a href="shop.html">accessories</a></li>
+                                    <li><a href="shop.html">kids</a></li>
+                                    <li><a href="shop.html">style videos</a></li>
+                                </ul>   
+                            </div>                                              
+                        </div>
+                        <div class="col1">
+                            <div class="h_nav">
+                                <h4>account</h4>
+                                <ul>
+                                    <li><a href="shop.html">login</a></li>
+                                    <li><a href="shop.html">create an account</a></li>
+                                    <li><a href="shop.html">create wishlist</a></li>
+                                    <li><a href="shop.html">my shopping bag</a></li>
+                                    <li><a href="shop.html">brands</a></li>
+                                    <li><a href="shop.html">create wishlist</a></li>
+                                </ul>   
+                            </div>                      
+                        </div>
+                        <div class="col1">
+                            <div class="h_nav">
+                                <h4>popular</h4>
+                                <ul>
+                                    <li><a href="shop.html">new arrivals</a></li>
+                                    <li><a href="shop.html">men</a></li>
+                                    <li><a href="shop.html">women</a></li>
+                                    <li><a href="shop.html">accessories</a></li>
+                                    <li><a href="shop.html">kids</a></li>
+                                    <li><a href="shop.html">style videos</a></li>
                                 </ul>   
                             </div>
                         </div>
-                        
+                        <div class="col1">
+                         <div class="h_nav">
+                           <img src="{{asset('public/frontend/images/nav_img1.jpg')}}" alt=""/>
+                         </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col2"></div>
@@ -201,7 +243,56 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="col1"></div>
                         <div class="col1"></div>
                     </div>
+                    </div>
+                </li>               
+                <li><a class="color5" href="#">Chính sách</a>
+                <div class="megapanel">
+                    <div class="row">
+                        <div class="col1">
+                            <div class="h_nav">
+                                <h4>popular</h4>
+                                <ul>
+                                    <li><a href="shop.html">new arrivals</a></li>
+                                    <li><a href="shop.html">men</a></li>
+                                    <li><a href="shop.html">women</a></li>
+                                    <li><a href="shop.html">accessories</a></li>
+                                    <li><a href="shop.html">kids</a></li>
+                                    <li><a href="shop.html">login</a></li>
+                                </ul>   
+                            </div>
+                            <div class="h_nav">
+                                <h4 class="top">man</h4>
+                                <ul>
+                                    <li><a href="shop.html">new arrivals</a></li>
+                                    <li><a href="shop.html">men</a></li>
+                                    <li><a href="shop.html">women</a></li>
+                                    <li><a href="shop.html">accessories</a></li>
+                                    <li><a href="shop.html">kids</a></li>
+                                    <li><a href="shop.html">style videos</a></li>
+                                </ul>   
+                            </div>
+                        </div>
+                        <div class="col1">
+                            <div class="h_nav">
+                                <h4>style zone</h4>
+                                <ul>
+                                    <li><a href="shop.html">men</a></li>
+                                    <li><a href="shop.html">women</a></li>
+                                    <li><a href="shop.html">accessories</a></li>
+                                    <li><a href="shop.html">kids</a></li>
+                                    <li><a href="shop.html">brands</a></li>
+                                </ul>   
+                            </div>                          
+                        </div>
+                        <div class="col1"></div>
+                        <div class="col1"></div>
+                        <div class="col1"></div>
+                        <div class="col1"></div>
+                        <img src="{{asset('public/frontend/images/nav_img2.jpg')}}" alt=""/>
+                    </div>
                 </div>
+                </li>
+                <li><a class="color6" href="#">khuyến mãi</a>
                 </li>
                 <li><a class="color7" href="#">thể thao</a>
                 <div class="megapanel">
@@ -219,6 +310,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <h4>help</h4>
                                 <ul>
                                     <li><a href="shop.html">trends</a></li>
+                                    
                                 </ul>   
                             </div>                          
                         </div>
@@ -227,6 +319,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <h4>my company</h4>
                                 <ul>
                                     <li><a href="shop.html">trends</a></li>
+                                    
                                 </ul>   
                             </div>                                              
                         </div>
@@ -243,6 +336,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <h4>my company</h4>
                                 <ul>
                                     <li><a href="shop.html">trends</a></li>
+                                    
                                 </ul>   
                             </div>
                         </div>
@@ -264,9 +358,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     </div>
                     </div>
                 </li>
-                <li><a class="color8" href="#">Tin tức</a></li>
-                <li><a class="color9" href="#"><input type="text" style="width: 320px;" value=""></a></li>
-                <li><a class="color10 styling-search" href="">  Tìm</a></li>
+
+                <li>
+                               <form action="{{URL::to('/tim-kiem')}}" method="post">
+                                 @csrf
+                                    <li><a class="color9" href="#"><input type="text" style="width: 320px;" name="keywords_submit" value="" placeholder="nhập từ khóa"></a></li>
+                                    
+                                </form>                  
+                
+                    </a>
+                </li>
            </ul>
            <div class="clear"></div>
         </div>

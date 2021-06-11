@@ -13,7 +13,7 @@ class Categorycontroller extends Controller
         $material_id=DB::table('chat_lieu')->orderby('ten_cl','desc')->get();
         $design_id=DB::table('thiet_ke')->orderby('ma_tk','desc')->get();
         return view('admin.Category_add')->with('material_id',$material_id)
-            ->with('material_id',$material_id);
+            ->with('design_id',$design_id);
     }
     public function all_Category(){
         $all_Category=DB::table('danh_muc_sp')->get();

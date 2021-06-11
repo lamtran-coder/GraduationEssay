@@ -15,13 +15,18 @@ use Illuminate\Support\Facades\Route;
 //forntend
 Route::get('/', 'Homecontroller@index');
 Route::get('/trang-chu','Homecontroller@index');
-
+Route::post('/tim-kiem','Homecontroller@search');
 
 Route::get('/login-user','UserController@login_user');
 Route::get('/sign-up','UserController@sign_up');
 Route::post('/add-user','UserController@add_user');
 Route::post('/login-us','UserController@login_us');
 Route::get('/logout-us','UserController@logout_us');
+
+
+//danh muc san pham trang chu
+Route::get('/danh-muc-san-pham/{ma_dm}','Categorycontroller@show_category_home');
+
 
 
 Route::get('/ke-hang','Show_productcontroller@show_product');
