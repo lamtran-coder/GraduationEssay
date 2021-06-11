@@ -1,78 +1,24 @@
 @extends('layout')
 @section('index_content')
-  <div class="index-banner">
-          <div class="wmuSlider example1" style="height: 560px;">
-              <div class="wmuSliderWrapper">
-                  <article style="position: relative; width: 100%; opacity: 1;"> 
-                    <div class="banner-wrap">
-                        <div class="slider-left">
-                            <img src="{{asset('public/frontend/images/banner1.jpg')}}" alt=""/> 
-                        </div>
-                         <div class="slider-right">
-                            <h1>Classic</h1>
-                            <h2>White</h2>
-                            <p>Lorem ipsum dolor sit amet</p>
-                            <div class="btn"><a href="shop.html">Shop Now</a></div>
-                         </div>
-                         <div class="clear"></div>
-                     </div>
-                    </article>
-                   <article style="position: absolute; width: 100%; opacity: 0;"> 
-                     <div class="banner-wrap">
-                        <div class="slider-left">
-                            <img src="{{asset('public/frontend/images/banner02.jpg')}}" alt=""/> 
-                        </div>
-                         <div class="slider-right">
-                            <h1>Classic</h1>
-                            <h2>White</h2>
-                            <p>Lorem ipsum dolor sit amet</p>
-                            <div class="btn"><a href="shop.html">Shop Now</a></div>
-                         </div>
-                         <div class="clear"></div>
-                     </div>
-                   </article>
-                   <article style="position: absolute; width: 100%; opacity: 0;">
-                    <div class="banner-wrap">
-                        <div class="slider-left">
-                            <img src="{{asset('public/frontend/images/banner03.jpg')}}" alt=""/> 
-                        </div>
-                         <div class="slider-right">
-                            <h1>Classic</h1>
-                            <h2>White</h2>
-                            <p>Lorem ipsum dolor sit amet</p>
-                            <div class="btn"><a href="shop.html">Shop Now</a></div>
-                         </div>
-                         <div class="clear"></div>
-                     </div>
-                   </article>
-                   
-                </div>
-                <a class="wmuSliderPrev">Previous</a><a class="wmuSliderNext">Next</a>
-                <ul class="wmuSliderPagination">
-                    <li><a href="#" class="">0</a></li>
-                    <li><a href="#" class="">1</a></li>
-                    <li><a href="#" class="wmuActive">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                  </ul>
-                 <a class="wmuSliderPrev">Previous</a><a class="wmuSliderNext">Next</a><ul class="wmuSliderPagination"><li><a href="#" class="wmuActive">0</a></li><li><a href="#" class="">1</a></li><li><a href="#" class="">2</a></li><li><a href="#" class="">3</a></li><li><a href="#" class="">4</a></li></ul></div>
-                 <script src="{{asset('public/frontend/js/jquery.wmuSlider.js')}}"></script> 
-                 <script type="text/javascript" src="{{asset('public/frontend/js/modernizr.custom.min.js')}}"></script> 
-                        <script>
-                             $('.example1').wmuSlider();         
-                        </script>                     
-             </div>
-             <div class="main">
+<div class="main">
                 <div class="wrap">
                   <div class="content-top">             
                    </div>
-                    <b> <h1 style="color: black;font-size: 30px;">Sản Phẩm Mới</h1></b>
+                    <b> <h1 style="color: black;font-size: 30px;">San pham tim kiem</h1></b>
+                    <?php 
+                            $message=Session::get('message');
+                            if($message){
+                                echo '<span class>'.$message.'<span>';
+
+                                Session::put('message',null);
+                            }
+                         ?>
                   <div class="content-bottom">
                    <div class="box1">
                     
                   <div class="clear"></div>
                 </div>
-                 @foreach ($all_product as $key =>$product)
+                 @foreach ($search_product as $key =>$product)
                
               <div class="box1">
                   <div class="col_1_of_3 span_1_of_3"><a href="single.html">
@@ -213,4 +159,4 @@
               </div>
              </div>
         </div>
-@endsection      
+@endsection    

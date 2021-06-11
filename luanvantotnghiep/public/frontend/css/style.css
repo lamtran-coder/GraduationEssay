@@ -1233,7 +1233,7 @@ p#login-form-remember label a:hover{
 .register_account{
 	padding:3% 0;
 }
-.register_account form input[type="text"], .register_account form select,.register_account form input[type="password"] {
+.register_account form input[type="text"], .register_account form select {
 	font-size: 0.8125em;
 	color: #999;
 	padding: 8px;
@@ -1243,7 +1243,7 @@ p#login-form-remember label a:hover{
 	font-family: 'Open Sans', sans-serif;
 	border:1px solid #f0f0f0;
 }
-.register_account form input[type="text"]:hover, .register_account form select:hover,.register_account form input[type="password"]{
+.register_account form input[type="text"]:hover, .register_account form select:hover{
 	border:1px solid #DBDADA;
 }
 button.grey {
@@ -1556,14 +1556,9 @@ p.m_desc{
    color: #fff;
    text-transform: uppercase;
   	font-size:1em;
-  	border-radius: 400px;
 }
 .info:hover {
    background:#FFAF02;
-}
-table.styling-table,tr,td{
-	border: 2px solid black;
-	margin: 20px 20px 20px 20px;
 }
 .view-fifth1 img {
    -webkit-transition: all 0.3s ease-in-out;
