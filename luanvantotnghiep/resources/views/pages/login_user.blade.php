@@ -34,7 +34,14 @@
 								<input type="submit" value="Đăng Nhập">
 							</p>
 							 </p>
-							 
+						 	<p><?php 
+                            $message=Session::get('message');
+                            if($message){
+                                echo '<span class>'.$message.'<span>';
+
+                                Session::put('message',null);
+                            }
+                         ?>	 </p>
 						</form>
 					</div>
 			      </div>

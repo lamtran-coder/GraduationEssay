@@ -31,11 +31,20 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Thiết kế</label>
-                                        <input type="text" class="form-control" name="design_name" placeholder="tên danh mục">
+                                       <select name="category_status" class="form-control input-sm m-bot15">
+                                            <option value="0">Ẩn</option>
+                                            
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Chất liệu</label>
-                                        <input type="text" class="form-control" name="material_name"  placeholder="tên chất liệu">
+                                        <select name="category_status" class="form-control input-sm m-bot15"> 
+                                        <?php foreach ($material_id as $key => $value_mat): ?>
+                                              <option value="0">{{$value_mat->ma_cl}}</option>
+                                        <?php endforeach ?>
+                                          
+                                           
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Mô tả danh mục</label>

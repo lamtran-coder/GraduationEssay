@@ -10,7 +10,10 @@ session_start();
 class Categorycontroller extends Controller
 {
     public function add_Category(){
-        return view('admin.Category_add');
+        $material_id=DB::table('chat_lieu')->orderby('ten_cl','desc')->get();
+        $design_id=DB::table('thiet_ke')->orderby('ma_tk','desc')->get();
+        return view('admin.Category_add')->with('material_id',$material_id)
+            ->with('material_id',$material_id);
     }
     public function all_Category(){
         $all_Category=DB::table('danh_muc_sp')->get();
@@ -21,8 +24,8 @@ class Categorycontroller extends Controller
         $data=array();
         $data['ma_dm']=$request->category_key;
         $data['danh_muc']=$request->category_name;
-        $data['chat_lieu']=$request->material_name;
-        $data['thiet_ke']=$request->design_name;
+        $data['ma_cl']=$request->material_key;
+        $data['ma_tk']=$request->design_key;
         $data['mo_ta']=$request->category_desic;
         $data['trang_thai']=$request->category_status;
         DB::table('danh_muc_sp')->insert($data);
@@ -47,8 +50,8 @@ class Categorycontroller extends Controller
     public function update_Category(Request $request,$ma_dm){
         $data=array();
         $data['danh_muc']=$request->category_name;
-        $data['chat_lieu']=$request->material_name;
-        $data['thiet_ke']=$request->design_name;
+        $data['ma_cl']=$request->material_key;
+        $data['ma_tk']=$request->design_key;
         $data['mo_ta']=$request->category_desic;
         DB::table('danh_muc_sp')->where('ma_dm',$ma_dm)->update($data);
         return Redirect::to('/all-Category');
