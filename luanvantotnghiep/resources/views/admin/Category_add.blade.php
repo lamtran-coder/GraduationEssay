@@ -8,25 +8,20 @@
                         <header class="panel-heading">
                          	tạo danh mục sản phẩm
                         </header>
-                        <?php 
-                            $message=Session::get('message');
-                            if($message){
-                                echo '<span class>'.$message.'<span>';
-
-                                Session::put('message',null);
-                            }
-                         ?>
                         <div class="panel-body">
                             <div class="position-center">
                                 <form role="form" action="{{URL::to('/save-Category')}}" method="post">
                                     @csrf
-                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Mã danh mục sản phẩm </label>
-                                        <input type="text" class="form-control" name="category_key" placeholder="mã danh mục">
-                                    </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Tên danh mục sản phẩm </label>
-                                        <input type="text" class="form-control" name="category_name" placeholder="tên danh mục">
+                                        <select name="category_name" class="form-control input-sm m-bot15">
+                                       
+                                            <option value="AO">Áo</option>
+                                            <option value="QU">Quần</option>
+                                            <option value="GI">Giầy</option>
+                                            <option value="PK">Phụ kiện</option>
+                                         
+                                        </select>
                                     </div>
                                     <div class="form-group">
 
@@ -58,14 +53,26 @@
                                     <div class="form-group">
                                     	<label for="exampleInputPassword1">Hiện thị</label>
                                         <select name="category_status" class="form-control input-sm m-bot15">
-    		                                <option value="0">Ẩn</option>
     		                                <option value="1">Hiện thị</option>
+                                            <option value="0">Ẩn</option>
                                			</select>
                                     </div>
+
                                     <button type="submit" class="btn btn-info"	name="add_category">Thêm Danh Mục</button>
+                                     <div>
+                                    <?php 
+                                        $message=Session::get('message');
+                                        if($message){
+                                            echo '<span style="color:red;size:20px;">'.$message.'<span>';
+
+                                            Session::put('message',null);
+                                        }
+                                     ?>
+                                     </div>
                                 </form>
                             </div>
                         </div>
+
                     </section>
             </div>
         </div>

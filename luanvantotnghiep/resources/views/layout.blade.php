@@ -12,6 +12,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <link href="{{asset('public/frontend/css/bootstrap.min.css')}}" rel="stylesheet">
 <link href="{{asset('public/frontend/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{asset('public/frontend/css/edit_main.css')}}" rel="stylesheet" type="text/css" media="all" />
 <link href="{{asset('public/frontend/css/form.css')}}" rel="stylesheet" type="text/css" media="all" />
 <link href="{{asset('public/backend/css/font-awesome.css')}}" rel="stylesheet"> 
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>

@@ -1,0 +1,8 @@
+select.form-control.input-sm.m-bot15.main-styling,input.form-control.main-styling,button.btn.btn-info.main-styling {
+    height: 50px;
+    font-size: 25px;
+}
+textarea.form-control.main-styling{
+    resize: none;
+    
+}

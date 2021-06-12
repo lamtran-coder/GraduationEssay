@@ -10,8 +10,12 @@ class Productcontroller extends Controller
 {
     public function add_product(){
         $cate_product=DB::table('danh_muc_sp')->orderby('danh_muc','desc')->get();
+        $design_id=DB::table('thiet_ke')->orderby('ma_tk','desc')->get();
+        $material_id=DB::table('chat_lieu')->orderby('ma_cl','desc')->get();
         $product_id=DB::table('san_pham')->orderby('ten_sp','desc')->get();
-        return view('admin.product_add')->with('cate_product',$cate_product)->with('product_id',$product_id);
+        return view('admin.product_add')->with('cate_product',$cate_product)->with('product_id',$product_id)
+        ->with('design_id',$design_id)->with('material_id',$material_id)
+        ;
     }
     public function all_product(){
         
@@ -21,7 +25,8 @@ class Productcontroller extends Controller
     }
     public function save_product(Request $request){
         $data=array();
-        $data['ma_sp']=$request->product_key;
+        $result=($request->category_product_id).'S'.rand(0,99);
+        $data['ma_sp']=$result;
         $data['ten_sp']=$request->product_name;
         $data['solg_sp']=$request->amount_product;
         $data['gia_goc']=$request->corner_price;
@@ -33,8 +38,14 @@ class Productcontroller extends Controller
         Session::put('message','Thêm sản phẩm thành công');
         return Redirect::to('/add-product');
     }
-    public function edit_product(){
-        return view('admin.product_edit');
+    public function edit_product($ma_sp){
+        $edit_product_id=DB::table('san_pham')->where('ma_sp',$ma_sp)->get();
+        $design_id=DB::table('thiet_ke')->get();
+        $material_id=DB::table('chat_lieu')->get();
+        $cate_product_id=DB::table('danh_muc_sp')->get();
+        $manager_product=view('admin.product_edit')->with('edit_product_id',$edit_product_id)->with('design_id',$design_id)->with('material_id',$material_id)->with('cate_product_id',$cate_product_id);
+        return view('admin_layout')->with('manager_product',$manager_product);
+      
     }
     public function update_product(){
         

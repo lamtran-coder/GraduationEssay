@@ -37,11 +37,12 @@
                 <input type="checkbox"><i></i>
               </label>
             </th>
+            <th>Mã danh mục</th>
             <th>Tên danh mục</th>
-            <th>Trang thái</th>
-            <th>Chất liệu</th>
             <th>Thiết kế</th>
+            <th>Chất liệu</th>
             <th>Mô tả</th>
+            <th>Trang thái</th>
             <th>Cài đặt</th>
             <th style="width:30px;"></th>
           </tr>
@@ -50,7 +51,19 @@
           @foreach($all_Category as $key => $value)
           <tr>
             <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
+            <td><span class="text-ellipsis">{{$value->ma_dm}}</span></td>
             <td><span class="text-ellipsis">{{$value->danh_muc}}</span></td>
+            <?php foreach ($design_id as $key => $value_des): ?>
+              <?php if ($value->ma_tk==$value_des->ma_tk): ?>
+                <td><span class="text-ellipsis">{{$value_des->ten_tk}}</span></td>
+              <?php endif ?>
+            <?php endforeach ?>
+            <?php foreach ($material_id as $key => $value_mat): ?>
+              <?php if ($value->ma_cl==$value_mat->ma_cl): ?>
+                <td><span class="text-ellipsis">{{$value_mat->ten_cl}}</span></td>
+              <?php endif ?>
+            <?php endforeach ?>  
+            <td><span class="text-ellipsis">{{$value->mo_ta}}</span></td>
             <td><span class="text-ellipsis">
             <?php 
               if ($value->trang_thai==0) {
@@ -65,9 +78,6 @@
              ?>
 
             </span></td>
-            <td><span class="text-ellipsis">{{$value->chat_lieu}}</span></td>
-            <td><span class="text-ellipsis">{{$value->thiet_ke}}</span></td>
-            <td><span class="text-ellipsis">{{$value->mo_ta}}</span></td>
             <td>
               <a href="{{URL::to('/edit-Category/'.$value->ma_dm)}}" class="active styling-edit" ui-toggle-class="">
                 <i class="fa fa-pencil-square-o text-success text-active"></i></a>

@@ -17,21 +17,39 @@ class Categorycontroller extends Controller
     }
     public function all_Category(){
         $all_Category=DB::table('danh_muc_sp')->get();
-        $manager_Category=view('admin.Category_all')->with('all_Category',$all_Category);
+        $design_id=DB::table('thiet_ke')->get();
+        $material_id=DB::table('chat_lieu')->get();
+        $manager_Category=view('admin.Category_all')->with('all_Category',$all_Category)->with('design_id',$design_id)->with('material_id',$material_id);
         return view('admin_layout')->with('admin.Category_all',$manager_Category);
     }
     public function save_Category(Request $request){
         $data=array();
-        $data['ma_dm']=$request->category_key;
+        
+        $result=($request->category_name).'M'.($request->material_key).'D'.($request->design_key);
+        $data['ma_dm']=$result;
         $data['danh_muc']=$request->category_name;
         $data['ma_cl']=$request->material_key;
         $data['ma_tk']=$request->design_key;
         $data['mo_ta']=$request->category_desic;
         $data['trang_thai']=$request->category_status;
-        DB::table('danh_muc_sp')->insert($data);
-        Session::put('message','Thêm danh mục thành công');
-        return Redirect::to('/add-Category');
+
+
+        $arrDM=DB::table('danh_muc_sp')->get();
+        foreach($arrDM as $key => $value){
+            if(($value->ma_dm)!=$result){
+                DB::table('danh_muc_sp')->insert($data);
+                Session::put('message','Thêm danh mục thành công');
+                return Redirect::to('/add-Category'); 
+            }else{
+                Session::put('message','Thêm không thành công');
+                return Redirect::to('/add-Category');
+            }
+        }
+        
     }
+
+
+
     //trang thái
     public function unactive_category($ma_dm){
         DB::table('danh_muc_sp')->where('ma_dm',$ma_dm)->update(['trang_thai'=>1]);
@@ -44,11 +62,15 @@ class Categorycontroller extends Controller
 
     public function edit_Category($ma_dm){
         $edit_Category=DB::table('danh_muc_sp')->where('ma_dm',$ma_dm)->get();
-        $manager_Category=view('admin.Category_edit')->with('edit_Category',$edit_Category);
+        $design_id=DB::table('thiet_ke')->get();
+        $material_id=DB::table('chat_lieu')->get();
+        $manager_Category=view('admin.Category_edit')->with('edit_Category',$edit_Category)->with('design_id',$design_id)->with('material_id',$material_id);
         return view('admin_layout')->with('admin.Category_edit',$manager_Category);
     }
     public function update_Category(Request $request,$ma_dm){
         $data=array();
+        $result=($request->category_name).'M'.($request->material_key).'D'.($request->design_key);
+        $data['ma_dm']=$result;
         $data['danh_muc']=$request->category_name;
         $data['ma_cl']=$request->material_key;
         $data['ma_tk']=$request->design_key;

@@ -60,7 +60,15 @@
             <td><span class="text-ellipsis">{{$value_pro->solg_sp}}</span></td>
             <td><span class="text-ellipsis">{{$value_pro->gia_goc}}</span></td>
             <td><span class="text-ellipsis">{{$value_pro->gia_sale}}</span></td>
-            <td><span class="text-ellipsis">{{$value_pro->trang_thai}}</span></td>
+            <td><span class="text-ellipsis">
+               <?php 
+                if($value_pro->trang_thai==0){
+                  echo "Tạm hết hàng";
+                }else{
+                  echo "còn sản phẩm";
+                }
+                ?>
+            </span></td>
             <td><span class="text-ellipsis">{{$value_pro->chiet_khau}}</span></td>
             <td><span class="text-ellipsis">{{$value_pro->ma_dm}}</span></td>
             <td> <a href="{{URL::to('/edit-product/'.$value_pro->ma_sp)}}" class="active styling-edit" ui-toggle-class="">

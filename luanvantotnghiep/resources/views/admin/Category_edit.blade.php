@@ -29,21 +29,40 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Tên danh mục sản phẩm </label>
-                                        <input type="text" class="form-control" name="category_name" placeholder="tên danh mục" value="{{$edit_value->danh_muc}}">
+                                        <input type="text" class="form-control main-styling" name="category_name" placeholder="tên danh mục" value="{{$edit_value->danh_muc}}">
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Chất liệu </label>
-                                        <input type="text" class="form-control" name="material_name" placeholder="tên chất liệu" value="{{$edit_value->chat_lieu}}">
+                                        <label for="exampleInputEmail1">Thiết kế </label><br>
+                                        
+                                        <select name="design_key" class="form-control input-sm m-bot15 main-styling">
+                                            <?php foreach ($design_id as $key => $value_des): ?>
+                                                <?php if ($value_des->ma_tk==$edit_value->ma_tk): ?>
+                                                    <option>{{$edit_value->ma_tk}}-{{$value_des->ten_tk}}</option>
+                                                <?php endif ?>
+                                            <?php endforeach ?>
+                                        <?php foreach ($design_id as $key => $value_des): ?>
+                                                <?php if ($value_des->ma_tk!=$edit_value->ma_tk): ?>
+                                                    <option value="{{$value_des->ma_tk}}">{{$value_des->ma_tk}}-{{$value_des->ten_tk}}</option>  
+                                                <?php endif ?>
+                                        <?php endforeach ?>                                     
+                                        </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Thiết kế</label>
-                                        <input type="text" class="form-control" name="design_name" placeholder="tên danh mục" value="{{$edit_value->thiet_ke}}">
+                                        <label for="exampleInputEmail1">Chất liệu</label><br>
+                                         <select name="material_key" class="form-control input-sm m-bot15 main-styling">
+                                                <option value="">{{$edit_value->ma_cl}}</option>
+                                            <?php foreach ($material_id as $key => $value_mat): ?>
+                                                
+                                                <option value="{{$value_mat->ma_cl}}">{{$value_mat->ma_cl}}-{{$value_mat->ten_cl}}</option>
+                                               
+                                            <?php endforeach ?>
+                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Mô tả danh mục</label>
-                                        <textarea style="resize: none;" rows="5" class="form-control" name="category_desic" placeholder="Mô tả danh mục" >{{$edit_value->mo_ta}}</textarea>
+                                        <textarea rows="3" class="form-control main-styling" name="category_desic" placeholder="Mô tả danh mục" >{{$edit_value->mo_ta}}</textarea>
                                     </div>
-                                    <button type="submit" class="btn btn-info"	name="update_category">Cập nhật Danh Mục</button>
+                                    <button type="submit" class="btn btn-info main-styling"	name="update_category">Cập nhật Danh Mục</button>
                                 </form>
                             </div>
 

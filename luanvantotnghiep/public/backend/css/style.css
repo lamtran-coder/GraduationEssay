@@ -37,6 +37,10 @@ ul,label{
 body a:hover{
 	text-decoration:none;
 }
+.btn-info1{
+    width: 250px;
+    height: 50px;
+}
 	/*sidebar navigation*/
 #sidebar {
     width:240px;
@@ -1701,8 +1705,9 @@ p.hd-title {
     -webkit-box-shadow: 0 1px 1px rgba(90, 90, 90, 0.1);
     box-shadow: 0 1px 1px rgba(90, 90, 90, 0.1);
 }
-select.input-sm {
-    height: 30px;
+select.input-sm1s {
+    height: 50px;
+    font-size: 25px;
     line-height: 30px;
 }
 .w-sm {
@@ -1716,6 +1721,24 @@ select.input-sm {
 }
 .m-b-xs {
     margin-bottom: 5px;
+}
+.form-control1 {
+    display: block;
+    width: 100%;
+    height: 50px;
+    padding: 6px 12px;
+    font-size: 20px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 #upload{
     font-family:'PT Sans Narrow', sans-serif;
