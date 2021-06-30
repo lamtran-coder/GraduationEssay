@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 //forntend
 Route::get('/', 'Homecontroller@index');
 Route::get('/trang-chu','Homecontroller@index');
-Route::post('/tim-kiem','Homecontroller@search');
+Route::get('/tim-kiem','Homecontroller@search');
 
 Route::get('/login-user','UserController@login_user');
 Route::get('/sign-up','UserController@sign_up');
@@ -25,7 +25,8 @@ Route::get('/logout-us','UserController@logout_us');
 
 
 //danh muc san pham trang chu
-Route::get('/danh-muc-san-pham/{ma_dm}','Productcontroller@show_category_home');
+Route::get('/danh-muc-san-pham/{ma_tk}','Productcontroller@show_category_home');
+
 //show mac hang
 Route::get('/ke-hang','Productcontroller@show_product');
 //chi tiet sản phẩm
@@ -77,6 +78,8 @@ Route::get('/delete-Category/{ma_dm}','Categorycontroller@delete_Category');
 
 Route::post('/update-Category/{ma_dm}','Categorycontroller@update_Category');
 Route::post('/save-Category','Categorycontroller@save_Category');
+
+Route::post('/search-cate-ad','Categorycontroller@search_cate_ad');
 	//thiết kế
 Route::get('/add-design','Categorycontroller@add_design');
 Route::post('/save-design','Categorycontroller@save_design');
@@ -94,6 +97,7 @@ Route::get('/edit-product/{ma_sp}','Productcontroller@edit_product');
 Route::get('/delete-product/{ma_sp}','Productcontroller@delete_product');
 Route::post('/save-product','Productcontroller@save_product');
 Route::post('/update-product/{ma_sp}','Productcontroller@update_product');
+Route::post('/search-product-ad','Productcontroller@search_product_ad');
 
 
 	
@@ -107,7 +111,7 @@ Route::post('/save-images-product','Productcontroller@save_images_product');
 
 //đơn đặt hàng
 Route::get('/all-order','Ordercontroller@all_order_product');
-
+Route::post('/search-order','Ordercontroller@search_order');
 	//chi tiet sản phẩm
 Route::get('/add-detail-product','Detail_productcontroller@add_detail_product');
 Route::get('/all-detail-product','Detail_productcontroller@all_detail_product');
@@ -123,3 +127,4 @@ Route::post('/save-size-product','Detail_productcontroller@save_size_product');
 
 	//khách hàng
 Route::get('/all-customer','Customercontroller@all_customer');
+Route::post('/search-customer','Customercontroller@search_customer');

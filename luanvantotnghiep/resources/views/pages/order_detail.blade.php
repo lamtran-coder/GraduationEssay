@@ -14,7 +14,7 @@
                   <table class="from-table">
                     <tbody class="from-table">
                         <tr class="form-tr" style="font-size :20px">
-                            <td class="form-td" style="height :100px;">Mã Đơn <br> Đặt Hàng</td>
+                            <td class="form-td" style="height :100px;">Mã <br> Sản Phẩm</td>
                             <td class="form-td">Ngày<br> Đặt Hàng</td>
                             <td class="form-td">Ngày<br> Giao Hàng</td>
                             <td class="form-td">Tổng<br>  Sản Phẩm</td>

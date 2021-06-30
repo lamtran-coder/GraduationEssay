@@ -75,7 +75,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Tên danh mục sản phẩm </label>
-                                    <select name="category_key" class="form-control input-sm m-bot15 main-styling">
+                                    <select name="category_key" style="height :150px" class="form-control input-sm m-bot15 main-styling" multiple>
                                    
                                         <option value="AO">Áo</option>
                                         <option value="QU">Quần</option>
@@ -87,7 +87,7 @@
                                 <div class="form-group">
 
                                     <label for="exampleInputEmail1">Thiết kế</label>
-                                   <select name="design_key" class="form-control input-sm m-bot15 main-styling">
+                                   <select name="design_key" style="height :150px" class="form-control input-sm m-bot15 main-styling" multiple>
                                     <?php foreach ($design_id as $key => $value_des): ?>
                                         <option value="{{$value_des->ma_tk}}">{{$value_des->ten_tk}}</option>
                                     <?php endforeach ?>
@@ -97,7 +97,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Chất liệu</label>
-                                    <select name="material_key" class="form-control input-sm m-bot15 main-styling"> 
+                                    <select name="material_key" style="height :150px" class="form-control input-sm m-bot15 main-styling" multiple> 
                                     <?php foreach ($material_id as $key => $value_mat): ?>
                                           <option value="{{$value_mat->ma_cl}}">{{$value_mat->ten_cl}}</option>
                                     <?php endforeach ?>

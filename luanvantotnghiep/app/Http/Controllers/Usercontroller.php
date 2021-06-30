@@ -12,12 +12,32 @@ session_start();
 class Usercontroller extends Controller
 {
     public function login_user(){
-         $cate_product=DB::table('danh_muc_sp')->where ('trang_thai','0')->orderby('ma_dm','desc')->get();
-        return view('pages.login_user')->with('cate_product',$cate_product);
+        $cate_product = DB::table('danh_muc_sp')
+            ->select('danh_muc')
+            ->groupBy('danh_muc')
+            ->get();
+        $design_id=DB::table('thiet_ke')
+          ->join('danh_muc_sp','danh_muc_sp.ma_tk','thiet_ke.ma_tk')->where('danh_muc_sp.trang_thai','1')
+          ->groupBy('thiet_ke.ma_tk')
+          ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
+          ->get();
+        return view('pages.login_user')
+        ->with('cate_product',$cate_product)
+        ->with('design_id',$design_id);
     }
     public function sign_up(){
-         $cate_product=DB::table('danh_muc_sp')->where ('trang_thai','0')->orderby('ma_dm','desc')->get();
-        return view('pages.sign_up')->with('cate_product',$cate_product);
+        $cate_product = DB::table('danh_muc_sp')
+            ->select('danh_muc')
+            ->groupBy('danh_muc')
+            ->get();
+        $design_id=DB::table('thiet_ke')
+          ->join('danh_muc_sp','danh_muc_sp.ma_tk','thiet_ke.ma_tk')->where('danh_muc_sp.trang_thai','1')
+          ->groupBy('thiet_ke.ma_tk')
+          ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
+          ->get();
+        return view('pages.sign_up')
+        ->with('cate_product',$cate_product)
+        ->with('design_id',$design_id);
     }
     public function add_user(Request $request){
       $data = array();

@@ -29,7 +29,7 @@
 .megapanel .row:after{clear:both}
 .megapanel .row .col1,.megapanel .row .col2,.megapanel .row .col3,.megapanel .row .col4,.megapanel .row .col5,.megapanel .row .col6{display:block;width:100%;min-height:20px;float:left;margin-left:2.127659574468085%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 .megapanel .row [class*="col"]:first-child{margin-left:0}
-.megapanel .row .col1{width:14.893617021276595%}
+.megapanel .row .col1{width:20%}
 .megapanel .row .col2{width:31.914893617021278%}
 .megapanel .row .col3{width:48.93617021276595%}
 .megapanel .row .col4{width:65.95744680851064%}

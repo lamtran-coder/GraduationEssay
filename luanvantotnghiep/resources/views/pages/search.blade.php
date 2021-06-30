@@ -105,17 +105,17 @@
             </span>
          <ul class="list2">
           <li>
-            <img src="{{('public/frontend/images/plus.png')}}" alt=""/>
-            <ul class="icon1 sub-icon1 profile_img">
-            <li><a class="active-icon c1" href="#">THÊM</a>
-            <ul class="sub-icon1 list">
-              <li><h3>sed diam nonummy</h3><a href=""></a></li>
-              <li>
-                <p>Lorem ipsum dolor sit amet,<a href="">adipiscing elit, sed diam</a></p>
-              </li>
-            </ul>
-            </li>
-          </ul>
+            <form action="{{URL::to('/save-cart')}}" method="POST">
+             @csrf    
+             <input type="hidden" name="masp_hidden" min="1" value="{{$value_pro->ma_sp}}">
+             <input type="hidden" name="mau_hidden" min="1" value="{{$value_pro->ten_mau}}">
+             <input type="hidden" name="size_hidden" min="1" value="{{$value_pro->ma_size}}">
+            <button style="height: 32px;
+              width: 100%;
+              font-size: 20px;
+              background: black;
+              color: #FFF;">Mua Ngay</button>
+            </form>
           </li>
          </ul>
               <div class="clear"></div>

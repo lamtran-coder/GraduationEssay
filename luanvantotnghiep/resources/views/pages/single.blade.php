@@ -39,12 +39,27 @@
 			        @endforeach
 			      </div>
 			    </div>
+			    <div><h4 class="m_9" text-align="center" >Sản Phẩm Đã Xem</h4></div>
+         			<ul id="row_viewed" >
+
+				</ul>
 			    </section>
 			    <div class="clear"></div>
 			  <!--  danh mục lọc -->
 			     </div>
 
 <?php foreach ($details_product as $key => $value_det): ?>
+	<!-- them sản phẩm đã xem -->
+		<input type="hidden" id="product_viewed_id" value="{{$value_det->ma_sp}}" name="">
+		<input type="hidden" id="viewed_productname{{$value_det->ma_sp}}" value="{{$value_det->ten_sp}}" name="">
+		<input type="hidden" id="viewed_producturl{{$value_det->ma_sp}}" value="{{URL::to('/product-details/'.$value_det->ma_sp)}}" name="">
+		<?php foreach ($all_img as $key => $value_img): ?>
+			<?php if ($value_det->ma_sp==$value_img->ma_sp): ?>
+				<input type="hidden" id="viewed_productimage{{$value_det->ma_sp}}" value="{{URL::to('public/uploads/product/'.$value_img->hinhanh)}}" name="">
+			<?php endif ?>		
+		<?php endforeach ?>
+		<input type="hidden" id="viewed_productprice{{$value_det->ma_sp}}" value="{{number_format($value_det->gia_goc)}} " name="">
+	<!-- them sản phẩm đã xem -->
 	<div class="cont span_2_of_3">
 		<div class="labout span_1_of_a1">
 			<!-- start product_slider -->
@@ -124,7 +139,7 @@
 		</div>
 		<div class="clear"></div>
      
-     
+     	<h2>Sản Phẩm Tượng Tự</h2>
          <ul id="flexiselDemo3">
 			@foreach($related_product as $key => $related)
      	 	<?php if (($ma_dm = '$related->ma_dm')&&($related->goc_nhin==0)): ?>	
@@ -136,11 +151,10 @@
      	 			</div>
      	 		</a>	
      	 	</li>
-     	 	
 			 <?php endif ?>
-			 @endforeach
-			
+			 @endforeach	
 		 </ul>
+
 	    <script type="text/javascript">
 		 $(window).load(function() {
 			$("#flexiselDemo1").flexisel();
@@ -169,7 +183,7 @@
 				autoPlaySpeed: 3000,    		
 				pauseOnHover: true,
 				enableResponsiveBreakpoints: true,
-		    	responsiveBreakpoints: { 
+		    		responsiveBreakpoints: { 
 		    		portrait: { 
 		    			changePoint:480,
 		    			visibleItems: 1
@@ -184,6 +198,7 @@
 		    		}
 		    	}
 		    });
+			
 		    
 		});
 	</script>
@@ -199,11 +214,39 @@
 	     	</form>    	
 
      	</div>
+     	<?php $username=Session::get('username');?>
+     	<?php if ($username!=null): ?>
+     		
 		<form action="#">
 			@csrf
      	<div class="comment-new">
      		<div>
-     			<input style="color:black" type="text" name="tên comnent" size="20px" class="comment_name" value="tên bình luận" > 
+     			<label><?php echo $username; ?></label>
+     			<input style="color:black" type="hidden"   class="comment_name" value="<?php echo $username; ?>" >
+     			
+     			<!-- đánh giá -->
+     			<ul class="list-inline" style="display: -webkit-box;" title="Average Raiting">
+     				<?php 
+					for ($count=1; $count<=5; $count++) { 
+						if($count<=$rating){
+	                             $color = 'color:#ffcc00;';
+	                         }
+	                         else {
+	                             $color = 'color:#ccc;';
+	                         }
+					?>	
+     				<li title="Đánh giá sao" 
+     				id="{{$value_det->ma_sp}}-{{$count}}"
+     				data-index="{{$count}}"
+     				data-ma_sp="{{$value_det->ma_sp}}"
+     				data-rating="{{$rating}}"
+     				class="raiting"
+     				style="cursor: pointer; <?php echo $color;  ?> font-size: 30px;" 
+     				>&#9733;	
+     				</li>
+     				<?php }?>
+     			</ul>
+     			<!-- đánh giá --> 
      			<textarea class="style_comment comment_content"></textarea>
      			
      		</div>
@@ -211,6 +254,9 @@
      		<div id="notify_comment"></div>
      	</div>
      	</form>
+     	<?php else: ?>
+     		<div  class="comment-new"><a href="{{}}">Đăng Nhập Để Bình Luận</a></div>
+     	<?php endif ?>
      </div>				
      </div>
      

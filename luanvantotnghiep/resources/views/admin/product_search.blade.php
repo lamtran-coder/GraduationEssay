@@ -5,11 +5,14 @@
         <div class="table-agile-info">
   <div class="panel panel-default">
     <div class="panel-heading">
-      liệt kê sản phẩm
+      Sản phẩm bạn cần tìm
     </div>
-   <div class="row w3-res-tb">
+    <div class="row w3-res-tb">
       <div class="col-sm-4">
-         <div></div>
+      </div>
+     <div class="row w3-res-tb">
+      <div class="col-sm-4">
+         <div><a href="{{URL::to('/all-product')}}"> trở về trang danh sách</a></div>
       </div>
        <form action="{{URL::to('/search-product-ad')}}" method="post">
           @csrf
@@ -22,8 +25,9 @@
          
          </div>
         </div>
-        </form>
+        
       </div>
+    </div>
     <div class="table-responsive">
       <table class="table table-striped b-t b-light">
         <thead>
@@ -48,7 +52,7 @@
           </tr>
         </thead>
         <tbody>
-        <?php foreach ($all_product as $key => $value_pro): ?>
+        <?php foreach ($search_pro_ad as $key => $value_pro): ?>
          	
          
           <tr>

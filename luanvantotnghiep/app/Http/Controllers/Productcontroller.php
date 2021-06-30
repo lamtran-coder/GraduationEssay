@@ -5,6 +5,7 @@ use DB;
 use Session;
 use App\Models\binh_luan;
 use App\Models\Product;
+use App\Models\Rating;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 session_start();
@@ -26,6 +27,27 @@ class Productcontroller extends Controller
         $manager_product=view('admin.product_all')->with('all_product',$all_product)->with('img_id',$img_id);
         return view('admin_layout')->with('admin.product_all',$manager_product);
         
+    }
+    //tim kiem san pham của admin
+    public function search_product_ad(Request $request){
+        $keywords=$request->keywords_submit;
+         $img_id=DB::table('hinh_anh')->get();
+         $search_pro_ad=DB::table('san_pham')
+          ->join('danh_muc_sp','danh_muc_sp.ma_dm','=','san_pham.ma_dm')
+          ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
+          ->join('chat_lieu','chat_lieu.ma_cl','=','danh_muc_sp.ma_cl')
+          ->where('san_pham.ten_sp','like','%'. $keywords .'%')
+          ->orwhere('thiet_ke.ten_tk','like','%'. $keywords .'%')
+          ->orwhere('chat_lieu.ten_cl','like','%'. $keywords .'%')
+          ->get();
+          if ($search_pro_ad) {
+            return view('admin.product_search')
+            ->with('search_pro_ad',$search_pro_ad)
+            ->with('img_id',$img_id);
+          }else{
+             return view('admin.product_all');
+          }
+
     }
     public function save_product(Request $request){
         $data=array();
@@ -123,13 +145,20 @@ class Productcontroller extends Controller
     //frontend
     //show sản phẩm
     public function show_product(){
-        $cate_product=DB::table('danh_muc_sp')
-        ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
-        ->where ('danh_muc_sp.trang_thai','1')
-        ->orderby(('danh_muc_sp.ma_dm'),'desc')->get();
-        $all_product=DB::table('san_pham')
-        ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
-        ->where ('trang_thai','1')->where('goc_nhin','0')->orderby('san_pham.ma_sp','desc')->get();
+        $cate_product = DB::table('danh_muc_sp')
+            ->select('danh_muc')
+            ->groupBy('danh_muc')
+            ->get();
+        $design_id=DB::table('thiet_ke')
+          ->join('danh_muc_sp','danh_muc_sp.ma_tk','thiet_ke.ma_tk')
+          ->where('danh_muc_sp.trang_thai','1')
+          ->groupBy('thiet_ke.ma_tk')
+          ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
+          ->get();
+        
+        
+        // $rating = DB::table('danh_gia')->where('ma_sp',$ma_sp)->avg('rating');
+        // $rating = round($rating);
 
 
         $min_price = DB::table('san_pham')->min('san_pham.gia_goc');
@@ -137,21 +166,62 @@ class Productcontroller extends Controller
 
         $min_price_range = $min_price + 5000;
         $max_price_range = $max_price + 100000;
+        if (isset($_GET['sort_by'])) {
+            $sort_by = $_GET['sort_by'];
+            if($sort_by=='giam_dan'){
 
-        if(isset($_GET['start_price']) && $_GET['end_price']){
+                $all_product = DB::table('san_pham')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','san_pham.ma_sp')
+                ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->orderby('san_pham.gia_goc','desc')->groupBy('san_pham.ma_sp')->paginate(3);
 
-        $min_price = $_GET['start_price'];
-        $max_price = $_GET['end_price'];
+            }elseif($sort_by=='tang_dan'){
+                 $all_product = DB::table('san_pham')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','san_pham.ma_sp')
+                ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')->groupBy('san_pham.ma_sp')
+                ->orderby('san_pham.gia_goc','ASC')->paginate(3);
+            }elseif($sort_by=='kytu_za'){
+                $all_product = DB::table('san_pham')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','san_pham.ma_sp')
+                ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')->groupBy('san_pham.ma_sp')
+                ->orderby('san_pham.ten_sp','desc')->paginate(3);
+            }elseif($sort_by=='kytu_az'){
+                $all_product = DB::table('san_pham')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','san_pham.ma_sp')
+                ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->groupBy('san_pham.ma_sp')->orderby('san_pham.ten_sp','ASC')->paginate(3);
+            }
+   
+        }
+        elseif(isset($_GET['start_price']) && $_GET['end_price']){
 
-
-        $all_product = DB::table('san_pham')
-        ->whereBetween('san_pham.gia_goc',[$min_price,$max_price])
-        ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')->orderby('san_pham.gia_goc','desc')->get();
-
-         
+            $min_price = $_GET['start_price'];
+            $max_price = $_GET['end_price'];
+            
+            $all_product = DB::table('san_pham')
+            ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+            ->whereBetween('san_pham.gia_goc',[$min_price,$max_price])
+            ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','san_pham.ma_sp')
+            ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
+            ->orderby('san_pham.gia_goc','desc')
+            ->where ('san_pham.trang_thai','1')
+            ->where('hinh_anh.goc_nhin','0')
+            ->groupBy('san_pham.ma_sp')
+            ->paginate(3);
         }else{
-           $all_product=DB::table('san_pham')->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
-        ->where ('trang_thai','1')->orderby('san_pham.ma_sp','desc')->get();
+            $all_product=DB::table('san_pham')
+            ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+            ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','san_pham.ma_sp')
+            ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
+            ->where ('san_pham.trang_thai','1')
+            ->where('hinh_anh.goc_nhin','0')
+            ->orderby('san_pham.ma_sp','desc')
+            ->groupBy('san_pham.ma_sp')
+            ->paginate(3);
 
         }
 
@@ -159,23 +229,33 @@ class Productcontroller extends Controller
         $all_material=DB::table('chat_lieu')->orderby('ma_cl','desc')->get();
         $all_style=DB::table('thiet_ke')->orderby('ma_tk','desc')->get();
         $all_color=DB::table('mau')->orderby('ma_mau','desc')->get();
-        return view('pages.shop')->with('cate_product',$cate_product)
-        ->with('all_product',$all_product)->with('all_material',$all_material)
-        ->with('all_style',$all_style)->with('all_color',$all_color)
+        return view('pages.shop')
+        ->with('cate_product',$cate_product)
+        ->with('all_product',$all_product)
+        ->with('all_material',$all_material)
+        ->with('design_id',$design_id)
+        ->with('all_style',$all_style)
+        ->with('all_color',$all_color)
         ->with('min_price',$min_price)
         ->with('max_price',$max_price)
+        //->with('rating',$rating)
         ->with('min_price_range',$min_price_range)
         ->with('max_price_range',$max_price_range);
     }
-    public function show_category_home (Request $request,$ma_dm )
-    {     $keywords=$request->keywords_submit;
-        $cate_product=DB::table('danh_muc_sp')
-        ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
-        ->where ('trang_thai','1')->orderby('danh_muc_sp.ma_dm','desc')->get();
-        $all_product=DB::table('san_pham')
-        ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
-        ->where ('trang_thai','1')->orderby('san_pham.ma_sp','desc')->get();
 
+
+    public function show_category_home (Request $request,$ma_tk )
+    {   $keywords=$request->keywords_submit;
+        $cate_product = DB::table('danh_muc_sp')
+            ->select('danh_muc')
+            ->groupBy('danh_muc')
+            ->get();
+        $design_id=DB::table('thiet_ke')
+          ->join('danh_muc_sp','danh_muc_sp.ma_tk','thiet_ke.ma_tk')->where('danh_muc_sp.trang_thai','1')
+          ->groupBy('thiet_ke.ma_tk')
+          ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
+          ->get();
+        
 
         $all_material=DB::table('chat_lieu')->orderby('ma_cl','desc')->get();
         $all_style=DB::table('thiet_ke')->orderby('ma_tk','desc')->get();
@@ -183,16 +263,24 @@ class Productcontroller extends Controller
         $all_img=DB::table('hinh_anh')->orderby('ma_sp','desc')->get();
         $search_product=DB::table('san_pham')
         ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+        ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','san_pham.ma_sp')
+        ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
         ->where('ten_sp','like','%'. $keywords .'%')->get();
         $category_by_id=DB::table('san_pham')
         ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
-        ->join('danh_muc_sp','san_pham.ma_dm','=','danh_muc_sp.ma_dm')->where('san_pham.ma_dm',$ma_dm)->get();
+        ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','san_pham.ma_sp')
+        ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
+        ->join('danh_muc_sp','san_pham.ma_dm','=','danh_muc_sp.ma_dm')
+        ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
+        ->where('thiet_ke.ma_tk',$ma_tk)
+        ->groupBy('san_pham.ma_sp')
+        ->get();
 
          return view('pages.search_cate')
         ->with('cate_product',$cate_product)
-        ->with('all_product',$all_product)
         ->with('all_material',$all_material)
         ->with('all_style',$all_style)
+        ->with('design_id',$design_id)
         ->with('all_color',$all_color)
         ->with('all_img',$all_img)
          ->with('search_product',$search_product)
@@ -207,16 +295,22 @@ class Productcontroller extends Controller
         $all_detail=DB::table('chi_tiet_san_pham')
         ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
         ->join('size','size.ma_size','=','chi_tiet_san_pham.ma_size')->get();
-        $cate_product=DB::table('danh_muc_sp')
-        ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
-        ->where ('trang_thai','1')->orderby('danh_muc_sp.ma_dm','desc')->get();
+        $cate_product = DB::table('danh_muc_sp')
+            ->select('danh_muc')
+            ->groupBy('danh_muc')
+            ->get();
+        $design_id=DB::table('thiet_ke')
+          ->join('danh_muc_sp','danh_muc_sp.ma_tk','thiet_ke.ma_tk')->where('danh_muc_sp.trang_thai','1')
+          ->groupBy('thiet_ke.ma_tk')
+          ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
+          ->get();
         $details_product = DB::table('san_pham')
         ->join('danh_muc_sp','danh_muc_sp.ma_dm','=','san_pham.ma_dm')
         ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
         ->where ('san_pham.trang_thai','1')->where('san_pham.ma_sp',$ma_sp)->get();
         $all_product=DB::table('san_pham')
         ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
-        ->where ('trang_thai','1')->orderby('san_pham.ma_sp','desc')->limit(4)->get();
+        ->where ('trang_thai','1')->orderby('san_pham.ma_sp','desc')->get();
 
         foreach($details_product as $key => $value){
             $ma_dm = $value->ma_dm;
@@ -228,14 +322,21 @@ class Productcontroller extends Controller
         ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
        ->where('danh_muc_sp.ma_dm',$ma_dm)->whereNotIn('san_pham.ma_sp',[$ma_sp])->get();
 
+        $rating = DB::table('danh_gia')->where('ma_sp',$ma_sp)->avg('rating');
+        $rating = round($rating);
+        
+       
+
         return view('pages.single')
         ->with('cate_product',$cate_product)
         ->with('all_product',$all_product)
         ->with('all_detail',$all_detail)
         ->with('all_material',$all_material)
+        ->with('design_id',$design_id)
         ->with('all_style',$all_style)
         ->with('all_color',$all_color)
         ->with('all_img',$all_img)
+        ->with('rating',$rating)
         ->with('related_product',$related_product)
         ->with('details_product',$details_product);
 
@@ -331,6 +432,14 @@ class Productcontroller extends Controller
         DB::table('binh_luan')->where('comment_id',$comment_id)->delete();
         Session::put('message','Xóa bình luận thành công');
         return Redirect::to('comment');
+    }
+    public function insert_rating(Request $request){
+        $data = $request->all();
+        $rating = new Rating();
+        $rating->ma_sp = $data['ma_sp'];
+        $rating->rating = $data['index'];
+        $rating->save();
+        echo 'done';
     }
     
 }

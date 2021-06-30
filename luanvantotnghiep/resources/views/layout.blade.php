@@ -203,31 +203,41 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <li class="grid"><a class="color2" href="#">Danh mục</a>
                 <div class="megapanel">
                     <div class="row">
-                        <div class="col1">
-                            <div class="h_nav">
-                                <h2 style="font-size:50px">Áo</h2>
-                                <hr>
-                                <ul>
-                                <?php
-                                // echo"<pre>";
-                                //         print_r($d)
-                                //       echo"</pre>";
-                                // foreach ($design_id as $key => $value_des) {
-                                //     echo $value_des->ma_tk;
-                                // }
-                                 ?>
-                                 <hr>
-                                <?php foreach ($cate_product as $key => $value_cate): ?>
-                                    <?php if ($value_cate->danh_muc=="AO"): ?>
-                                      <li><a href="{{URL::to('danh-muc-san-pham/'.$value_cate->ma_dm)}}">
-                                          {{$value_cate->ten_tk}}
-                                      </a></li>
-                                    <?php endif ?>
-                                <?php endforeach ?>
-                                </ul>          
+                        <?php foreach ($cate_product as $key => $value_cate): ?>
+                            <div class="col1">
+                                <div class="h_nav">
+                                    <h2 style="font-size:30px;text-align: center;">
+                                        <?php 
+                                        if($value_cate->danh_muc=='AO'){
+                                            $danh_muc_sp='ÁO';
+                                        }
+                                        if($value_cate->danh_muc=='QU'){
+                                            $danh_muc_sp='QUẦN';
+                                        }
+                                        if($value_cate->danh_muc=='GI'){
+                                            $danh_muc_sp='GIÀY';
+                                        }
+                                        if($value_cate->danh_muc=='PK'){
+                                         $danh_muc_sp='PHỤ KIỆN'; }
+                                            echo $danh_muc_sp;
+                                         ?>
+                                    </h2>
+                                    <hr>
+                                    <div>
+                                    <ul class="cart-des">
+                                        <?php foreach ($design_id as $key => $value_des): ?>
+                                            <?php if ($value_des->danh_muc==$value_cate->danh_muc): ?>        
+                                                <a href="{{URL::to('/danh-muc-san-pham/'.$value_des->ma_tk)}}"><li><?php echo mb_strtoupper($value_des->ten_tk,'utf-8') ?></li></a>
+                                            <?php endif ?>    
+                                        <?php endforeach ?>
+                                    </ul>
+                                    </div>          
+                                </div>
                             </div>
-                        </div>               
+                        <?php endforeach ?>
+
                     </div>
+
                 </div>
                 </li>
                <li class="active grid"><a class="color4" href="#">Giới thiệu</a></li>               
@@ -244,7 +254,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
            <div class="clear"></div>
         </div>
         <div class="search-product" >
-            <form class="form-search-sp " action="{{URL::to('/tim-kiem')}}" method="post">
+            <form class="form-search-sp " action="{{URL::to('/tim-kiem')}}" method="get">
                 @csrf
                     <input type="text" class="input-search"  name="keywords_submit" value="" placeholder="nhập từ khóa"> 
             </form>
@@ -323,6 +333,67 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 
             });
         </script>
+        <script type="text/javascript">
+    function remove_background(ma_sp)
+     {
+      for(var count = 1; count <= 5; count++)
+      {
+       $('#'+ma_sp+'-'+count).css('color', '#ccc');
+      }
+    }
+    //hover chuột đánh giá sao
+   $(document).on('mouseenter', '.raiting', function(){
+      var index = $(this).data("index");
+      var ma_sp = $(this).data('ma_sp');
+    // alert(index);
+    // alert(ma_sp);
+      remove_background(ma_sp);
+      for(var count = 1; count<=index; count++)
+      {
+       $('#'+ma_sp+'-'+count).css('color', '#ffcc00');
+      }
+    });
+   //nhả chuột ko đánh giá
+   $(document).on('mouseleave', '.raiting', function(){
+      var index = $(this).data("index");
+      var ma_sp = $(this).data('ma_sp');
+      var rating = $(this).data("rating");
+      remove_background(ma_sp);
+      // alert(rating);
+      for(var count = 1; count<=rating; count++)
+      {
+       $('#'+ma_sp+'-'+count).css('color', '#ffcc00');
+      }
+     });
+
+    //click đánh giá sao
+    $(document).on('click', '.raiting', function(){
+        var index = $(this).data("index");
+        var ma_sp = $(this).data('ma_sp');
+        var _token = $('input[name="_token"]').val();
+            // alert(index)
+            // alert(ma_sp)
+            // alert(_token)
+          $.ajax({
+           url:"{{url('insert-rating')}}",
+           method:"POST",
+           data:{index:index, ma_sp:ma_sp,_token:_token},
+           success:function(data)
+           {
+            if(data == 'done')
+            {
+             alert("Bạn đã đánh giá "+index +" trên 5 . Vui lòng cho chúng tôi cảm nhận về sản phẩm");
+
+            }
+            else
+            {
+             alert("Lỗi đánh giá");
+            }
+           }
+    });
+          
+    });
+</script>
         <!-- bình luận -->
            <script type="text/javascript">
                  $(document).ready(function(){
@@ -362,6 +433,95 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                  });
            </script>
         <!--  bình luận -->
+        <!--  loc theo gia tang dan -->
+           <script type="text/javascript">
+                $(document).ready(function(){
+
+                    $('#sort').on('change',function(){
+
+                        var url = $(this).val(); 
+                        // alert(url);
+                          if (url) { 
+                              window.location = url;
+                          }
+                        return false;
+                    });
+
+                }); 
+        </script>
+            <!-- Sản phẩm Đã xem -->
+            <script type="text/javascript">
+            function viewed(){
+                     if(localStorage.getItem('viewed')!=null){
+
+                         var data = JSON.parse(localStorage.getItem('viewed'));
+
+                         data.reverse();
+                          document.getElementById('row_viewed').style.overflow = 'scroll';
+                         document.getElementById('row_viewed').style.height = '250px';
+
+                         for(i=0;i<data.length;i++){
+
+                            var name = data[i].name;
+                            var price = data[i].price;
+                            var image = data[i].image;
+                            var url = data[i].url;
+
+                            $('#row_viewed').append('<li><a><div  class="nbs-flexisel-item"style="margin:10px"style="display:block;"><div><img width="125px" height="150px" src="'+image+'"></div><div class=""><p><a href="'+url+'">'+name+'</a></p> <p>'+price+'</p></div> </div> </a></li>');
+                        }
+
+                    }
+
+                }
+
+                viewed();
+               
+            product_viewed();
+               function product_viewed(){
+                    var id_product=$('#product_viewed_id').val();
+
+                   if(id_product!= undefined){
+                    var id = id_product
+                    var name = document.getElementById('viewed_productname'+id).value;
+                    var price = document.getElementById('viewed_productprice'+id).value;
+                    var image = document.getElementById('viewed_productimage'+id).value;
+                    var url = document.getElementById('viewed_producturl'+id).value;
+
+                    var newItem = {
+                        'url':url,
+                        'id' :id,
+                        'name': name,
+                        'price': price,
+                        'image': image
+                    }
+
+                    if(localStorage.getItem('viewed')==null){
+                       localStorage.setItem('viewed', '[]');
+                    }
+
+                    var old_data = JSON.parse(localStorage.getItem('viewed'));
+
+                    var matches = $.grep(old_data, function(obj){
+                        return obj.id == id;
+                    })
+
+                    if(matches.length){
+                      
+                    }else{
+
+                        old_data.push(newItem);
+
+                       $('#row_viewed').append('<div class="nbs-flexisel-item"style="margin:10px 0"><div ><img width="125px" height="150px"src="'+image+'"></div><div class=""><p><a href="'+url+'">'+name+'</a></p> <p>'+price+'</p></div> </div>');
+
+                    }
+                   
+                    localStorage.setItem('viewed', JSON.stringify(old_data));
+                    }
+                    
+                   
+               }
+            </script>
+             <!-- Sản phẩm Đã xem -->
         <a href="#" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;"></span></a>
 </body>
 </html>

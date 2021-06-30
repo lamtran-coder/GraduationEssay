@@ -28,25 +28,16 @@
 	                    <!-- <input type="submit" name="filter_price" value="Lọc giá"> -->
 	               </form>
 		</div>
-                <h4>Danh mục</h4>
+  
+        <h4>Thiết Kế</h4>
 		<div class="row row1 scroll-pane">
-			<div class="col col-4">
-				<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Quần</label>
-				<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Áo</label>
-				<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Giày</label>
-				<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Phụ kiện</label>
-				 
-			</div>
+		<div class="col col-4">
+		@foreach ($all_style as $key =>$style)
+		<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>{{$style->ten_tk}}</label>
+		@endforeach
 		</div>
-                <h4>Category</h4>
-			<div class="row row1 scroll-pane">
-				<div class="col col-4">
-				@foreach ($all_style as $key =>$style)
-				<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>{{$style->ten_tk}}</label>
-				 @endforeach
-			</div>
-			</div>
-		<h4>Styles</h4>
+		</div>
+		<h4>Màu Sắc</h4>
 		<div class="row row1 scroll-pane">
 			<div class="col col-4">
 				@foreach ($all_color as $key =>$color)
@@ -62,20 +53,27 @@
 				@endforeach
 			</div>
 		</div>
+		
+		<h4 class="m_9" text-align="center" >Sản Phẩm Đã Xem</h4>
+         <ul id="row_viewed" ></ul>
 		</section>
+		
 	<!-- 	danh mục lọc -->
 	   </div>
 	<div class="cont span_2_of_3">
 	 <div class="mens-toolbar">
        		<div class="sort">
         		<div class="sort-by">
-	            <label>Sort By</label>
-	            <select>
-	                   <option value="">Popularity</option>
-	                   <option value="">Price : High to Low</option>
-	                   <option value="">Price : Low to High</option>
+	            <form>
+	            	@csrf
+	            <select name="sort" id="sort">
+	                   <option value="{{Request::url()}}?sort_by=none">Sắp xếp theo</option>
+	                   <option value="{{Request::url()}}?sort_by=tang_dan">Giá : Tăng đân</option>
+	                   <option value="{{Request::url()}}?sort_by=giam_dan">Giá : Giảm dần</option>
+	                   <option value="{{Request::url()}}?sort_by=kytu_az">Lọc theo tên A đến Z</option>
+                       <option value="{{Request::url()}}?sort_by=kytu_za">Lọc theo tên Z đến A</option>
 	            </select>
-	            <a href=""><img src="{{('public/frontend/images/arrow2.gif')}}" alt="" class="v-middle"></a>
+        		</form>
         		</div>
 			</div>
 	        <div class="pager">   
@@ -88,7 +86,7 @@
 		    	</select> per page        
 	            </div>
 	       	<ul class="dc_pagination dc_paginationA dc_paginationA06">
-			    <li><a href="#" class="previous">Pages</a></li>
+			    <li><a href="#" class="previous">Trang</a></li>
 			    <li><a href="#">1</a></li>
 			    <li><a href="#">2</a></li>
 			</ul>
@@ -126,19 +124,20 @@
 		        <label for="rating-input-1-1" class="rating-star"></label>
 		      	</span>
 				 <ul class="list2">
-				  <li>
-				  	<img src="{{('public/frontend/images/plus.png')}}" alt=""/>
-				  	<ul class="icon1 sub-icon1 profile_img">
-					  <li><a class="active-icon c1" href="#">Mua Ngay</a>
-						<ul class="sub-icon1 list">
-							<li><h3>sed diam nonummy</h3><a href=""></a></li>
-							<li>
-								<p>Lorem ipsum dolor sit amet,<a href="">adipiscing elit, sed diam</a></p>
-							</li>
-						</ul>
+				  
+					  <li><form action="{{URL::to('/save-cart')}}" method="POST">
+                                       @csrf    
+                                       <input type="hidden" name="masp_hidden" min="1" value="{{$value_pro->ma_sp}}">
+                                       <input type="hidden" name="mau_hidden" min="1" value="{{$value_pro->ten_mau}}">
+                                       <input type="hidden" name="size_hidden" min="1" value="{{$value_pro->ma_size}}">
+                            <button style="height: 32px;
+                                        width: 100%;
+                                        font-size: 20px;
+                                        background: black;
+                                        color: #FFF;">Mua Ngay</button>
+                            </form>
 					  </li>
-					</ul>
-				  </li>
+					
 				 </ul>
 		    	    <div class="clear"></div>
 		    	</a>
@@ -147,6 +146,7 @@
 	  <div class="clear"></div>
   	</div>
 	</div>
+
 	<div class="clear"></div>
 	</div>
 	<script type="text/javascript">

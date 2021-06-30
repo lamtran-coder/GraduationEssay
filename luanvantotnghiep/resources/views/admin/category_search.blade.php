@@ -7,11 +7,10 @@
     <div class="panel-heading">
       liệt kê danh mục
     </div>
-     <div class="row w3-res-tb">
+    <div class="row w3-res-tb">
       <div class="col-sm-4">
       </div>
        <div class="row w3-res-tb">
-      
        <form action="{{URL::to('/search-cate-ad')}}" method="post">
           @csrf
       <div class="col-sm-3">
@@ -20,9 +19,9 @@
           <span class="input-group-btn">
             <button class="btn btn-sm btn-default" type="button">TÌM</button>
           </span>
+         
          </div>
         </div>
-      </form>
         
       </div>
     </div>
@@ -46,7 +45,7 @@
           </tr>
         </thead>
         <tbody>
-          @foreach($all_Category as $key => $value)
+          @foreach($search_cate as $key => $value)
           <tr>
             <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
             <td><span class="text-ellipsis">{{$value->ma_dm}}</span></td>
@@ -67,7 +66,7 @@
 
             </span></td>
 
-            <!-- //hiển thị tên thiết kế -->
+         <!-- //hiển thị tên thiết kế -->
             <?php foreach ($design_id as $key => $value_des): ?>
               <?php if ($value->ma_tk==$value_des->ma_tk): ?>
                 <td><span class="text-ellipsis">{{$value_des->ten_tk}}</span></td>
@@ -79,8 +78,7 @@
               <?php if ($value->ma_cl==$value_mat->ma_cl): ?>
                 <td><span class="text-ellipsis">{{$value_mat->ten_cl}}</span></td>
               <?php endif ?>
-            <?php endforeach ?> 
-
+            <?php endforeach ?>  
 
            
             <td><span class="text-ellipsis">

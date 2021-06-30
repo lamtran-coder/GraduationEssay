@@ -1,6 +1,8 @@
 @extends('layout')
 @section('index_content')
 <!-- star index-baner -->
+ 
+
 <div class="index-banner">
   <div class="wmuSlider example1" style="height: 560px;">
       <div class="wmuSliderWrapper">
@@ -29,7 +31,8 @@
         </ul>
      <a class="wmuSliderPrev">Previous</a><a class="wmuSliderNext">Next</a><ul class="wmuSliderPagination"><li><a href="#" class="wmuActive">0</a></li><li><a href="#" class="">1</a></li><li><a href="#" class="">2</a></li><li><a href="#" class="">3</a></li><li><a href="#" class="">4</a></li></ul></div>
      <script src="{{('public/frontend/js/jquery.wmuSlider.js')}}"></script> 
-     <script type="text/javascript" src="{{('public/frontend/js/modernizr.custom.min.js')}}"></script> 
+     <!-- <script type="text/javascript" src="{{('public/frontend/js/modernizr.custom.min.js')}}">
+     </script> --> 
             <script>
                  $('.example1').wmuSlider();         
             </script>                     
@@ -38,7 +41,7 @@
 <!--star main -->
 <div class="main">
     <div class="wrap">
-        <div class="new-product"><h2>SẢN PHẨM MỚI</h2></div>
+        <div class="new-product"><h2><i class="fa fa-product-hunt" style="color:green"></i> SẢN PHẨM MỚI</h2></div>
         <div class="content-bottom">
  
                 
@@ -70,32 +73,53 @@
                         </div>
                     </div>
                     <span class="rating">
-                        <input type="radio" class="rating-input" id="rating-input-1-5" name="rating-input-1">
-                        <label for="rating-input-1-5" class="rating-star1"></label>
-                        <input type="radio" class="rating-input" id="rating-input-1-4" name="rating-input-1">
-                        <label for="rating-input-1-4" class="rating-star1"></label>
-                        <input type="radio" class="rating-input" id="rating-input-1-3" name="rating-input-1">
-                        <label for="rating-input-1-3" class="rating-star1"></label>
-                        <input type="radio" class="rating-input" id="rating-input-1-2" name="rating-input-1">
-                        <label for="rating-input-1-2" class="rating-star"></label>
-                        <input type="radio" class="rating-input" id="rating-input-1-1" name="rating-input-1">
-                        <label for="rating-input-1-1" class="rating-star"></label>
+                        
+                            
+                       
+                    <ul class="list-inline" style="display: -webkit-box;" title="Average Raiting">
+                   
+                    <?php
+                    //hiện thì đánh giá //tạm thời chưa làm được đánh giá trung bình
+                    // echo "<pre>";
+                    // print_r($rating); 
+                    // echo "</pre>"; 
+                    $array =array();  
+                    for ($count=1; $count<=5; $count++) { 
+                        foreach ($rating as $key => $value) {
+                            if ($value->ma_sp==$value_pro->ma_sp) {
+                                $array=$value->rating;
+                            }  
+                        }
+                        if($count<=$array){
+                             $color = 'color:#ffcc00;';
+                            }
+                         else{
+                             $color = 'color:#black;';
+                    }   
+                    echo '<li style="cursor: pointer;'.$color.'font-size: 15px;" >&#9733;</li>';
+                    }            
+                    ?>
+                  
+                        </ul>
+                            </a>
+
                       </span>
                         <ul class="list">
                           <li>
-                            <img src="{{('public/frontend/images/plus.png')}}" alt=""/>
-                            <ul class="icon1 sub-icon1 profile_img">
-                              <li><a class="active-icon c1" href="#">Mua Ngay</a>
-                                <ul class="sub-icon1 list">
-                                    <li><h3>sed diam nonummy</h3><a href=""></a></li>
-                                    <li><p>Lorem ipsum dolor sit amet, consectetuer  <a href="">adipiscing elit, sed diam</a></p></li>
-                                </ul>
-                              </li>
-                             </ul>
+                            <form action="{{URL::to('/save-cart')}}" method="POST">
+                                       @csrf    
+                                       <input type="hidden" name="masp_hidden" min="1" value="{{$value_pro->ma_sp}}">
+                                       <input type="hidden" name="mau_hidden" min="1" value="{{$value_pro->ten_mau}}">
+                                       <input type="hidden" name="size_hidden" min="1" value="{{$value_pro->ma_size}}">
+                            <button style="height: 32px;
+                                        width: 100%;
+                                        font-size: 20px;
+                                        background: black;
+                                        color: #FFF;">Mua Ngay</button>
+                            </form>
                            </li>
                          </ul>
                         <div class="clear"></div>
-                    </a>
                 </div>
                 <?php endif ?>  
             <?php endforeach ?>

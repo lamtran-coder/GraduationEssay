@@ -572,13 +572,40 @@ div.search-product{
 .span_2_of_3 {
     width: 77.1%;
     background: #FFF;
-    height: 1000px;
-    overflow-x: hidden;
-    overflow-y: auto;
+    height: 1450px;
+    overflow-x: 1000px;
+    overflow-y: 1000px;
 }
 .style_comment {
     margin: 0px;
     width: 800px;
     font-size: 22px;
     height: 30px;
+}
+ul.cart-des{
+    padding: 0px;
+    margin: 0px;
+}
+ul.cart-des>a{
+    padding: 0px;
+    margin: 0px;
+    background: #FFF;
+    color: black;
+}
+ul.cart-des>a>li{
+    padding: 9px;
+    margin: 0px;
+}
+ul.cart-des>a>li:hover {
+    padding: 9px;
+    margin: 0px;
+    background: black;
+    color: #FFF;
+}
+.new-product {
+    font-size: 35px;
+    padding: 15px;
+    margin-left: 42px;
+    margin-right: 10px;
+    background: #FFF;
 }

@@ -25,17 +25,18 @@ class Cartcontroller extends Controller
         print_r($product_info);
         echo"</pre>";
 
-        $data['id']=$product_info->ma_sp;
-        $data['qty']=$quantity;
-        $data['name']=$product_info->ten_sp;
-        $data['price']=$product_info->gia_sale;
-        $data['options']['chiet_khau']=$product_info->chiet_khau;
-        $data['options']['anh']=$product_info->hinhanh;
-        $data['options']['ma_size']=$ma_size_h;
-        $data['options']['ten_mau']=$mau_h;
-        Cart::add($data);
-
-        return Redirect::to('/product-details/'.$ma_sp_h);
+            $data['id']=$product_info->ma_sp;
+            $data['qty']=$quantity;
+            $data['name']=$product_info->ten_sp;
+            $data['price']=$product_info->gia_sale;
+            $data['options']['chiet_khau']=$product_info->chiet_khau;
+            $data['options']['so_lg']=$product_info->so_lg;
+            $data['options']['anh']=$product_info->hinhanh;
+            $data['options']['ma_size']=$ma_size_h;
+            $data['options']['ten_mau']=$mau_h;
+            Cart::add($data);
+            $result=$_SERVER['HTTP_REFERER'];
+            return Redirect::to($result);
     }
 
     public function delete_to_cart($rowId){
@@ -51,16 +52,22 @@ class Cartcontroller extends Controller
           return Redirect::to($result);
     }
     public function show_cart(){
-        $cate_product=DB::table('danh_muc_sp')
-        ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
-        ->where ('trang_thai','1')
-        ->orderby('danh_muc_sp.ma_dm','desc')->get();
+        $cate_product = DB::table('danh_muc_sp')
+            ->select('danh_muc')
+            ->groupBy('danh_muc')
+            ->get();
+        $design_id=DB::table('thiet_ke')
+          ->join('danh_muc_sp','danh_muc_sp.ma_tk','thiet_ke.ma_tk')->where('danh_muc_sp.trang_thai','1')
+          ->groupBy('thiet_ke.ma_tk')
+          ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
+          ->get();;
          $all_product=DB::table('san_pham')->where ('trang_thai','1')
         ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
         ->orderby('san_pham.ma_sp','desc')->get(); 
         $all_img=DB::table('hinh_anh')->get();
         return view('pages.show_cart')
         ->with('cate_product',$cate_product)
+        ->with('design_id',$design_id)
         ->with('all_product',$all_product);
     }
     

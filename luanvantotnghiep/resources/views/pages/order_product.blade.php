@@ -1,5 +1,6 @@
 @extends('layout')
 @section('index_content')
+<?php $demlo=0; ?>
 <section id="container">
     <section id="main-content">
         <section class="wrapper">
@@ -44,18 +45,32 @@
                         <td class="form-td"><span style="font-size:25px;">
                             <?php
                             
-                            
                             $sum_qty_pro=0;
-                            foreach ($content as $key_2 => $v_content_2) {
-                               if(($v_content->id==$v_content_2->id)&&($key_1!=$key_2)){ 
-                                    $sum_qty_pro+=$v_content->qty+$v_content_2->qty;      
-                               } 
-                            }   
-                            if($sum_qty_pro>=20){
-                                    $ck_sp=$v_content->options->chiet_khau;
-                                     echo $ck_sp.'%';
-                            }else{ $ck_sp=0;}
-                             
+                            if($v_content->qty<20){ 
+                                foreach ($content as $key_2 => $v_content_2) {
+                                   if(($v_content->id==$v_content_2->id)&&($key_1!=$key_2))
+                                   { 
+                                        $sum_qty_pro+=$v_content->qty+$v_content_2->qty;
+                                            
+                                   } 
+                                }   
+                                if($sum_qty_pro>=20){
+                                        $ck_sp=$v_content->options->chiet_khau;
+                                          
+                                         
+                                }else{ $ck_sp=0;}
+                            }
+                            else{
+                                $sum_qty_pro+=$v_content->qty;
+                                
+                                $ck_sp=$v_content->options->chiet_khau;
+                            }
+                            
+                                echo $ck_sp.'%';
+                                if ($sum_qty_pro>=20)
+                                { $demlo++;}
+                              
+                        
                             ?>
                                 
                             </span></td>
@@ -125,17 +140,43 @@
                                 <?php echo number_format($Sum_mony); ?>
                                 
                             </b><p>VND</p></span></li>
+                            <li>Số Lô<span><b>
+                               <?php echo $demlo; ?>
+                            </b><p>Lô</p></span></li>
                             <li>Chiết Khấu Tổng<span><b>
-                                <?php 
-                                    if($Sum_mony>=5000000){
-                                        $chiec_khau_tong=12;
-                                    }elseif(($Sum_mony<5000000)&&($Sum_mony>=3000000)){
-                                        $chiec_khau_tong=10;
-                                    }elseif ((($Sum_mony<3000000)&&($Sum_mony>=1500000))) {
-                                        $chiec_khau_tong=8;
-                                    }elseif((($Sum_mony<1500000)&&($Sum_mony>=500000))){
-                                        $chiec_khau_tong=5;
-                                    }else{ $chiec_khau_tong=0; }
+                                 <?php
+
+                                    if($demlo<3){
+                                        if($Sum_mony>=5000000){
+                                            $chiec_khau_tong=10;
+                                        }
+                                        elseif(($Sum_mony<5000000)&&($Sum_mony>=3000000))
+                                        {
+                                            $chiec_khau_tong=7;
+                                        }
+                                        elseif ((($Sum_mony<3000000)&&($Sum_mony>=1500000))) 
+                                        {
+                                            $chiec_khau_tong=5;
+                                        }
+                                        elseif((($Sum_mony<1500000)&&($Sum_mony>=500000))){
+                                            $chiec_khau_tong=3;
+                                        }
+                                     }elseif($demlo>=3){
+                                         if(($Sum_mony>=5000000)&&($Sum_mony<20000000)){
+                                            $chiec_khau_tong=10;
+                                        }elseif(($Sum_mony<5000000)&&($Sum_mony>=3000000)){
+                                            $chiec_khau_tong=7;
+                                        }elseif ((($Sum_mony<3000000)&&($Sum_mony>=1500000))) {
+                                            $chiec_khau_tong=5;
+                                        }elseif((($Sum_mony<1500000)&&($Sum_mony>=500000))){
+                                            $chiec_khau_tong=3;
+                                        }elseif((($Sum_mony<50000000)&&($Sum_mony>=20000000))){
+                                            $chiec_khau_tong=13;
+                                        }elseif($Sum_mony>=50000000){
+                                            $chiec_khau_tong=15;    
+                                        }
+                                         
+                                    }else{$chiec_khau_tong=0;}
                                     echo $chiec_khau_tong;
                                  ?>
                             </b><p>%</p></span></li>
