@@ -18,7 +18,7 @@ class Categorycontroller extends Controller
         ->with('design_id',$design_id);
     }
     public function all_Category(){
-        $all_Category=DB::table('danh_muc_sp')->get();
+        $all_Category=DB::table('danh_muc_sp')->paginate(5);
         $design_id=DB::table('thiet_ke')->get();
         $material_id=DB::table('chat_lieu')->get();
         $manager_Category=view('admin.Category_all')

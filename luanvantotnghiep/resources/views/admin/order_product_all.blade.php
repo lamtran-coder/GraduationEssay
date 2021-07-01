@@ -64,12 +64,26 @@
             <td><span class="text-ellipsis">{{$value_oder->ngdat}}</span></td>
            
             <td><span class="text-ellipsis">
-                <select>
-                  <option>Đang chờ</option>
-                  <option>Đang lấy Hàng</option>
-                  <option>Đang giao</option>
-                  <option>Đã Hủy</option>
-                </select>
+                
+                 <form action="{{url::to('/update-order/'.$value_oder->ma_ddh)}}" method="POST">
+                @csrf
+                 <select name="status" class="form-control-inline" style="width: 150px; height: 30px; font-size: 17px;" >
+                      <?php 
+                          if($value_oder->trangthai==0){                
+                            echo '<option value="0">Đang xử lý</option>';
+                            echo '<option value="1">Đang lấy hàng</option>';
+                          }elseif($value_oder->trangthai==1){
+                            echo '<option value="1">Đang lấy hàng</option>';
+                            echo '<option value="2">Đang giao</option>';
+                          }elseif($value_oder->trangthai==2){
+                            echo '<option value="2">Đang giao</option>';
+                           }                    
+                        ?>
+                       
+                  </select>
+                  <button>UP</button>
+                  </form>
+                
             </span></td>
                 
           </tr>

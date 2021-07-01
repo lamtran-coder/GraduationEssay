@@ -61,6 +61,7 @@ class Homecontroller extends Controller
       ->join('chat_lieu','chat_lieu.ma_cl','=','danh_muc_sp.ma_cl')
       ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','san_pham.ma_sp')
       ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
+      ->where('danh_muc_sp.danh_muc','like','%'. $keywords .'%')
       ->where('san_pham.ten_sp','like','%'. $keywords .'%')
       ->orwhere('thiet_ke.ten_tk','like','%'. $keywords .'%')
       ->orwhere('chat_lieu.ten_cl','like','%'. $keywords .'%')

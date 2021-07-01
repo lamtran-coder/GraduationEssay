@@ -126,6 +126,7 @@
             
                 <!-- thanh phần 1 sản phẩm -->    
           <div class="clear"></div>
+          <div class="pakes-new-product"><p style="float:right;">Trang</p></div>
         </div>
   
          <!-- một hàng 3 sản phẩm -->

@@ -25,13 +25,51 @@ class Detail_productcontroller extends Controller
     public function save_detail_product(Request $request){
         $data=array();
         $data['ma_sp']=$request->ct_sp;
+        $result=$request->ct_sp;
         $data['ma_mau']=$request->ct_mau;
         $data['ma_size']=$request->ct_size;
         $data['so_lg']=$request->solg_sp;
-        // $updatedata['solg_sp']
+        $solg_update=DB::table('san_pham')->get();
+            
+            foreach ($solg_update as $key => $value) {
+                if($value->ma_sp==$result){
+                    $sum_sl['solg_sp']=$value->solg_sp+$request->solg_sp;
+                    DB::table('san_pham')->where('ma_sp',$result)->update($sum_sl);
+                }
+            }
         DB::table('chi_tiet_san_pham')->insert($data);
         Session::put('message','Thêm chi tiet sản phẩm thành công');
         return Redirect::to('/add-detail-product');
+    }
+    public function update_amount(Request $request,$ma_sp){
+        
+        $data=array();
+        $so_lg=$request->so_lg;
+        $ma_mau=$request->ma_mau_h;
+        $ma_size=$request->ma_size_h;
+        $detail_amount=DB::table('chi_tiet_san_pham')->where('ma_sp',$ma_sp)->get();
+        foreach ($detail_amount as $key => $value) {
+            if (($value->ma_mau==$ma_mau)&&($value->ma_size==$ma_size)) {
+                $result['so_lg']=$value->so_lg+$so_lg;
+                DB::table('chi_tiet_san_pham')
+                ->where('ma_sp',$ma_sp)
+                ->where('ma_mau',$ma_mau)
+                ->where('ma_size',$ma_size)
+                ->update($result);
+                           
+            }
+        }
+        $product_id=DB::table('san_pham')->where('ma_sp',$ma_sp)->get();
+        foreach ($product_id as $key => $value_pro) {
+            if ($value_pro->ma_sp==$ma_sp) {
+                $sum['solg_sp']=$so_lg+$value_pro->solg_sp;
+                DB::table('san_pham')
+                ->where('ma_sp',$ma_sp)
+                ->update($sum);
+            }
+        }       
+
+         return Redirect::to('/all-detail-product');
     }
     public function all_detail_product(){
         $product_id=DB::table('san_pham')->orderby('ten_sp','desc')->get();

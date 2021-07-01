@@ -288,13 +288,13 @@ i.fa.fa-shopping-cart.fa-shopping-cart-styling {
 	line-height: 1.8em;
 }
 .border {
-	height: 3px;
+	/*height: 3px;
 	width: 110px;
 	display: block;
 	background: url(../images/border.png) no-repeat 0px 0px;
 	position: absolute;
 	left:33%;
-	top: 45%;
+	top: 45%;*/
 }
 .radius {
 	position: absolute;
@@ -1805,7 +1805,7 @@ p.cart a:hover {
 		width: 67.2%;
 	}
 	.mens-toolbar {
-		width: 96.9%;
+		width: 98.9%;
 	}
 	.view1 .mask1, .view1 .content {
 		top: 120px;

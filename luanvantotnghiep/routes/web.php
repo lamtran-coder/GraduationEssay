@@ -112,10 +112,19 @@ Route::post('/save-images-product','Productcontroller@save_images_product');
 //đơn đặt hàng
 Route::get('/all-order','Ordercontroller@all_order_product');
 Route::post('/search-order','Ordercontroller@search_order');
+Route::post('/update-order/{ma_ddh}','Ordercontroller@update_order');
+//chi tiết đơn đặt hàng
+Route::get('/order-detail-view/{ma_ddh}','Ordercontroller@order_detail_view');
+
+	
+
+
+
 	//chi tiet sản phẩm
 Route::get('/add-detail-product','Detail_productcontroller@add_detail_product');
 Route::get('/all-detail-product','Detail_productcontroller@all_detail_product');
 Route::post('/save-detail-product','Detail_productcontroller@save_detail_product');
+Route::post('/update-amount/{ma_sp}','Detail_productcontroller@update_amount');
 	//mau
 Route::get('/add-color-product','Detail_productcontroller@add_color_product');
 Route::post('/save-color-product','Detail_productcontroller@save_color_product');

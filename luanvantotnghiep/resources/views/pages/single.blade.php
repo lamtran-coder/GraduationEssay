@@ -43,6 +43,9 @@
          			<ul id="row_viewed" >
 
 				</ul>
+				<div><h4 class="m_9" text-align="center" >Sản Phẩm Yêu Thích</h4></div>
+         			<ul id="row_wishlist" >                     
+				</ul>
 			    </section>
 			    <div class="clear"></div>
 			  <!--  danh mục lọc -->
@@ -60,6 +63,21 @@
 		<?php endforeach ?>
 		<input type="hidden" id="viewed_productprice{{$value_det->ma_sp}}" value="{{number_format($value_det->gia_goc)}} " name="">
 	<!-- them sản phẩm đã xem -->
+	<!-- them sản phẩm yêu thích -->
+
+		<input type="hidden" id="wishlist_productname{{$value_det->ma_sp}}"
+		 value="{{$value_det->ten_sp}}" >
+		<input type="hidden" id="wishlist_producturl{{$value_det->ma_sp}}" 
+		value="{{URL::to('/product-details/'.$value_det->ma_sp)}}">
+		<input type="hidden" id="wishlist_productprice{{$value_det->ma_sp}}" value="{{number_format($value_det->gia_goc)}} " name="">
+
+		<?php foreach ($all_img as $key => $value_img): ?>
+		<?php if ($value_det->ma_sp==$value_img->ma_sp): ?>
+		<input type="hidden" id="wishlist_productimage{{$value_det->ma_sp}}" value="{{URL::to('public/uploads/product/'.$value_img->hinhanh)}}" name="">
+		<?php endif ?>		
+		<?php endforeach ?>
+	<!-- them sản phẩm yêu thích -->
+	
 	<div class="cont span_2_of_3">
 		<div class="labout span_1_of_a1">
 			<!-- start product_slider -->
@@ -124,7 +142,8 @@
 				
 			</ul>
 			<ul class="add-to-links">
-			   <li><img src="{{asset('public/frontend/images/wish.png')}}" alt=""/><a href="#">Thêm vào danh sách yêu thích</a></li>
+			 <li type="hidden" id="{{$value_det->ma_sp}}" onclick="add_wistlist(this.id)"><img src="{{asset('public/frontend/images/wish.png')}}" alt=""/><a href="#">Thêm vào danh sách yêu thích</a>
+			</li>
 			</ul>
 			
             <div class="social_single">	
@@ -221,7 +240,7 @@
 			@csrf
      	<div class="comment-new">
      		<div>
-     			<label><?php echo $username; ?></label>
+     			<label><?php echo ucwords($username); ?></label>
      			<input style="color:black" type="hidden"   class="comment_name" value="<?php echo $username; ?>" >
      			
      			<!-- đánh giá -->

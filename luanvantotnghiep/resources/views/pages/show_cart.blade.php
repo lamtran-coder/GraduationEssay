@@ -33,7 +33,7 @@
                     <?php foreach ($content as $key_1 => $v_content): ?>  
                     <tbody class="from-table">
                       <tr class="form-tr">
-                        <td class="form-td"><a href="{{URL::to('/product-details/'.$v_content->id)}}">{{$v_content->id}}<hr>{{$v_content->name}}</a></td>
+                        <td class="form-td"><a style="font-size:22px" href="{{URL::to('/product-details/'.$v_content->id)}}">{{$v_content->id}}<hr>{{$v_content->name}}</a></td>
                         <td class="form-td"><a href="{{URL::to('/product-details/'.$v_content->id)}}"><img  width="150px" height="150px" src="{{URL::to('public/uploads/product/'.$v_content->options->anh)}}" alt=""></a></td>
                         <td class="form-td"><span style="font-size:25px;">{{$v_content->options->ma_size}}<hr>{{$v_content->options->ten_mau}}
                         </span></td>
@@ -108,7 +108,7 @@
                     <header class="header-tt">Tổng Tính Thanh Toán</header>
                     <div class="payment-item">
                         <ul>
-                            <li>Tổng Số Sản phẩm<span><b>
+                            <li>Số Sản phẩm<span><b>
                                 <?php
                                 $sum_qty=0; 
                                 foreach ($content as $key => $v_content){       
@@ -124,7 +124,7 @@
                             <!-- <li>Số Lô<span><b>
                                 <?php //echo $demsi; ?>
                             </b><p>Lô</p></span></li> -->
-                            <li>Chiết Khấu Tổng<span><b>
+                            <li>Giảm Tiền<span><b>
                                 <?php
                                     $chiec_khau_tong=0;
                                     if($demsi<3){
@@ -159,10 +159,12 @@
                                          
                                     }else{
                                         $chiec_khau_tong=0;}
-                                    echo $chiec_khau_tong;
+                                   
                                  ?>
-                            </b><p>%</p></span></li>
-                            <li>Thành Tiền<span><b><?php $result_mony=$Sum_mony*(100-$chiec_khau_tong)/100;
+                                 <?php $tienck=($Sum_mony*$chiec_khau_tong)/100;
+                            echo number_format($tienck); ?>
+                            </b><p>VND</p></span></li>
+                            <li style="font-size: 35px; margin-top: 30px;" >Thành Tiền<span style="color: red"><b><?php $result_mony=$Sum_mony*(100-$chiec_khau_tong)/100;
                             echo number_format($result_mony); ?></b><p>VND</p></span></li>
                         </ul>
                     </div>

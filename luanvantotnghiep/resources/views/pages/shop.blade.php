@@ -76,7 +76,7 @@
         		</form>
         		</div>
 			</div>
-	        <div class="pager">   
+	        <div class="pager styling-pager">   
 	           <div class="limiter visible-desktop">
 	            <label>Show</label>
 	           	 <select>
@@ -85,12 +85,14 @@
 			        <option value="">30</option>
 		    	</select> per page        
 	            </div>
-	       	<ul class="dc_pagination dc_paginationA dc_paginationA06">
-			    <li><a href="#" class="previous">Trang</a></li>
-			    <li><a href="#">1</a></li>
-			    <li><a href="#">2</a></li>
-			</ul>
+	        <ul class="styling-pager" >
+	        	{{$all_product->links()}}
+	        </ul>
+	        	
+	        	
 		   <div class="clear"></div>
+
+	       	
 	    	 </div>
 	    		<div class="clear"></div>
        </div>
@@ -144,6 +146,7 @@
 	    </div>
 	 <?php endforeach ?>
 	  <div class="clear"></div>
+	  <ul>{{$all_product->links()}}</ul>
   	</div>
 	</div>
 

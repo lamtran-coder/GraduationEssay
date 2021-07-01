@@ -41,7 +41,7 @@
             <th>Màu</th>
             <th>Size</th>
             <th>Số lượng</th>
-            <th style="width:30px;"></th>
+            <th>Cập nhật số lượng</th>
           </tr>
         </thead>
         <tbody>
@@ -61,19 +61,21 @@
             <td><span class="text-ellipsis">
               <?php foreach ($color_id as $key => $value_color): ?>
                 <?php if ($value_del->ma_mau==$value_color->ma_mau): ?>
-                  <img src="public/uploads/color/{{$value_color->anh_mh}}" width="100px" height="20px" alt="">
+                  {{$value_color->ten_mau}}
                 <?php endif ?>
               <?php endforeach ?>
             </span></td>
             <td><span class="text-ellipsis">{{$value_del->ma_size}}</span></td>
-            <td><span class="text-ellipsis">{{$value_del->so_lg}}</span></td>s
-            <td><span class="text-ellipsis">
-            <td> <!-- <a href="{{URL::to('/edit-detail-product/'.$value_del->ma_sp)}}" class="active styling-edit" ui-toggle-class="">
-                <i class="fa fa-pencil-square-o text-success text-active"></i></a>
-                <br>
-              <a href="{{URL::to('/delete-product/'.$value_del->ma_sp)}}" class="active styling-edit" ui-toggle-class="" onclick="return confirm('bạn muốn xóa sản phẩm này?')">
-              <i class="fa fa-times text-danger text"></i></a> -->
-            </td>
+            <td><span class="text-ellipsis">{{$value_del->so_lg}}</span></td>
+            <td>
+              <form action="{{URL::to('/update-amount/'.$value_del->ma_sp)}}" method="post">
+                @csrf
+                <input type="number" name="so_lg" value="0">
+                <input type="hidden" name="ma_size_h" value="{{$value_del->ma_size}}">
+                <input type="hidden" name="ma_mau_h" value="{{$value_del->ma_mau}}">
+
+                <button>Update</button></td>
+              </form>
           </tr>
 
     	<?php endforeach ?>

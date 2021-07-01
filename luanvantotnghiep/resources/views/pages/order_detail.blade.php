@@ -7,49 +7,39 @@
                 // print_r($content);
                 // echo '</pre>';
 			$email=Session::get('email');
-
             ?>
 	<div class="order-you" >
 		<div class="product-cart">
                   <table class="from-table">
                     <tbody class="from-table">
                         <tr class="form-tr" style="font-size :20px">
-                            <td class="form-td" style="height :100px;">Mã <br> Sản Phẩm</td>
-                            <td class="form-td">Ngày<br> Đặt Hàng</td>
-                            <td class="form-td">Ngày<br> Giao Hàng</td>
-                            <td class="form-td">Tổng<br>  Sản Phẩm</td>
-                            <td class="form-td">Tổng<br> Chiếc Khấu</td>
-                            <td class="form-td">Thành Tiền</td>
-                            <td class="form-td">Tiền Cọc</td>
-                            <td class="form-td">Địa chỉ Nhận Hàng</td>
-                            <td class="form-td">Chi Tiết</td>
-
-                           
+                            <td class="form-td" style="height :100px;">Hình Ảnh</td>
+                            <td class="form-td">Mã Sản Phẩm</td>
+                            <td class="form-td">Màu</td>
+                            <td class="form-td">Size</td>
+                            <td class="form-td">Số lượng</td>
+                            <td class="form-td">Giá</td>
+                            <td class="form-td">Thành Tiền</td>     
                         </tr>
                     </tbody>
 					<tbody class="from-table">
-						<?php foreach ($order_user_id as $key => $value_user): ?>
-							<?php if ($value_user->email==$email): ?>
+						<?php foreach ($order_detail_view as $key => $v_order_detail): ?>
+							
                         <tr class="form-tr">
-                            <td class="form-td" style="height:100px">{{$value_user->ma_ddh}}</td>
-                            <td class="form-td">{{$value_user->ngdat}}</td>
-                            <td class="form-td">{{$value_user->nggiaodk}}</td>
-                            <td class="form-td">{{$value_user->solg_sp}} SP</td>
-                            <td class="form-td">{{$value_user->ck_tong}} %</td>
-                            <td class="form-td"><?php echo number_format($value_user->tong_tt); ?> VND</td>
-                            <td class="form-td"><?php echo number_format($value_user->tien_coc); ?> VND</td>
-                            <td class="form-td">
-                            	{{$value_user->ten_kh}}<hr>
-                            	{{$value_user->sodt}}<hr>
-                            	{{$value_user->diachi}}
-                            </td>   
-                           	<td class="form-td"><a href=""><i class="fa fa-search" style="font-size: 30px;"></i></a></td>
+                            <td class="form-td" style="height:120px"><img src="{{URL::to('public/uploads/product/'.$v_order_detail->hinhanh)}}" height="100px" width="100px" alt=""></td>
+                            <td class="form-td">{{$v_order_detail->ma_sp}}</td>
+                            <td class="form-td">{{$v_order_detail->ten_mau}}</td>
+                            <td class="form-td">{{$v_order_detail->size}}</td>
+                            <td class="form-td">{{$v_order_detail->solg_sp}}</td> 
+                            <td class="form-td"><?php echo number_format($v_order_detail->gia_sale) ?>
+                            </td>
+                            <td class="form-td"><?php echo number_format($v_order_detail->sotien).'VND'; ?></td>   
                         </tr>				
-							<?php endif ?>
+					
 						<?php endforeach ?>
                     </tbody>                   
                   </table>
-                
+                {{$order_detail_view->links()}}
         </div>
 	</div>
 </div>

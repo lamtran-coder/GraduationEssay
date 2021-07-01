@@ -22,7 +22,7 @@ class Productcontroller extends Controller
     }
     public function all_product(){
         
-        $all_product=DB::table('san_pham')->get();
+        $all_product=DB::table('san_pham')->paginate(5);
         $img_id=DB::table('hinh_anh')->get();
         $manager_product=view('admin.product_all')->with('all_product',$all_product)->with('img_id',$img_id);
         return view('admin_layout')->with('admin.product_all',$manager_product);
@@ -174,26 +174,33 @@ class Productcontroller extends Controller
                 ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','san_pham.ma_sp')
                 ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
                 ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
-                ->orderby('san_pham.gia_goc','desc')->groupBy('san_pham.ma_sp')->paginate(3);
+                ->orderby('san_pham.gia_goc','desc')
+                ->groupBy('san_pham.ma_sp')->paginate(3);
 
             }elseif($sort_by=='tang_dan'){
                  $all_product = DB::table('san_pham')
                 ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
                 ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','san_pham.ma_sp')
-                ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')->groupBy('san_pham.ma_sp')
-                ->orderby('san_pham.gia_goc','ASC')->paginate(3);
+                ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
+                ->groupBy('san_pham.ma_sp')
+                ->orderby('san_pham.gia_goc','ASC')
+                ->paginate(3);
             }elseif($sort_by=='kytu_za'){
                 $all_product = DB::table('san_pham')
                 ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
                 ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','san_pham.ma_sp')
-                ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')->groupBy('san_pham.ma_sp')
-                ->orderby('san_pham.ten_sp','desc')->paginate(3);
+                ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
+                ->groupBy('san_pham.ma_sp')
+                ->orderby('san_pham.ten_sp','desc')
+                ->paginate(3);
             }elseif($sort_by=='kytu_az'){
                 $all_product = DB::table('san_pham')
                 ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','san_pham.ma_sp')
                 ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
                 ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
-                ->groupBy('san_pham.ma_sp')->orderby('san_pham.ten_sp','ASC')->paginate(3);
+                ->groupBy('san_pham.ma_sp')
+                ->orderby('san_pham.ten_sp','ASC')
+                ->paginate(3);
             }
    
         }

@@ -197,29 +197,30 @@ header.header-tt {
     background: #51505030;
     color: #073257;
 }
-div.payment-item{
-    font-size: 18px;
-}
+
 div.payment-item {
     font-size: 25px;
     padding: 15px;
 }
+div.payment-item>ul>li{
+    
+}
 div.payment-item>ul>li>span{
     float: right;
-    width: 230px;
-    background: #FFF;
+    width: 289px;
+  
     text-align: right;
     padding-left: 20px;
 }
 div.payment-item>ul>li>span>b{
     float: left;
-    background: #FFF;
+    
     text-align: right;
 }
 div.payment-item>ul>li>span>p{
     float: right;
-    width: 60px;
-    background: #FFF;
+    width: 80px;
+   
     text-align: right;
 }
 div.checkout-order{
@@ -556,12 +557,12 @@ div.order-you{
     margin: 40px;
     padding: 15px;
     width: 89%;
-    height: 500px;
+    height: auto;
     border: 15px solid #72717082;
     background: #6e6e6e38;
     border-radius: 0px 0px;
-    overflow-x: hidden;
-    overflow-y: auto;
+  /*  overflow-x: hidden;
+    overflow-y: auto;*/
 }
 div.search-product{
     padding: 5px;
@@ -572,7 +573,7 @@ div.search-product{
 .span_2_of_3 {
     width: 77.1%;
     background: #FFF;
-    height: 1450px;
+    height: 100%;
     overflow-x: 1000px;
     overflow-y: 1000px;
 }
@@ -608,4 +609,126 @@ ul.cart-des>a>li:hover {
     margin-left: 42px;
     margin-right: 10px;
     background: #FFF;
+}
+.styling-pager {
+    width: 30%;
+    display: block;
+    font-size: 20px;
+}
+.pager.styling-pager {
+    width: 60.5%;
+}
+
+p.text-sm.text-gray-700.leading-5 {
+    display: none;
+}
+span.relative.inline-flex.items-center.px-4.py-2.text-sm.font-medium.text-gray-500.bg-white.border.border-gray-300.cursor-default.leading-5.rounded-md {
+    font-size: 15px;
+}
+span.relative.inline-flex.items-center.px-4.py-2.text-sm.font-medium.text-gray-500.bg-white.border.border-gray-300.cursor-default.leading-5.rounded-md {
+    font-size: 20px;
+}
+svg.w-5.h-5 {
+    width: 21px;
+    border: 1px solid;
+    font-size: 14px;
+}
+svg.w-5.h-5:hover {
+    color: #FFF;
+    background: red;
+}
+nav.flex.items-center.justify-between {
+    text-align: center;
+    border: 0px solid #FFFFFF;
+    background: #f3eeee00;
+    padding: 5px;
+   
+}
+.flex.justify-between.flex-1.sm\:hidden {
+    border: 0px solid #FFFFFF;
+    padding: 5px;
+    display: none;
+}
+.hidden.sm\:flex-1.sm\:flex.sm\:items-center.sm\:justify-between {
+    padding: 5px;
+    margin-top: 1px ;
+    border: 0px solid #FFFFFF;
+}
+a.relative.inline-flex.items-center.px-4.py-2.-ml-px.text-sm.font-medium.text-gray-700.bg-white.border.border-gray-300.leading-5.hover\:text-gray-500.focus\:z-10.focus\:outline-none.focus\:ring.ring-gray-300.focus\:border-blue-300.active\:bg-gray-100.active\:text-gray-700.transition.ease-in-out.duration-150 {
+  
+    font-size: 24px;
+   
+    text-align: center;
+}
+span.relative.inline-flex.items-center.px-4.py-2.-ml-px.text-sm.font-medium.text-gray-500.bg-white.border.border-gray-300.cursor-default.leading-5 {
+    font-size: 24px;
+    vertical-align: middle;
+    color: red;
+}
+select#sort {
+    font-size: 20px;
+    padding: 5px;
+}
+
+div.pakes-new-product{
+    float: right;
+    background: white;
+    font-size: 25px;
+    padding: 10px;
+    width: 95%;
+}
+td.form-td:hover {
+    background: #000000b3;
+    color: white;
+}
+.status-order {
+    font-size: 30px;
+    height: auto;
+    width: auto;
+    padding: 5px;
+    padding-left: 42px;
+}
+.status-order>ul {
+    
+    background:#d66c6c;;
+   
+    border-radius: 40px;
+    padding-left: 40px;
+
+}
+.status-order>ul>form>a{
+    color: black;
+    padding: 0px;
+    margin: 0px;
+    display: -webkit-inline-box;
+    border: 4px dashed white;
+}
+.status-order>ul>form>a>li {
+    padding: 15px;
+
+}
+.status-order>ul>form>a>li:hover {
+    
+    color: white;
+
+}
+.status-order>ul>form>a>li.color1:hover,.status-order>ul>form>a>li.color1:visited {
+   background: yellowgreen;
+   cursor: pointer;
+}
+.status-order>ul>form>a>li.color2:hover {
+   background: #cda332;
+   cursor: pointer;
+}
+.status-order>ul>form>a>li.color3:hover {
+   background: #0b63df;
+   cursor: pointer;
+}
+.status-order>ul>form>a>li.color4:hover {
+    background: #fe0202;
+    cursor: pointer;
+}
+.status-order>ul>form>a>li.color5:hover {
+   background: black;
+   cursor: pointer;
 }

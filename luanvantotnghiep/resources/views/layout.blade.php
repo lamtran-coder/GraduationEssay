@@ -511,7 +511,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                         old_data.push(newItem);
 
-                       $('#row_viewed').append('<div class="nbs-flexisel-item"style="margin:10px 0"><div ><img width="125px" height="150px"src="'+image+'"></div><div class=""><p><a href="'+url+'">'+name+'</a></p> <p>'+price+'</p></div> </div>');
+                       $('#row_viewed').append('<div class="nbs-flexisel-item"style="margin:10px 0"><div ><img width="125px" height="150px" src="'+image+'"></div><div class=""><p><a href="'+url+'">'+name+'</a></p> <p>'+price+'</p></div> </div>');
 
                     }
                    
@@ -521,7 +521,85 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                    
                }
             </script>
-             <!-- Sản phẩm Đã xem -->
+        <!-- Sản phẩm Đã xem -->
+
+        <!-- Sản phẩm yêu thích -->
+        <script type="text/javascript">
+
+     function view(){
+        
+
+         if(localStorage.getItem('data')!=null){
+
+             var data = JSON.parse(localStorage.getItem('data'));
+
+             data.reverse();
+
+             document.getElementById('row_wishlist').style.overflow = 'scroll';
+             document.getElementById('row_wishlist').style.height = '250px';
+            
+             for(i=0;i<data.length;i++){
+
+                var name = data[i].name;
+                var price = data[i].price;
+                var image = data[i].image;
+                var url = data[i].url;
+
+                $('#row_wishlist').append('<div class="row" style="margin:10px 0"><div class="col-md-4"><img width="125px" height="150px" src="'+image+'"></div><div class=""><p><a href="'+url+'">'+name+'</a></p> <p>'+price+'</p></div>');
+            }
+
+        }
+
+    }
+
+    view();
+   
+
+   function add_wistlist(clicked_id){
+       
+        var id = clicked_id;
+
+        var name = document.getElementById('wishlist_productname'+id).value;
+        var price = document.getElementById('wishlist_productprice'+id).value;
+        var image = document.getElementById('wishlist_productimage'+id).value;
+        var url = document.getElementById('wishlist_producturl'+id).value;
+
+        var newItem = {
+            'url':url,
+            'id' :id,
+            'name': name,
+            'price': price,
+            'image': image
+        }
+
+        if(localStorage.getItem('data')==null){
+           localStorage.setItem('data', '[]');
+        }
+
+        var old_data = JSON.parse(localStorage.getItem('data'));
+          
+        var matches = $.grep(old_data, function(obj){
+            return obj.id == id;
+        })
+
+        if(matches.length){
+            alert('Sản phẩm bạn đã yêu thích,nên không thể thêm');
+
+        }else{
+
+            old_data.push(newItem);
+
+           $('#row_wishlist').append('<div class="row" style="margin:10px 0"><div class="col-md-4"><img width="125px" height="150px" src="'+image+'"></div><div class=""><p><a href="'+url+'">'+name+'</a></p> <p>'+price+'</p></div>');
+
+        }
+       
+        localStorage.setItem('data', JSON.stringify(old_data));
+
+       
+   }
+</script>
+         <!-- Sản phẩm yêu thích -->
+
         <a href="#" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;"></span></a>
 </body>
 </html>
