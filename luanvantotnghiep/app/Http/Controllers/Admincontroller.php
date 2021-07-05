@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Session;
+use App\Models\Visitors;
+use Carbon\Carbon;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 session_start();
@@ -20,8 +22,55 @@ class Admincontroller extends Controller
     public function index(){
         return view('admin_login');
     }
-    public function show_dashboard(){
-        return view('admin.dashboard');
+    public function show_dashboard(Request $request){
+    $user_ip_address = $request->ip(); 
+    $early_last_month = Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->startOfMonth()->toDateString();
+
+    $end_of_last_month = Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->endOfMonth()->toDateString();
+
+    $early_this_month = Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth()->toDateString();
+
+    $oneyears = Carbon::now('Asia/Ho_Chi_Minh')->subdays(365)->toDateString();
+
+    $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        //total last month
+    $visitor_of_lastmonth = Visitors::whereBetween('date_visitor',[$early_last_month,$end_of_last_month])->get(); 
+    $visitor_last_month_count = $visitor_of_lastmonth->count();
+
+        //total this month
+    $visitor_of_thismonth = Visitors::whereBetween('date_visitor',[$early_this_month,$now])->get(); 
+    $visitor_this_month_count = $visitor_of_thismonth->count();
+
+        //total in one year
+    $visitor_of_year = Visitors::whereBetween('date_visitor',[$oneyears,$now])->get(); 
+    $visitor_year_count = $visitor_of_year->count();
+
+        //total visitors
+    $visitors = Visitors::all();
+    $visitors_total = $visitors->count();
+
+        //current online
+    $visitors_current = Visitors::where('ip_address',$user_ip_address)->get();  
+    $visitor_count = $visitors_current->count();
+
+    if($visitor_count<1){
+        $visitor = new Visitors();
+        $visitor->ip_address = $user_ip_address;
+        $visitor->date_visitor = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $visitor->save();
+    }
+        //total 
+    $comment= $request->all(); 
+    $product= $request->all(); 
+    $order= $request->all(); 
+    $customer= $request->all(); 
+  
+    $order = DB::table('don_dat_hang')->count();
+    $customer =DB::table('khach_hang')->count();
+    $comment=DB::table('binh_luan')->count();
+    $product=DB::table('san_pham')->count();
+
+        return view('admin.dashboard')->with(compact('visitors_total','visitor_count','visitor_last_month_count','visitor_this_month_count','visitor_year_count','product','comment','order','customer'));
     }
     public function dashboard(Request $request){
 
@@ -52,4 +101,9 @@ class Admincontroller extends Controller
         return Redirect::to('/admin');
     }
     
+
+
+
+
+
 }

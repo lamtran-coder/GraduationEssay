@@ -114,28 +114,40 @@
 						</div>
 			<ul class="options">
 				<h4 class="m_9">CHỌN KÍCH CỠ</h4>
-	
-					<table>
-						<tbody>
-							@foreach ($all_detail as $key => $value_detail)
-								@if ($value_detail->ma_sp==$value_det->ma_sp)
-							<tr style="height: 30px">
-								<td style="width: 150px">{{$value_detail->ma_size}}-{{$value_detail->ten_mau}}</td>
-								<td style="width: 60px">{{$value_detail->so_lg}}SP</td>
-								<td style="width: 60px">
-									<form action="{{URL::to('/save-cart')}}" method="POST">
-									   @csrf	
-									   <input type="hidden" name="masp_hidden" min="1" value="{{$value_det->ma_sp}}">
-									   <input type="hidden" name="mau_hidden" min="1" value="{{$value_detail->ten_mau}}">
-									   <input type="hidden" name="size_hidden" min="1" value="{{$value_detail->ma_size}}">
-										<button class="button-mua">Mua</button>	
-									</form>
-								</td>
-							</tr>
-								@endif
-							@endforeach 	
-						</tbody>
-					</table>
+				<form action="">
+				<div style="height:60px;">
+					<ul>
+						<?php foreach ($all_detail_color as $key_ => $value_d_color): ?>
+							<?php foreach ($all_color as $key_1 => $value_color): ?>
+								<?php if ($value_color->ma_mau==$value_d_color->ma_mau): ?>	
+							<li><input class="radio-mau-size" name="mau" size="25" checked="checked" type="radio" value="{{$value_color->ten_mau}}" id="a{{$key_1}}"><label class="ladel-mau-size" for="a{{$key_1}}">{{$value_color->ten_mau}}</label></li>
+								<?php endif ?>
+							<?php endforeach ?>
+						<?php endforeach ?>
+					</ul>
+				</div>
+				<div style="height:60px;">
+					<ul>
+						<?php foreach ($all_detail_size as $key => $value_size): ?>
+							<li><input class="radio-mau-size" name="size" checked="checked" type="radio" value="{{$value_size->ma_size}}" id="b{{$key}}"><label for="b{{$key}}" class="ladel-mau-size">{{$value_size->ma_size}}</label></li>
+						<?php endforeach ?>
+					</ul>
+				</div >
+				<div style="height: 40px;">
+					<ul>
+						<input class="number-product" type="text">
+					</ul>
+				</div>
+				
+				<button class="button-mua" style="margin-left: 40px;">CHỌN MUA</button>
+				</form>
+				<form action="{{URL::to('/save-cart')}}" method="POST">
+				   @csrf	
+				   <input type="hidden" name="masp_hidden" min="1" value="">
+				   <input type="hidden" name="mau_hidden" min="1" value="">
+				   <input type="hidden" name="size_hidden" min="1" value="">
+					<!-- <button class="button-mua" style="margin-left: 40px;">Chọn Mua</button>	 -->
+				</form>
 				<div class="clear"></div>
 			</ul>
 			<ul>
@@ -173,7 +185,6 @@
 			 <?php endif ?>
 			 @endforeach	
 		 </ul>
-
 	    <script type="text/javascript">
 		 $(window).load(function() {
 			$("#flexiselDemo1").flexisel();

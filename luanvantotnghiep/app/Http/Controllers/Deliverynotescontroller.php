@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use DB;
 use Session;
 use Cart;
+use PDF;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 session_start();
@@ -148,6 +149,145 @@ class Deliverynotescontroller extends Controller
         ->with('deliverynotes_id',$deliverynotes_id)
         ->with('product_id',$product_id)
         ;
+    }
+    public function print_order($checkout_code){
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($this->print_order_convert($checkout_code));
+        return $pdf->stream();
+    }
+    public function print_order_convert($checkout_code){
+        
+
+        $deliverynotes_detail_id=DB::table('chi_tiet_phieu_giao')
+        ->where('ma_pg',$checkout_code)->get();
+        $product_id=DB::table('san_pham')->get();
+        $deliverynotes_id=DB::table('phieu_giao')
+        ->join('don_dat_hang','don_dat_hang.ma_ddh','=','phieu_giao.ma_ddh')
+        ->join('khach_hang','khach_hang.ma_kh','=','don_dat_hang.ma_kh')
+        ->where('phieu_giao.ma_pg',$checkout_code)->get();
+        $output = '';
+        $output.='<style>body{
+            font-family: DejaVu Sans;
+        }
+        .table-styling{
+            border:1px solid #000;
+        }
+        .table-styling tbody tr td{
+            border:1px solid #000;
+        }
+                .footer-left {
+            text-align:center;
+            text-transform:uppercase;
+            padding-top:24px;
+            position:relative;
+            height: 150px;
+            width:50%;
+            color:#000;
+            float:left;
+            font-size: 12px;
+            bottom:1px;
+        }
+        .footer-right {
+            text-align:center;
+            text-transform:uppercase;
+            padding-top:24px;
+            position:relative;
+            height: 150px;
+            width:50%;
+            color:#000;
+            font-size: 12px;
+            float:right;
+            bottom:1px;
+        }
+        </style>
+        <div class="col-md-12 ">
+                        <div class="container123  col-md-6"   style="width: 100%;">
+                            <div class="header-top">
+                                <div class="logo">
+                                    <a href=""><img src="'.url('/public/frontend/images/logo123.jpg').'" alt=""/></a>
+                                </div>
+                                <div>
+                                    Địa chỉ : 180 Cao Lỗ P.4 Q.8 TP.HỒ CHÍ MINH
+                                    <br>
+                                    Số Điện Thoại : 0931 048 540
+                                </div>
+                            </div>
+                            <div class="top-nav clearfix">
+                                <ul class="nav top-menu" >
+                                    
+                                    
+                                    <h4 style="text-align: center;font-size: 20px;
+                                        padding: 5px;">Công Ty Thời Trang Nam Tiến Lên Nào</h4>
+                                    <h2 style="text-align: center;">Phiếu Giao Hàng<br>-------oOo-------</h2>        
+                                    <div style="padding: 5px;
+                                    ">';
+                        foreach ($deliverynotes_id as $key => $value_dn) {   
+        $output.='
+                                    <span>Mã phiếu :</span><span style="padding-left: 10px">'.$value_dn->ma_pg.'</span></div>
+                                    <div style="padding: 5px;"><span>Ngày giao hàng :</span><span style="padding-left: 10px">'.$value_dn->nggiao.'</span></div>
+                                    <div style="padding: 5px;"><span>Người Nhận :</span><span style="padding-left: 10px">'.$value_dn->ten_kh.'</span></div>
+                                    <div style="padding: 5px;"><span>Địa Chỉ :</span><span style="padding-left: 10px">'.$value_dn->diachi.'</span></div>
+                                    <div style="padding: 5px;"><span>Số Điện Thoại :</span><span style="padding-left: 10px">'.$value_dn->sodt.'</span></div>';
+                        }
+                                   
+                               
+         $output.='                </ul>
+                            </div>
+                            
+                        
+                        <table id="myTable" class="table-styling" style="width: 100%;
+                                margin: 5px;font-size:10px" role="grid" aria-describedby="example2_info">
+                            <thead>
+                            <tr role="row">
+                                <th>Số TT</th>
+                                <th>Mã sản phẩm</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Size</th>
+                                <th>Màu</th>
+                                <th>Số Lượng</th>
+                                <th>Chiếc khấu</th>
+                                <th>Thành Tiền</th>
+                            </thead>
+                            <tbody> '; 
+                        foreach ($deliverynotes_detail_id as $key => $value_dd) {
+                           
+           $output.='           <tr>                         
+                                    <td>'.($key+1).'</td>
+                                    <td>'.$value_dd->ma_pg.'</td>';
+                                    
+                                       foreach ($product_id as $key => $value_pro) {
+                                            if($value_dd->ma_sp==$value_pro->ma_sp){
+            $output.='                    <td>'.$value_pro->ten_sp.'</td>';
+                                        }
+                                    }
+                        
+             $output.='             <td>'.$value_dd->size.'</td>
+                                    <td>'.$value_dd->mau.'</td>
+                                    <td>'.$value_dd->solg.'</td>
+                                    <td>'.$value_dd->chiet_khau.'%'.'</td>
+                                    <td>'.$value_dd->sotien.'</td> 
+                                </tr> ';
+                        }
+                             foreach ($deliverynotes_id as $key => $value_dn) {      
+            $output.='          <tr>
+                                   
+                                    <td colspan="2" title="position-center"><b>Tổng Tiền</b></td>
+                                    <td colspan="5"><b class="text-red" style="font-size:20px">'.number_format($value_dn->gia_thu).'
+                                    </b></td>
+                                    <
+
+                                </tr>';
+
+                             }
+            $output.='        </tbody>
+                        </table>
+                    <div class="footer-left">Hồ Chí Minh, ngày .. tháng .. năm 202..<br/>
+    Khách hàng <br>(ký ghi gõ họ tên) </div>
+  <div class="footer-right">Hồ Chí Minh , ngày .. tháng .. năm 202..<br/>
+    Nhân viên <br>(ký ghi gõ họ tên) </div> 
+                    </div>
+                </div>';
+        return $output;
     }
     
 }

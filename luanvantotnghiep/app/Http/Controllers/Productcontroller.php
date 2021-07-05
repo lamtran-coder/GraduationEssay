@@ -299,9 +299,8 @@ class Productcontroller extends Controller
         $all_style=DB::table('thiet_ke')->orderby('ma_tk','desc')->get();
         $all_color=DB::table('mau')->orderby('ma_mau','desc')->get();
         $all_img=DB::table('hinh_anh')->get();
-        $all_detail=DB::table('chi_tiet_san_pham')
-        ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
-        ->join('size','size.ma_size','=','chi_tiet_san_pham.ma_size')->get();
+        $all_detail_color=DB::table('chi_tiet_san_pham')->where('ma_sp',$ma_sp)->groupBy('ma_mau')->get();
+        $all_detail_size=DB::table('chi_tiet_san_pham')->where('ma_sp',$ma_sp)->groupBy('ma_size')->get();
         $cate_product = DB::table('danh_muc_sp')
             ->select('danh_muc')
             ->groupBy('danh_muc')
@@ -337,7 +336,8 @@ class Productcontroller extends Controller
         return view('pages.single')
         ->with('cate_product',$cate_product)
         ->with('all_product',$all_product)
-        ->with('all_detail',$all_detail)
+        ->with('all_detail_color',$all_detail_color)
+        ->with('all_detail_size',$all_detail_size)
         ->with('all_material',$all_material)
         ->with('design_id',$design_id)
         ->with('all_style',$all_style)

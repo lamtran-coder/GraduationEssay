@@ -28,7 +28,7 @@
                                         padding: 20px;">Công Ty Thời Trang Nam Tiến Lên Nào</h4>
                                    	<h1 style="text-align: center;">Phiếu Giao Hàng<br>-------oOo-------</h1>        
                                    	<div style="padding: 5px;
-                                    padding-left: 30px;"><span>Mã phiếu :</span><span style="padding-left: 10px"><?php echo $value_dn->ma_pg; ?></span></div>
+                                    padding-left: 30px;"><span>Mã phiếu :</span><span style="padding-left: 10px"><?php echo $ma_pg=$value_dn->ma_pg; ?></span></div>
                                     <div style="padding: 5px;
                                     padding-left: 30px;"><span>Ngày giao hàng :</span><span style="padding-left: 10px"><?php echo $value_dn->nggiao; ?></span></div>
                                     <div style="padding: 5px;
@@ -96,7 +96,12 @@
     </section>
      <footer class="panel-footer">
       <div class="row">
-            <div style="text-align:center;"><button style="height: 55px;padding: 5px;font-size: 20px;background: black;color: #fff;">Xuất Phiếu Giao</button></div>
+            <div style="text-align:center;">
+                <!-- <form action="" >
+                <button style="height: 55px;padding: 5px;font-size: 20px;background: black;color: #fff;">Xuất Phiếu Giao</button>
+                </form> -->
+                <a href="{{URL::to('/print-deliverynotes/'.$ma_pg)}}">Nhấn</a>
+            </div>
         
    
       </div>

@@ -4,6 +4,13 @@
 <section id="main-content">
 	<section class="wrapper">
 		<!-- //market-->
+		<style type="text/css">
+				p.title_thongke {
+				    text-align: center;
+				    font-size: 20px;
+				    font-weight: bold;
+				}
+			</style>
 		<div>
 			<div class="market-updates">
 				<div class="col-md-3 market-update-gd">
@@ -12,9 +19,9 @@
 							<i class="fa fa-eye"> </i>
 						</div>
 						 <div class="col-md-8 market-update-left">
-						 <h4>Visitors</h4>
-						<h3>13,500</h3>
-						<p>Other hand, we denounce</p>
+						 <h4>Khách hàng</h4>
+						<h3><?php echo $customer ?></h3>
+						<p>Tổng Khách hàng Đang Có </p>
 					  </div>
 					  <div class="clearfix"> </div>
 					</div>
@@ -25,9 +32,9 @@
 							<i class="fa fa-users" ></i>
 						</div>
 						<div class="col-md-8 market-update-left">
-						<h4>Users</h4>
-							<h3>1,250</h3>
-							<p>Other hand, we denounce</p>
+						<h4>Bình luận</h4>
+							<h3><?php echo $comment ?></h3>
+							<p>Tổng Bình Luận Đang Có </p>
 						</div>
 					  <div class="clearfix"> </div>
 					</div>
@@ -38,9 +45,9 @@
 							<i class="fa fa-usd"></i>
 						</div>
 						<div class="col-md-8 market-update-left">
-							<h4>Sales</h4>
-							<h3>1,500</h3>
-							<p>Other hand, we denounce</p>
+							<h4>Sản phẩm</h4>
+							<h3><?php echo $product ?></h3>
+							<p>Tổng Sản Phẩm Đang Có </p>
 						</div>
 					  <div class="clearfix"> </div>
 					</div>
@@ -51,9 +58,9 @@
 							<i class="fa fa-shopping-cart" aria-hidden="true"></i>
 						</div>
 						<div class="col-md-8 market-update-left">
-							<h4>Orders</h4>
-							<h3>1,500</h3>
-							<p>Other hand, we denounce</p>
+							<h4>Đơn hàng</h4>
+							<h3><?php echo $order ?></h3>
+							<p>Tổng Đơn Hàng Đang Có </p>
 						</div>
 					  <div class="clearfix"> </div>
 					</div>
@@ -176,40 +183,12 @@
 					<div class="col-md-4 stats-info widget">
 						<div class="stats-info-agileits">
 							<div class="stats-title">
-								<h4 class="title">Browser Stats</h4>
+								<h4 class="title_thongke">Thống kê tổng sản phẩm bài viết đơn hàng</h4>
 							</div>
-							<div class="stats-body">
+							<div class="stats-body" id="donut">
 								<ul class="list-unstyled">
-									<li>GoogleChrome <span class="pull-right">85%</span>  
-										<div class="progress progress-striped active progress-right">
-											<div class="bar green" style="width:85%;"></div> 
-										</div>
-									</li>
-									<li>Firefox <span class="pull-right">35%</span>  
-										<div class="progress progress-striped active progress-right">
-											<div class="bar yellow" style="width:35%;"></div>
-										</div>
-									</li>
-									<li>Internet Explorer <span class="pull-right">78%</span>  
-										<div class="progress progress-striped active progress-right">
-											<div class="bar red" style="width:78%;"></div>
-										</div>
-									</li>
-									<li>Safari <span class="pull-right">50%</span>  
-										<div class="progress progress-striped active progress-right">
-											<div class="bar blue" style="width:50%;"></div>
-										</div>
-									</li>
-									<li>Opera <span class="pull-right">80%</span>  
-										<div class="progress progress-striped active progress-right">
-											<div class="bar light-blue" style="width:80%;"></div>
-										</div>
-									</li>
-									<li class="last">Others <span class="pull-right">60%</span>  
-										<div class="progress progress-striped active progress-right">
-											<div class="bar orange" style="width:60%;"></div>
-										</div>
-									</li> 
+
+
 								</ul>
 							</div>
 						</div>
@@ -218,50 +197,48 @@
 						<div class="stats-last-agile">
 							<table class="table stats-table ">
 								<thead>
-									<tr>
-										<th>S.NO</th>
-										<th>PRODUCT</th>
-										<th>STATUS</th>
-										<th>PROGRESS</th>
-									</tr>
+								<div class="row">
+	<style type="text/css">
+		table.table.table-bordered.table-dark {
+		    background: #32383e;
+		}
+		table.table.table-bordered.table-dark tr th {
+		    color: #fff;
+		}
+	</style>
+
+<p class="title_thongke">Thống kê truy cập</p>
+
+<table class="table table-bordered table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Đang online</th>
+      <th scope="col">Tổng tháng trước</th>
+      <th scope="col">Tổng tháng này</th>
+      <th scope="col">Tổng một năm</th>
+      <th scope="col">Tổng truy cập</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{$visitor_count}}</td>
+      <td>{{$visitor_last_month_count}}</td>
+      <td>{{$visitor_this_month_count}}</td>
+      <td>{{$visitor_year_count}}</td>
+      <td>{{$visitors_total}}</td>
+    </tr>
+   
+  </tbody>
+</table>
+
+</div>
 								</thead>
 								<tbody>
-									<tr>
-										<th scope="row">1</th>
-										<td>Lorem ipsum</td>
-										<td><span class="label label-success">In progress</span></td>
-										<td><h5>85% <i class="fa fa-level-up"></i></h5></td>
-									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td>Aliquam</td>
-										<td><span class="label label-warning">New</span></td>
-										<td><h5>35% <i class="fa fa-level-up"></i></h5></td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Lorem ipsum</td>
-										<td><span class="label label-danger">Overdue</span></td>
-										<td><h5 class="down">40% <i class="fa fa-level-down"></i></h5></td>
-									</tr>
-									<tr>
-										<th scope="row">4</th>
-										<td>Aliquam</td>
-										<td><span class="label label-info">Out of stock</span></td>
-										<td><h5>100% <i class="fa fa-level-up"></i></h5></td>
-									</tr>
-									<tr>
-										<th scope="row">5</th>
-										<td>Lorem ipsum</td>
-										<td><span class="label label-success">In progress</span></td>
-										<td><h5 class="down">10% <i class="fa fa-level-down"></i></h5></td>
-									</tr>
-									<tr>
-										<th scope="row">6</th>
-										<td>Aliquam</td>
-										<td><span class="label label-warning">New</span></td>
-										<td><h5>38% <i class="fa fa-level-up"></i></h5></td>
-									</tr>
+								
+						
+					
+								
+								
 								</tbody>
 							</table>
 						</div>

@@ -122,7 +122,9 @@ Route::post('/update-status-od/{so_ct}','Ordercontroller@update_status_order_det
 Route::post('/save-delivery-notes/{ma_ddh}','Deliverynotescontroller@save_delivery_notes');
 Route::get('/all-delivery-notes','Deliverynotescontroller@all_delivery_notes');	
 // chi tiết phiếu giao
-Route::get('/deliverynotes-detail/{ma_pg}','Deliverynotescontroller@deliverynotes_detail');	
+Route::get('/deliverynotes-detail/{ma_pg}','Deliverynotescontroller@deliverynotes_detail');
+// in chi tiet phieu giao
+Route::get('/print-deliverynotes/{checkout_code}','Deliverynotescontroller@print_order');	
 
 
 	//chi tiet sản phẩm

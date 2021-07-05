@@ -7,6 +7,7 @@ use DB;
 use Session;
 use Cart;
 use Carbon;
+use PDF;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 session_start();
@@ -270,6 +271,7 @@ class Ordercontroller extends Controller
         DB::table('chi_tiet_don_hang')->where('so_ct',$so_ct)->update($data);
        return Redirect::to('/order-details/'.$result);
     }
+    
 
 }
     
