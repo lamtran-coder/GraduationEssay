@@ -19,7 +19,9 @@
                             <td class="form-td">Size</td>
                             <td class="form-td">Số lượng</td>
                             <td class="form-td">Giá</td>
-                            <td class="form-td">Thành Tiền</td>     
+                            <td class="form-td">Giá Giảm</td>
+                            <td class="form-td">Thành Tiền</td> 
+                            <td class="form-td">Trang Thái</td>     
                         </tr>
                     </tbody>
 					<tbody class="from-table">
@@ -33,12 +35,29 @@
                             <td class="form-td">{{$v_order_detail->solg_sp}}</td> 
                             <td class="form-td"><?php echo number_format($v_order_detail->gia_sale) ?>
                             </td>
+                            <td class="form-td"><?php 
+                            $result=$v_order_detail->solg_sp*$v_order_detail->gia_sale*$v_order_detail->chiet_khau/100;
+                            echo number_format($result);
+                             ?>
+                            </td>
                             <td class="form-td"><?php echo number_format($v_order_detail->sotien).'VND'; ?></td>   
+                            <td class="form-td" style="color: red;">
+                                <?php 
+                                    if ($v_order_detail->trang_thai==0){
+                                        echo "Đang xử lý";
+                                    }elseif($v_order_detail->trang_thai==1){
+                                        echo "Đang giao";
+                                    }elseif($v_order_detail->trang_thai==2){
+                                        echo "Đã nhận";
+                                    }
+                                ?>
+                            </td>
                         </tr>				
 					
 						<?php endforeach ?>
                     </tbody>                   
                   </table>
+
                 {{$order_detail_view->links()}}
         </div>
 	</div>

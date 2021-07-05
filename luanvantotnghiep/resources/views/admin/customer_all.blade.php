@@ -32,13 +32,13 @@
                 <input type="checkbox"><i></i>
               </label>
             </th>
-            <th>tên khách hàng</th>
-            <th>email</th>
-            <th>so điện thoại</th>
-            <th>trang thái</th>
-            <th>địa chỉ</th>
-            <th></th>
-            <th style="width:30px;"></th>
+            <th>Mã khách hàng</th>
+            <th>Tên khách hàng</th>
+            <th>Email</th>
+            <th>So điện thoại</th>
+            <th>Trang thái</th>
+            <th>Địa chỉ</th>
+            
           </tr>
         </thead>
         <tbody>
@@ -61,13 +61,7 @@
                   
             </span></td>
             <td><span class="text-ellipsis">{{$value_cus->diachi}}</span></td>
-            <td>
-              <a href="" class="active styling-edit" ui-toggle-class="">
-                <i class="fa fa-pencil-square-o text-success text-active"></i></a>
-                <br>
-              <a href="" class="active styling-edit" ui-toggle-class="" onclick="return confirm('bạn muốn xóa danh mục này?')">
-              <i class="fa fa-times text-danger text"></i></a>
-            </td>
+            
           </tr>
           <?php endforeach ?>
          

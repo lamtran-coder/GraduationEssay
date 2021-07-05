@@ -9,7 +9,14 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 session_start();
 class Admincontroller extends Controller
-{
+{   public function AuthLogin(){
+      $admin_id = Session::get('admin_id');
+      if($admin_id){
+         return Redirect::to('admin.dashboard');
+      }else{
+         return Redirect::to('admin')->send();
+      }
+    }
     public function index(){
         return view('admin_login');
     }
@@ -24,6 +31,8 @@ class Admincontroller extends Controller
         $result=DB::table('admin')->where('email',$email)->where('matkhau',$matkhau)->first();
         if($result){
             session::put('ten',$result->ten);
+            session::put('sodt',$result->sodt);
+            session::put('email',$result->email);
             session::put('tg_tao',$result->tg_tao);
 
             return Redirect::to('/dashboard');}
@@ -42,4 +51,5 @@ class Admincontroller extends Controller
         session::put('tg_tao',null);
         return Redirect::to('/admin');
     }
+    
 }

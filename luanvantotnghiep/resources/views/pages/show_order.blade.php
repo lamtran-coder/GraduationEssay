@@ -14,10 +14,10 @@
             <form>
             @csrf
                 <a href="{{Request::url()}}?status=0"><li class="color1" >Đang Chờ Xử lý</li></a>
-                <a href="{{Request::url()}}?status=1"><li class="color2" >Đang Lấy Hàng</li></a>
-                <a href="{{Request::url()}}?status=2"><li class="color3" >Đang Giao</li></a>
-                <a href="{{Request::url()}}?status=3"><li class="color4" >Đã Nhận</li></a>
-                <a href="{{Request::url()}}?status=4"><li class="color5" >Đơn Trả Lại</li></a>
+                <a href="{{Request::url()}}?status=1"><li class="color2" >Đang Giao</li></a>
+                <a href="{{Request::url()}}?status=2"><li class="color3" >Đã Nhận</li></a>
+                <a href="{{Request::url()}}?status=3"><li class="color4" >Đơn Trả Lại</li></a>
+                <!-- <a href="{{Request::url()}}?status=4"><li class="color5" ></li></a> -->
             </form>
         </ul>
     </div>
@@ -59,9 +59,9 @@
                                 if ($value_user->trangthai==0) {
                                     echo'<b style="color:red">Đang xử lý</b>';
                                 }elseif($value_user->trangthai==1){
-                                    echo'<b style="color:yellow">Đang lấy hàng</b>';
+                                    echo'<b style="color:yellow">Đang Giao</b>';
                                 }elseif($value_user->trangthai==2){
-                                    echo'<b style="color:mediumblue">Đang Giao</b>';
+                                    echo'<b style="color:mediumblue">Đã nhận</b>';
                                 }
 
                          

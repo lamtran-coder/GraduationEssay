@@ -7,7 +7,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 session_start();
 class Categorycontroller extends Controller
-{
+{   
     public function add_Category(){
         $design_id=DB::table('thiet_ke')
         ->orderby('ma_tk','desc')->get();
@@ -38,12 +38,6 @@ class Categorycontroller extends Controller
         DB::table('danh_muc_sp')->insert($data);
         Session::put('message','Thêm danh mục thành công');
         return Redirect::to('/add-Category'); 
-
-       
-        
-           
-        
-        
     }
     //trang thái
     public function unactive_category($ma_dm){

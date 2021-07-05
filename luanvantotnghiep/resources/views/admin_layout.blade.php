@@ -153,6 +153,8 @@ Thông báo</p>
                 <span class="username">
                 <?php 
                 $name=Session::get('ten');
+                $email=Session::get('email');
+                $phone=Session::get('phone');
                 if($name){echo $name;}
                 ?>
          
@@ -252,8 +254,7 @@ Thông báo</p>
                         <span>Phiếu giao</span>
                     </a>
                      <ul class="sub">
-                        <li><a href="{{URL::to('/add-product')}}">Phiếu giao mới</a></li>
-                        <li><a href="{{URL::to('/all-product')}}">Danh sách phiếu giao</a></li>    
+                        <li><a href="{{URL::to('/all-delivery-notes')}}">Danh sách phiếu giao</a></li>    
                     </ul>
                 </li>
                 <li class="sub-menu">

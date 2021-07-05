@@ -73,37 +73,33 @@
                         </div>
                     </div>
                     <span class="rating">
-                        
-                            
+                        <ul class="list-inline" style="display: -webkit-box;" title="Average Raiting">
                        
-                    <ul class="list-inline" style="display: -webkit-box;" title="Average Raiting">
-                   
-                    <?php
-                    //hiện thì đánh giá //tạm thời chưa làm được đánh giá trung bình
-                    // echo "<pre>";
-                    // print_r($rating); 
-                    // echo "</pre>"; 
-                    $array =array();  
-                    for ($count=1; $count<=5; $count++) { 
-                        foreach ($rating as $key => $value) {
-                            if ($value->ma_sp==$value_pro->ma_sp) {
-                                $array=$value->rating;
-                            }  
-                        }
-                        if($count<=$array){
-                             $color = 'color:#ffcc00;';
+                        <?php
+                        //hiện thì đánh giá //tạm thời chưa làm được đánh giá trung bình
+                        // echo "<pre>";
+                        // print_r($rating); 
+                        // echo "</pre>"; 
+                        $array =array();  
+                        for ($count=1; $count<=5; $count++) { 
+                            foreach ($rating as $key => $value) {
+                                if ($value->ma_sp==$value_pro->ma_sp) {
+                                    $array=$value->rating;
+                                }  
                             }
-                         else{
-                             $color = 'color:#black;';
-                    }   
-                    echo '<li style="cursor: pointer;'.$color.'font-size: 15px;" >&#9733;</li>';
-                    }            
-                    ?>
-                  
+                            if($count<=$array){
+                                 $color = 'color:#ffcc00;';
+                                }
+                             else{
+                                 $color = 'color:#black;';
+                        }   
+                        echo '<li style="cursor: pointer;'.$color.'font-size: 15px;" >&#9733;</li>';
+                        }            
+                        ?>
                         </ul>
                             </a>
 
-                      </span>
+                    </span>
                         <ul class="list">
                           <li>
                             <form action="{{URL::to('/save-cart')}}" method="POST">
@@ -125,10 +121,9 @@
             <?php endforeach ?>
             
                 <!-- thanh phần 1 sản phẩm -->    
+          <div class="pakes-new-product"><p style="float:right;">{{$all_product->links()}}</p></div>
           <div class="clear"></div>
-          <div class="pakes-new-product"><p style="float:right;">Trang</p></div>
         </div>
-  
          <!-- một hàng 3 sản phẩm -->
     </div>
 </div>

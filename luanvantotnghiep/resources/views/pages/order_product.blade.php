@@ -127,7 +127,7 @@
                     <header class="header-tt">Tổng Tính Thanh Toán</header>
                     <div class="payment-item">
                         <ul>
-                            <li>Tổng Số Sản phẩm<span><b>
+                            <li>Số Sản phẩm<span><b>
                                 <?php
                                 $sum_qty=0; 
                                 foreach ($content as $key => $v_content){       
@@ -140,45 +140,27 @@
                                 <?php echo number_format($Sum_mony); ?>
                                 
                             </b><p>VND</p></span></li>
-                            <li>Số Lô<span><b>
-                               <?php echo $demlo; ?>
-                            </b><p>Lô</p></span></li>
-                            <li>Chiết Khấu Tổng<span><b>
+                            <li>Tiền Giảm<span><b>
                                  <?php
-
-                                    if($demlo<3){
-                                        if($Sum_mony>=5000000){
+                                    $chiec_khau_tong=0;
+                                        if($Sum_mony>=50000000){
+                                            $chiec_khau_tong=15;    
+                                        }elseif((($Sum_mony<50000000)&&($Sum_mony>=20000000))){
+                                            $chiec_khau_tong=13;
+                                        }elseif(($Sum_mony>=5000000)&&($Sum_mony<20000000)){
                                             $chiec_khau_tong=10;
                                         }
-                                        elseif(($Sum_mony<5000000)&&($Sum_mony>=3000000))
-                                        {
+                                        elseif(($Sum_mony<5000000)&&($Sum_mony>=3000000)){
                                             $chiec_khau_tong=7;
-                                        }
-                                        elseif ((($Sum_mony<3000000)&&($Sum_mony>=1500000))) 
-                                        {
-                                            $chiec_khau_tong=5;
-                                        }
-                                        elseif((($Sum_mony<1500000)&&($Sum_mony>=500000))){
-                                            $chiec_khau_tong=3;
-                                        }
-                                     }elseif($demlo>=3){
-                                         if(($Sum_mony>=5000000)&&($Sum_mony<20000000)){
-                                            $chiec_khau_tong=10;
-                                        }elseif(($Sum_mony<5000000)&&($Sum_mony>=3000000)){
-                                            $chiec_khau_tong=7;
-                                        }elseif ((($Sum_mony<3000000)&&($Sum_mony>=1500000))) {
+                                        }elseif ((($Sum_mony<3000000)&&($Sum_mony>=1500000))){
                                             $chiec_khau_tong=5;
                                         }elseif((($Sum_mony<1500000)&&($Sum_mony>=500000))){
                                             $chiec_khau_tong=3;
-                                        }elseif((($Sum_mony<50000000)&&($Sum_mony>=20000000))){
-                                            $chiec_khau_tong=13;
-                                        }elseif($Sum_mony>=50000000){
-                                            $chiec_khau_tong=15;    
-                                        }
-                                         
-                                    }else{$chiec_khau_tong=0;}
-                                    echo $chiec_khau_tong;
+                                        }else{$chiec_khau_tong=0;}
+                                   
                                  ?>
+                                 <?php $tienck=($Sum_mony*$chiec_khau_tong)/100;
+                                    echo number_format($tienck); ?>
                             </b><p>%</p></span></li>
                             <li>Thành Tiền<span><b><?php $result=$Sum_mony*(100-$chiec_khau_tong)/100;
                             echo number_format($result); ?></b><p>VND</p></span></li>

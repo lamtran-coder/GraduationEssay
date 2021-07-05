@@ -36,7 +36,7 @@
                                 
                             }?>
                 
-                            <input type="submit" name="" value="Tiếp Theo">  
+                            <input type="submit" style="width: 170px;border-radius: 80px;float: right;" value="Tiếp Theo">  
                         </form>
                     <ul>    
                      

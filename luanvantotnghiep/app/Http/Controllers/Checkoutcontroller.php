@@ -21,7 +21,7 @@ class Checkoutcontroller extends Controller
         $all_product=DB::table('san_pham')->where ('trang_thai','1')
         ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
         ->orderby('san_pham.ma_sp','desc')->limit(6)->get(); 
-        $customer_id=DB::table('khach_hang')->orderby('ma_kh','desc')->get();
+        $customer_id=DB::table('khach_hang')->orderby('ma_kh','desc')->paginate(5);
        return view('pages.show_checkout')
         ->with('cate_product',$cate_product)
         ->with('all_product',$all_product)

@@ -8,48 +8,76 @@
       Danh sách đơn hàng
     </div>
     <div class="row w3-res-tb">
-      <div class="col-sm-4">
-         <div><a href="{{URL::to('/dashboard')}}"> trở về trang admin</a></div>
-      </div>
-       <form action="{{URL::to('/search-order')}}" method="post">
+      <form action="{{URL::to('/search-order')}}" method="post">
           @csrf
       <div class="col-sm-3">
         <div class="input-group">
           <input type="text" class="input-sm form-control"name="keywords_submit" placeholder="nhập từ khóa" value="">
           <span class="input-group-btn">
-            <button class="btn btn-sm btn-default" type="button">Go!</button>
+          <button class="btn btn-sm btn-default" type="button">Tìm</button>
           </span>
-         
-         </div>
         </div>
-        
+      </div>
       </form>
       </div>
 
 
     <div class="table-responsive">
+        <div>
+      <ul style="display: -webkit-inline-box;padding: 10px;">
+        <form>
+        <li style="padding-left: 20px;">
+          <span>Từ</span>: 
+          <input style="padding-left: 20px;" name="date_star" type="date">
+          <span>Đến</span>:
+          <input style="padding-left: 20px;"name="date_end" type="date">
+         <button >Tìm</button>
+        </li>
+        </form>
+      </ul>
+      </div>
+      <div style="float: right;padding-right: 13%;font-size: 20px;">
+        <form >
+          @csrf
+        <select name="status_od" >
+          <option value="0">Đang Xử Lý</option>
+          <option value="1">Đang Giao</option>
+          <option value="2">Đã Hoàn Thành</option>
+        </select>
+        <button>Tìm</button>
+        </form>
+      </div>
       <table class="table table-striped b-t b-light">
         <thead>
           <tr>
-             <th>Mã đơn hàng</th>
+            <th style="width:20px;">
+            <label class="i-checks m-b-none">
+              <input type="checkbox"><i></i>
+            </label>
+            </th>
+            <th>Mã đơn hàng</th>
             <th>Tên khách hàng</th>
-            <th>số lượng<br> sản phẩm</th>
+            <th>số sản phẩm</th>
             
-             <th>Tiền cọc</th>
+            <th>Tiền cọc</th>
             <th>tổng tiền</th>
-             <th>ngày đặt</th>
-              
+            <th>ngày đặt</th>
             <th>trạng thái</th>
-            <th></th>
             <th style="width:30px;"></th>
           </tr>
         </thead>
+        
+        
         <tbody>
           <?php foreach ($all_oder as $key => $value_oder): ?>  
         <tr>
          
          
-           
+           <th style="width:20px;">
+              <label class="i-checks m-b-none">
+                <input type="checkbox"><i></i>
+              </label>
+            </th>
             <td><span class="text-ellipsis">{{$value_oder->ma_ddh}}</span></td>
             
                <?php foreach ($all_cus as $key => $value_cus): ?>
@@ -67,17 +95,16 @@
                 
                  <form action="{{url::to('/update-order/'.$value_oder->ma_ddh)}}" method="POST">
                 @csrf
-                 <select name="status" class="form-control-inline" style="width: 150px; height: 30px; font-size: 17px;" >
+                 <select name="status" class="form-control-inline" style="width: 139px; height: 30px; font-size: 17px;" >
                       <?php 
                           if($value_oder->trangthai==0){                
                             echo '<option value="0">Đang xử lý</option>';
-                            echo '<option value="1">Đang lấy hàng</option>';
                           }elseif($value_oder->trangthai==1){
                             echo '<option value="1">Đang lấy hàng</option>';
-                            echo '<option value="2">Đang giao</option>';
                           }elseif($value_oder->trangthai==2){
-                            echo '<option value="2">Đang giao</option>';
-                           }                    
+                            echo '<option value="2">Đã hoàn Thành</option>';
+                            echo '<option value="3">Hàng Trả Lại</option>';
+                          }
                         ?>
                        
                   </select>
@@ -85,7 +112,9 @@
                   </form>
                 
             </span></td>
-                
+                <td><a href="{{URL::to('/order-details/'.$value_oder->ma_ddh)}}" class="active styling-edit" ui-toggle-class="">
+               <i class="fa fa-search" style="font-size: 30px;"></i></i></a>
+              </td>
           </tr>
          <?php endforeach ?>
           

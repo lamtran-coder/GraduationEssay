@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Session;
 use Cart;
+use Carbon;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 session_start();
@@ -48,7 +49,9 @@ class Ordercontroller extends Controller
         $date_ht=getdate();
         $ma_ddh=$date_ht['year'].'Y'.$date_ht['mon'].'M'.$date_ht['mday'].'D'.rand(0,9999);
         $data['ma_ddh']=$ma_ddh;
-        $data['ngdat']=$date_ht['mday'].'-'.$date_ht['mon'].'-'.$date_ht['year'];
+        $date_dh=date('Y-m-d');
+        $date_dh=date('d-m-Y',strtotime($date_dh));
+        $data['ngdat']=$date_dh;
         $data['ck_tong']=$request->total_deductions;
         $data['tong_tt']=$request->total_payment;
         $data['trangthai']=0;
@@ -70,18 +73,20 @@ class Ordercontroller extends Controller
             $data_detail['ten_mau']=$v_content->options->ten_mau;
             $data_detail['size']=$v_content->options->ma_size;
             $data_detail['solg_sp']=$v_content->qty;
-            $data_detail['sotien']=($v_content->qty)*($v_content->price);
-            $sum_qty_pro=0; 
+            $data_detail['trang_thai']=0;
+            $sum_qty_pro=$v_content->qty; 
             foreach ($content as $key_2 => $v_content_2) {
                if(($v_content->id==$v_content_2->id)&&($key!=$key_2)){ 
                     $sum_qty_pro+=$v_content->qty+$v_content_2->qty;      
                } 
             }   
             if($sum_qty_pro>=20){
-                    $ck_sp=$v_content->options->chiet_khau;
-            }else{ 
-                $ck_sp=0;}
+                $ck_sp=$v_content->options->chiet_khau;
+            }else{
+                $ck_sp=0;
+            }
             $data_detail['chiet_khau']=$ck_sp;
+            $data_detail['sotien']=($v_content->qty)*($v_content->price)*(100-$ck_sp)/100;
             DB::table('chi_tiet_don_hang')->insert($data_detail);
 
             $details_product=DB::table('chi_tiet_san_pham')
@@ -130,6 +135,7 @@ class Ordercontroller extends Controller
           ->get();
         if (isset($_GET['status'])) {
             $status = $_GET['status'];
+            
             $order_user_id=DB::table('don_dat_hang')
             ->join('khach_hang','khach_hang.ma_kh','=','don_dat_hang.ma_kh')
             ->select('don_dat_hang.trangthai','don_dat_hang.ma_ddh','don_dat_hang.ngdat','don_dat_hang.solg_sp','don_dat_hang.tong_tt','don_dat_hang.tien_coc','khach_hang.ten_kh','khach_hang.diachi','khach_hang.sodt','khach_hang.email')
@@ -140,6 +146,7 @@ class Ordercontroller extends Controller
             ->with('cate_product',$cate_product)
             ->with('design_id',$design_id)
             ->with('order_user_id',$order_user_id);
+            
         }else{
             $order_user_id=DB::table('don_dat_hang')
             ->join('khach_hang','khach_hang.ma_kh','=','don_dat_hang.ma_kh')
@@ -169,7 +176,7 @@ class Ordercontroller extends Controller
         $order_detail_view = DB::table('chi_tiet_don_hang')
         ->join('san_pham','san_pham.ma_sp','chi_tiet_don_hang.ma_sp')
         ->join('hinh_anh','hinh_anh.ma_sp','san_pham.ma_sp')
-        ->select('chi_tiet_don_hang.ma_sp','chi_tiet_don_hang.solg_sp','chi_tiet_don_hang.sotien','hinh_anh.hinhanh','chi_tiet_don_hang.size','chi_tiet_don_hang.ten_mau','san_pham.gia_sale')
+        ->select('chi_tiet_don_hang.ma_sp','chi_tiet_don_hang.solg_sp','chi_tiet_don_hang.sotien','hinh_anh.hinhanh','chi_tiet_don_hang.size','chi_tiet_don_hang.ten_mau','san_pham.gia_sale','chi_tiet_don_hang.trang_thai','chi_tiet_don_hang.chiet_khau')
         ->where('hinh_anh.goc_nhin','0')
         ->where('chi_tiet_don_hang.ma_ddh',$ma_ddh)
         ->paginate(5);
@@ -184,8 +191,25 @@ class Ordercontroller extends Controller
 
     //backend
     public function all_order_product(){
-        $all_cus=DB::table('khach_hang')->get();
+        if (isset($_GET['date_star'])&&isset($_GET['date_end'])) {
+            $date_star = $_GET['date_star'];
+            $date_end = $_GET['date_end'];
+            $date_star=date('d-m-Y',strtotime($date_star));
+            $date_end=date('d-m-Y',strtotime($date_end));
+            $all_oder=DB::table('don_dat_hang')
+            ->where('ngdat','>=',$date_star)
+            ->where('ngdat','<=',$date_end)
+            ->get();
+        }
+        elseif(isset($_GET['status_od'])) {
+            $status_od = $_GET['status_od'];
+            $all_oder=DB::table('don_dat_hang')
+            ->where('trangthai',$status_od)->get();
+        }
+        else{
         $all_oder=DB::table('don_dat_hang')->get();
+        }
+        $all_cus=DB::table('khach_hang')->get();
         return view('admin.order_product_all')
         ->with('all_cus',$all_cus)
         ->with('all_oder',$all_oder);
@@ -213,7 +237,39 @@ class Ordercontroller extends Controller
         return Redirect::to('/all-order');
     }
 
+    public function order_details($ma_ddh){
 
+        $customer_id=DB::table('khach_hang')
+        ->join('don_dat_hang','don_dat_hang.ma_kh','=','khach_hang.ma_kh')
+        ->where('don_dat_hang.ma_ddh',$ma_ddh)->get();
+       
+        $order_detail_id = DB::table('chi_tiet_don_hang')
+        ->join('san_pham','san_pham.ma_sp','=','chi_tiet_don_hang.ma_sp') 
+        ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp') 
+        ->where('hinh_anh.goc_nhin','0')
+        ->where('chi_tiet_don_hang.ma_ddh',$ma_ddh)
+        ->select('chi_tiet_don_hang.ma_sp','san_pham.ten_sp','chi_tiet_don_hang.size','chi_tiet_don_hang.ten_mau','chi_tiet_don_hang.solg_sp','chi_tiet_don_hang.sotien','chi_tiet_don_hang.trang_thai','chi_tiet_don_hang.so_ct','chi_tiet_don_hang.ma_ddh')
+        ->paginate(5);
+        $order_id = DB::table('don_dat_hang')->where('ma_ddh',$ma_ddh)->get();
+        $admin_id = DB::table('admin')->where('vi_tri','GH')->get();
+        $delivery_id=DB::table('phieu_giao')
+        ->where('ma_ddh',$ma_ddh)->orderby('tienconlai','desc')->get();
+        return view('admin.order_detail_all')
+        ->with('customer_id',$customer_id)
+        ->with('order_detail_id',$order_detail_id)
+        ->with('order_id',$order_id)
+        ->with('admin_id',$admin_id)
+        ->with('delivery_id',$delivery_id)
+        ;
+       
+    }
+    public function update_status_order_detail(Request $request,$so_ct){
+       
+        $result=$request->ma_ddh_od;
+        $data['trang_thai']=$request->status_od;
+        DB::table('chi_tiet_don_hang')->where('so_ct',$so_ct)->update($data);
+       return Redirect::to('/order-details/'.$result);
+    }
 
 }
     

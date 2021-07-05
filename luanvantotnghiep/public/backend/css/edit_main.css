@@ -67,3 +67,56 @@ div.pakes-new-product{
     padding: 10px;
     width: 95%;
 }
+td.giao {
+    height: 80px;
+    background: blue;
+}
+td.giao>form{
+    padding: 0px;
+    margin: 0px;
+}
+td.giao>form>button {
+    padding: 0px;
+    margin: 0px;
+    height: 50px;
+    width: 100%;
+    background: black;
+    color: white;
+    font-size: 18px;
+    font-style: normal;
+}
+td.giao>form>button:hover {
+   background: white;
+   color: black;
+}
+select.status_order_detail {
+    height: 30px;
+    padding: 5px;
+    font-size: 15px;
+    width: 65%;
+}
+
+.footer-left {
+    text-align:center;
+    text-transform:uppercase;
+    padding-top:24px;
+    position:relative;
+    height: 150px;
+    width:50%;
+    color:#000;
+    float:left;
+    font-size: 12px;
+    bottom:1px;
+}
+.footer-right {
+    text-align:center;
+    text-transform:uppercase;
+    padding-top:24px;
+    position:relative;
+    height: 150px;
+    width:50%;
+    color:#000;
+    font-size: 12px;
+    float:right;
+    bottom:1px;
+}

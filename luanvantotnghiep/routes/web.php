@@ -67,7 +67,6 @@ Route::get('/logout','Admincontroller@logout');
 Route::get('/trang-ca-nhan','Admincontroller@personal_information');
 
 Route::post('/admin-dashboard','Admincontroller@dashboard');
-
 	//danh muc
 Route::get('/add-Category','Categorycontroller@add_Category');
 Route::get('/all-Category','Categorycontroller@all_Category');
@@ -113,11 +112,17 @@ Route::post('/save-images-product','Productcontroller@save_images_product');
 Route::get('/all-order','Ordercontroller@all_order_product');
 Route::post('/search-order','Ordercontroller@search_order');
 Route::post('/update-order/{ma_ddh}','Ordercontroller@update_order');
+
+Route::get('/order-details/{ma_ddh}','Ordercontroller@order_details');
+
 //chi tiết đơn đặt hàng
 Route::get('/order-detail-view/{ma_ddh}','Ordercontroller@order_detail_view');
-
-	
-
+Route::post('/update-status-od/{so_ct}','Ordercontroller@update_status_order_detail');
+//Phiếu giao hàng
+Route::post('/save-delivery-notes/{ma_ddh}','Deliverynotescontroller@save_delivery_notes');
+Route::get('/all-delivery-notes','Deliverynotescontroller@all_delivery_notes');	
+// chi tiết phiếu giao
+Route::get('/deliverynotes-detail/{ma_pg}','Deliverynotescontroller@deliverynotes_detail');	
 
 
 	//chi tiet sản phẩm

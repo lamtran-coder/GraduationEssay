@@ -173,6 +173,7 @@ i.fa.fa-trash.fa-trash-styling {
 td.form-td {
     border: 5px solid #FFF;
     vertical-align: middle;
+    font-size: 20px;
 }
 td.form-td>a{
    color: #ff00007d;

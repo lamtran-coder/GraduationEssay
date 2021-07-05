@@ -28,7 +28,7 @@ class Homecontroller extends Controller
       ->orderby('san_pham.gia_sale','desc')
       ->where('hinh_anh.goc_nhin','0')
       ->groupBy('san_pham.ma_sp')
-      ->limit(6)->get();
+      ->limit(12)->paginate(6);
         //hiện đánh ngoài index kết quả chưa được
       $rating= DB::table('danh_gia')
       ->select('ma_sp','rating')->get();

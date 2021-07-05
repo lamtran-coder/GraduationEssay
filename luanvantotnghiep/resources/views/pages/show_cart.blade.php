@@ -127,42 +127,24 @@
                             <li>Giảm Tiền<span><b>
                                 <?php
                                     $chiec_khau_tong=0;
-                                    if($demsi<3){
-                                        if($Sum_mony>=5000000){
+                                        if($Sum_mony>=50000000){
+                                            $chiec_khau_tong=15;    
+                                        }elseif((($Sum_mony<50000000)&&($Sum_mony>=20000000))){
+                                            $chiec_khau_tong=13;
+                                        }elseif(($Sum_mony>=5000000)&&($Sum_mony<20000000)){
                                             $chiec_khau_tong=10;
                                         }
-                                        elseif(($Sum_mony<5000000)&&($Sum_mony>=3000000))
-                                        {
+                                        elseif(($Sum_mony<5000000)&&($Sum_mony>=3000000)){
                                             $chiec_khau_tong=7;
-                                        }
-                                        elseif ((($Sum_mony<3000000)&&($Sum_mony>=1500000))) 
-                                        {
-                                            $chiec_khau_tong=5;
-                                        }
-                                        elseif((($Sum_mony<1500000)&&($Sum_mony>=500000))){
-                                            $chiec_khau_tong=3;
-                                        }
-                                     }elseif($demsi>=3){
-                                         if(($Sum_mony>=5000000)&&($Sum_mony<20000000)){
-                                            $chiec_khau_tong=10;
-                                        }elseif(($Sum_mony<5000000)&&($Sum_mony>=3000000)){
-                                            $chiec_khau_tong=7;
-                                        }elseif ((($Sum_mony<3000000)&&($Sum_mony>=1500000))) {
+                                        }elseif ((($Sum_mony<3000000)&&($Sum_mony>=1500000))){
                                             $chiec_khau_tong=5;
                                         }elseif((($Sum_mony<1500000)&&($Sum_mony>=500000))){
                                             $chiec_khau_tong=3;
-                                        }elseif((($Sum_mony<50000000)&&($Sum_mony>=20000000))){
-                                            $chiec_khau_tong=13;
-                                        }elseif($Sum_mony>=50000000){
-                                            $chiec_khau_tong=15;    
-                                        }
-                                         
-                                    }else{
-                                        $chiec_khau_tong=0;}
+                                        }else{$chiec_khau_tong=0;}
                                    
                                  ?>
                                  <?php $tienck=($Sum_mony*$chiec_khau_tong)/100;
-                            echo number_format($tienck); ?>
+                                    echo number_format($tienck); ?>
                             </b><p>VND</p></span></li>
                             <li style="font-size: 35px; margin-top: 30px;" >Thành Tiền<span style="color: red"><b><?php $result_mony=$Sum_mony*(100-$chiec_khau_tong)/100;
                             echo number_format($result_mony); ?></b><p>VND</p></span></li>

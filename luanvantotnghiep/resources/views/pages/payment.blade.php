@@ -33,7 +33,7 @@
                                 <span><label><input  name="payment-options" value="3" type="radio">MoMo</label></span>
                             </li>
                         </ul>
-                        <input type="submit" name="" value="Tiếp Theo">
+                        <input type="submit" style="width: 170px;border-radius: 80px;float: right;" name="" value="Tiếp Theo">
                      </form>
                 </div>
             </div>
