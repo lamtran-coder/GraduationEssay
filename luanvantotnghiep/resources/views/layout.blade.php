@@ -18,6 +18,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 <script type="text/javascript" src="{{asset('public/frontend/js/jquery.min.js')}}"></script>
 
+
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -26,6 +27,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <script type="text/javascript" src="{{asset('public/frontend/js/sweetalert.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/frontend/js/sweetalert.min.js')}}"></script>
 <script type="text/javascript">
+
         $(document).ready(function() {
             $(".dropdown img.flag").addClass("flagvisibility");
 
@@ -56,6 +58,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             });
         });
      </script>
+<link href="{{asset('public/frontend/css/jquery.nice-number.css')}}" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{{asset('public/frontend/js/jquery.nice-number.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+    $('input[type="number"]').niceNumber();
+    });
+</script>
 <!-- start menu -->     
 <link href="{{asset('public/frontend/css/megamenu.css')}}" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="{{asset('public/frontend/js/megamenu.js')}}"></script>

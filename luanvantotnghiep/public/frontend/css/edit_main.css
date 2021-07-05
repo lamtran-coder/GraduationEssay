@@ -114,6 +114,7 @@ td.cart_quantity,td.cart_price,td.cart_total{
     text-align: center;
 }
 button.button-mua {
+    margin: 10px;
     border: none;
     height: 55px;
     width: 132px;
@@ -157,8 +158,31 @@ input[type="radio"].radio-mau-size:checked+label:before{
     border: 3px solid white;
     background: black;
 }
-input[type="text"].number-product{
-    
+.number-product{
+    width: 250px;
+    height: 100px;
+    background: #ffa50052;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+.number-product label{
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.number-product input{
+    width: 40px;
+    font-size: 20px;
+    margin: 0px 10px;
+    padding: 10px;
+    border: none;
+    outline: none;
+}
+.number-product input[type="number"]:hover{
+    background: #c9c0a6;
+    color: #fff;
 }
 td.cart_product{
     width: 100px;

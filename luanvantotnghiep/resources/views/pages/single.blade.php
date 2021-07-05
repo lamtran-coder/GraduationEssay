@@ -114,13 +114,14 @@
 						</div>
 			<ul class="options">
 				<h4 class="m_9">CHỌN KÍCH CỠ</h4>
-				<form action="">
+				<form action="{{URL::to('/save-cart')}}" method="POST">
+				@csrf
 				<div style="height:60px;">
 					<ul>
 						<?php foreach ($all_detail_color as $key_ => $value_d_color): ?>
 							<?php foreach ($all_color as $key_1 => $value_color): ?>
 								<?php if ($value_color->ma_mau==$value_d_color->ma_mau): ?>	
-							<li><input class="radio-mau-size" name="mau" size="25" checked="checked" type="radio" value="{{$value_color->ten_mau}}" id="a{{$key_1}}"><label class="ladel-mau-size" for="a{{$key_1}}">{{$value_color->ten_mau}}</label></li>
+							<li><input class="radio-mau-size" name="mau_hidden" size="25" checked="checked" type="radio" value="{{$value_color->ten_mau}}" id="a{{$key_1}}"><label class="ladel-mau-size" for="a{{$key_1}}">{{$value_color->ten_mau}}</label></li>
 								<?php endif ?>
 							<?php endforeach ?>
 						<?php endforeach ?>
@@ -129,24 +130,16 @@
 				<div style="height:60px;">
 					<ul>
 						<?php foreach ($all_detail_size as $key => $value_size): ?>
-							<li><input class="radio-mau-size" name="size" checked="checked" type="radio" value="{{$value_size->ma_size}}" id="b{{$key}}"><label for="b{{$key}}" class="ladel-mau-size">{{$value_size->ma_size}}</label></li>
+							<li><input class="radio-mau-size" name="size_hidden" checked="checked" type="radio" value="{{$value_size->ma_size}}" id="b{{$key}}"><label for="b{{$key}}" class="ladel-mau-size">{{$value_size->ma_size}}</label></li>
 						<?php endforeach ?>
 					</ul>
 				</div >
-				<div style="height: 40px;">
-					<ul>
-						<input class="number-product" type="text">
-					</ul>
+				<div class="number-product">
+					<label>Số Lượng Sản Phẩm</label>
+					<input  min="1" name="quantity_h" type="number" value="1">
 				</div>
-				
+				<input type="hidden" name="masp_hidden" min="1" value="{{$value_det->ma_sp}}">
 				<button class="button-mua" style="margin-left: 40px;">CHỌN MUA</button>
-				</form>
-				<form action="{{URL::to('/save-cart')}}" method="POST">
-				   @csrf	
-				   <input type="hidden" name="masp_hidden" min="1" value="">
-				   <input type="hidden" name="mau_hidden" min="1" value="">
-				   <input type="hidden" name="size_hidden" min="1" value="">
-					<!-- <button class="button-mua" style="margin-left: 40px;">Chọn Mua</button>	 -->
 				</form>
 				<div class="clear"></div>
 			</ul>

@@ -14,29 +14,34 @@ class Cartcontroller extends Controller
         $ma_sp_h=$request->masp_hidden;
         $ma_size_h=$request->size_hidden;
         $mau_h=$request->mau_hidden;
-        $quantity=1;
+        $quantity_h=$request->quantity_h;
         $product_info=DB::table('san_pham')
         ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','=','san_pham.ma_sp')
         ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
-        ->where('san_pham.ma_sp',$ma_sp_h)
+        ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
+        ->where('chi_tiet_san_pham.ma_size',$ma_size_h)
+        ->where('mau.ten_mau',$mau_h)
+        ->where('chi_tiet_san_pham.so_lg','>=',$quantity_h)
+        ->where('chi_tiet_san_pham.ma_sp',$ma_sp_h)
         ->first();
-
         echo"<pre>";
         print_r($product_info);
         echo"</pre>";
-
-            $data['id']=$product_info->ma_sp;
-            $data['qty']=$quantity;
-            $data['name']=$product_info->ten_sp;
-            $data['price']=$product_info->gia_sale;
-            $data['options']['chiet_khau']=$product_info->chiet_khau;
-            $data['options']['so_lg']=$product_info->so_lg;
-            $data['options']['anh']=$product_info->hinhanh;
-            $data['options']['ma_size']=$ma_size_h;
-            $data['options']['ten_mau']=$mau_h;
-            Cart::add($data);
-            $result=$_SERVER['HTTP_REFERER'];
-            return Redirect::to($result);
+        if (isset($product_info->ma_sp)) {
+        $data['id']=$product_info->ma_sp;
+        $data['qty']=$quantity_h;
+        $data['name']=$product_info->ten_sp;
+        $data['price']=$product_info->gia_sale;
+        $data['weight']=0;
+        $data['options']['chiet_khau']=$product_info->chiet_khau;
+        $data['options']['so_lg']=$product_info->so_lg;
+        $data['options']['anh']=$product_info->hinhanh;
+        $data['options']['ma_size']=$product_info->ma_size;
+        $data['options']['ten_mau']=$product_info->ten_mau;
+        Cart::add($data);   
+        }
+        $result=$_SERVER['HTTP_REFERER'];
+        return Redirect::to($result);
     }
 
     public function delete_to_cart($rowId){
