@@ -120,3 +120,17 @@ select.status_order_detail {
     float:right;
     bottom:1px;
 }
+.panel.panel-default {
+    background: #e2dcdc;
+}
+.panel-body {
+    padding: 15px;
+    background: #efe7e7;
+}
+.panel>.panel-collapse>.table, .panel>.table, .panel>.table-responsive>.table {
+    margin-bottom: 0;
+    font-weight: bold;
+}
+.box-header.with-border {
+    font-weight: bold;
+}

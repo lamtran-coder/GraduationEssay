@@ -13,7 +13,7 @@ html, body{
 	font-family: 'Roboto', sans-serif;
     font-size: 100%;
     overflow-x: hidden;
-    background: url('../images/nengo.jpeg') no-repeat 0px 0px;
+    background: url('../images/hinhnen2.png') no-repeat 0px 0px;
 	background-size:cover;
 }
 body a{
@@ -213,7 +213,7 @@ ul.sidebar-menu li a.active i {
     transition:all .3s ease-in-out;
 }
 .footer {
-    background: #794006;
+    background: #000000;
     padding: 20px;
 }
 .footer p {
@@ -230,7 +230,7 @@ ul.sidebar-menu li a.active i {
     left:0;
     right:0;
     z-index:1002;
-    background:#ED962D;
+    background:#000000;
     -webkit-transition:all .3s ease-in-out;
     -moz-transition:all .3s ease-in-out;
     -o-transition:all .3s ease-in-out;
@@ -250,7 +250,7 @@ ul.sidebar-menu li a.active i {
     width:100%;
 }
 .brand {
-    background:#E36A2B;
+    background:#000000;
     float:left;
     width:240px;
     height:80px;
@@ -518,7 +518,7 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
     background: none;
     margin-right: 0;
     border: 2px solid #ae7418f5;
-    background: #d66734;
+    background: #016a51;
 }
 .top-nav ul.top-menu>li.language>a {
     margin-top:-2px;
@@ -1643,7 +1643,7 @@ ul.bs-glyphicons-list {
     box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
 .table-agile-info{
-	background: #eef9f0;
+	background: #9cd3a6;
     padding: 2em;
     border-radius: 4px;
     -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
@@ -1657,8 +1657,8 @@ ul.bs-glyphicons-list {
     box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
 .panel-default>.panel-heading {
-    color: #000000 ! important;
-    background-color: #ddede0 ! important;
+    color: #4ad74df2 ! important;
+    background-color: #5e7362 ! important;
     border-color: #ddede0 ! important;
     font-size: 20px;
 }
@@ -2367,7 +2367,7 @@ ul.inbox-pagination li {
 }
 /*-- gallery --*/
 .w3layouts-main h2 {
-	color: #e2f531;
+	color: #e2e6bef2;
     font-size: 29px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -2378,9 +2378,10 @@ ul.inbox-pagination li {
     width: 30%;
     height: 500px;
     margin:5em auto;
-    background:#d454059c;
+    background:#000000d4;
     padding: 42px 35px;
     border-radius:40px 40px 40px 40px;
+    border: 1px solid #f5deb357;
 
 }
 /*--//header--*/
@@ -2448,7 +2449,7 @@ input.ggg{
     border-radius:50px 50px 50px 50px;
 }
 .w3layouts-main input[type="submit"]:hover {
-	background:#021881;
+	background:#0d2ec3;
 	transition:0.5s all;
 	-webkit-transition:0.5s all;
 	-o-transition:0.5s all;

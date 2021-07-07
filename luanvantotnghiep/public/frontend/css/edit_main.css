@@ -159,31 +159,50 @@ input[type="radio"].radio-mau-size:checked+label:before{
     background: black;
 }
 .number-product{
-    width: 250px;
+    width: 119px;
     height: 100px;
-    background: #ffa50052;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-}
-.number-product label{
-    font-size: 25px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-.number-product input{
-    width: 40px;
+    margin: 30px;
     font-size: 20px;
-    margin: 0px 10px;
-    padding: 10px;
-    border: none;
-    outline: none;
+    text-align: center;
+    
 }
-.number-product input[type="number"]:hover{
-    background: #c9c0a6;
-    color: #fff;
+input.number-spinner::-webkit-outer-spin-button,
+input.number-spinner::-webkit-inner-spin-button{
+    -webkit-appearance: none;
 }
+input.number-spinner {
+    width: 54px;
+    height: 1px;
+    position: absolute;
+    padding: 10px 5px;
+    text-align: center;
+   
+}
+div.prev,
+div.next{
+    background-color: #000000;
+    width: 26px;
+    height: 25px;
+    position: absolute;
+    color: #F0E68C;
+    z-index: 1000;
+    cursor: pointer;
+}
+div.prev{
+    display: block;
+    float: left;
+    border-radius: 10px 0px 0px 10px;
+}
+div.next{
+    margin-left: 93px;
+    border-radius: 0 10px 10px 0;
+}
+.prev:hover, .next:hover {
+    background: #F0E68C;
+    color: #2F4F4F;
+}
+
+
 td.cart_product{
     width: 100px;
 }
@@ -799,4 +818,28 @@ td.form-td:hover {
 .status-order>ul>form>a>li.color5:hover {
    background: black;
    cursor: pointer;
+}
+.about-shop {
+    padding: 80px;
+    margin: 0px;
+}
+.about-shop>h1{
+    color: black;
+    font-weight: bold;
+}
+.about-shop>h2{
+    font-size: 30px;
+}
+.about-shop>u>b>h2{
+    font-size: 35px;
+}
+.about-shop>img {
+    margin: 10px;
+}
+.about-shop>h4 {
+    font-size: 25px;
+}
+
+.about-shop>u>b>h3{
+    font-size: 30px;
 }

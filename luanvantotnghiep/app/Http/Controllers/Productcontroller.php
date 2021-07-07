@@ -155,18 +155,40 @@ class Productcontroller extends Controller
           ->groupBy('thiet_ke.ma_tk')
           ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
           ->get();
-        
-        
-        // $rating = DB::table('danh_gia')->where('ma_sp',$ma_sp)->avg('rating');
-        // $rating = round($rating);
-
-
         $min_price = DB::table('san_pham')->min('san_pham.gia_goc');
         $max_price = DB::table('san_pham')->max('san_pham.gia_goc');
 
         $min_price_range = $min_price + 5000;
         $max_price_range = $max_price + 100000;
-        if (isset($_GET['sort_by'])) {
+       
+        
+        if(isset($_GET['checkbox_des'])||isset($_GET['checkbox_col'])||isset($_GET['checkbox_mat'])){
+            if(isset($_GET['checkbox_des'])){
+                $checkbox_des=$_GET['checkbox_des'];
+            }else{
+                $checkbox_des="";
+            }
+            if(isset($_GET['checkbox_col'])){
+                $checkbox_col=$_GET['checkbox_col'];
+            }else{
+                $checkbox_col="";
+            }
+            if(isset($_GET['checkbox_mat'])){
+                $checkbox_mat=$_GET['checkbox_mat'];
+            }else{
+                $checkbox_mat="";
+            }
+            $all_product = DB::table('san_pham')
+            ->join('danh_muc_sp','danh_muc_sp.ma_dm','san_pham.ma_dm')
+            ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','san_pham.ma_sp')
+            ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
+            ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+            ->orwhere('danh_muc_sp.ma_tk',$checkbox_des)
+            ->orwhere('chi_tiet_san_pham.ma_mau',$checkbox_col)
+            ->orwhere('danh_muc_sp.ma_cl',$checkbox_mat)
+            ->groupBy('san_pham.ma_sp')->paginate(12);
+
+        }elseif (isset($_GET['sort_by'])) {
             $sort_by = $_GET['sort_by'];
             if($sort_by=='giam_dan'){
 
@@ -175,7 +197,7 @@ class Productcontroller extends Controller
                 ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
                 ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
                 ->orderby('san_pham.gia_goc','desc')
-                ->groupBy('san_pham.ma_sp')->paginate(3);
+                ->groupBy('san_pham.ma_sp')->paginate(12);
 
             }elseif($sort_by=='tang_dan'){
                  $all_product = DB::table('san_pham')
@@ -184,7 +206,7 @@ class Productcontroller extends Controller
                 ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
                 ->groupBy('san_pham.ma_sp')
                 ->orderby('san_pham.gia_goc','ASC')
-                ->paginate(3);
+                ->paginate(12);
             }elseif($sort_by=='kytu_za'){
                 $all_product = DB::table('san_pham')
                 ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
@@ -192,7 +214,7 @@ class Productcontroller extends Controller
                 ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
                 ->groupBy('san_pham.ma_sp')
                 ->orderby('san_pham.ten_sp','desc')
-                ->paginate(3);
+                ->paginate(12);
             }elseif($sort_by=='kytu_az'){
                 $all_product = DB::table('san_pham')
                 ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','san_pham.ma_sp')
@@ -200,7 +222,7 @@ class Productcontroller extends Controller
                 ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
                 ->groupBy('san_pham.ma_sp')
                 ->orderby('san_pham.ten_sp','ASC')
-                ->paginate(3);
+                ->paginate(12);
             }
    
         }
@@ -218,7 +240,7 @@ class Productcontroller extends Controller
             ->where ('san_pham.trang_thai','1')
             ->where('hinh_anh.goc_nhin','0')
             ->groupBy('san_pham.ma_sp')
-            ->paginate(3);
+            ->paginate(12);
         }else{
             $all_product=DB::table('san_pham')
             ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
@@ -228,7 +250,7 @@ class Productcontroller extends Controller
             ->where('hinh_anh.goc_nhin','0')
             ->orderby('san_pham.ma_sp','desc')
             ->groupBy('san_pham.ma_sp')
-            ->paginate(3);
+            ->paginate(12);
 
         }
 

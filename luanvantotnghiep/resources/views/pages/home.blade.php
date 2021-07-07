@@ -5,22 +5,33 @@
 
 <div class="index-banner">
   <div class="wmuSlider example1" style="height: 560px;">
-      <div class="wmuSliderWrapper">
+     <div class="wmuSliderWrapper">
+        @php 
+                            $i = 0;
+                    @endphp
+                        @foreach($slider as $key => $slide)
+                            @php 
+                                $i++;
+                            @endphp
            <article style="position: absolute; width: 100%; opacity: 0;"> 
              <div class="banner-wrap">
-                <div class="slider-left">
-                    <img  src="{{('public/frontend/images/banner02.jpg')}}" alt=""/> 
+                    
+             
+                <div class="slider-left {{$i==1 ? 'active' : '' }} ">
+                    <img  src="{{asset('public/uploads/slider/'.$slide->slider_image)}}" height="100%" width="100%" class=""alt="{{$slide->slider_desc}}"/> 
                 </div>
+
                  <div class="slider-right">
-                    <h1>Classic</h1>
-                    <h2>White</h2>
-                    <p>Lorem ipsum dolor sit amet</p>
+                    <h1>{{$slide->slider_name}}</h1>
+                    <p>{{$slide->slider_desc}}</p>
                     <div class="btn"><a href="{{URL::to('/ke-hang')}}">Mua Ngay</a></div>
-                 </div>
+                 </div> 
                  <div class="clear"></div>
              </div>
+
             </article>
-        </div>
+             @endforeach 
+        </div>>
     <a class="wmuSliderPrev">Previous</a><a class="wmuSliderNext">Next</a>
         <ul class="wmuSliderPagination">
             <li><a href="#" class="">0</a></li>

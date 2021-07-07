@@ -58,14 +58,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             });
         });
      </script>
-<link href="{{asset('public/frontend/css/jquery.nice-number.css')}}" rel="stylesheet" type="text/css"/>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script> -->
+<!-- <link href="{{asset('public/frontend/css/jquery.nice-number.css')}}" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="{{asset('public/frontend/js/jquery.nice-number.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
     $(function(){
     $('input[type="number"]').niceNumber();
     });
-</script>
+</script> -->
 <!-- start menu -->     
 <link href="{{asset('public/frontend/css/megamenu.css')}}" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="{{asset('public/frontend/js/megamenu.js')}}"></script>
@@ -250,8 +251,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                 </div>
                 </li>
-               <li class="active grid"><a class="color4" href="#">Giới thiệu</a></li>               
-                <li><a class="color5" href="#">Chính sách</a></li>
+               <li class="active grid"><a class="color4" href="{{URL::to('/gioi-thieu')}}">Giới thiệu</a></li>               
+                <li><a class="color5" href="{{URL::to('/chinh-sach')}}">Chính sách</a></li>
                 <li><a class="color6" href="#">khuyến mãi</a></li>
                 <li><a class="color7" href="{{URL::to('/ke-hang')}}">Cửa Hàng</a></li>
                 <li><a class="color8" href="#">Tin tức</a></li>
@@ -460,7 +461,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 }); 
         </script>
             <!-- Sản phẩm Đã xem -->
-            <script type="text/javascript">
+        <script type="text/javascript">
             function viewed(){
                      if(localStorage.getItem('viewed')!=null){
 
@@ -468,7 +469,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                          data.reverse();
                           document.getElementById('row_viewed').style.overflow = 'scroll';
-                         document.getElementById('row_viewed').style.height = '250px';
+                         document.getElementById('row_viewed').style.height = '550px';
 
                          for(i=0;i<data.length;i++){
 
@@ -486,7 +487,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                 viewed();
                
-            product_viewed();
+                product_viewed();
                function product_viewed(){
                     var id_product=$('#product_viewed_id').val();
 
@@ -529,12 +530,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     }
                     
                    
-               }
-            </script>
+                }
+        </script>
         <!-- Sản phẩm Đã xem -->
 
         <!-- Sản phẩm yêu thích -->
-        <script type="text/javascript">
+<script type="text/javascript">
 
      function view(){
         
@@ -546,7 +547,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
              data.reverse();
 
              document.getElementById('row_wishlist').style.overflow = 'scroll';
-             document.getElementById('row_wishlist').style.height = '250px';
+             document.getElementById('row_wishlist').style.height = '550px';
             
              for(i=0;i<data.length;i++){
 

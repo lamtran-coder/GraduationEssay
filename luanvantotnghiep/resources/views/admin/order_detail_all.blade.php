@@ -190,9 +190,10 @@
                                     @csrf
                                     <input type="hidden" name="ma_ddh_h" value="<?php echo $ma_ddh; ?>">
                                     <input type="hidden" name="email_h" value="<?php echo $email_ad; ?>">
-                                    <?php if (isset($tien_tt)) {
-                                    echo '<input type="hidden" name="tiencoc_h" value="0">';
-                                    echo '<input type="hidden" name="tong_tt_h" value="'.$tien_tt.'">';
+                                    <?php 
+                                    if (isset($tien_tt)) {
+                                        echo '<input type="hidden" name="tiencoc_h" value="0">';
+                                        echo '<input type="hidden" name="tong_tt_h" value="'.$tien_tt.'">';
                                     }else{
                                      echo '<input type="hidden" name="tiencoc_h" value="'.$tiencoc.'">';
                                      echo '<input type="hidden" name="tong_tt_h" value="'.$tong_tt.'">';

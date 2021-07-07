@@ -186,6 +186,17 @@ Thông báo</p>
                         <span>Tổng quan</span>
                     </a>
                 </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Quản lý Slider</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="{{URL::to('/add-slider')}}">Thêm slider</a></li>
+                        <li><a href="{{URL::to('/manage-slider')}}">Danh Sách slider</a></li>
+                    </ul>
+                    
+                </li>
                  <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-book"></i>

@@ -1,6 +1,5 @@
 @extends('layout')
 @section('index_content')
-<?php $demlo=0; ?>
 <section id="container">
     <section id="main-content">
         <section class="wrapper">
@@ -182,10 +181,6 @@
                             <input type="hidden" name="total_payment" value="<?php echo $result; ?>">
                             <input type="hidden" name='sum_qty' value="<?php echo $sum_qty; ?>">
                             <input type="hidden" name="ma_kh" value="<?php echo $ma_kh_address; ?>">
-                            <input type="hidden">
-                            <input type="hidden">
-                            <input type="hidden">
-                            <input type="hidden">
                             <input type="submit" value="Đặt Hàng">
                         </form>
                     </div>

@@ -28,12 +28,13 @@
 	                    <!-- <input type="submit" name="filter_price" value="Lọc giá"> -->
 	               </form>
 		</div>
-  
+  		<form action="">
+  		<div style="padding: 10px;"><button style="width: 200px;">Tìm kiếm</button></div>
         <h4>Thiết Kế</h4>
 		<div class="row row1 scroll-pane">
 		<div class="col col-4">
 		@foreach ($all_style as $key =>$style)
-		<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>{{$style->ten_tk}}</label>
+		<label class="checkbox"><input type="checkbox" name="checkbox_des" value="{{$style->ma_tk}}" ><i></i>{{$style->ten_tk}}</label>
 		@endforeach
 		</div>
 		</div>
@@ -41,7 +42,7 @@
 		<div class="row row1 scroll-pane">
 			<div class="col col-4">
 				@foreach ($all_color as $key =>$color)
-				<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>{{$color->ten_mau}}</label>
+				<label class="checkbox"><input type="checkbox" name="checkbox_col" value="{{$color->ma_mau}}" ><i></i>{{$color->ten_mau}}</label>
 				@endforeach
 			</div>
 		</div>
@@ -49,10 +50,11 @@
 		<div class="row row1 scroll-pane">
 			<div class="col col-4">
 				@foreach ($all_material as $key =>$material)
-				<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>{{$material->ten_cl}}</label>
+				<label class="checkbox"><input type="checkbox" name="checkbox_mat" value="{{$material->ma_cl}}" ><i></i>{{$material->ten_cl}}</label>
 				@endforeach
 			</div>
 		</div>
+		</form>
 		
 		<h4 class="m_9" text-align="center" >Sản Phẩm Đã Xem</h4>
          <ul id="row_viewed" ></ul>

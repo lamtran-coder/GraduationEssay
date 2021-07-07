@@ -8,6 +8,17 @@
                 // echo '</pre>';
 			$email=Session::get('email');
             ?>
+    <div class="status-order">
+        <ul>
+            <form>
+            @csrf
+                <a href="{{URL::to('/show-order')}}"><li class="color1" >Trở Lại</li></a>
+                <a href="{{Request::url()}}?status_de=0"><li class="color2" >Đang Giao</li></a>
+                <a href="{{Request::url()}}?status_de=1"><li class="color3" >Đã Giao</li></a>
+                <a href="{{Request::url()}}?status_de=2"><li class="color3" >Trả Hàng</li></a>
+            </form>
+        </ul>
+    </div>
 	<div class="order-you" >
 		<div class="product-cart">
                   <table class="from-table">

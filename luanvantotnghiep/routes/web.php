@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'Homecontroller@index');
 Route::get('/trang-chu','Homecontroller@index');
 Route::get('/tim-kiem','Homecontroller@search');
+Route::get('/chinh-sach','Homecontroller@policy');
+Route::get('/gioi-thieu','Homecontroller@about');
+
 
 Route::get('/login-user','UserController@login_user');
 Route::get('/sign-up','UserController@sign_up');
@@ -143,4 +146,14 @@ Route::post('/save-size-product','Detail_productcontroller@save_size_product');
 
 	//khách hàng
 Route::get('/all-customer','Customercontroller@all_customer');
+Route::get('/dia-chi-nhan/{email}','Customercontroller@customer_address');
+
 Route::post('/search-customer','Customercontroller@search_customer');
+
+//banner
+Route::get('/manage-slider','Slidercontroller@manage_slider');
+Route::get('/add-slider','Slidercontroller@add_slider');
+Route::get('/delete-slide/{slide_id}','Slidercontroller@delete_slide');
+Route::post('/insert-slider','Slidercontroller@insert_slider');
+Route::get('/unactive-slide/{slide_id}','Slidercontroller@unactive_slide');
+Route::get('/active-slide/{slide_id}','Slidercontroller@active_slide');

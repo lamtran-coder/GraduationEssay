@@ -8,9 +8,6 @@
       Danh sách khách hàng
     </div>
     <div class="row w3-res-tb">
-      <div class="col-sm-4">
-         <div><a href="{{URL::to('/all-customer')}}"> trở về danh sách khách hàng</a></div>
-      </div>
        <form action="{{URL::to('/search-customer')}}" method="post">
           @csrf
       <div class="col-sm-3">
@@ -36,32 +33,22 @@
             <th>Tên khách hàng</th>
             <th>Email</th>
             <th>So điện thoại</th>
-            <th>Trang thái</th>
             <th>Địa chỉ</th>
-            
+            <th>Xem Địa Chỉ Nhận</th>
           </tr>
         </thead>
         <tbody>
-          <?php foreach ($customer_id as $key => $value_cus): ?>
+          <?php foreach ($use_id as $key => $value_user): ?>
             
          
           <tr>
             <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-            <td><span class="text-ellipsis">{{$value_cus->ma_kh}}</span></td>
-            <td><span class="text-ellipsis">{{$value_cus->ten_kh}}</span></td>
-            <td><span class="text-ellipsis">{{$value_cus->email}}</span></td>
-            <td><span class="text-ellipsis">{{$value_cus->sodt}}</span></td>
-            <td><span class="text-ellipsis">
-           <?php if($value_cus->trangthai==0){
-                  echo"khách hàng tìm năng";
-                }else{
-                  echo"khách hàng chính thức";
-                }
-            ?>
-                  
-            </span></td>
-            <td><span class="text-ellipsis">{{$value_cus->diachi}}</span></td>
-            
+            <td><span class="text-ellipsis">{{$value_user->user_id}}</span></td>
+            <td><span class="text-ellipsis">{{$value_user->ten_nd}}</span></td>
+            <td><span class="text-ellipsis">{{$value_user->email}}</span></td>
+            <td><span class="text-ellipsis">{{$value_user->sodt}}</span></td>
+            <td><span class="text-ellipsis">{{$value_user->diachi}}</span></td>
+            <td><a href="{{URL::to('/dia-chi-nhan/'.$value_user->email)}}"><i class="fa fa-search" style="font-size: 30px;"></i></a></td>
           </tr>
           <?php endforeach ?>
          

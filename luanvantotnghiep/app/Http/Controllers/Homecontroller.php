@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Session;
+use App\Models\Slider;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 session_start();
@@ -20,6 +21,7 @@ class Homecontroller extends Controller
       ->groupBy('thiet_ke.ma_tk')
       ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
       ->get();
+      $slider = Slider::orderBy('slider_id','DESC')->where('slider_status','1')->take(4)->get();
       $all_product=DB::table('san_pham')
       ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
       ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','san_pham.ma_sp')
@@ -38,6 +40,8 @@ class Homecontroller extends Controller
         ->with('all_product',$all_product)
         ->with('rating',$rating)
         ->with('design_id',$design_id)
+        ->with('slider',$slider)
+        
         ;
     }
     // tìm kiếm trên thanh tìm kiếm
@@ -83,7 +87,35 @@ class Homecontroller extends Controller
       }
       else{
         return view('pages.search');
-      }
+        }
 
      }
+     //trang gioi thieu
+    public function about(){
+        $cate_product = DB::table('danh_muc_sp')
+            ->select('danh_muc')
+            ->groupBy('danh_muc')
+            ->get();
+            $design_id=DB::table('thiet_ke')
+      ->join('danh_muc_sp','danh_muc_sp.ma_tk','thiet_ke.ma_tk')
+      ->where('danh_muc_sp.trang_thai','1')
+      ->groupBy('thiet_ke.ma_tk')
+      ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
+      ->get();
+        return view('pages.about')->with('cate_product',$cate_product)->with('design_id',$design_id);
+    }
+    // trang chính sách
+    public function policy(){
+        $cate_product = DB::table('danh_muc_sp')
+            ->select('danh_muc')
+            ->groupBy('danh_muc')
+            ->get();
+            $design_id=DB::table('thiet_ke')
+      ->join('danh_muc_sp','danh_muc_sp.ma_tk','thiet_ke.ma_tk')
+      ->where('danh_muc_sp.trang_thai','1')
+      ->groupBy('thiet_ke.ma_tk')
+      ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
+      ->get();
+        return view('pages.policy')->with('cate_product',$cate_product)->with('design_id',$design_id);
+    }
 }

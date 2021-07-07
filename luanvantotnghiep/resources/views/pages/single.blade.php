@@ -4,41 +4,7 @@
          <div class="wrap">
      	    <div class="rsidebar span_1_of_left">
 			  <!-- danh mục lọc -->
-			    <section  class="sky-form">
-			                <h4>Danh mục</h4>
-			    <div class="row row1 scroll-pane">
-			      <div class="col col-4">
-				<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Quần</label>
-				<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Áo</label>
-				<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Giày</label>
-				<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Phụ kiện</label>
-				 
-			</div>
-			    </div>
-			                <h4>Thiết kế</h4>
-			      <div class="row row1 scroll-pane">
-			        <div class="col col-4">
-			        @foreach ($all_style as $key =>$style)
-			        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>{{$style->ten_tk}}</label>
-			         @endforeach
-			      </div>
-			      </div>
-			    <h4>Màu sắc</h4>
-			    <div class="row row1 scroll-pane">
-			      <div class="col col-4">
-			        @foreach ($all_color as $key =>$color)
-			        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>{{$color->ten_mau}}</label>
-			        @endforeach
-			      </div>
-			    </div>
-			    <h4>Chất lieu</h4>
-			    <div class="row row1 scroll-pane">
-			      <div class="col col-4">
-			        @foreach ($all_material as $key =>$material)
-			        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>{{$material->ten_cl}}</label>
-			        @endforeach
-			      </div>
-			    </div>
+			    <section  class="sky-form">          
 			    <div><h4 class="m_9" text-align="center" >Sản Phẩm Đã Xem</h4></div>
          			<ul id="row_viewed" >
 
@@ -63,6 +29,7 @@
 		<?php endforeach ?>
 		<input type="hidden" id="viewed_productprice{{$value_det->ma_sp}}" value="{{number_format($value_det->gia_goc)}} " name="">
 	<!-- them sản phẩm đã xem -->
+	
 	<!-- them sản phẩm yêu thích -->
 
 		<input type="hidden" id="wishlist_productname{{$value_det->ma_sp}}"
@@ -135,8 +102,10 @@
 					</ul>
 				</div >
 				<div class="number-product">
-					<label>Số Lượng Sản Phẩm</label>
-					<input  min="1" name="quantity_h" type="number" value="1">
+					<div class="prev">-</div>
+					<div style="float: left; margin-left: 25px;"><input class="number-spinner" min="1" name="quantity_h" type="number" value="1"></div>
+					<div class="next">+</div>
+					<div class="clear"></div>
 				</div>
 				<input type="hidden" name="masp_hidden" min="1" value="{{$value_det->ma_sp}}">
 				<button class="button-mua" style="margin-left: 40px;">CHỌN MUA</button>
@@ -224,6 +193,32 @@
 			
 		    
 		});
+	</script>
+	<script type="text/javascript">
+		
+		$(document).ready(function(){
+
+			$('.prev').on("click", function(){
+				var prev=$(this).closest('.number-product').find('input').val();
+				if (prev==1) {
+					$(this).closest('.number-product').find('input').val("1");
+				}else{
+					var prevVal=prev-1;
+					$(this).closest('.number-product').find('input').val(prevVal);
+				}
+			});
+			$('.next').on("click", function(){
+				var next=$(this).closest('.number-product').find('input').val();
+				if (next==100) {
+					$(this).closest('.number-product').find('input').val("100");
+				}else{
+					var nextVal=++next;
+					$(this).closest('.number-product').find('input').val(nextVal);
+				}
+			});
+
+		});
+
 	</script>
 	<script type="text/javascript" src="{{asset('public/frontend/js/jquery.flexisel.js')}}"></script>
      	<div class="comment-card">

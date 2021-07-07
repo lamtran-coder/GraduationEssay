@@ -10,8 +10,21 @@ class Customercontroller extends Controller
 {
     //admin
     public function all_customer(){
+        $use_id=DB::table('user')->orderby('user_id','desc')->get();
         $customer_id=DB::table('khach_hang')->orderby('ma_kh','desc')->get();
-        return view('admin.customer_all')->with('customer_id',$customer_id);
+        return view('admin.customer_all')
+        ->with('customer_id',$customer_id)
+        ->with('use_id',$use_id)
+        ;
+
+    }
+    public function customer_address($email){
+        $customer_id=DB::table('khach_hang')->orderby('ma_kh','desc')->where('email',$email)->get();
+        $order_id=DB::table('don_dat_hang')->get();
+        return view('admin.customer_address')
+        ->with('customer_id',$customer_id)
+        ->with('order_id',$order_id)
+        ;
     }
     //tìm kiếm khách hàng qua tên khách hàng ,so dien thoại
      public function search_customer(Request $request){

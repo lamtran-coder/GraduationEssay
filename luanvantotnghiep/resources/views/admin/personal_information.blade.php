@@ -11,29 +11,25 @@
                         <div class="panel-body">
                             <div class="position-center">
                                 <form role="form">
-                                	<div class="form-group">
-	                                    <label for="exampleInputEmail1">Mã nhân viên</label>
-	                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-	                                </div>
 	                                <div class="form-group">
 	                                    <label for="exampleInputEmail1">Họ tên nhân viên</label>
-	                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+	                                    <input type="text" class="form-control"  placeholder="Enter email">
 	                                </div>
 	                                <div class="form-group">
 	                                    <label for="exampleInputPassword1">Ngày sinh</label>
-	                                    <input type="date" class="form-control" id="exampleInputPassword1" placeholder="Password">
+	                                    <input type="date" class="form-control"  placeholder="Password">
 	                                </div>
 	                                <div class="form-group">
 	                                    <label for="exampleInputPassword1">Số thẻ căn cước</label>
-	                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+	                                    <input type="password" class="form-control"  placeholder="Password">
 	                                </div>
 	                                <div class="form-group">
 	                                    <label for="exampleInputPassword1">Email</label>
-	                                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Password">
+	                                    <input type="email" class="form-control"  placeholder="Password">
 	                                </div>
 	                                <div class="form-group">
 	                                    <label for="exampleInputPassword1">Địa chỉ</label>
-	                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+	                                    <input type="text" class="form-control"  placeholder="Password">
 	                                </div>
 	                            
 	                                

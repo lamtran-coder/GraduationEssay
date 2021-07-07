@@ -39,7 +39,7 @@
       <div style="float: right;padding-right: 13%;font-size: 20px;">
         <form >
           @csrf
-        <select name="status_od" >
+        <select name="status_od"  >
           <option value="0">Đang Xử Lý</option>
           <option value="1">Đang Giao</option>
           <option value="2">Đã Hoàn Thành</option>
