@@ -1,6 +1,6 @@
 .megamenu{margin-bottom:0px;padding:0;width:100%;list-style:none;display:inline-block;position:relative;}
 .megamenu li{margin-bottom:-5px;display:inline}
-.megamenu>li>a{float:left;padding:8px 20px;text-decoration:none;text-transform:capitalize;font-size:0.85em; -webkit-transition: all 0.3s ease-in-out;
+.megamenu>li>a{float:left;padding:8px 20px;text-decoration:none;text-transform:uppercase;font-size:0.85em; -webkit-transition: all 0.3s ease-in-out;
 	-moz-transition: all 0.3s ease-in-out;
 	-o-transition: all 0.3s ease-in-out;
 	transition: all 0.3s ease-in-out;
@@ -23,7 +23,7 @@
 .megamenu form.contact input[type="text"]:focus,
 .megamenu form.contact textarea:focus{border:solid 1px #999}
 .megamenu form.contact input[type="submit"]{width:100px;height:35px;border:0;color:#fff;cursor:pointer;background:#999}
-.megapanel .row{width:100%;margin-top:15px}
+.megapanel .row{width:110%;margin-top:15px}
 .megapanel .row:first-child{margin-top:0}
 .megapanel .row:before,.megapanel .row:after{display:table;content:"";line-height:0}
 .megapanel .row:after{clear:both}

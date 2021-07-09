@@ -19,12 +19,13 @@ Route::get('/tim-kiem','Homecontroller@search');
 Route::get('/chinh-sach','Homecontroller@policy');
 Route::get('/gioi-thieu','Homecontroller@about');
 
-
+//user
 Route::get('/login-user','UserController@login_user');
 Route::get('/sign-up','UserController@sign_up');
 Route::post('/add-user','UserController@add_user');
 Route::post('/login-us','UserController@login_us');
 Route::get('/logout-us','UserController@logout_us');
+Route::get('/thong-tin-ca-nhan','UserController@information_user');
 
 
 //danh muc san pham trang chu
@@ -68,6 +69,10 @@ Route::get('/admin','Admincontroller@index');
 Route::get('/dashboard','Admincontroller@show_dashboard');
 Route::get('/logout','Admincontroller@logout');
 Route::get('/trang-ca-nhan','Admincontroller@personal_information');
+Route::post('/update-ten-nv/{email}','Admincontroller@update_name');
+Route::post('/update-sodt-nv/{email}','Admincontroller@update_phone');
+Route::post('/update-diachi-nv/{email}','Admincontroller@update_address');
+Route::post('/update-password/{email}','Admincontroller@update_password');
 
 Route::post('/admin-dashboard','Admincontroller@dashboard');
 	//danh muc
@@ -147,7 +152,6 @@ Route::post('/save-size-product','Detail_productcontroller@save_size_product');
 	//khách hàng
 Route::get('/all-customer','Customercontroller@all_customer');
 Route::get('/dia-chi-nhan/{email}','Customercontroller@customer_address');
-
 Route::post('/search-customer','Customercontroller@search_customer');
 
 //banner

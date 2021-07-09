@@ -3,6 +3,9 @@
 
 <section id="main-content" style="background: #ffffff;">
     <section class="wrapper">
+        <div class="panel-body">
+                            
+                        
         <div class="table-agile-info">
        <section class="content">
         <div class="box">
@@ -100,13 +103,15 @@
                 <!-- <form action="" >
                 <button style="height: 55px;padding: 5px;font-size: 20px;background: black;color: #fff;">Xuất Phiếu Giao</button>
                 </form> -->
-                <a href="{{URL::to('/print-deliverynotes/'.$ma_pg)}}">Nhấn</a>
+                <p><a href="{{URL::to('/print-deliverynotes/'.$ma_pg)}}" >IN PHIẾU</a></p>
             </div>
         
-   
+        </div>
       </div>
     </footer>
   </div>
+
+
 </div>
 </section>
 </section>

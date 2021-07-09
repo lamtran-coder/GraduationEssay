@@ -110,6 +110,7 @@
              <input type="hidden" name="masp_hidden" min="1" value="{{$value_pro->ma_sp}}">
              <input type="hidden" name="mau_hidden" min="1" value="{{$value_pro->ten_mau}}">
              <input type="hidden" name="size_hidden" min="1" value="{{$value_pro->ma_size}}">
+              <input type="hidden" name="quantity_h" min="1" value="1">
             <button style="height: 32px;
               width: 100%;
               font-size: 20px;

@@ -8,7 +8,16 @@ use Illuminate\Support\Facades\Redirect;
 session_start();
 class Checkoutcontroller extends Controller
 {
+    public function AuthLogin_user(){
+      $email = Session::get('email');
+      if($email){
+         return Redirect::to('/');
+      }else{
+         return Redirect::to('/login-user')->send();
+      }
+    }
     public function show_checkout(){
+        $this->AuthLogin_user();
         $cate_product = DB::table('danh_muc_sp')
             ->select('danh_muc')
             ->groupBy('danh_muc')
@@ -61,6 +70,7 @@ class Checkoutcontroller extends Controller
      return Redirect::to('/show-checkout');
    }
    public function payment(){
+     $this->AuthLogin_user();
         $all_customer=DB::table('khach_hang')->get();
         $cate_product = DB::table('danh_muc_sp')
             ->select('danh_muc')

@@ -20,8 +20,6 @@
       </div>
       </form>
       </div>
-
-
     <div class="table-responsive">
         <div>
       <ul style="display: -webkit-inline-box;padding: 10px;">
@@ -41,7 +39,7 @@
           @csrf
         <select name="status_od"  >
           <option value="0">Đang Xử Lý</option>
-          <option value="1">Đang Giao</option>
+          <option value="1">Đang Lấy Hàng</option>
           <option value="2">Đã Hoàn Thành</option>
         </select>
         <button>Tìm</button>

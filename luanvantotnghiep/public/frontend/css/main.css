@@ -125,7 +125,7 @@ h1 {
 /*-- main --*/
 .main-w3layouts {
   padding: 3em 0 1em;
-  background: url('../images/xanh.jpg');
+  background: url('../images/den.jpg');
   /*fallback for old browsers */
  /* background: -webkit-linear-gradient(to top, #76b852, #8DC26F);
   background: -moz-linear-gradient(to top, #76b852, #8DC26F);
@@ -211,7 +211,7 @@ input.email, input.text.w3lpass {
 input[type="submit"] {
   font-size: .9em;
   color: #fff;
-  background: #fd0c0c;
+  background: #043607;
   outline: none;
   border: 1px solid #190000;
   cursor: pointer;
@@ -235,10 +235,9 @@ input.submit-mua {
     width: 110px;
 }
 .agileits-top {
-   background: #03035bc2;
-    border: 2px solid yellowgreen;
+    background: #000000c2;
+    border: 2px solid #121413;
     border-radius: 50px;
-
 }
 .agileits-top p {
   font-size: 1em;
@@ -256,7 +255,7 @@ input.submit-mua {
   font-weight: 400;
 }
 input.submit-dangky {
-    border: 10px solid #190000;
+    border: 1px solid #190000;
     border-radius: 50px;
     font-size: 17px;
     text-align: center;

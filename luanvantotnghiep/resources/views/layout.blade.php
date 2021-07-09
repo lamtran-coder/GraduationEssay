@@ -144,11 +144,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <li><a href="">
                 <?php $username=Session::get('username');
                     if ($username!=null) { ?>
-                    <li><a href="">Thông Tin Cá Nhân</a></li>
-                    <li><a href="{{URL::to('/show-order')}}">Đơn Mua</a></li>
-                    <li><a href="{{URL::to('/logout-us')}}">Đăng Xuất</a></li> 
+                    <li><a style="color: #FFF;" href="{{URL::to('/thong-tin-ca-nhan')}}">Thông Tin Cá Nhân</a></li>
+                    <li><a style="color: #FFF;" href="{{URL::to('/show-order')}}">Đơn Mua</a></li>
+                    <li><a style="color: #FFF;" href="{{URL::to('/logout-us')}}">Đăng Xuất</a></li> 
                         <?php }else{ ?>
-                    <li><a href="{{URL::to('/login-user')}}">đăng nhập</a></li>  
+                    <li><a style="color: #FFF;" href="{{URL::to('/login-user')}}">đăng nhập</a></li>  
                 <?php } ?>
                     </a></li> 
                 </ul>
@@ -207,7 +207,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
    </div>
    <div class="header-bottom">
-    <div class="wrap">
+    <div class="wrap" style="font-size: 25px;">
         <!-- start header menu -->
         <ul class="megamenu skyblue">
             <li><a class="color1" href="{{URL::to('/trang-chu')}}">Trang chủ</a></li>
@@ -238,7 +238,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     <ul class="cart-des">
                                         <?php foreach ($design_id as $key => $value_des): ?>
                                             <?php if ($value_des->danh_muc==$value_cate->danh_muc): ?>        
-                                                <a href="{{URL::to('/danh-muc-san-pham/'.$value_des->ma_tk)}}"><li><?php echo mb_strtoupper($value_des->ten_tk,'utf-8') ?></li></a>
+                                                <a href="{{URL::to('/danh-muc-san-pham/'.$value_des->ma_tk)}}"><li style="font-size: 20px;"><?php echo mb_strtoupper($value_des->ten_tk,'utf-8') ?></li></a>
                                             <?php endif ?>    
                                         <?php endforeach ?>
                                     </ul>
@@ -253,9 +253,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </li>
                <li class="active grid"><a class="color4" href="{{URL::to('/gioi-thieu')}}">Giới thiệu</a></li>               
                 <li><a class="color5" href="{{URL::to('/chinh-sach')}}">Chính sách</a></li>
-                <li><a class="color6" href="#">khuyến mãi</a></li>
                 <li><a class="color7" href="{{URL::to('/ke-hang')}}">Cửa Hàng</a></li>
-                <li><a class="color8" href="#">Tin tức</a></li>
                 <li>
                 
                 </li>

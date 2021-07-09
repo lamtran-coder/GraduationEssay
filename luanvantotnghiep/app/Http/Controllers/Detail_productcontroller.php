@@ -10,9 +10,19 @@ use Illuminate\Support\Facades\Redirect;
 session_start();
 class Detail_productcontroller extends Controller
 {   
+
+    public function AuthLogin(){
+      $email = Session::get('email');
+      if($email){
+         return Redirect::to('admin.dashboard');
+      }else{
+         return Redirect::to('admin')->send();
+      }
+    }
     //chi tiết sản phẩm
         //
     public function add_detail_product(){
+        $this->AuthLogin();
         $product_id=DB::table('san_pham')->orderby('ten_sp','desc')->get();
         $color_id=DB::table('mau')->orderby('ten_mau','desc')->get();
         $size_id=DB::table('size')->orderby('ma_size','desc')->get();
@@ -72,6 +82,7 @@ class Detail_productcontroller extends Controller
          return Redirect::to('/all-detail-product');
     }
     public function all_detail_product(){
+         $this->AuthLogin();
         $product_id=DB::table('san_pham')->orderby('ten_sp','desc')->get();
         $color_id=DB::table('mau')->orderby('ten_mau','desc')->get();
         
@@ -108,6 +119,7 @@ class Detail_productcontroller extends Controller
 
     //màu
     public function add_color_product(){
+         $this->AuthLogin();
         $product_id=DB::table('san_pham')->orderby('ten_sp','desc')->get();
         $color_id=DB::table('mau')->orderby('ten_mau','desc')->get();
         $size_id=DB::table('size')->orderby('ma_size','desc')->get();

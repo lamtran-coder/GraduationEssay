@@ -22,15 +22,15 @@
                                     @csrf
                                      <div class="form-group">
                                         <label for="exampleInputEmail1">Mã màu </label>
-                                        <input type="text" class="form-control main-styling" name="color_key" placeholder="mã màu">
+                                        <input type="text" class="form-control main-styling" name="color_key" placeholder="mã màu" required="">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Tên màu </label>
-                                        <input type="text" class="form-control main-styling" name="color_name" placeholder="tên màu">
+                                        <input type="text" class="form-control main-styling" name="color_name" placeholder="tên màu" required="">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputFile">ảnh hình họa màu</label>
-                                        <input type="file" id="exampleInputFile" name="images_color"  >
+                                        <input type="file" id="exampleInputFile" name="images_color"  required="">
                                     </div>                            
                                     <button type="submit" class="btn btn-info main-styling"	name="add_color_product">Thêm Màu Mới</button>
                                 </form>
@@ -59,15 +59,15 @@
                                     @csrf
                                      <div class="form-group">
                                         <label for="exampleInputEmail1">Mã kích thước </label>
-                                        <input type="text" class="form-control main-styling" name="size_key" placeholder="mã màu">
+                                        <input type="text" class="form-control main-styling" name="size_key" placeholder="mã màu" required="">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Chiều cao </label>
-                                        <input type="text" class="form-control main-styling" name="chieu_cao" placeholder="chiều cao">
+                                        <input type="text" class="form-control main-styling" name="chieu_cao" placeholder="chiều cao" required="">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Cân nặng</label>
-                                        <input type="text" class="form-control main-styling" name="can_nang" placeholder="Cân nặng" value="">
+                                        <input type="text" min=1 class="form-control main-styling" name="can_nang" placeholder="Cân nặng" required="">
                                     </div>
                                    
                                     
@@ -99,7 +99,8 @@
                                     @csrf
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">kích thước</label>
-                                        <select name="ct_size" class="form-control input-sm m-bot15 main-styling">
+                                        <select name="ct_size" class="form-control input-sm m-bot15 main-styling"  style="height :150px" multiple  required="">
+                                           
                                             <?php foreach ($size_id as $key => $value_size): ?>
                                                 <option value="{{$value_size->ma_size}}">{{$value_size->ma_size}}</option> 
                                             <?php endforeach ?>
@@ -108,7 +109,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">màu sản phẩm</label>
-                                        <select name="ct_mau" class="form-control input-sm m-bot15 main-styling">
+                                        <select name="ct_mau" class="form-control input-sm m-bot15 main-styling"  style="height :150px" multiple required="">
+                                             
                                             <?php foreach ($color_id as $key => $value_color): ?>
                                                 <option value="{{$value_color->ma_mau}}">{{$value_color->ten_mau}}</option> 
                                             <?php endforeach ?>     
@@ -116,7 +118,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">mã sản phẩm</label>
-                                        <select name="ct_sp" class="form-control input-sm m-bot15 main-styling">
+                                        <select name="ct_sp" class="form-control input-sm m-bot15 main-styling"  style="height :150px" multiple required="">
+                                             
                                             <?php foreach ($product_id as $key => $value_pro): ?>
                                                 <option value="{{$value_pro->ma_sp}}">{{$value_pro->ma_sp}}--{{$value_pro->ten_sp}}</option>
                                             <?php endforeach ?>              
@@ -124,7 +127,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Số lượng</label>
-                                        <input type="number" class="form-control main-styling" name="solg_sp" placeholder="số lượng" value="0" >
+                                        <input type="number" class="form-control main-styling" name="solg_sp" placeholder="số lượng" value="0" required="">
                                     </div>
                                     <button type="submit" class="btn btn-info main-styling"  name="add_detail_product">Thêm Chi Tiết Mới</button>
                                 </form>

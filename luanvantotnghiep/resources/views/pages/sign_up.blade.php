@@ -29,7 +29,6 @@
 				<p><a class="dangnhapngay" href="{{URL::to('/login-user')}}"> ĐĂNG NHẬP NGAY</a></p>
 			</div>
 		</div>
-		
 		<ul class="colorlib-bubbles">
 			<li></li>
 			<li></li>

@@ -8,7 +8,19 @@ use Illuminate\Support\Facades\Redirect;
 session_start();
 class Categorycontroller extends Controller
 {   
+   public function AuthLogin(){
+      $email = Session::get('email');
+      if($email){
+         return Redirect::to('admin.dashboard');
+      }else{
+         return Redirect::to('admin')->send();
+      }
+    }
+    public function index(){
+        return view('admin_login');
+    }
     public function add_Category(){
+        $this->AuthLogin();
         $design_id=DB::table('thiet_ke')
         ->orderby('ma_tk','desc')->get();
         $material_id=DB::table('chat_lieu')
@@ -18,6 +30,7 @@ class Categorycontroller extends Controller
         ->with('design_id',$design_id);
     }
     public function all_Category(){
+         $this->AuthLogin();
         $all_Category=DB::table('danh_muc_sp')->paginate(5);
         $design_id=DB::table('thiet_ke')->get();
         $material_id=DB::table('chat_lieu')->get();
@@ -41,15 +54,18 @@ class Categorycontroller extends Controller
     }
     //trang thái
     public function unactive_category($ma_dm){
+         $this->AuthLogin();
         DB::table('danh_muc_sp')->where('ma_dm',$ma_dm)->update(['trang_thai'=>0]);
         return Redirect::to('/all-Category');
     }
     public function active_category($ma_dm){
+         $this->AuthLogin();
         DB::table('danh_muc_sp')->where('ma_dm',$ma_dm)->update(['trang_thai'=>1]);
         return Redirect::to('/all-Category');
     }
 
     public function edit_Category($ma_dm){
+         $this->AuthLogin();
         $edit_Category=DB::table('danh_muc_sp')->where('ma_dm',$ma_dm)->get();
         $design_id=DB::table('thiet_ke')->get();
         $material_id=DB::table('chat_lieu')->get();
@@ -76,6 +92,7 @@ class Categorycontroller extends Controller
 
     //tim kiếm danh muc qua tên danh mục
     public function search_cate_ad(Request $request){
+         $this->AuthLogin();
         $keywords=$request->keywords_submit;
         $design_id=DB::table('thiet_ke')->get();
         $material_id=DB::table('chat_lieu')->get();
@@ -98,6 +115,7 @@ class Categorycontroller extends Controller
 
     //add thiết kế
     public function add_design(){
+         $this->AuthLogin();
         $design_id=DB::table('thiet_ke')->orderby('ma_tk','desc')->get();
         $material_id=DB::table('chat_lieu')->orderby('ma_cl','desc')->get();
         return view('admin.Category_add')
@@ -114,6 +132,7 @@ class Categorycontroller extends Controller
     }
     //add chất liệu
     public function add_material(){
+         $this->AuthLogin();
         $design_id=DB::table('thiet_ke')->orderby('ma_tk','desc')->get();
         $material_id=DB::table('chat_lieu')->orderby('ma_cl','desc')->get();
         return view('admin.Category_add')

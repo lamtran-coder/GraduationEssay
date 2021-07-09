@@ -144,7 +144,7 @@ Thông báo</p>
     <!--search & user info start-->
     <ul class="nav pull-right top-menu">
         <li>
-            <input type="text" class="form-control search" placeholder=" Search">
+           <!--  <input type="text" class="form-control search" placeholder=" Search" > -->
         </li>
         <!-- user login dropdown start-->
         <li class="dropdown">
@@ -154,7 +154,7 @@ Thông báo</p>
                 <?php 
                 $name=Session::get('ten');
                 $email=Session::get('email');
-                $phone=Session::get('phone');
+                $phone=Session::get('sodt');
                 if($name){echo $name;}
                 ?>
          

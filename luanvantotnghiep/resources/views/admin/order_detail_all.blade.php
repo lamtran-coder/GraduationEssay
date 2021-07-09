@@ -97,7 +97,7 @@
                             
                         </div>
                         <table id="myTable" class="table table-bordered table-hover dataTable" style="width: 97%;
-    margin: 16px;" role="grid" aria-describedby="example2_info">
+    margin: 16px;font-weight: bolder;" role="grid" aria-describedby="example2_info">
                             <thead>
                             <tr role="row">
                                 <th >Mã sản phẩm</th>

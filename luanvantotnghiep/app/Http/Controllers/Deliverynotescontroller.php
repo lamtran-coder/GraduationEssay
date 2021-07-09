@@ -11,6 +11,14 @@ session_start();
 
 class Deliverynotescontroller extends Controller
 {
+    public function AuthLogin(){
+      $email = Session::get('email');
+      if($email){
+         return Redirect::to('admin.dashboard');
+      }else{
+         return Redirect::to('admin')->send();
+      }
+    }
     public function save_delivery_notes (Request $request){
         $data=array();
         $date=getdate();
@@ -115,6 +123,7 @@ class Deliverynotescontroller extends Controller
 
     //danh sách phiếu giao
     public function all_delivery_notes (){
+        $this->AuthLogin();
         if (isset($_GET['date_star_dn'])&&isset($_GET['date_end_dn'])) {
             $date_star = $_GET['date_star_dn'];
             $date_end = $_GET['date_end_dn'];
@@ -137,6 +146,7 @@ class Deliverynotescontroller extends Controller
 
     //chi tiet phiếu giao
     public function deliverynotes_detail($ma_pg){
+        $this->AuthLogin();
         $deliverynotes_detail_id=DB::table('chi_tiet_phieu_giao')
         ->where('ma_pg',$ma_pg)->get();
         $product_id=DB::table('san_pham')->get();
@@ -151,13 +161,14 @@ class Deliverynotescontroller extends Controller
         ;
     }
     public function print_order($checkout_code){
+        $this->AuthLogin();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($this->print_order_convert($checkout_code));
         return $pdf->stream();
     }
     public function print_order_convert($checkout_code){
         
-
+        $this->AuthLogin();
         $deliverynotes_detail_id=DB::table('chi_tiet_phieu_giao')
         ->where('ma_pg',$checkout_code)->get();
         $product_id=DB::table('san_pham')->get();

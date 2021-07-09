@@ -57,7 +57,7 @@
                                     if ($v_order_detail->trang_thai==0){
                                         echo "Đang xử lý";
                                     }elseif($v_order_detail->trang_thai==1){
-                                        echo "Đang giao";
+                                        echo "Đang hàng";
                                     }elseif($v_order_detail->trang_thai==2){
                                         echo "Đã nhận";
                                     }

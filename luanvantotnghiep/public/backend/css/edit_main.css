@@ -134,3 +134,30 @@ select.status_order_detail {
 .box-header.with-border {
     font-weight: bold;
 }
+input.form-control {
+    width: 300px;
+}
+.form-group.ca-nhan {
+    display: -webkit-box;
+    width: 650px;
+}
+
+.form-group.ca-nhan label {
+    width: 150px;
+}
+.form-group.ca-nhan form {
+    display: -webkit-box;
+}
+.btn-info {
+    color: #fff;
+    background-color: #247312;
+    border-color: #124e1c;
+}
+.btn-info:hover {
+    color: #fff;
+    background-color:  #247312a6;
+    border-color: #124e1c;
+}
+header.panel-heading {
+    font-weight: bold;
+}

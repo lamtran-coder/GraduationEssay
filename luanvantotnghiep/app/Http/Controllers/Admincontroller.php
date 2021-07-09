@@ -12,17 +12,19 @@ use Illuminate\Support\Facades\Redirect;
 session_start();
 class Admincontroller extends Controller
 {   public function AuthLogin(){
-      $admin_id = Session::get('admin_id');
-      if($admin_id){
+      $email = Session::get('email');
+      if($email){
          return Redirect::to('admin.dashboard');
       }else{
          return Redirect::to('admin')->send();
       }
     }
     public function index(){
+      
         return view('admin_login');
     }
     public function show_dashboard(Request $request){
+         $this->AuthLogin();
     $user_ip_address = $request->ip(); 
     $early_last_month = Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->startOfMonth()->toDateString();
 
@@ -83,6 +85,7 @@ class Admincontroller extends Controller
             session::put('sodt',$result->sodt);
             session::put('email',$result->email);
             session::put('tg_tao',$result->tg_tao);
+            session::put('diachi',$result->diachi);
 
             return Redirect::to('/dashboard');}
         else{
@@ -92,16 +95,53 @@ class Admincontroller extends Controller
         
         
     }
-    public function personal_information(){
-      return view('admin.personal_information'); 
-    }
     public function logout(){
         session::put('ten',null);
         session::put('tg_tao',null);
+        session::put('email',null);
         return Redirect::to('/admin');
     }
+    //thông tin cá nhân
+    public function personal_information(){
+        $this->AuthLogin();
+        $admin_id=DB::table('admin')->get();
+      return view('admin.personal_information')
+      ->with('admin_id',$admin_id); 
     
+    }
+    public function update_name(Request $request,$email){
+        $data=array();
+        $data['ten']=$request->name_admin;
+        DB::table('admin')->where('email',$email)->update($data);
+        return Redirect::to('/trang-ca-nhan');
+    }
+    public function update_phone(Request $request,$email){
+        $data=array();
+        $data['sodt']=$request->name_phone;
+        DB::table('admin')->where('email',$email)->update($data);
+        return Redirect::to('/trang-ca-nhan');
+    }
+    public function update_address(Request $request,$email){
+        $data=array();
+        $data['diachi']=$request->name_address;
+        DB::table('admin')->where('email',$email)->update($data);
+        return Redirect::to('/trang-ca-nhan');
+    }
+    public function update_password(Request $request,$email){
 
+        $matkhau=md5($request->passwordold);
+        $result=DB::table('admin')->where('email',$email)->where('matkhau',$matkhau)->first();
+        if ($result) {
+            $data=array();
+            if ($request->passwordnew==$request->passwordnew2) {
+                  $data['matkhau']=md5($request->passwordnew);
+                  DB::table('admin')->where('email',$email)->where('matkhau',$matkhau)->update($data);
+            return Redirect::to('/trang-ca-nhan');
+            }  
+        }
+        
+        
+    }
 
 
 

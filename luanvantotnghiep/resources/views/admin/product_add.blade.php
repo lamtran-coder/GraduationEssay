@@ -23,7 +23,8 @@
                                     @csrf
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Danh mục</label>
-                                        <select name="category_product_id" class="form-control input-sm m-bot15 main-styling">
+                                        <select name="category_product_id" class="form-control input-sm m-bot15 main-styling" required="">
+                                            <option>Chọn Danh Mục</option>
                                             <?php 
                                             foreach ($cate_product as $key => $value_cate) {
                                                foreach ($design_id as $key => $value_des) {
@@ -46,29 +47,29 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Tên sản phẩm </label>
-                                        <input type="text" class="form-control main-styling" name="product_name" placeholder="tên sản phẩm">
+                                        <input type="text" class="form-control main-styling" name="product_name" placeholder="tên sản phẩm" required="">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Mô Tả </label>
-                                        <textarea class="form-control main-styling" rows="5"  name="product_desc" placeholder="tên mô tả sản phẩm">
+                                        <textarea class="form-control main-styling" rows="5"  name="product_desc" placeholder="tên mô tả sản phẩm" required="">
                                             
                                         </textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Giá góc</label>
-                                        <input type="text" class="form-control main-styling" name="corner_price" placeholder="tên chất liệu">
+                                        <input type="text" class="form-control main-styling" name="corner_price" placeholder="tên chất liệu" required="">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Giá sale</label>
-                                        <input type="text" class="form-control main-styling" name="sale_pricee" placeholder="tên danh mục">
+                                        <input type="text" class="form-control main-styling" name="sale_pricee" placeholder="tên danh mục" required="">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Chiết khấu</label>
-                                        <input type="text" class="form-control main-styling" name="discount" placeholder="Chiết khấu">
+                                        <input type="text" class="form-control main-styling" name="discount" placeholder="Chiết khấu" required="">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Số lượng</label>
-                                        <input type="text" class="form-control main-styling" name="amount_product" placeholder="số lượng" value="0">
+                                        <input type="text" class="form-control main-styling" name="amount_product" placeholder="số lượng" value="0" required="">
                                     </div>     
                                     <button type="submit" class="btn btn-info main-styling"	name="add_product">Thêm Sản Phẩm</button>
                                 </form>
@@ -99,7 +100,7 @@
                                     @csrf
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Góc nhìn</label>
-                                        <select name="images_view" class="form-control input-sm m-bot15 main-styling">
+                                        <select name="images_view" class="form-control input-sm m-bot15 main-styling" required="">
                                             <option value="1">Ảnh phụ</option>
                                             <option value="0">Ảnh đại điện</option>
                                         </select>
@@ -107,13 +108,13 @@
          
                                     <div class="form-group">
                                         <label for="exampleInputFile">Hình ảnh sản phẩm</label>
-                                        <input type="file" id="exampleInputFile" name="images_pro">
+                                        <input type="file" id="exampleInputFile" name="images_pro" required="">
                                     </div>
                                    
                                    
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Sản phẩm</label>
-                                        <select name="product_images_id" class="form-control input-sm m-bot15 main-styling">
+                                        <select name="product_images_id" class="form-control input-sm m-bot15 main-styling" required="">
                                             <?php foreach ($product_id as $key => $value_pro): ?>
                                                 <option value="{{$value_pro->ma_sp}}">{{$value_pro->ma_sp}}-{{$value_pro->ten_sp}}</option>
                                            <?php endforeach ?>

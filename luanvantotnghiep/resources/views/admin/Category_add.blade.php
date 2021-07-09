@@ -14,7 +14,7 @@
                                     @csrf 
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Thiết kế</label>
-                                        <input type="text" class="form-control input-sm m-bot15 main-styling" name="design_name">
+                                        <input type="text" class="form-control input-sm m-bot15 main-styling" name="design_name" required="">
                                     </div>
                                     <button type="submit" class="btn btn-info"  name="add_design">Thêm thiết kế</button>
                                      <div>
@@ -34,7 +34,7 @@
                                     @csrf 
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Chất liệu</label>
-                                        <input type="text" class="form-control input-sm m-bot15 main-styling" name="material_name">
+                                        <input type="text" class="form-control input-sm m-bot15 main-styling" name="material_name" required="">
                                     </div>
                                     <button type="submit" class="btn btn-info"  name="add_material">Thêm chất liệu</button>
                                      <div>
@@ -75,7 +75,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Tên danh mục sản phẩm </label>
-                                    <select name="category_key" style="height :150px" class="form-control input-sm m-bot15 main-styling" multiple>
+                                    <select name="category_key" style="height :150px" class="form-control input-sm m-bot15 main-styling" multiple required="">
                                    
                                         <option value="AO">Áo</option>
                                         <option value="QU">Quần</option>
@@ -87,7 +87,7 @@
                                 <div class="form-group">
 
                                     <label for="exampleInputEmail1">Thiết kế</label>
-                                   <select name="design_key" style="height :150px" class="form-control input-sm m-bot15 main-styling" multiple>
+                                   <select name="design_key" style="height :150px" class="form-control input-sm m-bot15 main-styling" multiple required="" >
                                     <?php foreach ($design_id as $key => $value_des): ?>
                                         <option value="{{$value_des->ma_tk}}">{{$value_des->ten_tk}}</option>
                                     <?php endforeach ?>
@@ -97,7 +97,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Chất liệu</label>
-                                    <select name="material_key" style="height :150px" class="form-control input-sm m-bot15 main-styling" multiple> 
+                                    <select name="material_key" style="height :150px" class="form-control input-sm m-bot15 main-styling" multiple required=""> 
                                     <?php foreach ($material_id as $key => $value_mat): ?>
                                           <option value="{{$value_mat->ma_cl}}">{{$value_mat->ten_cl}}</option>
                                     <?php endforeach ?>
@@ -105,7 +105,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Hiện thị</label>
-                                    <select name="category_status" class="form-control input-sm m-bot15 main-styling">
+                                    <select name="category_status" class="form-control input-sm m-bot15 main-styling" required="">
                                         <option value="1">Hiện thị</option>
                                         <option value="0">Ẩn</option>
                                     </select>

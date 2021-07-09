@@ -53,14 +53,14 @@ input.input-search {
 i.fa.fa-user.fa-user-styling {
     font-size: 30px;
     width: 30px;
-    color: #570303;
+    color: #d40000;
 }
 ul.sub-icon2.list.user-styling {
    width: auto;
     border-radius: 10px;
     right: -40px;
     height: auto;
-    background: #FFF;
+    background: #110101;
     padding: 8px 0px;
     margin: 5px 5px 5px 5px;
 }
@@ -185,7 +185,7 @@ div.next{
     height: 25px;
     position: absolute;
     color: #F0E68C;
-    z-index: 1000;
+   /* z-index: 1000;*/
     cursor: pointer;
 }
 div.prev{

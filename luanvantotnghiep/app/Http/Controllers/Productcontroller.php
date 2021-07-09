@@ -11,7 +11,16 @@ use Illuminate\Support\Facades\Redirect;
 session_start();
 class Productcontroller extends Controller
 {
+    public function AuthLogin(){
+      $email = Session::get('email');
+      if($email){
+         return Redirect::to('admin.dashboard');
+      }else{
+         return Redirect::to('admin')->send();
+      }
+    }
     public function add_product(){
+        $this->AuthLogin();
         $cate_product=DB::table('danh_muc_sp')->orderby('danh_muc','desc')->get();
         $design_id=DB::table('thiet_ke')->orderby('ma_tk','desc')->get();
         $material_id=DB::table('chat_lieu')->orderby('ma_cl','desc')->get();
@@ -21,7 +30,7 @@ class Productcontroller extends Controller
         ;
     }
     public function all_product(){
-        
+        $this->AuthLogin();
         $all_product=DB::table('san_pham')->paginate(5);
         $img_id=DB::table('hinh_anh')->get();
         $manager_product=view('admin.product_all')->with('all_product',$all_product)->with('img_id',$img_id);
@@ -30,6 +39,7 @@ class Productcontroller extends Controller
     }
     //tim kiem san pham của admin
     public function search_product_ad(Request $request){
+        $this->AuthLogin();
         $keywords=$request->keywords_submit;
          $img_id=DB::table('hinh_anh')->get();
          $search_pro_ad=DB::table('san_pham')
@@ -71,6 +81,7 @@ class Productcontroller extends Controller
         return Redirect::to('/add-product');
     }
     public function edit_product($ma_sp){
+        $this->AuthLogin();
         $edit_product_id=DB::table('san_pham')->where('ma_sp',$ma_sp)->get();
         $design_id=DB::table('thiet_ke')->get();
         $material_id=DB::table('chat_lieu')->get();
@@ -108,6 +119,7 @@ class Productcontroller extends Controller
 
     //images_product
     public function add_images_product(){
+        $this->AuthLogin();
         $cate_product=DB::table('danh_muc_sp')->orderby('danh_muc','desc')->get();
         $design_id=DB::table('thiet_ke')->orderby('ma_tk','desc')->get();
         $material_id=DB::table('chat_lieu')->orderby('ma_cl','desc')->get();

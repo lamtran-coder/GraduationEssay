@@ -14,7 +14,16 @@ session_start();
 class Ordercontroller extends Controller
 {   
     //frontend
+     public function AuthLogin_user(){
+      $email = Session::get('email');
+      if($email){
+         return Redirect::to('/');
+      }else{
+         return Redirect::to('/login-user')->send();
+      }
+    }
     public function new_order(Request $request){
+        $this->AuthLogin_user();
         $ma_kh_h=$request->ma_kh_address;
 
         $customer_id=DB::table('khach_hang')->where('ma_kh',$ma_kh_h)->get();   
@@ -125,6 +134,7 @@ class Ordercontroller extends Controller
     }
 
     public function show_order(){
+        $this->AuthLogin_user();
         $cate_product = DB::table('danh_muc_sp')
             ->select('danh_muc')
             ->groupBy('danh_muc')
@@ -164,6 +174,7 @@ class Ordercontroller extends Controller
     }
     //chi tiet đơn đặt hàng
     public function order_detail_view($ma_ddh){ 
+        $this->AuthLogin_user();
         $cate_product = DB::table('danh_muc_sp')
             ->select('danh_muc')
             ->groupBy('danh_muc')
@@ -191,7 +202,16 @@ class Ordercontroller extends Controller
 
 
     //backend
+    public function AuthLogin(){
+      $email = Session::get('email');
+      if($email){
+         return Redirect::to('admin.dashboard');
+      }else{
+         return Redirect::to('admin')->send();
+      }
+    }
     public function all_order_product(){
+        $this->AuthLogin();
         if (isset($_GET['date_star'])&&isset($_GET['date_end'])) {
             $date_star = $_GET['date_star'];
             $date_end = $_GET['date_end'];
@@ -217,6 +237,7 @@ class Ordercontroller extends Controller
     }
     //tìm kiếm đơn hàng qua mã đơn hàng
     public function search_order(Request $request){
+        $this->AuthLogin();
          $keywords=$request->keywords_submit;
             $all_cus=DB::table('khach_hang')->get();
          $search_oder_id=DB::table('don_dat_hang')
@@ -239,7 +260,7 @@ class Ordercontroller extends Controller
     }
 
     public function order_details($ma_ddh){
-
+        $this->AuthLogin();
         $customer_id=DB::table('khach_hang')
         ->join('don_dat_hang','don_dat_hang.ma_kh','=','khach_hang.ma_kh')
         ->where('don_dat_hang.ma_ddh',$ma_ddh)->get();
@@ -265,7 +286,7 @@ class Ordercontroller extends Controller
        
     }
     public function update_status_order_detail(Request $request,$so_ct){
-       
+        $this->AuthLogin();
         $result=$request->ma_ddh_od;
         $data['trang_thai']=$request->status_od;
         DB::table('chi_tiet_don_hang')->where('so_ct',$so_ct)->update($data);
