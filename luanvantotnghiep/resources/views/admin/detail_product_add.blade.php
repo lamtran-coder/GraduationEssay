@@ -20,18 +20,10 @@
                             <div class="position-center">
                                 <form role="form" action="{{URL::to('/save-color-product')}}" method="post" enctype="multipart/form-data">
                                     @csrf
-                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Mã màu </label>
-                                        <input type="text" class="form-control main-styling" name="color_key" placeholder="mã màu" required="">
-                                    </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Tên màu </label>
                                         <input type="text" class="form-control main-styling" name="color_name" placeholder="tên màu" required="">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputFile">ảnh hình họa màu</label>
-                                        <input type="file" id="exampleInputFile" name="images_color"  required="">
-                                    </div>                            
+                                    </div>                           
                                     <button type="submit" class="btn btn-info main-styling"	name="add_color_product">Thêm Màu Mới</button>
                                 </form>
                             </div>

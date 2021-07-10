@@ -60,24 +60,54 @@ class Productcontroller extends Controller
 
     }
     public function save_product(Request $request){
+        $validator=$request->validate([
+            'category_product_id'=>'required',
+            'product_name'=>'required',
+            'product_desc'=>'required',
+            'corner_price'=>'required|numeric|min:4|max:10',
+            'sale_pricee'=>'required|numeric|min:4|max:10',
+            'discount'=>'required|numeric',
+          
+        ],[
+            'category_product_id.required'=>'***Chưa Chọn Danh Mục***',
+            'product_name.required'=>'***Nhập Tên Sản Phẩm***',
+            'product_desc.required'=>'***Nhập Mô Tả Sản Phẩm***',
+
+            'corner_price.required'=>'***Nhập Giá Góc Sản Phẩm***',
+            'corner_price.numeric'=>'***Nhập Giá Góc Là Số***',
+            'corner_price.min'=>'***Nhập Giá Góc Tốt Thiểu 4 Số Tốt Đa 10***',
+            'corner_price.max'=>'***Nhập Giá Góc Tốt Thiểu 4 Số Tốt Đa 10***',
+
+            'sale_pricee.required'=>'***Nhập Giá Sale Sản Phẩm***',
+            'sale_pricee.numeric'=>'***Nhập Giá Sale Là Số***',
+            'sale_pricee.min'=>'***Nhập Giá Sale Tốt Thiểu 4 Số Tốt Đa 10***',
+            'sale_pricee.max'=>'***Nhập Giá Sale Tốt Thiểu 4 Số Tốt Đa 10***',
+
+            'discount.required'=>'***Nhập Chiêt Khấu Sản Phẩm***',
+            'discount.numeric'=>'***Nhập Chiêt Khấu Sản Phẩm Là Số***',
+
+           
+        ]);
+        if ($validator->flails()) {
+            return redirect()
+                            ->back()
+                            ->withErrors($validator)
+                            ->withInput();
+        }
         $data=array();
         $result=($request->category_product_id).'S'.rand(0,99);
         $data['ma_sp']=$result;
         $data['ten_sp']=$request->product_name;
         $data['mo_ta']=$request->product_desc;
-        $data['solg_sp']=$request->amount_product;
+        $data['solg_sp']=0;
         $data['gia_goc']=$request->corner_price;
         $data['gia_sale']=$request->sale_pricee;
-        if($request->amount_product>0){
-            $data['trang_thai']=1;
-        }else{
-            $data['trang_thai']=0;
-            
-        }
+        $data['trang_thai']=1;
         $data['chiet_khau']=$request->discount;
         $data['ma_dm']=$request->category_product_id;
         DB::table('san_pham')->insert($data);
         Session::put('message','Thêm sản phẩm thành công');
+        Session::put('product_name',$request->product_name);
         return Redirect::to('/add-product');
     }
     public function edit_product($ma_sp){
@@ -91,6 +121,35 @@ class Productcontroller extends Controller
       
     }
     public function update_product(Request $request,$ma_sp){
+         $validator=$request->validate([
+            'category_product_id'=>'required',
+            'product_name'=>'required',
+            'product_desc'=>'required',
+            'corner_price'=>'required|numeric|min:4|max:10',
+            'sale_pricee'=>'required|numeric|min:4|max:10',
+            'discount'=>'required|numeric',
+            'amount_product'=>'required|numeric'
+        ],[
+            'category_product_id.required'=>'***Chưa Chọn Danh Mục***',
+            'product_name.required'=>'***Nhập Tên Sản Phẩm***',
+            'product_desc.required'=>'***Nhập Mô Tả Sản Phẩm***',
+
+            'corner_price.required'=>'***Nhập Giá Góc Sản Phẩm***',
+            'corner_price.numeric'=>'***Nhập Giá Góc Là Số***',
+            'corner_price.min'=>'***Nhập Giá Góc Tốt Thiểu 4 Số Tốt Đa 10***',
+            'corner_price.max'=>'***Nhập Giá Góc Tốt Thiểu 4 Số Tốt Đa 10***',
+
+            'sale_pricee.required'=>'***Nhập Giá Sale Sản Phẩm***',
+            'sale_pricee.numeric'=>'***Nhập Giá Sale Là Số***',
+            'sale_pricee.min'=>'***Nhập Giá Sale Tốt Thiểu 4 Số Tốt Đa 10***',
+            'sale_pricee.max'=>'***Nhập Giá Sale Tốt Thiểu 4 Số Tốt Đa 10***',
+
+            'discount.required'=>'***Nhập Chiêt Khấu Sản Phẩm***',
+            'discount.numeric'=>'***Nhập Chiêt Khấu Sản Phẩm Là Số***',
+
+            'amount_product.required'=>'***Nhập Số Lượng Sản Phẩm***',
+            'amount_product.numeric'=>'***Nhập Số Lượng Sản Phẩm Là Số***'
+        ]);
         $data=array();
         $data['ten_sp']=$request->product_name;
         $data['solg_sp']=$request->amount_product;
@@ -130,25 +189,42 @@ class Productcontroller extends Controller
         ;
     }
     public function save_images_product(Request $request){
-        $data=array();
-        $data['goc_nhin']=$request->images_view;
-        $data['ma_sp']=$request->product_images_id;
 
-        $get_images=$request->file('images_pro');
-
-        if($get_images){
-            $get_images_name=$get_images->getClientOriginalName();
-            $name_imgages=current(explode('.',$get_images_name));
-            $new_images=$name_imgages.'-'.rand(0,999).'.'.$get_images->getClientOriginalExtension();
-            $get_images->move('public/uploads/product',$new_images);
-            $data['hinhanh'] = $new_images; 
-            DB::table('hinh_anh')->insert($data);
-            Session::put('messageimg','Thêm hinh ảnh sản phẩm thành công');
-            return Redirect::to('/add-images-product');
-        }
-        else{
-            Session::put('messageimg','Thêm hình ảnh sản phẩm không thành công');
-            return Redirect::to('/add-images-product');
+         $validator=$request->validate([
+            'images_view'=>'required',
+            'product_images_id'=>'required',
+            'images_pro'=>'required',
+            
+        ],[
+            'images_view.required'=>'***Chưa Chọn Góc Nhìn***',
+            'product_images_id.required'=>'***Chưa chọn Sản Phẩm***',
+            'images_pro.required'=>'***Chưa Chọn Hình Sản Phẩm***',
+        ]);
+        $all_img=DB::table('hinh_anh')->where('ma_sp',$request->product_images_id)->get();
+        foreach ($all_img as $key => $value) {
+           if (($request->images_view==0)&&($request->images_view==$value->goc_nhin)) {
+                Session::put('message_img','Thêm hình ảnh sản phẩm không thành công');
+                return Redirect::to('/add-images-product');
+           }else{
+                $data=array();
+                $data['ma_sp']=$request->product_images_id;
+                $data['goc_nhin']=$request->images_view;
+                $get_images=$request->file('images_pro');
+                if($get_images){
+                    $get_images_name=$get_images->getClientOriginalName();
+                    $name_imgages=current(explode('.',$get_images_name));
+                    $new_images=$name_imgages.'-'.rand(0,999).'.'.$get_images->getClientOriginalExtension();
+                    $get_images->move('public/uploads/product',$new_images);
+                    $data['hinhanh'] = $new_images; 
+                    DB::table('hinh_anh')->insert($data);
+                    Session::put('message_img','Thêm hinh ảnh sản phẩm thành công');
+                    return Redirect::to('/add-images-product');
+                }
+                else{
+                    Session::put('message_img','Thêm hình ảnh sản phẩm không thành công');
+                    return Redirect::to('/add-images-product');
+                }
+            }
         }
         
     }

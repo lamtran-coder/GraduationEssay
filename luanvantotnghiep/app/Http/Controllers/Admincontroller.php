@@ -76,9 +76,19 @@ class Admincontroller extends Controller
     }
     public function dashboard(Request $request){
 
+        $request->validate([
+            'email'=>'required|email',
+            'matkhau'=>'required|min:6'
+        ],[
+            'email.required'=>'Email không để trống',
+            'email.email'=>'Email không hợp lệ',
+            'matkhau.required'=>'Mât khẩu không để trống',
+            'matkhau.min'=>'Mât khẩu ít nhất 6 ký tự'
+
+        ]);
+    
         $email=$request->email;
         $matkhau=md5($request->matkhau);
-
         $result=DB::table('admin')->where('email',$email)->where('matkhau',$matkhau)->first();
         if($result){
             session::put('ten',$result->ten);

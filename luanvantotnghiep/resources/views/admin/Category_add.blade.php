@@ -39,23 +39,23 @@
                                     <button type="submit" class="btn btn-info"  name="add_material">Thêm chất liệu</button>
                                      <div>
                                     <?php 
-                                        $message=Session::get('message');
-                                        if($message){
-                                            echo '<span style="color:red;size:20px;">'.$message.'<span>';
+                                        // $message=Session::get('message');
+                                        // if($message){
+                                        //     echo '<span style="color:red;size:20px;">'.$message.'<span>';
 
-                                            Session::put('message',null);
-                                        }
+                                        //     Session::put('message',null);
+                                        // }
                                      ?>
                                      </div>
                                 </form>
                                 <?php 
-                                        $message=Session::get('message');
-                                        if($message){
-                                            echo '<span style="color:red;size:20px;">'.$message.'<span>';
+                                        // $message=Session::get('message');
+                                        // if($message){
+                                        //     echo '<span style="color:red;size:20px;">'.$message.'<span>';
 
-                                            Session::put('message',null);
-                                        }
-                                     ?>
+                                        //     Session::put('message',null);
+                                        // }
+                                ?>
                             </div>
                         </div>
                     </section>
@@ -75,37 +75,45 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Tên danh mục sản phẩm </label>
-                                    <select name="category_key" style="height :150px" class="form-control input-sm m-bot15 main-styling" multiple required="">
+                                    <select name="category_key" style="height :150px" class="form-control input-sm m-bot15 main-styling" multiple>
                                    
                                         <option value="AO">Áo</option>
                                         <option value="QU">Quần</option>
                                         <option value="GI">Giày</option>
                                         <option value="PK">Phụ kiện</option>
-                                     
                                     </select>
+                                    <?php if ($errors->has('category_key')): ?>
+                                        <span style="color:red">{{$errors->first('category_key')}}</span>
+                                    <?php endif ?>
                                 </div>
                                 <div class="form-group">
 
                                     <label for="exampleInputEmail1">Thiết kế</label>
-                                   <select name="design_key" style="height :150px" class="form-control input-sm m-bot15 main-styling" multiple required="" >
+                                   <select name="design_key" style="height :150px" class="form-control input-sm m-bot15 main-styling" multiple>
                                     <?php foreach ($design_id as $key => $value_des): ?>
                                         <option value="{{$value_des->ma_tk}}">{{$value_des->ten_tk}}</option>
                                     <?php endforeach ?>
                                         
                                         
                                     </select>
+                                     <?php if ($errors->has('design_key')): ?>
+                                        <span style="color:red">{{$errors->first('design_key')}}</span>
+                                    <?php endif ?>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Chất liệu</label>
-                                    <select name="material_key" style="height :150px" class="form-control input-sm m-bot15 main-styling" multiple required=""> 
+                                    <select name="material_key" style="height :150px" class="form-control input-sm m-bot15 main-styling" multiple > 
                                     <?php foreach ($material_id as $key => $value_mat): ?>
                                           <option value="{{$value_mat->ma_cl}}">{{$value_mat->ten_cl}}</option>
                                     <?php endforeach ?>
                                     </select>
+                                     <?php if ($errors->has('material_key')): ?>
+                                        <span style="color:red">{{$errors->first('material_key')}}</span>
+                                    <?php endif ?>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Hiện thị</label>
-                                    <select name="category_status" class="form-control input-sm m-bot15 main-styling" required="">
+                                    <select name="category_status" class="form-control input-sm m-bot15 main-styling">
                                         <option value="1">Hiện thị</option>
                                         <option value="0">Ẩn</option>
                                     </select>
@@ -115,6 +123,7 @@
                                  <div>
                                  </div>
                             </form>
+                                <ul>
                                 <?php 
                                     $message=Session::get('message');
                                     if($message){
@@ -123,6 +132,7 @@
                                         Session::put('message',null);
                                     }
                                  ?>
+                                </ul>
                         </div>
                     </div>
             </section>

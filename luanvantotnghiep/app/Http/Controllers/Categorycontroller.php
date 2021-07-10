@@ -40,17 +40,38 @@ class Categorycontroller extends Controller
         ->with('material_id',$material_id);
         return view('admin_layout')->with('admin.Category_all',$manager_Category);
     }
+    
     public function save_Category(Request $request){
-        $data=array();
+        $request->validate([
+            'category_key'=>'required',
+            'design_key'=>'required',
+            'material_key'=>'required',
+            'category_status'=>'required'
+        ],[
+            'category_key.required'=>'***Chưa Chọn Danh Mục***',
+            'design_key.required'=>'***Chưa Chọn Thiết kế***',
+            'material_key.required'=>'***Chưa Chọn Chất Liệu***'
+        ]);
         $result=($request->category_key).'M'.($request->material_key).'D'.($request->design_key);
-        $data['ma_dm']=$result;
-        $data['danh_muc']=$request->category_key;
-        $data['ma_cl']=$request->material_key;
-        $data['ma_tk']=$request->design_key;   
-        $data['trang_thai']=$request->category_status;
-        DB::table('danh_muc_sp')->insert($data);
-        Session::put('message','Thêm danh mục thành công');
-        return Redirect::to('/add-Category'); 
+        $category_pro=DB::table('danh_muc_sp')->get();
+        foreach ($category_pro as $key => $value_pro) {
+            if ($result==$value_pro->ma_dm) {
+               Session::put('message','Không thành công');
+               return Redirect::to('/add-Category'); 
+            }else{
+                $data=array();
+                $data['ma_dm']=$result;
+                $data['danh_muc']=$request->category_key;
+                $data['ma_cl']=$request->material_key;
+                $data['ma_tk']=$request->design_key;   
+                $data['trang_thai']=$request->category_status;
+                DB::table('danh_muc_sp')->insert($data);
+                Session::put('message','Thêm thành công');
+                return Redirect::to('/add-Category');
+            }
+        }
+        
+          
     }
     //trang thái
     public function unactive_category($ma_dm){

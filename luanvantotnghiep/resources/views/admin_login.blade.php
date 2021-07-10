@@ -31,40 +31,33 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	
 <div class="w3layouts-main" >
 	<h2>Đăng nhập</h2>
-		<form action="{{URL::to('/admin-dashboard')}}" method="post">
+		<form action="{{URL::to('/admin-dashboard')}}" method="post" >
 			@csrf			
 
-			<input type="email" class="ggg" name="email" placeholder="E-MAIL" required="">
-			<input type="password" class="ggg" name="matkhau" placeholder="MẬT KHẨU" required="">
+			<input type="text" class="ggg" name="email" id="email_user" placeholder="E-MAIL" >
+			<input type="password" class="ggg" name="matkhau" id="password_user" placeholder="MẬT KHẨU" >
 			<span><input type="checkbox" />Nhớ đăng nhập</span>
 			<h6><a href="#">Quên mật khẩu?</a></h6>
 				<div class="clearfix"></div>
 				<input type="submit" value="Đăng nhập" name="login">
-				
+             
 		</form>
+		<ul class="alert text-danger"> 
+			<?php foreach ($errors->all() as $key => $error): ?>
+				<li>{{$error}}</li>
+			<?php endforeach ?>
+			<?php 
+			$message=Session::get('message');
+			if($message){
+				echo '<li>'.$message.'</li>';
+				Session::put('message',null);
+			}
+		 	?>
+		</ul>
 		<div>
-		<!--<ul>
-          <li>
-          	<a href="#" class="facebook">
-          		<i class="fa fa-facebook-f">
-          		</i><span>facebook</span></a>
-          </li>
-          <li>
-          	<a href="#" class="twitter">
-          	<i class="fa fa-twitter"></i>
-          	<span>twitter</span></a>
-          </li>
-      	</ul>
-      	</div>-->
-		<?php 
-		$message=Session::get('message');
-		if($message){
-			echo '<div><span>'.$message.'</span></div>';
-			Session::put('message',null);
-		}
-	 ?>
 </div>
 </div>
+
 <script src="{{asset('public/backend/js/jquery2.0.3.min.js')}}"></script>
 <script src="{{asset('public/backend/js/bootstrap.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery.dcjqaccordion.2.7.js')}}"></script>

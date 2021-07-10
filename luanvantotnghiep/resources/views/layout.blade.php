@@ -58,15 +58,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             });
         });
      </script>
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script> -->
-<!-- <link href="{{asset('public/frontend/css/jquery.nice-number.css')}}" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="{{asset('public/frontend/js/jquery.nice-number.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript">
-    $(function(){
-    $('input[type="number"]').niceNumber();
-    });
-</script> -->
+<script type="text/javascript" src="{{asset('public/frontend/js/edit_script.js')}}"></script>
 <!-- start menu -->     
 <link href="{{asset('public/frontend/css/megamenu.css')}}" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="{{asset('public/frontend/js/megamenu.js')}}"></script>
