@@ -66,8 +66,7 @@
                             }
                             
                                 echo $ck_sp.'%';
-                                if ($sum_qty_pro>=20)
-                                { $demlo++;}
+                               
                               
                         
                             ?>
@@ -175,12 +174,14 @@
                         </ul>
                     </div>
                     <div >
+                        <?php $user_id=Session::get('user_id'); ?>
                         <form action="{{URL::to('/save-order')}}" class="form-order-new" method="POST">
                             @csrf
                             <input type="hidden" name="total_deductions" value="<?php echo $chiec_khau_tong; ?>">
                             <input type="hidden" name="total_payment" value="<?php echo $result; ?>">
                             <input type="hidden" name='sum_qty' value="<?php echo $sum_qty; ?>">
                             <input type="hidden" name="ma_kh" value="<?php echo $ma_kh_address; ?>">
+                            <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
                             <input type="submit" value="Đặt Hàng">
                         </form>
                     </div>

@@ -1,3 +1,21 @@
+button {
+    border: none;
+    background: #ff0202;
+    color: white;
+}
+button:hover {
+    opacity: 0.5;
+}
+i.fa.fa-print:hover {
+    opacity: 0.6;
+}
+a.active.styling-edit {
+    font-size: 21px;
+    color: blue;
+}
+a.active.styling-edit:hover {
+    opacity: 0.2;
+}
 select.form-control.input-sm.m-bot15.main-styling,input.form-control.main-styling,button.btn.btn-info.main-styling {
     height: 50px;
     font-size: 25px;
@@ -160,4 +178,7 @@ input.form-control {
 }
 header.panel-heading {
     font-weight: bold;
+}
+table {
+    background-color: white;
 }

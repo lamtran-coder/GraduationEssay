@@ -33,8 +33,7 @@
                 <input type="checkbox"><i></i>
               </label>
             </th>
-            <th>Mã sản phẩm</th>
-            <th>Tên sản phẩm</th>
+            <th>Mã sản phẩm<br>Tên sản phẩm</th>
             <th>Hình ảnh</th>
             <th>Số lượng</th>
             <th>Mô tả</th>
@@ -43,8 +42,9 @@
             <th>Trang thái</th>
             <th>Chiết khấu</th>
             <th>Danh mục</th>
+            <th>Chi Tiết</th>
             <th>Cài đặt</th>
-            <th style="width:30px;"></th>
+           
           </tr>
         </thead>
         <tbody>
@@ -53,8 +53,7 @@
          
           <tr>
             <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-            <td><span class="text-ellipsis">{{$value_pro->ma_sp}}</span></td>
-            <td><span class="text-ellipsis">{{$value_pro->ten_sp}}</span></td>
+            <td><span class="text-ellipsis">{{$value_pro->ma_sp}}<hr>{{$value_pro->ten_sp}}</span></td>
             <td><span class="text-ellipsis">
               <?php
               foreach ($img_id as $key => $value_img) {
@@ -83,11 +82,18 @@
             </span></td>
             <td><span class="text-ellipsis">{{$value_pro->chiet_khau}}</span></td>
             <td><span class="text-ellipsis">{{$value_pro->ma_dm}}</span></td>
-            <td> <a href="{{URL::to('/edit-product/'.$value_pro->ma_sp)}}" class="active styling-edit" ui-toggle-class="">
+             <td> <a href="{{URL::to('/add-detail-product/'.$value_pro->ma_sp)}}" class="active styling-edit" ui-toggle-class="">
+              <i class="fa fa-plus" aria-hidden="true"></i></a> 
+              </td>
+            <td>
+             
+              <a href="{{URL::to('/edit-product/'.$value_pro->ma_sp)}}" class="active styling-edit" ui-toggle-class="">
                 <i class="fa fa-pencil-square-o text-success text-active"></i></a>
                 <br>
               <a href="{{URL::to('/delete-product/'.$value_pro->ma_sp)}}" class="active styling-edit" ui-toggle-class="" onclick="return confirm('bạn muốn xóa sản phẩm này?')">
               <i class="fa fa-times text-danger text"></i></a>
+              <br>
+              
             </td>
           </tr>
 

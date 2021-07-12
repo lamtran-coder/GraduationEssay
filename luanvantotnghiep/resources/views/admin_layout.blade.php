@@ -245,7 +245,6 @@ Thông báo</p>
                         <span>Chi tiết sản phẩm</span>
                     </a>
                      <ul class="sub">
-                        <li><a href="{{URL::to('/add-detail-product')}}">Chi tiết sản phẩm mới</a></li>
                         <li><a href="{{URL::to('/all-detail-product')}}">Danh sách chi tiết sản phẩm</a></li>    
                     </ul>
                 </li>

@@ -6,8 +6,8 @@
 				<h1 class="color">điền thông tin</h1>
 				<form action="{{URL::to('/login-us')}}"method="POST"onsubmit="return validation();">
 					@csrf
-					<input class="text email" type="text" id="email" name="email" placeholder="Email" >
-					<input class="text" type="password" id="password" name="password" placeholder="mật khẩu" >
+					<input class="text email" type="text" id="email" name="email" placeholder="Email" value="{{old('email')}}">
+					<input class="text" type="password" id="password" name="password" placeholder="mật khẩu" value="{{old('password')}}">
 					<input type="submit" class="submit-dangky" value="ĐĂNG NHẬP">
 				</form>
 				<p><a class="dangnhapngay" href="{{URL::to('/sign-up')}}">TÀI KHOẢN MỚI</a></p>

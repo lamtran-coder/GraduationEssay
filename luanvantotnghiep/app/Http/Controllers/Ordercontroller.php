@@ -50,6 +50,7 @@ class Ordercontroller extends Controller
         ;
     }
     public function save_order(Request $request){
+        $user_id=$request->user_id;
         $data=array();
         $date_mo=date('Y-m-d');
         $newdate=strtotime('+7 day',strtotime($date_mo));
@@ -122,18 +123,16 @@ class Ordercontroller extends Controller
                     ->update($Sub_sp);
                 }
             }
-
-           
             
 
         }   
-        
+
         Session::put('message','Đặt Hàng Thành Công');
-        return Redirect::to('/show-order'); 
+        return Redirect::to('/show-order/'.$user_id); 
 
     }
 
-    public function show_order(){
+    public function show_order($user_id){
         $this->AuthLogin_user();
         $cate_product = DB::table('danh_muc_sp')
             ->select('danh_muc')
@@ -149,10 +148,12 @@ class Ordercontroller extends Controller
             
             $order_user_id=DB::table('don_dat_hang')
             ->join('khach_hang','khach_hang.ma_kh','=','don_dat_hang.ma_kh')
+            ->join('user','user.email','=','khach_hang.email')
             ->select('don_dat_hang.trangthai','don_dat_hang.ma_ddh','don_dat_hang.ngdat','don_dat_hang.solg_sp','don_dat_hang.tong_tt','don_dat_hang.tien_coc','khach_hang.ten_kh','khach_hang.diachi','khach_hang.sodt','khach_hang.email')
-            ->orderby('ngdat','desc')
+            ->orderby('ngdat','ASC')
+            ->where('user.user_id',$user_id)
             ->where('don_dat_hang.trangthai',$status)
-            ->paginate(3);
+            ->paginate(10);
             return view('pages.show_order')
             ->with('cate_product',$cate_product)
             ->with('design_id',$design_id)
@@ -161,10 +162,11 @@ class Ordercontroller extends Controller
         }else{
             $order_user_id=DB::table('don_dat_hang')
             ->join('khach_hang','khach_hang.ma_kh','=','don_dat_hang.ma_kh')
+            ->join('user','user.email','=','khach_hang.email')
             ->select('don_dat_hang.trangthai','don_dat_hang.ma_ddh','don_dat_hang.ngdat','don_dat_hang.solg_sp','don_dat_hang.tong_tt','don_dat_hang.tien_coc','khach_hang.ten_kh','khach_hang.diachi','khach_hang.sodt','khach_hang.email')
-            ->orderby('ngdat','desc')
-            ->where('don_dat_hang.trangthai','0')
-            ->paginate(3);
+            ->where('user.user_id',$user_id)
+            ->orderby('ngdat','ASC')
+            ->paginate(10);
             return view('pages.show_order')
             ->with('cate_product',$cate_product)
             ->with('design_id',$design_id)
@@ -185,6 +187,17 @@ class Ordercontroller extends Controller
           ->groupBy('thiet_ke.ma_tk')
           ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
           ->get();
+        if (isset($_GET['status_de'])) {
+            $status_de = $_GET['status_de'];
+        $order_detail_view = DB::table('chi_tiet_don_hang')
+        ->join('san_pham','san_pham.ma_sp','chi_tiet_don_hang.ma_sp')
+        ->join('hinh_anh','hinh_anh.ma_sp','san_pham.ma_sp')
+        ->select('chi_tiet_don_hang.ma_sp','chi_tiet_don_hang.solg_sp','chi_tiet_don_hang.sotien','hinh_anh.hinhanh','chi_tiet_don_hang.size','chi_tiet_don_hang.ten_mau','san_pham.gia_sale','chi_tiet_don_hang.trang_thai','chi_tiet_don_hang.chiet_khau')
+        ->where('hinh_anh.goc_nhin','0')
+        ->where('chi_tiet_don_hang.trang_thai',$status_de)
+        ->where('chi_tiet_don_hang.ma_ddh',$ma_ddh)
+        ->paginate(5);
+        }else{
         $order_detail_view = DB::table('chi_tiet_don_hang')
         ->join('san_pham','san_pham.ma_sp','chi_tiet_don_hang.ma_sp')
         ->join('hinh_anh','hinh_anh.ma_sp','san_pham.ma_sp')
@@ -192,6 +205,7 @@ class Ordercontroller extends Controller
         ->where('hinh_anh.goc_nhin','0')
         ->where('chi_tiet_don_hang.ma_ddh',$ma_ddh)
         ->paginate(5);
+        }   
         return view('pages.order_detail')
         ->with('cate_product',$cate_product)
         ->with('design_id',$design_id)
@@ -220,15 +234,17 @@ class Ordercontroller extends Controller
             $all_oder=DB::table('don_dat_hang')
             ->where('ngdat','>=',$date_star)
             ->where('ngdat','<=',$date_end)
-            ->get();
+            ->paginate(10);
         }
-        elseif(isset($_GET['status_od'])) {
+        elseif(isset($_GET['status_od'])&&($_GET['status_od']<5)) {
             $status_od = $_GET['status_od'];
             $all_oder=DB::table('don_dat_hang')
-            ->where('trangthai',$status_od)->get();
+            ->where('trangthai',$status_od)->paginate(10);
+        }elseif(isset($_GET['status_od'])&&($_GET['status_od']==5)){
+            $all_oder=DB::table('don_dat_hang')->paginate(10);
         }
         else{
-        $all_oder=DB::table('don_dat_hang')->get();
+        $all_oder=DB::table('don_dat_hang')->paginate(10);
         }
         $all_cus=DB::table('khach_hang')->get();
         return view('admin.order_product_all')

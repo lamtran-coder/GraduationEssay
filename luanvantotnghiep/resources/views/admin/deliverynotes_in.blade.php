@@ -100,10 +100,8 @@
      <footer class="panel-footer">
       <div class="row">
             <div style="text-align:center;">
-                <!-- <form action="" >
-                <button style="height: 55px;padding: 5px;font-size: 20px;background: black;color: #fff;">Xuất Phiếu Giao</button>
-                </form> -->
-                <p><a href="{{URL::to('/print-deliverynotes/'.$ma_pg)}}" >IN PHIẾU</a></p>
+            
+                <p><a href="{{URL::to('/print-deliverynotes/'.$ma_pg)}}" ><i class="fa fa-print" style="font-size: 50px;color: red;" aria-hidden="true"></i></a></p>
             </div>
         
         </div>

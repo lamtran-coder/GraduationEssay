@@ -27,18 +27,17 @@ class Homecontroller extends Controller
       ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','san_pham.ma_sp')
       ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
       ->where ('san_pham.trang_thai','1')
-      ->orderby('san_pham.gia_sale','desc')
+      ->orderby('san_pham.thoi_gian','desc')
       ->where('hinh_anh.goc_nhin','0')
       ->groupBy('san_pham.ma_sp')
-      ->limit(12)->paginate(6);
+      ->limit(12)->get();
         //hiện đánh ngoài index kết quả chưa được
-      $rating= DB::table('danh_gia')
-      ->select('ma_sp','rating')->get();
+      $rating_id= DB::table('danh_gia')->get();
         //hiện đánh ngoài index kết quả chưa được
         return view('pages.home')
         ->with('cate_product',$cate_product)
         ->with('all_product',$all_product)
-        ->with('rating',$rating)
+        ->with('rating_id',$rating_id)
         ->with('design_id',$design_id)
         ->with('slider',$slider)
         
@@ -65,8 +64,8 @@ class Homecontroller extends Controller
       ->join('chat_lieu','chat_lieu.ma_cl','=','danh_muc_sp.ma_cl')
       ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','san_pham.ma_sp')
       ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
-      ->where('danh_muc_sp.danh_muc','like','%'. $keywords .'%')
-      ->where('san_pham.ten_sp','like','%'. $keywords .'%')
+      ->orwhere('danh_muc_sp.danh_muc','like','%'. $keywords .'%')
+      ->orwhere('san_pham.ten_sp','like','%'. $keywords .'%')
       ->orwhere('thiet_ke.ten_tk','like','%'. $keywords .'%')
       ->orwhere('chat_lieu.ten_cl','like','%'. $keywords .'%')
       ->groupBy('san_pham.ma_sp')

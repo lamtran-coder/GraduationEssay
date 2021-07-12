@@ -12,56 +12,84 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//forntend
+//-------------------------------forntend---------------------------------------------------
+//Trang-Chu
 Route::get('/', 'Homecontroller@index');
 Route::get('/trang-chu','Homecontroller@index');
+//Tìm kiếm
 Route::get('/tim-kiem','Homecontroller@search');
+//Chính Sách
 Route::get('/chinh-sach','Homecontroller@policy');
+//Giới Thiệu
 Route::get('/gioi-thieu','Homecontroller@about');
-
-//user
-Route::get('/login-user','UserController@login_user');
-Route::get('/sign-up','UserController@sign_up');
-Route::post('/add-user','UserController@add_user');
-Route::post('/login-us','UserController@login_us');
-Route::get('/logout-us','UserController@logout_us');
-Route::get('/thong-tin-ca-nhan','UserController@information_user');
-
-
-//danh muc san pham trang chu
+//Trang Tìm Kiếm Theo Danh Mục
 Route::get('/danh-muc-san-pham/{ma_tk}','Productcontroller@show_category_home');
 
-//show mac hang
-Route::get('/ke-hang','Productcontroller@show_product');
-//chi tiet sản phẩm
-Route::get('/product-details/{ma_sp}','Productcontroller@product_details');
+//user
+//------Trang Đăng nhập
+Route::get('/login-user','UserController@login_user');
+//-------------Kiểm Trả Đăng Nhập
+Route::post('/login-us','UserController@login_us');
+//------Trang Đăng ký
+Route::get('/sign-up','UserController@sign_up');
+//-------------Đăng Ký Tai Khoản Mới
+Route::post('/add-user','UserController@add_user');
+//------Thêm Đăng Suất
+Route::get('/logout-us','UserController@logout_us');
+//------Trang Thông Tin Cá Nhân
+Route::get('/thong-tin-ca-nhan','UserController@information_user');
+//------------Sửa Thông Tin
+Route::post('/update-ten-nv/{user_id}','UserController@update_user');
+//------Trang Đổi Mật Khẩu
+Route::get('/change-pass','UserController@change_pass');
+//------------Đổi Mật Khẩu
+Route::post('/update-pass/{user_id}','UserController@update_pass');
 
-// binh luan
+
+
+//---------Trang Cửa Hàng
+Route::get('/ke-hang','Productcontroller@show_product');
+//---------Trang chi tiet sản phẩm
+Route::get('/product-details/{ma_sp}','Productcontroller@product_details');
+//------------------Binh luan
 Route::post('/load-comment','Productcontroller@load_comment');
 Route::post('/send-comment','Productcontroller@send_comment');
 Route::post('/allow-comment','Productcontroller@allow_comment');
 Route::post('/reply-comment','Productcontroller@reply_comment');
 Route::post('/insert-rating','Productcontroller@insert_rating');
 Route::get('/comment','ProductController@list_comment');
+//------------------Xóa Binh Luận
 Route::get('/delete-comment/{ma_dm}','Productcontroller@delete_comment');
-//giỏ hàng
+
+
+
+
+//Giỏ hàng
+//-----------------Thêm Sản Phẩm vào Giỏ
 Route::post('/save-cart','Cartcontroller@save_cart');
+//---------Trang Sản Phẩm vào Giỏ
 Route::get('/show-cart','Cartcontroller@show_cart');
+//-----------------Xóa Sản Phẩm Trong Giỏ
 Route::get('/delete-to-cart/{rowId}','Cartcontroller@delete_to_cart');
+//-----------------Sửa Sản Phẩm Trong Giỏ
 Route::post('/update-qty-cart','Cartcontroller@update_qty_cart');
-//danh sách khách hàng nhận hàng
-Route::get('/show-checkout','UserController@all_customers_user');
-Route::get('/delete-checkout-kh/{ma_kh}','Checkoutcontroller@delete_checkout_kh');
-//thanh toán
+
+
+//Trang Thông Tin Giao Hang
+// Route::get('/show-checkout','UserController@all_customers_user');
 Route::get('/show-checkout','Checkoutcontroller@show_checkout');
+//-----------------Xóa Khách Hàng Nhận
+Route::get('/delete-checkout-kh/{ma_kh}','Checkoutcontroller@delete_checkout_kh');
+//----------------Lưu Khách Hàng Nhận Mới
 Route::post('/save-checkout-kh','Checkoutcontroller@save_checkout_kh');
+//Trang thanh toán
 Route::get('/payment','Checkoutcontroller@payment');
 
 
 
 Route::get('/new-order','Ordercontroller@new_order');
 Route::post('/save-order','Ordercontroller@save_order');
-Route::get('/show-order','Ordercontroller@show_order');
+Route::get('/show-order/{user_id}','Ordercontroller@show_order');
 
 
 //bachend
@@ -131,12 +159,14 @@ Route::post('/save-delivery-notes/{ma_ddh}','Deliverynotescontroller@save_delive
 Route::get('/all-delivery-notes','Deliverynotescontroller@all_delivery_notes');	
 // chi tiết phiếu giao
 Route::get('/deliverynotes-detail/{ma_pg}','Deliverynotescontroller@deliverynotes_detail');
+Route::get('/unactive-delivery/{ma_pg}','Deliverynotescontroller@unactive_delivery');
+
 // in chi tiet phieu giao
 Route::get('/print-deliverynotes/{checkout_code}','Deliverynotescontroller@print_order');	
 
 
 	//chi tiet sản phẩm
-Route::get('/add-detail-product','Detail_productcontroller@add_detail_product');
+Route::get('/add-detail-product/{ma_sp}','Detail_productcontroller@add_detail_product');
 Route::get('/all-detail-product','Detail_productcontroller@all_detail_product');
 Route::post('/save-detail-product','Detail_productcontroller@save_detail_product');
 Route::post('/update-amount/{ma_sp}','Detail_productcontroller@update_amount');
@@ -161,3 +191,4 @@ Route::get('/delete-slide/{slide_id}','Slidercontroller@delete_slide');
 Route::post('/insert-slider','Slidercontroller@insert_slider');
 Route::get('/unactive-slide/{slide_id}','Slidercontroller@unactive_slide');
 Route::get('/active-slide/{slide_id}','Slidercontroller@active_slide');
+

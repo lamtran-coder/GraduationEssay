@@ -133,12 +133,13 @@ label.ladel-mau-size{
     color: black;
     font-family: 'Poppins',sans-serif;
     font-size: 20px;
-    border: 2px solid ;
+    border: 2px solid #115b08;
     border-radius: 5px;
     padding: 5px 10px;
     display: flex;
     align-items: center;
     cursor: pointer;
+    text-transform: capitalize;
 }
 label.ladel-mau-size:before{
     /*content: "";
@@ -149,7 +150,7 @@ label.ladel-mau-size:before{
     margin: 10px;
 }
 input[type="radio"].radio-mau-size:checked+label{
-    background: black;
+    background: #115b08;
     color: white;
 }
 input[type="radio"].radio-mau-size:checked+label:before{
@@ -180,7 +181,7 @@ input.number-spinner {
 }
 div.prev,
 div.next{
-    background-color: #000000;
+    background-color: #115b08;
     width: 26px;
     height: 25px;
     position: absolute;
@@ -262,7 +263,7 @@ td.form-td {
     font-size: 20px;
 }
 td.form-td>a{
-   color: #ff00007d;
+   color: #ff0000;
 }
 td.form-td>a:hover{
    color: red;
@@ -842,4 +843,15 @@ td.form-td:hover {
 
 .about-shop>u>b>h3{
     font-size: 30px;
+}
+h3.m_3 {
+    font-size: 2.1em;
+    padding: 15px;
+}
+
+.rating {
+    padding: 2.4% 5%;
+}
+a.color7:hover {
+    opacity: 0.5;
 }

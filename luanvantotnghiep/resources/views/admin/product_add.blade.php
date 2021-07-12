@@ -52,35 +52,35 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Tên sản phẩm </label>
                                 
-                                        <input type="text" class="form-control main-styling" name="product_name" placeholder="tên sản phẩm" value="">
+                                        <input type="text" class="form-control main-styling" name="product_name" value="{{old('product_name')}}">
                                         <?php if ($errors->has('product_name')): ?>
                                         <span style="color:red">{{$errors->first('product_name')}}</span>
                                         <?php endif ?>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Mô Tả </label>
-                                        <textarea class="form-control main-styling" rows="5"  name="product_desc" placeholder="tên mô tả sản phẩm"></textarea>
+                                        <textarea class="form-control main-styling"  name="product_desc" value="{{old('product_desc')}}"></textarea>
                                         <?php if ($errors->has('product_desc')): ?>
                                         <span style="color:red">{{$errors->first('product_desc')}}</span>
                                         <?php endif ?>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Giá góc</label>
-                                        <input type="text" class="form-control main-styling" name="corner_price" placeholder="tên chất liệu">
+                                        <input type="text" class="form-control main-styling" name="corner_price"  value="{{old('corner_price')}}">
                                         <?php if ($errors->has('corner_price')): ?>
                                         <span style="color:red">{{$errors->first('corner_price')}}</span>
                                         <?php endif ?>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Giá sale</label>
-                                        <input type="text" class="form-control main-styling" name="sale_pricee" placeholder="tên danh mục" >
+                                        <input type="text" class="form-control main-styling" name="sale_pricee" value="{{old('sale_pricee')}}" >
                                         <?php if ($errors->has('sale_pricee')): ?>
                                         <span style="color:red">{{$errors->first('sale_pricee')}}</span>
                                         <?php endif ?>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Chiết khấu</label>
-                                        <input type="text" class="form-control main-styling" name="discount" placeholder="Chiết khấu" >
+                                        <input type="text" class="form-control main-styling" name="discount" value="{{old('discount')}}">
                                         <?php if ($errors->has('discount')): ?>
                                         <span style="color:red">{{$errors->first('discount')}}</span>
                                         <?php endif ?>
@@ -125,7 +125,7 @@
          
                                     <div class="form-group">
                                         <label for="exampleInputFile">Hình ảnh sản phẩm</label>
-                                        <input type="file" id="exampleInputFile" name="images_pro" >
+                                        <input type="file" id="exampleInputFile" name="images_pro" value="{{old('images_pro')}}">
                                         <?php if ($errors->has('images_pro')): ?>
                                         <span style="color:red">{{$errors->first('images_pro')}}</span>
                                         <?php endif ?>

@@ -132,6 +132,8 @@
                                             echo '<option value="1">Đã lấy hàng</option>';
                                         }elseif($order_de_id->trang_thai==2){
                                             echo '<option value="1">Đang Giao</option>';
+                                        }elseif($order_de_id->trang_thai==3){
+                                            echo '<option value="3">Đã Nhận</option>';
                                         }
                                          
                                          ?>
@@ -212,7 +214,7 @@
      <footer class="panel-footer">
       <div class="row">
         
-   
+    
       </div>
     </footer>
   </div>

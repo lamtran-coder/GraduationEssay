@@ -1,7 +1,7 @@
 @extends('layout')
 @section('index_content')
 <div class="main-order">
-	<h3>Đơn Đặt Hàng Của Bạn</h3>
+	<h3>Chi Tiết Đơn Đặt Hàng</h3>
 	<?php  $content=Cart::content();
                 // echo '<pre>';
                 // print_r($content);
@@ -12,10 +12,12 @@
         <ul>
             <form>
             @csrf
-                <a href="{{URL::to('/show-order')}}"><li class="color1" >Trở Lại</li></a>
-                <a href="{{Request::url()}}?status_de=0"><li class="color2" >Đang Giao</li></a>
-                <a href="{{Request::url()}}?status_de=1"><li class="color3" >Đã Giao</li></a>
-                <a href="{{Request::url()}}?status_de=2"><li class="color3" >Trả Hàng</li></a>
+                <a href="{{URL::to('/show-order')}}"><li class="color1" >Trở Lại Đơn Đặt Hàng</li></a>
+                <a href="{{Request::url()}}?status_de=0"><li class="color3" >Đang Xử Lý</li></a>
+                <a href="{{Request::url()}}?status_de=1"><li class="color2" >Đang Lấy Hàng</li></a>
+                <a href="{{Request::url()}}?status_de=2"><li class="color3" >Đang Giao</li></a>
+                <a href="{{Request::url()}}?status_de=3"><li class="color4" >Đã Nhận</li></a>
+                <a href="{{Request::url()}}?status_de=4"><li class="color5" >Hủy Hàng</li></a>
             </form>
         </ul>
     </div>
@@ -57,9 +59,11 @@
                                     if ($v_order_detail->trang_thai==0){
                                         echo "Đang xử lý";
                                     }elseif($v_order_detail->trang_thai==1){
-                                        echo "Đang hàng";
+                                        echo '<p style="color:green">Đang Lấy Hàng</p>';
                                     }elseif($v_order_detail->trang_thai==2){
-                                        echo "Đã nhận";
+                                        echo '<p style="color:blue">Đang Giao</p>';
+                                    }elseif($v_order_detail->trang_thai==3){
+                                        echo '<p style="color:blue">Đã Nhận</p>';
                                     }
                                 ?>
                             </td>

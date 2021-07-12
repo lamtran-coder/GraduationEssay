@@ -30,7 +30,7 @@ class Checkoutcontroller extends Controller
         $all_product=DB::table('san_pham')->where ('trang_thai','1')
         ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
         ->orderby('san_pham.ma_sp','desc')->limit(6)->get(); 
-        $customer_id=DB::table('khach_hang')->orderby('ma_kh','desc')->paginate(5);
+        $customer_id=DB::table('khach_hang')->orderby('ma_kh','desc')->paginate(3);
        return view('pages.show_checkout')
         ->with('cate_product',$cate_product)
         ->with('all_product',$all_product)
@@ -50,19 +50,8 @@ class Checkoutcontroller extends Controller
         $customer_id=DB::table('khach_hang')
         ->join('user','user.email','=','khach_hang.email')
         ->get();
-        $dem=0;
-        foreach ($customer_id as $key => $value_cus) {
-            if($request->email==$value_cus->email){
-                $dem++;
-            }  
-        }
-        if($dem<=2){
-            $ma_khach_hang=DB::table('khach_hang')->insertGetId($data);
-            Session::put('ma_kh',$ma_khach_hang);
-            return Redirect::to('/show-checkout');  
-        }else{
-            return Redirect::to('/show-checkout');
-        }
+        DB::table('khach_hang')->insert($data);
+        return Redirect::to('/show-checkout');  
           
    }
    public function delete_checkout_kh($ma_kh){

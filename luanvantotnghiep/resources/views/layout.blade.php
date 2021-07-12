@@ -135,9 +135,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <ul class="sub-icon2 list user-styling">
                     <li><a href="">
                 <?php $username=Session::get('username');
+                      $user_id=Session::get('user_id');
                     if ($username!=null) { ?>
                     <li><a style="color: #FFF;" href="{{URL::to('/thong-tin-ca-nhan')}}">Thông Tin Cá Nhân</a></li>
-                    <li><a style="color: #FFF;" href="{{URL::to('/show-order')}}">Đơn Mua</a></li>
+                    <li><a style="color: #FFF;" href="{{URL::to('/show-order/'.$user_id)}}">Đơn Mua</a></li>
                     <li><a style="color: #FFF;" href="{{URL::to('/logout-us')}}">Đăng Xuất</a></li> 
                         <?php }else{ ?>
                     <li><a style="color: #FFF;" href="{{URL::to('/login-user')}}">đăng nhập</a></li>  

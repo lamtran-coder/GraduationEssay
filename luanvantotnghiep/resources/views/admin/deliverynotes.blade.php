@@ -81,11 +81,17 @@
             <td><span class="text-ellipsis"><?php echo number_format($value_dn->gia_thu); ?></span></td>
             <td><span class="text-ellipsis"><?php echo number_format($value_dn->tienconlai); ?></span></td>
             <td><span class="text-ellipsis">
-              <?php 
-                if ($value_dn->trangthai==0) {
-                   $result="Đang Giao";
-                }echo $result;
-               ?>
+              <?php
+              if ($value_dn->trangthai==0) {
+                ?>
+                <a href="{{URL::to('/unactive-delivery/'.$value_dn->ma_pg)}}" >Đang Giao</a>
+            <?php 
+             }else{
+              ?>
+               <a  style="color: red;">Đã Nhận</a>
+            <?php
+             }
+             ?>
             </span></td>
             
             <td>

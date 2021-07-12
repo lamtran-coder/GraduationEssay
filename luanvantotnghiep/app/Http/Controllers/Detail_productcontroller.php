@@ -21,9 +21,9 @@ class Detail_productcontroller extends Controller
     }
     //chi tiết sản phẩm
         //
-    public function add_detail_product(){
+    public function add_detail_product($ma_sp){
         $this->AuthLogin();
-        $product_id=DB::table('san_pham')->orderby('ten_sp','desc')->get();
+        $product_id=DB::table('san_pham')->where('ma_sp',$ma_sp)->orderby('ten_sp','desc')->get();
         $color_id=DB::table('mau')->orderby('ten_mau','desc')->get();
         $size_id=DB::table('size')->orderby('ma_size','desc')->get();
         return view('admin.detail_product_add')

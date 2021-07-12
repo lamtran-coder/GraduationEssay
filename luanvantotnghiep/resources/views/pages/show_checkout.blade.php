@@ -20,14 +20,14 @@
                                  if($value_cus->ma_kh!=null){
                                     if($key==0){ ?> 
                                     <li>
-                                        <span><label><input name="ma_kh_address" size="20" checked="checked" value="{{$value_cus->ma_kh}}" type="radio">{{$value_cus->ten_kh}}</label></span>
+                                        <span><label for="address_cus"><input name="ma_kh_address" size="20" checked="checked" id="address_cus" value="{{$value_cus->ma_kh}}" type="radio">{{$value_cus->ten_kh}}</label></span>
                                         <span>({{$value_cus->sodt}})</span>
                                         <span>{{$value_cus->diachi}}</span>
                                         <span><a href="{{URL::to('/delete-checkout-kh/'.$value_cus->ma_kh)}}"><i class="fa fa-times-circle" aria-hidden="true"></i></a></span>
                                     </li>
                                 <?php }else{ ?>
                                     <li>
-                                        <span><label><input name="ma_kh_address" size="20" value="{{$value_cus->ma_kh}}" type="radio">{{$value_cus->ten_kh}}</label></span>
+                                        <span><label><input name="ma_kh_address" size="20" checked="checked" value="{{$value_cus->ma_kh}}" type="radio">{{$value_cus->ten_kh}}</label></span>
                                         <span>({{$value_cus->sodt}})</span>
                                         <span>{{$value_cus->diachi}}</span>
                                         <span><a href="{{URL::to('/delete-checkout-kh/'.$value_cus->ma_kh)}}"><i class="fa fa-times-circle" aria-hidden="true"></i></a></span>
@@ -38,6 +38,7 @@
                 
                             <input type="submit" style="width: 170px;border-radius: 80px;float: right;" value="Tiếp Theo">  
                         </form>
+                        {{$customer_id->links()}}
                     <ul>    
                      
                 </div>

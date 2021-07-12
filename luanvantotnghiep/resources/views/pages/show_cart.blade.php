@@ -4,16 +4,26 @@
 <section id="container">
     <section id="main-content">
         <section class="wrapper">
-            <?php  $content=Cart::content();
-                // echo '<pre>';
-                // print_r($content);
-                // echo '</pre>';
-            ?>
-            <div class="main-cart">
-                <div class="panel panel-default shop-carts">
+           
+             <?php  $content=Cart::content();
+                $dem_sp=0;
+                foreach ($content as $key => $value) {
+                    $dem_sp++;
+                }
+               if ($dem_sp==0) 
+            { ?> 
+                <p style="font-size:30px;padding:50px">Giỏ Hàng Hiện Không Có Mặt Hàng 
+                    <br>Đến Tại <a class="color7" href="{{URL::to('/ke-hang')}}">Cửa Hàng</a></p>
+                
+             <?php }else{ ?>
+                        <div class="main-cart">
+
+            <div class="panel panel-default shop-carts">
+
                 <div class="panel-heading">
                    <strong><i class="fa fa-shopping-basket" aria-hidden="true"></i> Giỏ Hàng</strong> 
                 </div>
+               
                 <div class="product-cart">
                   <table class="from-table">
                     <tbody class="from-table">
@@ -84,7 +94,7 @@
                     <?php endforeach ?>
                   </table>
                 </div>
-              </div>
+            </div>
                 <div class="discount-card">
                     <span>Với giảm giá trên tổng giá trị đơn hàng ta có các mức sau:</span>
                     <ul >
@@ -121,9 +131,7 @@
                                 <?php echo number_format($Sum_mony); ?>
                                 
                             </b><p>VND</p></span></li>
-                            <!-- <li>Số Lô<span><b>
-                                <?php //echo $demsi; ?>
-                            </b><p>Lô</p></span></li> -->
+                           
                             <li>Giảm Tiền<span><b>
                                 <?php
                                     $chiec_khau_tong=0;
@@ -160,6 +168,7 @@
                     </div>
                 </div>
             </div>
+         <?php }?>
         </section>
     </section>
 </section>

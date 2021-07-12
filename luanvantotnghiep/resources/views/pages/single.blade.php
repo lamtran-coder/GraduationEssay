@@ -69,7 +69,7 @@
 		</div>
 
 		<div class="cont1 span_2_of_a1 ">
-			<h3 class="m_3">{{$value_det->ma_sp}}</h3>
+			<h3 class="m_3">{{$value_det->ma_sp}}<hr>{{$value_det->ten_sp}}</h3>
 			
 			<div class="price_single">
 						  <span class="reducedfrom">
@@ -83,7 +83,7 @@
 				<h4 class="m_9">CHỌN KÍCH CỠ</h4>
 				<form action="{{URL::to('/save-cart')}}" method="POST">
 				@csrf
-				<div style="height:60px;">
+				<div style="height:100px;">
 					<ul>
 						<?php foreach ($all_detail_color as $key_ => $value_d_color): ?>
 							<?php foreach ($all_color as $key_1 => $value_color): ?>

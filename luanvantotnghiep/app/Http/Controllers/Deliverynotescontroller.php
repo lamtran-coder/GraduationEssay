@@ -160,6 +160,40 @@ class Deliverynotescontroller extends Controller
         ->with('product_id',$product_id)
         ;
     }
+
+    public function unactive_delivery($ma_pg){
+        $this->AuthLogin();
+        DB::table('phieu_giao')->where('ma_pg',$ma_pg)->update(['trangthai'=>1]);
+        DB::table('don_dat_hang')
+        ->join('phieu_giao','phieu_giao.ma_ddh','=','don_dat_hang.ma_ddh')
+        ->where('phieu_giao.ma_pg',$ma_pg)->update(['don_dat_hang.trangthai'=>3]);
+
+        $detail_order_id=DB::table('chi_tiet_don_hang')
+        ->join('don_dat_hang','don_dat_hang.ma_ddh','=','chi_tiet_don_hang.ma_ddh')
+        ->join('phieu_giao','phieu_giao.ma_ddh','=','don_dat_hang.ma_ddh')
+        ->where('phieu_giao.ma_pg',$ma_pg)
+        ->get();
+        $detail_delivery=DB::table('chi_tiet_phieu_giao')
+        ->where('chi_tiet_phieu_giao.ma_pg',$ma_pg)
+        ->get();
+       foreach ($detail_order_id as $key => $value_do) { 
+           foreach ($detail_delivery as $key => $value_dd) {
+            if (($value_do->ma_sp==$value_dd->ma_sp)&&($value_do->ten_mau=$value_dd->mau)&&($value_do->size=$value_dd->size)) {
+                echo $value_do->ma_sp."<br>";
+                DB::table('chi_tiet_don_hang')
+                ->where('ma_sp',$value_do->ma_sp)
+                ->where('ten_mau',$value_do->ten_mau)
+                ->where('size',$value_do->size)->update(['chi_tiet_don_hang.trang_thai'=>3]);
+             }      
+           }
+       }
+        
+        
+        return Redirect::to('/all-delivery-notes');
+    }
+
+
+
     public function print_order($checkout_code){
         $this->AuthLogin();
         $pdf = \App::make('dompdf.wrapper');
@@ -182,9 +216,12 @@ class Deliverynotescontroller extends Controller
         }
         .table-styling{
             border:1px solid #000;
+
         }
         .table-styling tbody tr td{
             border:1px solid #000;
+            border: dotted;
+            padding:5px;
         }
                 .footer-left {
             text-align:center;
@@ -282,8 +319,8 @@ class Deliverynotescontroller extends Controller
                              foreach ($deliverynotes_id as $key => $value_dn) {      
             $output.='          <tr>
                                    
-                                    <td colspan="2" title="position-center"><b>Tổng Tiền</b></td>
-                                    <td colspan="5"><b class="text-red" style="font-size:20px">'.number_format($value_dn->gia_thu).'
+                                    <td colspan="2" title="position-center" style="font-size:20px"><b>Tổng Tiền Thu</b></td>
+                                    <td colspan="5"><b class="text-red" style="font-size:20px">'.number_format($value_dn->gia_thu).' VND
                                     </b></td>
                                     <
 

@@ -346,6 +346,7 @@ class Productcontroller extends Controller
         $all_material=DB::table('chat_lieu')->orderby('ma_cl','desc')->get();
         $all_style=DB::table('thiet_ke')->orderby('ma_tk','desc')->get();
         $all_color=DB::table('mau')->orderby('ma_mau','desc')->get();
+        $rating_id= DB::table('danh_gia')->get();
         return view('pages.shop')
         ->with('cate_product',$cate_product)
         ->with('all_product',$all_product)
@@ -355,7 +356,7 @@ class Productcontroller extends Controller
         ->with('all_color',$all_color)
         ->with('min_price',$min_price)
         ->with('max_price',$max_price)
-        //->with('rating',$rating)
+        ->with('rating_id',$rating_id)
         ->with('min_price_range',$min_price_range)
         ->with('max_price_range',$max_price_range);
     }

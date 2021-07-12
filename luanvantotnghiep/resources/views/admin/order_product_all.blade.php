@@ -38,9 +38,12 @@
         <form >
           @csrf
         <select name="status_od"  >
+          <option value="5">Hiện Thị Tất Cả</option>
           <option value="0">Đang Xử Lý</option>
           <option value="1">Đang Lấy Hàng</option>
-          <option value="2">Đã Hoàn Thành</option>
+          <option value="2">Đã Lấy Xong</option>
+          <option value="3">Chưa Giao Hết</option>
+           <option value="4">Đã Hoàn Thành</option>
         </select>
         <button>Tìm</button>
         </form>
@@ -100,8 +103,11 @@
                           }elseif($value_oder->trangthai==1){
                             echo '<option value="1">Đang lấy hàng</option>';
                           }elseif($value_oder->trangthai==2){
-                            echo '<option value="2">Đã hoàn Thành</option>';
-                            echo '<option value="3">Hàng Trả Lại</option>';
+                            echo '<option value="2">Đã Lấy Xong</option>';
+                          }elseif($value_oder->trangthai==3){
+                            echo '<option value="3">Chưa Giao Hết</option>';
+                          }elseif($value_oder->trangthai==4){
+                            echo '<option value="3">Đã Hoàn Thành</option>';
                           }
                         ?>
                        
@@ -111,7 +117,7 @@
                 
             </span></td>
                 <td><a href="{{URL::to('/order-details/'.$value_oder->ma_ddh)}}" class="active styling-edit" ui-toggle-class="">
-               <i class="fa fa-search" style="font-size: 30px;"></i></i></a>
+               <i class="fa fa-search" style="font-size: 30px;"></i></a>
               </td>
           </tr>
          <?php endforeach ?>
@@ -126,12 +132,7 @@
           <small class="text-muted inline m-t-sm m-b-sm">showing 10</small>
         </div>
         <div class="col-sm-7 text-right text-center-xs">                
-          <ul class="pagination pagination-sm m-t-none m-b-none">
-            <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
-            <li><a href="">1</a></li>
-            <li><a href="">2</a></li>
-            <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
-          </ul>
+          {{$all_oder->links()}}
         </div>
       </div>
     </footer>
