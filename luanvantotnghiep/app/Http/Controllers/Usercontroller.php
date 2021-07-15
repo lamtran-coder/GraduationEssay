@@ -25,7 +25,8 @@ class Usercontroller extends Controller
             ->groupBy('danh_muc')
             ->get();
         $design_id=DB::table('thiet_ke')
-          ->join('danh_muc_sp','danh_muc_sp.ma_tk','thiet_ke.ma_tk')->where('danh_muc_sp.trang_thai','1')
+          ->join('danh_muc_sp','danh_muc_sp.ma_tk','thiet_ke.ma_tk')
+          ->where('danh_muc_sp.trang_thai','1')
           ->groupBy('thiet_ke.ma_tk')
           ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
           ->get();
@@ -102,6 +103,19 @@ class Usercontroller extends Controller
         return Redirect::to('/trang-chu');
    }
    public function login_us (Request $request){
+    $validator=$request->validate([
+        'email'=>'required|email',
+        'password'=>'required|min:6|max:255',
+       
+
+      ],[
+        'email.required'=>' Không Để Trống',
+        'email.email'=>' Không Hợp Lệ',
+
+        'password.required'=>' Không Để Trống',
+        'password.min'=>' ít nhất 6 ký tự',
+        'password.max'=>' nhiều nhất 255 ký tự',
+      ]);
      $email=$request->email;    
      $password=md5($request->password);
      $result_user=DB::table('user')

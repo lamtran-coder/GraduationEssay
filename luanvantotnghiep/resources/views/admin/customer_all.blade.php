@@ -29,25 +29,35 @@
                 <input type="checkbox"><i></i>
               </label>
             </th>
-            <th>Mã khách hàng</th>
+    
             <th>Tên khách hàng</th>
             <th>Email</th>
             <th>So điện thoại</th>
             <th>Địa chỉ</th>
-            <th>Xem Địa Chỉ Nhận</th>
+            <th>Xem Người Nhận</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody  style="text-transform: none;">
           <?php foreach ($use_id as $key => $value_user): ?>
             
          
           <tr>
             <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-            <td><span class="text-ellipsis">{{$value_user->user_id}}</span></td>
+           
             <td><span class="text-ellipsis">{{$value_user->ten_nd}}</span></td>
             <td><span class="text-ellipsis">{{$value_user->email}}</span></td>
             <td><span class="text-ellipsis">{{$value_user->sodt}}</span></td>
-            <td><span class="text-ellipsis">{{$value_user->diachi}}</span></td>
+            <td><span class="text-ellipsis" id="AnHien{{$key}}">{{$value_user->diachi}}</span>
+                 <script>
+                  $(document).ready(function(){
+                    $("#AnHien{{$key}}").hide();
+                      $("#button{{$key}}").click(function(){
+                          $("#AnHien{{$key}}").toggle();
+                      });
+                  });
+                  </script>
+                  <button id="button{{$key}}">...</button>
+            </td>
             <td><a href="{{URL::to('/dia-chi-nhan/'.$value_user->email)}}"><i class="fa fa-search" style="font-size: 30px;"></i></a></td>
           </tr>
           <?php endforeach ?>

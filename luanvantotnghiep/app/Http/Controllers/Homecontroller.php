@@ -73,7 +73,7 @@ class Homecontroller extends Controller
       $all_material=DB::table('chat_lieu')->orderby('ma_cl','desc')->get();
       $all_style=DB::table('thiet_ke')->orderby('ma_tk','desc')->get();
       $all_color=DB::table('mau')->orderby('ma_mau','desc')->get();
-
+      $rating_id= DB::table('danh_gia')->get();
 
       if ($search_product) {
          return view('pages.search')
@@ -82,13 +82,15 @@ class Homecontroller extends Controller
          ->with('design_id',$design_id)
          ->with('all_style',$all_style)
          ->with('all_color',$all_color)
-         ->with('search_product',$search_product);
+         ->with('search_product',$search_product)
+         ->with('rating_id',$rating_id);
       }
       else{
         return view('pages.search');
         }
 
      }
+
      //trang gioi thieu
     public function about(){
         $cate_product = DB::table('danh_muc_sp')

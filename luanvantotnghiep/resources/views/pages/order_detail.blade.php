@@ -7,12 +7,13 @@
                 // print_r($content);
                 // echo '</pre>';
 			$email=Session::get('email');
+             $user_id=Session::get('user_id');
             ?>
     <div class="status-order">
         <ul>
             <form>
             @csrf
-                <a href="{{URL::to('/show-order')}}"><li class="color1" >Trở Lại Đơn Đặt Hàng</li></a>
+                <a href="{{URL::to('/show-order/'.$user_id)}}"><li class="color1" >Trở Lại Đơn Đặt Hàng</li></a>
                 <a href="{{Request::url()}}?status_de=0"><li class="color3" >Đang Xử Lý</li></a>
                 <a href="{{Request::url()}}?status_de=1"><li class="color2" >Đang Lấy Hàng</li></a>
                 <a href="{{Request::url()}}?status_de=2"><li class="color3" >Đang Giao</li></a>
@@ -34,7 +35,8 @@
                             <td class="form-td">Giá</td>
                             <td class="form-td">Giá Giảm</td>
                             <td class="form-td">Thành Tiền</td> 
-                            <td class="form-td">Trang Thái</td>     
+                            <td class="form-td">Trang Thái</td> 
+                         
                         </tr>
                     </tbody>
 					<tbody class="from-table">

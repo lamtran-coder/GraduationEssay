@@ -85,7 +85,6 @@
                     </div>
                     <span class="rating">
                         <ul class="list-inline" style="display: -webkit-box;" title="Average Raiting">
-                       
                         <?php
                         $sum=0;
                         $dem=0;

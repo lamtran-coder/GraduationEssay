@@ -91,18 +91,47 @@
              <div class="price"><strike><?php echo number_format($value_pro->gia_goc) ?></strike>&emsp;&emsp;<?php echo number_format($value_pro->gia_sale).' VND'; ?></div>
           </div>
       </div>
-      <span class="rating1">
-            <input type="radio" class="rating-input" id="rating-input-1-5" name="rating-input-1">
-            <label for="rating-input-1-5" class="rating-star1"></label>
-            <input type="radio" class="rating-input" id="rating-input-1-4" name="rating-input-1">
-            <label for="rating-input-1-4" class="rating-star1"></label>
-            <input type="radio" class="rating-input" id="rating-input-1-3" name="rating-input-1">
-            <label for="rating-input-1-3" class="rating-star1"></label>
-            <input type="radio" class="rating-input" id="rating-input-1-2" name="rating-input-1">
-            <label for="rating-input-1-2" class="rating-star"></label>
-            <input type="radio" class="rating-input" id="rating-input-1-1" name="rating-input-1">
-            <label for="rating-input-1-1" class="rating-star"></label>
-            </span>
+      <span class="rating">
+                        <ul class="list-inline" style="display: -webkit-box;" title="Average Raiting">
+                       
+                        <?php
+                        $sum=0;
+                        $dem=0;
+                        foreach ($rating_id as $key => $value_rai) {
+                            if ($value_pro->ma_sp==$value_rai->ma_sp) {
+                               $sum+=$value_rai->rating;
+                               $dem++;
+                            }
+                            
+                        }
+                        if (($sum!=0)&&($dem!=0)) {
+                            $result_rai=round($sum/$dem);
+                            
+                            for ($count=1; $count<=5; $count++) { 
+                                if (isset($result_rai)) {
+                                    if($count<=$result_rai){
+                                    $color = 'color:#ffcc00;';}
+                                    else{
+                                    $color = 'color:#black;';} 
+                                }   
+                            echo '<li style="cursor: pointer;'.$color.'font-size: 15px;" >&#9733;</li>';
+                            } 
+                        }else{
+                            for ($count=1; $count<=5; $count++) {     
+                            if($count<=5){
+                             $color = 'color:#ffcc00;';
+                            }
+                            else{
+                             $color = 'color:#black;';}
+                            echo '<li style="cursor: pointer;'.$color.'font-size: 15px;" >&#9733;</li>';
+                            }
+                         }
+
+                        ?>
+                        </ul>
+                            </a>
+
+      </span>
          <ul class="list2">
           <li>
             <form action="{{URL::to('/save-cart')}}" method="POST">

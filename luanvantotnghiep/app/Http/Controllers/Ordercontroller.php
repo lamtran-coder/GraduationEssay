@@ -127,7 +127,7 @@ class Ordercontroller extends Controller
 
         }   
 
-        Session::put('message','Đặt Hàng Thành Công');
+      
         return Redirect::to('/show-order/'.$user_id); 
 
     }
@@ -206,10 +206,12 @@ class Ordercontroller extends Controller
         ->where('chi_tiet_don_hang.ma_ddh',$ma_ddh)
         ->paginate(5);
         }   
+        
         return view('pages.order_detail')
         ->with('cate_product',$cate_product)
         ->with('design_id',$design_id)
-        ->with('order_detail_view',$order_detail_view);
+        ->with('order_detail_view',$order_detail_view)
+         ->with('rating_id',$rating_id);
 
     }
 
@@ -239,41 +241,26 @@ class Ordercontroller extends Controller
         elseif(isset($_GET['status_od'])&&($_GET['status_od']<5)) {
             $status_od = $_GET['status_od'];
             $all_oder=DB::table('don_dat_hang')
-            ->where('trangthai',$status_od)->paginate(10);
+            ->where('trangthai',$status_od)
+            ->orderby('ngdat','ASC')
+            ->paginate(10);
         }elseif(isset($_GET['status_od'])&&($_GET['status_od']==5)){
-            $all_oder=DB::table('don_dat_hang')->paginate(10);
+            $all_oder=DB::table('don_dat_hang')->orderby('ngdat','ASC')->paginate(10);
         }
         else{
-        $all_oder=DB::table('don_dat_hang')->paginate(10);
+        $all_oder=DB::table('don_dat_hang')->orderby('ngdat','ASC')->paginate(10);
         }
         $all_cus=DB::table('khach_hang')->get();
+        //nhiệm vụ hàng ngày
+        // $date_dh=date('Y-m-d');
+        // $date_dh=date('d-m-Y',strtotime($date_dh));
+        // $delivery_date=DB::table('phieu_giao')->where('nggiao',$date_dh)->where('trangthai','0')->get();
         return view('admin.order_product_all')
+        //->with('delivery_date',$delivery_date)
         ->with('all_cus',$all_cus)
         ->with('all_oder',$all_oder);
     }
-    //tìm kiếm đơn hàng qua mã đơn hàng
-    public function search_order(Request $request){
-        $this->AuthLogin();
-         $keywords=$request->keywords_submit;
-            $all_cus=DB::table('khach_hang')->get();
-         $search_oder_id=DB::table('don_dat_hang')
-         ->where('ma_ddh','like','%'. $keywords .'%')
-         ->orwhere('ngdat','like','%'. $keywords .'%')
-         ->get();
-          if ($search_oder_id) {
-              return view('admin.order_search')->with('search_oder_id',$search_oder_id) ->with('all_cus',$all_cus);
-          }else{
-            return view('admin.order_product_all');
-          }
-           
-       }
-    public function update_order(Request $request, $ma_ddh)
-    {
-        $data=array();
-        $data['trangthai']=$request->status;
-        DB::table('don_dat_hang')->where('ma_ddh',$ma_ddh)->update($data);
-        return Redirect::to('/all-order');
-    }
+   
 
     public function order_details($ma_ddh){
         $this->AuthLogin();
@@ -287,11 +274,12 @@ class Ordercontroller extends Controller
         ->where('hinh_anh.goc_nhin','0')
         ->where('chi_tiet_don_hang.ma_ddh',$ma_ddh)
         ->select('chi_tiet_don_hang.ma_sp','san_pham.ten_sp','chi_tiet_don_hang.size','chi_tiet_don_hang.ten_mau','chi_tiet_don_hang.solg_sp','chi_tiet_don_hang.sotien','chi_tiet_don_hang.trang_thai','chi_tiet_don_hang.so_ct','chi_tiet_don_hang.ma_ddh')
-        ->paginate(5);
+        ->get();
         $order_id = DB::table('don_dat_hang')->where('ma_ddh',$ma_ddh)->get();
         $admin_id = DB::table('admin')->where('vi_tri','GH')->get();
         $delivery_id=DB::table('phieu_giao')
         ->where('ma_ddh',$ma_ddh)->orderby('tienconlai','desc')->get();
+        
         return view('admin.order_detail_all')
         ->with('customer_id',$customer_id)
         ->with('order_detail_id',$order_detail_id)

@@ -204,6 +204,15 @@
                                 </form>
                             </td>
                         </table>
+                        <?php 
+                                    $message_ct=Session::get('message_ct');
+                                    if($message_ct){
+                                        echo '<span style="color:red;font-size:30px;padding-left:50px;">'.$message_ct.'<span>';
+
+                                        Session::put('message_ct',null);
+                                    }
+                                   
+                        ?>
                     </div>
                 </div>
                

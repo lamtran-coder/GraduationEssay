@@ -246,7 +246,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </li>
                <li class="active grid"><a class="color4" href="{{URL::to('/gioi-thieu')}}">Giới thiệu</a></li>               
                 <li><a class="color5" href="{{URL::to('/chinh-sach')}}">Chính sách</a></li>
-                <li><a class="color7" href="{{URL::to('/ke-hang')}}">Cửa Hàng</a></li>
+                <li><a class="color6" href="{{URL::to('/ke-hang')}}">Cửa Hàng</a></li>
                 <li>
                 
                 </li>

@@ -120,14 +120,14 @@
 			</li>
 			</ul>
 			
-            <div class="social_single">	
+           <!--  <div class="social_single">	
 			   <ul>	
 				  <li class="fb"><a href="#"><span> </span></a></li>
 				  <li class="tw"><a href="#"><span> </span></a></li>
 				  <li class="g_plus"><a href="#"><span> </span></a></li>
 				  <li class="rss"><a href="#"><span> </span></a></li>		
 			   </ul>
-		    </div>
+		    </div> -->
 			<p class="m_desc">{{$value_det->mo_ta}}</p>
 		</div>
 		<div class="clear"></div>
@@ -273,7 +273,7 @@
      	</div>
      	</form>
      	<?php else: ?>
-     		<div  class="comment-new"><a href="{{}}">Đăng Nhập Để Bình Luận</a></div>
+     		<div  class="comment-new"><a href="{{URL::to('/login-user')}}">Đăng Nhập Để Bình Luận</a></div>
      	<?php endif ?>
      </div>				
      </div>

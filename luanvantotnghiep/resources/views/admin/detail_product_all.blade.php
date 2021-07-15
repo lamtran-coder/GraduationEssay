@@ -74,8 +74,9 @@
                 <input type="hidden" name="ma_size_h" value="{{$value_del->ma_size}}">
                 <input type="hidden" name="ma_mau_h" value="{{$value_del->ma_mau}}">
 
-                <button>Update</button></td>
+                <button>Update</button>
               </form>
+              </td>
           </tr>
 
     	<?php endforeach ?>

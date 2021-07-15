@@ -39,7 +39,7 @@ body a:hover{
 }
 	/*sidebar navigation*/
 #sidebar {
-    width:240px;
+    width:250px;
     height:100%;
     position:fixed;
     background:rgba(52, 48, 48, 0.78);
@@ -129,10 +129,11 @@ ul.sidebar-menu {
     display:block;
 }
 ul.sidebar-menu li ul.sub li {
-    background:rgba(52, 48, 48, 0);
+    background:rgb(80 79 79);
     margin-bottom:0;
     margin-left:0;
     margin-right:0;
+    text-transform: capitalize;
 }
 ul.sidebar-menu li ul.sub li a {
     font-size:12px;
@@ -172,7 +173,7 @@ ul.sidebar-menu li a {
     text-decoration:none;
     display:block;
     padding:18px 0 18px 25px;
-    font-size:12px;
+    font-size:14px;
     outline:none;
     -webkit-transition:all 0.3s ease;
     -moz-transition:all 0.3s ease;
@@ -252,7 +253,7 @@ ul.sidebar-menu li a.active i {
 .brand {
     background:#000000;
     float:left;
-    width:240px;
+    width:250px;
     height:80px;
     position:relative;
 }

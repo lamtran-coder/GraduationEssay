@@ -26,7 +26,16 @@ class Deliverynotescontroller extends Controller
         $email=$request->email_h;
         $tiencoc=$request->tiencoc_h;
         $tong_tt=$request->tong_tt_h;
-        if ($tong_tt>0) {
+        $dem_star=0;
+        //kiểm tra chi tiết đơn hàng đã lấy hàng chưa
+        $order_detail_id_1=DB::table('chi_tiet_don_hang')->where('ma_ddh',$ma_ddh)->get();
+        foreach ($order_detail_id_1 as $key => $value_star) {
+            if ($value_star->trang_thai==1) {
+                $dem_star++;
+            }
+        }
+        if (($tong_tt>0)&&($dem_star>0)) 
+        {
            
         $ma_pg=$date['year'].'M'.$date['mon'].'D'.$date['mday'].rand(0,9999);
         $data['ma_pg']= $ma_pg;
@@ -43,10 +52,11 @@ class Deliverynotescontroller extends Controller
                 $Sum_qty+=$value_od->solg_sp;
             }
             if ($value_od->trang_thai==2) {    
+
             }
             $Sum_mony+=$value_od->sotien;
         }
-
+        //tính chiết khấu
         $chiec_khau_tong=0;
         if($Sum_mony>=50000000){
             $chiec_khau_tong=15;    
@@ -74,11 +84,21 @@ class Deliverynotescontroller extends Controller
             $data['trangthai']=0;
             if ($tiencl==0) {
                 $status['trangthai']=2;
-                DB::table('don_dat_hang')->where('ma_ddh',$ma_ddh)->update($status);
+                DB::table('don_dat_hang')
+                ->where('ma_ddh',$ma_ddh)
+                ->Where(function($query) {
+                $query->where('trangthai','1')
+                      ->orwhere('trangthai','0');
+                 })
+                ->update($status);
             }else{
                 $status['trangthai']=1;
-                DB::table('don_dat_hang')->where('ma_ddh',$ma_ddh)->update($status); 
-        }
+                DB::table('don_dat_hang')
+                ->where('ma_ddh',$ma_ddh)
+                ->Where(function($query) {
+                $query-> where('trangthai','0')
+                     -> orwhere('trangthai','1');
+                 })->update($status);}
         }elseif($gia_dc<$tiencoc){
             $tiencoccon=$tiencoc-($Sum_mony_1*(100-$chiec_khau_tong)/100);   
             $data['gia_thu']=0;
@@ -88,10 +108,23 @@ class Deliverynotescontroller extends Controller
             $status['trangthai']=1;
             if ($tiencl==0) {
                 $status['trangthai']=2;
-                DB::table('don_dat_hang')->where('ma_ddh',$ma_ddh)->update($status);
-            }else{
+                DB::table('don_dat_hang')
+                ->where('ma_ddh',$ma_ddh)
+                ->Where(function($query) {
+                $query->where('trangthai','1')
+                      ->orwhere('trangthai','0');
+                 })
+                ->update($status);
+            }
+            else{
                 $status['trangthai']=1;
-                DB::table('don_dat_hang')->where('ma_ddh',$ma_ddh)->update($status); 
+                 DB::table('don_dat_hang')
+                ->where('ma_ddh',$ma_ddh)
+                ->Where(function($query) {
+                $query->where('trangthai','1')
+                      ->orwhere('trangthai','0');
+                 })
+                ->update($status);
             }
         }
         $data['ma_ddh']=$ma_ddh;
@@ -116,7 +149,8 @@ class Deliverynotescontroller extends Controller
         }
             return Redirect::to('/all-delivery-notes');
         }else {
-            return Redirect::to('/all-delivery-notes');
+            Session::put('message_ct','Chưa Lấy Hàng');
+            return Redirect::to('/order-details/'.$ma_ddh);
         }
             
     }
@@ -164,32 +198,60 @@ class Deliverynotescontroller extends Controller
     public function unactive_delivery($ma_pg){
         $this->AuthLogin();
         DB::table('phieu_giao')->where('ma_pg',$ma_pg)->update(['trangthai'=>1]);
-        DB::table('don_dat_hang')
+        $dem_tt_3=0;
+        $dem_tt_ct=0;
+        $order_detail_id=DB::table('don_dat_hang')
+        ->join('chi_tiet_don_hang','chi_tiet_don_hang.ma_ddh','=','don_dat_hang.ma_ddh')
         ->join('phieu_giao','phieu_giao.ma_ddh','=','don_dat_hang.ma_ddh')
-        ->where('phieu_giao.ma_pg',$ma_pg)->update(['don_dat_hang.trangthai'=>3]);
-
-        $detail_order_id=DB::table('chi_tiet_don_hang')
-        ->join('don_dat_hang','don_dat_hang.ma_ddh','=','chi_tiet_don_hang.ma_ddh')
-        ->join('phieu_giao','phieu_giao.ma_ddh','=','don_dat_hang.ma_ddh')
+        ->select('chi_tiet_don_hang.ma_sp','chi_tiet_don_hang.trang_thai','don_dat_hang.ma_ddh','phieu_giao.ma_pg','chi_tiet_don_hang.size','chi_tiet_don_hang.ten_mau','chi_tiet_don_hang.solg_sp','.chi_tiet_don_hang.so_ct')
         ->where('phieu_giao.ma_pg',$ma_pg)
         ->get();
-        $detail_delivery=DB::table('chi_tiet_phieu_giao')
+        $delivery_id=DB::table('phieu_giao')
+        ->join('chi_tiet_phieu_giao','chi_tiet_phieu_giao.ma_pg','=','phieu_giao.ma_pg')
         ->where('chi_tiet_phieu_giao.ma_pg',$ma_pg)
         ->get();
-       foreach ($detail_order_id as $key => $value_do) { 
-           foreach ($detail_delivery as $key => $value_dd) {
-            if (($value_do->ma_sp==$value_dd->ma_sp)&&($value_do->ten_mau=$value_dd->mau)&&($value_do->size=$value_dd->size)) {
-                echo $value_do->ma_sp."<br>";
-                DB::table('chi_tiet_don_hang')
-                ->where('ma_sp',$value_do->ma_sp)
-                ->where('ten_mau',$value_do->ten_mau)
-                ->where('size',$value_do->size)->update(['chi_tiet_don_hang.trang_thai'=>3]);
-             }      
-           }
-       }
+        //chưa được
+        //kiểm trả nếu tất cả trang thái Sản phẩm chi tiết đơn đặt hàng đều là 3 thì tăng trang thái đơn đặt hàng lên 4 
+        foreach ($order_detail_id as $key => $value_od){
+            if ($value_od->trang_thai==3||$value_od->trang_thai==2) {
+                $dem_tt_3++;
+            }
+           $dem_tt_ct++;
+        }
+        if(($dem_tt_ct==$dem_tt_3)&&($dem_tt_3>0)&&($dem_tt_ct>0)) {  
+
+            DB::table('don_dat_hang')
+            ->join('phieu_giao','phieu_giao.ma_ddh','=','don_dat_hang.ma_ddh')
+            ->where('ma_pg',$ma_pg)
+            ->update(['don_dat_hang.trangthai'=>4]);
+
+        }else{
+
+            $order_id=DB::table('don_dat_hang')
+            ->join('phieu_giao','phieu_giao.ma_ddh','=','don_dat_hang.ma_ddh')
+            ->where('ma_pg',$ma_pg)
+            ->Where(function($query){
+            $query->orwhere('don_dat_hang.trangthai','1')   //Trang thái 1 ->3
+                 -> orwhere('don_dat_hang.trangthai','2'); //Trang thái 2 ->3
+             })->update(['don_dat_hang.trangthai'=>3]);
+        }
+            //xác thực sản phẩm 
+            foreach ($delivery_id as $key => $value_dn) {
+                foreach ($order_detail_id as $key => $value_od){
+                    //sản phẩm chi tiết phiếu giao giống chi tiêt đơn đặt hàng để cập nhật trang thái sản phẩm trong chi tiết đơn hàng từ 2->3       
+                    if (($value_dn->ma_sp==$value_od->ma_sp)&&($value_dn->size==$value_od->size)&&($value_dn->mau==$value_od->ten_mau)&&($value_dn->solg==$value_od->solg_sp)&&($value_od->trang_thai==2)) {
+                        DB::table('chi_tiet_don_hang')
+                        ->where('so_ct',$value_od->so_ct)
+                        ->where('ma_sp',$value_od->ma_sp)
+                        ->where('ten_mau',$value_od->ten_mau)
+                        ->where('size',$value_od->size)
+                        ->update(['chi_tiet_don_hang.trang_thai'=>3]);       
+                    }
+                }
+            }
         
-        
-        return Redirect::to('/all-delivery-notes');
+       
+         return Redirect::to('/all-delivery-notes');
     }
 
 

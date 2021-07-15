@@ -24,7 +24,7 @@ Route::get('/chinh-sach','Homecontroller@policy');
 Route::get('/gioi-thieu','Homecontroller@about');
 //Trang Tìm Kiếm Theo Danh Mục
 Route::get('/danh-muc-san-pham/{ma_tk}','Productcontroller@show_category_home');
-
+Route::post('/search-cate-ad','Categorycontroller@search_cate_ad');
 //user
 //------Trang Đăng nhập
 Route::get('/login-user','UserController@login_user');
@@ -114,7 +114,7 @@ Route::get('/delete-Category/{ma_dm}','Categorycontroller@delete_Category');
 Route::post('/update-Category/{ma_dm}','Categorycontroller@update_Category');
 Route::post('/save-Category','Categorycontroller@save_Category');
 
-Route::post('/search-cate-ad','Categorycontroller@search_cate_ad');
+
 	//thiết kế
 Route::get('/add-design','Categorycontroller@add_design');
 Route::post('/save-design','Categorycontroller@save_design');
@@ -138,17 +138,13 @@ Route::post('/search-product-ad','Productcontroller@search_product_ad');
 	
 
 	//hình ảnh sản phẩm
-Route::get('/add-images-product','Productcontroller@add_images_product');
-Route::get('/all-images-product','Productcontroller@all_images_product');
+Route::get('/add-images-product/{ma_sp}','Productcontroller@add_images_product');
 Route::post('/save-images-product','Productcontroller@save_images_product');
 
 
 
 //đơn đặt hàng
 Route::get('/all-order','Ordercontroller@all_order_product');
-Route::post('/search-order','Ordercontroller@search_order');
-Route::post('/update-order/{ma_ddh}','Ordercontroller@update_order');
-
 Route::get('/order-details/{ma_ddh}','Ordercontroller@order_details');
 
 //chi tiết đơn đặt hàng

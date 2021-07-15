@@ -31,21 +31,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	
 <div class="w3layouts-main" >
 	<h2>Đăng nhập</h2>
-		<form action="{{URL::to('/admin-dashboard')}}" method="post" >
-			@csrf			
-
-			<input type="text" class="ggg" name="email" id="email_user" placeholder="E-MAIL" >
-			<input type="password" class="ggg" name="matkhau" id="password_user" placeholder="MẬT KHẨU" >
-			<span><input type="checkbox" />Nhớ đăng nhập</span>
-			<h6><a href="#">Quên mật khẩu?</a></h6>
-				<div class="clearfix"></div>
-				<input type="submit" value="Đăng nhập" name="login">
-             
-		</form>
 		<ul class="alert text-danger"> 
-			<?php foreach ($errors->all() as $key => $error): ?>
-				<li>{{$error}}</li>
-			<?php endforeach ?>
 			<?php 
 			$message=Session::get('message');
 			if($message){
@@ -54,6 +40,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			}
 		 	?>
 		</ul>
+		<form action="{{URL::to('/admin-dashboard')}}" method="post" >
+			@csrf			
+
+			<input type="text" class="ggg" name="email" id="email_user" placeholder="E-MAIL" >
+			<?php if ($errors->has('email')): ?>
+                <span style="color:red;">{{$errors->first('email')}}</span>
+            <?php endif ?>
+			<input type="password" class="ggg" name="matkhau" id="password_user" placeholder="MẬT KHẨU" >
+			<?php if ($errors->has('matkhau')): ?>
+                <span style="color:red;">{{$errors->first('matkhau')}}</span>
+            <?php endif ?>
+			<span><input type="checkbox" />Nhớ đăng nhập</span>
+			<h6><a href="#">Quên mật khẩu?</a></h6>
+				<div class="clearfix"></div>
+				<input type="submit" value="Đăng nhập" name="login">
+             
+		</form>
+		
 		<div>
 </div>
 </div>

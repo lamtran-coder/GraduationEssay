@@ -35,7 +35,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="{{asset('public/backend/js/jquery2.0.3.min.js')}}"></script>
 <script src="{{asset('public/backend/js/raphael-min.js')}}"></script>
 <script src="{{asset('public/backend/js/morris.js')}}"></script>
-<meta name="csrf-token" content="{{csrf_token()}}"> <!-- binh luaanj -->
+<meta name="csrf-token" content="{{csrf_token()}}"> <!-- binh luan -->
 </head>
 <body>
 <section id="container">
@@ -55,6 +55,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--  notification start -->
     <ul class="nav top-menu">
         <!-- settings start -->
+
         <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                 <i class="fa fa-tasks"></i>
@@ -64,6 +65,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <li>
                     <p class="">Bạn có 1 nhiệm vụ đang chờ xử lý</p>
                 </li>
+                
                 <li>
                     <a href="#">
                         <div class="task-info clearfix">
@@ -77,12 +79,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </div>
                     </a>
                 </li>
-
+               
                 <li class="external">
                     <a href="#">Xem tất cả nhiệm vụ</a>
                 </li>
             </ul>
         </li>
+
         <!-- settings end -->
         <!-- inbox dropdown start-->
         <li id="header_inbox_bar" class="dropdown">
@@ -179,49 +182,23 @@ Thông báo</p>
     <div id="sidebar" class="nav-collapse">
         <!-- sidebar menu start-->
         <div class="leftside-navigation">
-            <ul class="sidebar-menu" id="nav-accordion">
-                <li>
-                    <a class="active" href="{{URL::to('/dashboard')}}">
-                        <i class="fa fa-dashboard"></i>
-                        <span>Tổng quan</span>
-                    </a>
-                </li>
+            <ul class="sidebar-menu" id="nav-accordion">    
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-book"></i>
-                        <span>Quản lý Slider</span>
+                        <span>Quản Lý Ảnh Sự Kiện</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="{{URL::to('/add-slider')}}">Thêm slider</a></li>
-                        <li><a href="{{URL::to('/manage-slider')}}">Danh Sách slider</a></li>
+                        <li><a href="{{URL::to('/add-slider')}}">Thêm Sự Kiện</a></li>
+                        <li><a href="{{URL::to('/manage-slider')}}">Danh Sách Sự Kiện</a></li>
                     </ul>
                     
                 </li>
-                 <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-book"></i>
-                        <span>Nhân viên giao hàng</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="{{URL::to('/add-Category')}}">Thêm nhân viên</a></li>
-                        <li><a href="{{URL::to('/all-Category')}}">Danh sách nhân viên</a></li>
-                    </ul>
-                    
-                </li>
-                 <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-book"></i>
-                        <span>Khách hàng</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="{{URL::to('/all-customer')}}">Danh sách thông tin khách hàng</a></li>
-                    </ul>
-                    
-                </li>
+                
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-book"></i>
-                        <span>Danh mục sản phẩm</span>
+                        <span>Quản Lý Danh Mục </span>
                     </a>
                     <ul class="sub">
 						<li><a href="{{URL::to('/add-Category')}}">Danh mục mới</a></li>
@@ -232,7 +209,7 @@ Thông báo</p>
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-book"></i>
-                        <span>Sản phẩm</span>
+                        <span>Quản Lý Sản phẩm</span>
                     </a>
                      <ul class="sub">
 						<li><a href="{{URL::to('/add-product')}}">Sản phẩm mới</a></li>
@@ -240,43 +217,37 @@ Thông báo</p>
                     </ul>
                 </li>
                 <li class="sub-menu">
-                    <a href="javascript:;">
+                    <a href="{{URL::to('/comment')}}">
                         <i class="fa fa-book"></i>
-                        <span>Chi tiết sản phẩm</span>
+                        <span>Danh Sách Bình luận</span>
                     </a>
-                     <ul class="sub">
-                        <li><a href="{{URL::to('/all-detail-product')}}">Danh sách chi tiết sản phẩm</a></li>    
-                    </ul>
                 </li>
                 <li class="sub-menu">
-                    <a href="javascript:;">
+                    <a href="{{URL::to('/all-customer')}}">
                         <i class="fa fa-book"></i>
-                        <span>Đơn đặt hàng</span>
+                        <span>Danh Sách Khách Hàng</span>
+                    </a>              
+                </li>
+                <li class="sub-menu">
+                    <a href="{{URL::to('/all-detail-product')}}">
+                        <i class="fa fa-book"></i>
+                        <span>Danh Sách Chi Tiết Sản Phẩm</span>
                     </a>
-                     <ul class="sub">
-                        <li><a href="{{URL::to('/all-order')}}">Danh sách đơn đặt hàng</a></li>    
-                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="{{URL::to('/all-order')}}">
+                        <i class="fa fa-book"></i>
+                        <span>Danh Sách Đơn Đặt Hàng</span>
+                    </a>
                 </li>
                 
                 <li class="sub-menu">
-                    <a href="javascript:;">
+                    <a href="{{URL::to('/all-delivery-notes')}}">
                         <i class="fa fa-book"></i>
-                        <span>Phiếu giao</span>
+                        <span>Danh Sách Phiếu Giao</span>
                     </a>
-                     <ul class="sub">
-                        <li><a href="{{URL::to('/all-delivery-notes')}}">Danh sách phiếu giao</a></li>    
-                    </ul>
                 </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-book"></i>
-                        <span>Bình luận</span>
-                    </a>
-                     <ul class="sub">
-                        
-                        <li><a href="{{URL::to('/comment')}}">Danh sách bình luận</a></li>    
-                    </ul>
-                </li>
+                
                
                
             </ul>          

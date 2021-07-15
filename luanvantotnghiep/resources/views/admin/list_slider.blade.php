@@ -47,17 +47,19 @@
           <tr>
             <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
             <td>{{ $slide->slider_name }}</td>
-            <td><img src="public/uploads/slider/{{ $slide->slider_image }}" height="120" width="500"></td>
+            <td><img src="public/uploads/slider/{{ $slide->slider_image }}" height="300" width="500"></td>
             <td>{{ $slide->slider_desc }}</td>
             <td><span class="text-ellipsis">
               <?php
                if($slide->slider_status==1){
                 ?>
-                <a href="{{URL::to('/unactive-slide/'.$slide->slider_id)}}"><span class="fa-thumb-styling fa fa-thumbs-up"></span></a>
+                <a href="{{URL::to('/unactive-slide/'.$slide->slider_id)}}"><span class="fa-thumb-styling fa fa-thumbs-up" 
+                  style="font-size: 25px;color: green;"></span></a>
                 <?php
                  }else{
                 ?>  
-                 <a href="{{URL::to('/active-slide/'.$slide->slider_id)}}"><span class="fa-thumb-styling fa fa-thumbs-down"></span></a>
+                 <a href="{{URL::to('/active-slide/'.$slide->slider_id)}}"><span class="fa-thumb-styling fa fa-thumbs-down"
+                   style="font-size: 25px;color: red;"></span></a>
                 <?php
                }
               ?>

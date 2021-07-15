@@ -88,33 +88,25 @@
                 <?php endforeach ?>
             <td><span class="text-ellipsis">{{$value_oder->solg_sp}}</span></td>
             
-            <td><span class="text-ellipsis">{{$value_oder->tien_coc}}</span></td>
-            <td><span class="text-ellipsis">{{$value_oder->tong_tt}}</span></td>
+            <td><span class="text-ellipsis"><?php echo number_format($value_oder->tien_coc); ?></span></td>
+            <td><span class="text-ellipsis"><?php echo number_format($value_oder->tong_tt); ?></span></td>
             <td><span class="text-ellipsis">{{$value_oder->ngdat}}</span></td>
            
             <td><span class="text-ellipsis">
-                
-                 <form action="{{url::to('/update-order/'.$value_oder->ma_ddh)}}" method="POST">
-                @csrf
-                 <select name="status" class="form-control-inline" style="width: 139px; height: 30px; font-size: 17px;" >
+                  
                       <?php 
                           if($value_oder->trangthai==0){                
-                            echo '<option value="0">Đang xử lý</option>';
+                            echo '<span style="color:#4C8720;">Đang xử lý</span>';
                           }elseif($value_oder->trangthai==1){
-                            echo '<option value="1">Đang lấy hàng</option>';
+                            echo '<span style="color:#6AF3D6;">Đang lấy hàng</span>';
                           }elseif($value_oder->trangthai==2){
-                            echo '<option value="2">Đã Lấy Xong</option>';
+                            echo '<span style="color:#1A5FC6;">Đã Lấy Xong</span>';
                           }elseif($value_oder->trangthai==3){
-                            echo '<option value="3">Chưa Giao Hết</option>';
+                            echo '<span style="color:#E19712;">Chưa Giao Hết</span>';
                           }elseif($value_oder->trangthai==4){
-                            echo '<option value="3">Đã Hoàn Thành</option>';
+                            echo '<span style="color:red;">Đã Hoàn Thành</span>';
                           }
                         ?>
-                       
-                  </select>
-                  <button>UP</button>
-                  </form>
-                
             </span></td>
                 <td><a href="{{URL::to('/order-details/'.$value_oder->ma_ddh)}}" class="active styling-edit" ui-toggle-class="">
                <i class="fa fa-search" style="font-size: 30px;"></i></a>

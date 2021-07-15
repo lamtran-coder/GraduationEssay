@@ -169,7 +169,7 @@ input[type="text"], input[type="email"], input[type="password"] {
 }
 
 input.email, input.text.w3lpass {
-  margin: 2em 0;
+  margin: 1em 0;
 }
 
 .text:focus, .text:valid {

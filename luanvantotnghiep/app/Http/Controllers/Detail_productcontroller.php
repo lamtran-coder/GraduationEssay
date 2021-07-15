@@ -26,10 +26,13 @@ class Detail_productcontroller extends Controller
         $product_id=DB::table('san_pham')->where('ma_sp',$ma_sp)->orderby('ten_sp','desc')->get();
         $color_id=DB::table('mau')->orderby('ten_mau','desc')->get();
         $size_id=DB::table('size')->orderby('ma_size','desc')->get();
+        $detail_product_id=DB::table('chi_tiet_san_pham')->where('ma_sp',$ma_sp)->get();
         return view('admin.detail_product_add')
         ->with('product_id',$product_id)
         ->with('color_id',$color_id)
-        ->with('size_id',$size_id);
+        ->with('size_id',$size_id)
+        ->with('detail_product_id',$detail_product_id);
+       
     }
         //lưu 
     public function save_detail_product(Request $request){
@@ -48,7 +51,8 @@ class Detail_productcontroller extends Controller
             }
         DB::table('chi_tiet_san_pham')->insert($data);
         Session::put('message','Thêm chi tiet sản phẩm thành công');
-        return Redirect::to('/add-detail-product');
+        $result=$_SERVER['HTTP_REFERER'];
+        return Redirect::to($result);
     }
     public function update_amount(Request $request,$ma_sp){
         
@@ -78,7 +82,8 @@ class Detail_productcontroller extends Controller
             }
         }       
 
-         return Redirect::to('/all-detail-product');
+        $result=$_SERVER['HTTP_REFERER'];
+        return Redirect::to($result);
     }
     public function all_detail_product(){
          $this->AuthLogin();

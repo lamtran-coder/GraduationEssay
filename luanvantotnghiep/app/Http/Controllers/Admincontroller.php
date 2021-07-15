@@ -71,19 +71,26 @@ class Admincontroller extends Controller
     $customer =DB::table('khach_hang')->count();
     $comment=DB::table('binh_luan')->count();
     $product=DB::table('san_pham')->count();
-
-        return view('admin.dashboard')->with(compact('visitors_total','visitor_count','visitor_last_month_count','visitor_this_month_count','visitor_year_count','product','comment','order','customer'));
+    //nhiệm vụ hàng ngày
+    $date_dh=date('Y-m-d');
+    $date_dh=date('d-m-Y',strtotime($date_dh));
+    $delivery_date=DB::table('phieu_giao')->where('nggiao',$date_dh)->where('trangthai','0')->get();
+    return view('admin.dashboard')
+    ->with(compact('visitors_total','visitor_count','visitor_last_month_count','visitor_this_month_count','visitor_year_count','product','comment','order','customer'))
+    ->with('delivery_date',$delivery_date)
+    ;
     }
     public function dashboard(Request $request){
 
         $request->validate([
             'email'=>'required|email',
-            'matkhau'=>'required|min:6'
+            'matkhau'=>'required|min:6|max:255'
         ],[
             'email.required'=>'Email không để trống',
             'email.email'=>'Email không hợp lệ',
             'matkhau.required'=>'Mât khẩu không để trống',
-            'matkhau.min'=>'Mât khẩu ít nhất 6 ký tự'
+            'matkhau.min'=>'Mât khẩu ít nhất 6 ký tự',
+            'matkhau.max'=>'Mât khẩu nhiều nhất 255 ký tự'
 
         ]);
     
@@ -96,7 +103,6 @@ class Admincontroller extends Controller
             session::put('email',$result->email);
             session::put('tg_tao',$result->tg_tao);
             session::put('diachi',$result->diachi);
-
             return Redirect::to('/dashboard');}
         else{
             session::put('message','Mật khẩu hoặc email sai. Vui lòng nhập lại');

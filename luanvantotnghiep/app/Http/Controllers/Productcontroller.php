@@ -21,7 +21,7 @@ class Productcontroller extends Controller
     }
     public function add_product(){
         $this->AuthLogin();
-        $cate_product=DB::table('danh_muc_sp')->orderby('danh_muc','desc')->get();
+        $cate_product=DB::table('danh_muc_sp')->orderby('danh_muc','ASC')->get();
         $design_id=DB::table('thiet_ke')->orderby('ma_tk','desc')->get();
         $material_id=DB::table('chat_lieu')->orderby('ma_cl','desc')->get();
         $product_id=DB::table('san_pham')->orderby('ma_sp','desc')->get();
@@ -177,15 +177,19 @@ class Productcontroller extends Controller
 
 
     //images_product
-    public function add_images_product(){
+    public function add_images_product($ma_sp){
         $this->AuthLogin();
         $cate_product=DB::table('danh_muc_sp')->orderby('danh_muc','desc')->get();
         $design_id=DB::table('thiet_ke')->orderby('ma_tk','desc')->get();
         $material_id=DB::table('chat_lieu')->orderby('ma_cl','desc')->get();
-        $product_id=DB::table('san_pham')->orderby('ma_sp','desc')->get();
-        return view('admin.product_add')->with('product_id',$product_id)->with('cate_product',$cate_product)
+        $product_id=DB::table('san_pham')->where('ma_sp',$ma_sp)->orderby('ma_sp','desc')->get();
+        $img_id=DB::table('hinh_anh')->where('ma_sp',$ma_sp)->orderby('goc_nhin','ASC')->paginate(4);
+        return view('admin.add_img')
+        ->with('product_id',$product_id)
+        ->with('cate_product',$cate_product)
         ->with('design_id',$design_id)
         ->with('material_id',$material_id)
+        ->with('img_id',$img_id)
         ;
     }
     public function save_images_product(Request $request){
@@ -202,9 +206,12 @@ class Productcontroller extends Controller
         ]);
         $all_img=DB::table('hinh_anh')->where('ma_sp',$request->product_images_id)->get();
         foreach ($all_img as $key => $value) {
+             $result=$_SERVER['HTTP_REFERER'];
+      
            if (($request->images_view==0)&&($request->images_view==$value->goc_nhin)) {
                 Session::put('message_img','Thêm hình ảnh sản phẩm không thành công');
-                return Redirect::to('/add-images-product');
+
+                  return Redirect::to($result);
            }else{
                 $data=array();
                 $data['ma_sp']=$request->product_images_id;
@@ -218,11 +225,11 @@ class Productcontroller extends Controller
                     $data['hinhanh'] = $new_images; 
                     DB::table('hinh_anh')->insert($data);
                     Session::put('message_img','Thêm hinh ảnh sản phẩm thành công');
-                    return Redirect::to('/add-images-product');
+                     return Redirect::to($result);
                 }
                 else{
                     Session::put('message_img','Thêm hình ảnh sản phẩm không thành công');
-                    return Redirect::to('/add-images-product');
+                     return Redirect::to($result);
                 }
             }
         }
@@ -361,7 +368,7 @@ class Productcontroller extends Controller
         ->with('max_price_range',$max_price_range);
     }
 
-
+    //tìm Kiếm Sản Phẩm forntend
     public function show_category_home (Request $request,$ma_tk )
     {   $keywords=$request->keywords_submit;
         $cate_product = DB::table('danh_muc_sp')
@@ -393,7 +400,7 @@ class Productcontroller extends Controller
         ->where('thiet_ke.ma_tk',$ma_tk)
         ->groupBy('san_pham.ma_sp')
         ->get();
-
+        $rating_id= DB::table('danh_gia')->get();
          return view('pages.search_cate')
         ->with('cate_product',$cate_product)
         ->with('all_material',$all_material)
@@ -401,6 +408,7 @@ class Productcontroller extends Controller
         ->with('design_id',$design_id)
         ->with('all_color',$all_color)
         ->with('all_img',$all_img)
+        ->with('rating_id',$rating_id)
          ->with('search_product',$search_product)
          ->with('category_by_id',$category_by_id);
     }

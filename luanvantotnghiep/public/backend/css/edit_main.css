@@ -148,6 +148,7 @@ select.status_order_detail {
 .panel>.panel-collapse>.table, .panel>.table, .panel>.table-responsive>.table {
     margin-bottom: 0;
     font-weight: bold;
+    text-transform: uppercase;
 }
 .box-header.with-border {
     font-weight: bold;
@@ -181,4 +182,15 @@ header.panel-heading {
 }
 table {
     background-color: white;
+}
+select.dogMenu {
+    border-radius: 10px;
+    padding-left: 5px;
+    width: 100px;
+}
+.action {
+    text-align: center;
+}
+.action>a {
+    padding: 5px;
 }

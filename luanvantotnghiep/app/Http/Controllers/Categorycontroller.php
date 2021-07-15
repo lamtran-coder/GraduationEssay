@@ -73,6 +73,29 @@ class Categorycontroller extends Controller
         
           
     }
+
+    //tim kiếm danh muc qua tên danh mục
+    public function search_cate_ad(Request $request){
+         $this->AuthLogin();
+        $keywords=$request->keywords_submit;
+        $design_id=DB::table('thiet_ke')->get();
+        $material_id=DB::table('chat_lieu')->get();
+        $search_cate=DB::table('danh_muc_sp')
+        ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
+        ->join('chat_lieu','chat_lieu.ma_cl','=','danh_muc_sp.ma_cl')
+        ->where('danh_muc','like','%'. $keywords .'%')
+        ->orwhere('thiet_ke.ten_tk','like','%'. $keywords .'%')
+        ->orwhere('chat_lieu.ten_cl','like','%'. $keywords .'%')
+        ->get();
+          if ($search_cate) {
+              return view('admin.category_search')->with('search_cate',$search_cate)->with('design_id',$design_id)->with('material_id',$material_id);
+          }else{
+            return view('admin.Category_all');
+          }
+           
+       
+    }
+
     //trang thái
     public function unactive_category($ma_dm){
          $this->AuthLogin();
@@ -111,27 +134,7 @@ class Categorycontroller extends Controller
          return Redirect::to('/all-Category');
      }
 
-    //tim kiếm danh muc qua tên danh mục
-    public function search_cate_ad(Request $request){
-         $this->AuthLogin();
-        $keywords=$request->keywords_submit;
-        $design_id=DB::table('thiet_ke')->get();
-        $material_id=DB::table('chat_lieu')->get();
-        $search_cate=DB::table('danh_muc_sp')
-        ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
-        ->join('chat_lieu','chat_lieu.ma_cl','=','danh_muc_sp.ma_cl')
-        ->where('danh_muc','like','%'. $keywords .'%')
-        ->orwhere('thiet_ke.ten_tk','like','%'. $keywords .'%')
-        ->orwhere('chat_lieu.ten_cl','like','%'. $keywords .'%')
-        ->get();
-          if ($search_cate) {
-              return view('admin.category_search')->with('search_cate',$search_cate)->with('design_id',$design_id)->with('material_id',$material_id);
-          }else{
-            return view('admin.Category_all');
-          }
-           
-       
-    }    
+        
 
 
     //add thiết kế

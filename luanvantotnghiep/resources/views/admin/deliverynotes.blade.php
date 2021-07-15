@@ -39,7 +39,7 @@
         </form>
       </ul>
       </div>
-      <div style="float: right;padding-right: 13%;font-size: 20px;">
+      <div style="float: right;padding-right: 5%;font-size: 20px;margin: 5px;">
         <form >
           @csrf
         <select name="status_dn" >
@@ -58,10 +58,11 @@
               </label>
             </th>
             <th>Mã Phiếu Giao</th>
+            <th>Mã Đơn Đặt Hàng</th>
             <th>Ngày Giao</th>
             <th>số sản phẩm</th>
-            <th>Tiền Thu</th>
-            <th>Tiền Còn Lại</th>
+            <th>Thanh Toán</th>
+            <th>Tiền trả sau</th>
             <th>Trang Thái</th>
             <th>Chi Tiêt</th>
             <th style="width:30px;"></th>
@@ -76,6 +77,7 @@
               </label>
             </th>
             <td><span class="text-ellipsis"><a href="{{URL::to('/order-details/'.$value_dn->ma_ddh)}}">{{$value_dn->ma_pg}}</a></span></td>
+              <td><span class="text-ellipsis">{{$value_dn->ma_ddh}}</span></td>
             <td><span class="text-ellipsis">{{$value_dn->nggiao}}</span></td>
             <td><span class="text-ellipsis">{{$value_dn->solg_sp}}</span></td>
             <td><span class="text-ellipsis"><?php echo number_format($value_dn->gia_thu); ?></span></td>
@@ -88,7 +90,7 @@
             <?php 
              }else{
               ?>
-               <a  style="color: red;">Đã Nhận</a>
+               <a  style="color: red;">Đã Giao</a>
             <?php
              }
              ?>
