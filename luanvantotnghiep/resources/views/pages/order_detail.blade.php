@@ -13,7 +13,7 @@
         <ul>
             <form>
             @csrf
-                <a href="{{URL::to('/show-order/'.$user_id)}}"><li class="color1" >Trở Lại Đơn Đặt Hàng</li></a>
+                <a href="{{URL::to('/show-order/'.$user_id)}}"><li class="color1" style="display: inline-flex;"><i class="fa fa-arrow-left"></i>Đơn Đặt Hàng</li></a>
                 <a href="{{Request::url()}}?status_de=0"><li class="color3" >Đang Xử Lý</li></a>
                 <a href="{{Request::url()}}?status_de=1"><li class="color2" >Đang Lấy Hàng</li></a>
                 <a href="{{Request::url()}}?status_de=2"><li class="color3" >Đang Giao</li></a>

@@ -154,8 +154,18 @@
                                  <?php $tienck=($Sum_mony*$chiec_khau_tong)/100;
                                     echo number_format($tienck); ?>
                             </b><p>VND</p></span></li>
+                             <li>Phí Giao<span><b>
+                                 
+                                <?php if($sum_qty<20){
+                                    $mony_deli=35000;
+                                }else{
+                                    $mony_deli=0;
+                                }
+                                echo $mony_deli;
+                                ?>
+                            </b><p>VND</p></span></li>
                             <li style="font-size: 35px; margin-top: 30px;" >Thành Tiền<span style="color: red"><b><?php $result_mony=$Sum_mony*(100-$chiec_khau_tong)/100;
-                            echo number_format($result_mony); ?></b><p>VND</p></span></li>
+                            echo number_format($result_mony+$mony_deli); ?></b><p>VND</p></span></li>
                         </ul>
                     </div>
                     <div class="checkout-order">

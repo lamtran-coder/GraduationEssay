@@ -17,7 +17,6 @@
                    <strong><i class="fa fa-money" style="color:green" aria-hidden="true"></i> Thanh Toán</strong> 
                 </div>
                 </div>
-
                 <div class="discount-card">
                     <header class="header-tt">Chọn phương thức thanh toán</header>
                     <form method="GET" class="payment-methods" action="{{URL::to('/new-order')}}">
@@ -33,7 +32,7 @@
                                 <span><label><input  name="payment-options" value="3" type="radio">MoMo</label></span>
                             </li>
                         </ul>
-                        <input type="submit" style="width: 170px;border-radius: 80px;float: right;" name="" value="Tiếp Theo">
+                        <button class="btn_checkout">Tiếp Theo</button>
                      </form>
                 </div>
             </div>

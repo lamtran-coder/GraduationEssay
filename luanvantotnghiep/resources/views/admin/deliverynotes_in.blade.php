@@ -78,10 +78,21 @@
                                     <td>{{$value_dd->sotien}}</td> 
                                 </tr>
                              <?php endforeach ?> 
+                                <tr><?php $phigiao=$_GET['phigiao']; ?>
+                                    <?php foreach ($deliverynotes_id as $key => $value_dn): ?>
+                                    <td colspan="2" title="position-center"><b>Phí Vận Chuyển</b></td>
+                                    <td colspan="5"><b class="text-red" style="font-size:20px"><?php
+                                   
+                                   
+                                    
+                                    echo number_format($phigiao).' VND'; ?></b></td>
+                                    <?php endforeach ?>
+
+                                </tr>
                                 <tr>
                                		<?php foreach ($deliverynotes_id as $key => $value_dn): ?>
                                     <td colspan="2" title="position-center"><b>Tổng Tiền</b></td>
-                                    <td colspan="5"><b class="text-red" style="font-size:20px"><?php echo number_format($value_dn->gia_thu).' VND'; ?></b></td>
+                                    <td colspan="5"><b class="text-red" style="font-size:20px"><?php echo number_format($value_dn->gia_thu+$phigiao).' VND'; ?></b></td>
                                     <?php endforeach ?>
 
                                 </tr>
@@ -100,8 +111,11 @@
      <footer class="panel-footer">
       <div class="row">
             <div style="text-align:center;">
-            
-                <p><a href="{{URL::to('/print-deliverynotes/'.$ma_pg)}}" ><i class="fa fa-print" style="font-size: 50px;color: red;" aria-hidden="true"></i></a></p>
+                <form action="{{URL::to('/print-deliverynotes/'.$ma_pg)}}">
+                <input type="hidden" name="phigiao" value="<?php echo $phigiao;?>">
+                <button style="background:#FFF"><i class="fa fa-print" style="font-size: 30px;color: yellowgreen;" aria-hidden="true"></i></button>
+                </form>
+                
             </div>
         
         </div>

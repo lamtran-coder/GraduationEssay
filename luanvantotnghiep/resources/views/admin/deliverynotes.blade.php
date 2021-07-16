@@ -60,7 +60,8 @@
             <th>Mã Phiếu Giao</th>
             <th>Mã Đơn Đặt Hàng</th>
             <th>Ngày Giao</th>
-            <th>số sản phẩm</th>
+            <th>số lượng</th>
+            <th>Phí Giao</th>
             <th>Thanh Toán</th>
             <th>Tiền trả sau</th>
             <th>Trang Thái</th>
@@ -69,6 +70,7 @@
           </tr>
         </thead>
         <tbody>
+          <?php $qty_pro=0; ?>
           <?php foreach ($delivery_id as $key => $value_dn): ?>  
         <tr>
            <th style="width:20px;">
@@ -80,7 +82,21 @@
               <td><span class="text-ellipsis">{{$value_dn->ma_ddh}}</span></td>
             <td><span class="text-ellipsis">{{$value_dn->nggiao}}</span></td>
             <td><span class="text-ellipsis">{{$value_dn->solg_sp}}</span></td>
-            <td><span class="text-ellipsis"><?php echo number_format($value_dn->gia_thu); ?></span></td>
+             <td><span class="text-ellipsis"><?php
+                foreach ($order_id as $key => $value_od) {
+                  if ($value_od->ma_ddh==$value_dn->ma_ddh) {
+                      $qty_pro+=$value_dn->solg_sp;
+                      if ($value_od->solg_sp<$qty_pro) {
+                         $phigiao=$value_od->phigiao;
+                      }else{
+                        $phigiao=0;
+                      }
+                     
+                  }
+                }
+                echo number_format($phigiao);
+            ?></span></td>
+            <td><span class="text-ellipsis"><?php echo number_format($value_dn->gia_thu+$phigiao); ?></span></td>
             <td><span class="text-ellipsis"><?php echo number_format($value_dn->tienconlai); ?></span></td>
             <td><span class="text-ellipsis">
               <?php
@@ -97,7 +113,11 @@
             </span></td>
             
             <td>
-               <a href="{{URL::to('/deliverynotes-detail/'.$value_dn->ma_pg)}}"><i class="fa fa-print" style="font-size: 30px;color: yellowgreen;" aria-hidden="true"></i></a>
+               <!-- <a href="{{URL::to('/deliverynotes-detail/'.$value_dn->ma_pg)}}"><i class="fa fa-print" style="font-size: 30px;color: yellowgreen;" aria-hidden="true"></i></a> -->
+               <form action="{{URL::to('/deliverynotes-detail/'.$value_dn->ma_pg)}}">
+                <input type="hidden" name="phigiao" value="<?php echo $phigiao;?>">
+               <button style="background:#FFF"><i class="fa fa-print" style="font-size: 30px;color: yellowgreen;" aria-hidden="true"></i></button>
+               </form>
              </td>
           </tr>
          <?php endforeach ?>

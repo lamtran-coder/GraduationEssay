@@ -15,6 +15,20 @@ input.email-sign {
 input.password-sign {
     margin: 30px 20px 10px 10px;   
 }
+button.btn_checkout {
+    margin-left: 30%;
+    width: 250px;
+    height: 60px;
+    font-size: 30px;
+    text-align: center;
+    background: #f3680a;
+    border-radius: 50px;
+    border: none;
+    color: #FFF;
+}
+button.btn_checkout:hover {
+    background: #bd540e;
+}
 button.grey {
     margin: 10px 10px 50px 100px;
     width: 200px;
@@ -161,10 +175,11 @@ input[type="radio"].radio-mau-size:checked+label:before{
 }
 .number-product{
     width: 119px;
-    height: 100px;
-    margin: 30px;
+    height: 26px;
+    margin-left: 48px;
     font-size: 20px;
     text-align: center;
+    font-weight: bold;
     
 }
 input.number-spinner::-webkit-outer-spin-button,
@@ -274,7 +289,7 @@ tr.form-tr {
 div.product-billing{
     float: right;
     background: #93929247;
-    width: 500px;
+    width: 595px;
     height: auto;
     border: 15px solid #d4cfcf;
 }
@@ -357,7 +372,7 @@ i.fa.fa-trash.fa-trash-styling-mini {
     font-size: 25px;
 }
 .discount-card {
-    width: 649px;
+    width: 552px;
     height: auto;
     display: inline-block;
     font-size: 22px;
@@ -392,9 +407,10 @@ i.fa.fa-trash.fa-trash-styling-mini {
 }
 .user-billing {
     width: 700px;
-    height: 375px;
+    height: auto;
     border: 1px solid;
-    float: right;
+    float: left;
+    
 }
 .customer-cart{
     padding: 30px;
@@ -469,8 +485,8 @@ i.fa.fa-comment {
 .comment-content {
     padding: 0px;
     margin: 0px;
-    border: 5px solid #5752521c;
-    background: #00ff1138;
+    border: 5px solid #5752523d;
+    background: #ffffff38;
     overflow-x: hidden;
     overflow-y: auto;
     height: 230px;
@@ -542,10 +558,10 @@ div.comment-admin>ul>li>p {
     font-style: oblique;
 }
 .comment-new {
-    background: #00ff1138;
+    background: #d7dad738;
     font-size: 20px;
     padding: 12px;
-    border: 4px solid #94e109e3;
+    border: 4px solid #9fa19d6b;
     display: block;
 }
 div.comment-new>span {
@@ -562,22 +578,23 @@ div.comment-new>input {
     background: #FFF;
     color: black;
 }
-div.comment-new>button {
-    margin: 20px;
-    height: 50px;
-    width: 50px;
+button.btn_comment {
+    margin: 0px;
+    height: 40px;
+    width: 40px;
     border-radius: 50px;
     color: #FFF;
     background: red;
-    font-size: 25px;
+    font-size: 20px;
 }
 .address-user {
     width: 545px;
-    height: 375px;
+    height: auto;
     border: 1px solid;
     display: inline-block;
     padding: 0px;
     margin: 0px;
+    text-transform: capitalize;
 }
 div.address-user>h3 {
     padding: 20px;
@@ -634,12 +651,13 @@ div.main-order{
     border: 1px solid;
 }
 div.main-order>h3{
-    margin: 45px;
+    text-transform: uppercase;
+    margin: 0px;
     font-size: 35px;
     border: 1px solid;
+    padding: 10px;
     padding-left: 70px;
-    background: #cdc73a9e;
-    border-radius: 47px 0px;
+    background: #00ffc19e;
 }
 div.order-you{
     margin: 40px;
@@ -667,7 +685,7 @@ div.search-product{
 }
 .style_comment {
     margin: 0px;
-    width: 800px;
+    width: 745px;
     font-size: 22px;
     height: 30px;
 }
@@ -845,8 +863,8 @@ td.form-td:hover {
     font-size: 30px;
 }
 h3.m_3 {
-    font-size: 2.1em;
-    padding: 15px;
+    font-size: 1.5em;
+    padding: 0;
 }
 
 .rating {
@@ -854,4 +872,10 @@ h3.m_3 {
 }
 a.color7:hover {
     opacity: 0.5;
+}
+.mota {
+    padding: 15px;
+    font-size: 25px;
+    font-weight: bold;
+    text-transform: capitalize;
 }

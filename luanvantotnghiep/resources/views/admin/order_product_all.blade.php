@@ -58,9 +58,10 @@
             </th>
             <th>Mã đơn hàng</th>
             <th>Tên khách hàng</th>
-            <th>số sản phẩm</th>
+            <th>số lượng</th>
             
             <th>Tiền cọc</th>
+            <th>Phí Giao</th>
             <th>tổng tiền</th>
             <th>ngày đặt</th>
             <th>trạng thái</th>
@@ -87,9 +88,10 @@
                <?php endif ?>
                 <?php endforeach ?>
             <td><span class="text-ellipsis">{{$value_oder->solg_sp}}</span></td>
-            
+            <td><span class="text-ellipsis">{{$value_oder->phigiao}}</span></td>
             <td><span class="text-ellipsis"><?php echo number_format($value_oder->tien_coc); ?></span></td>
-            <td><span class="text-ellipsis"><?php echo number_format($value_oder->tong_tt); ?></span></td>
+
+            <td><span class="text-ellipsis"><?php echo number_format($value_oder->tong_tt+$value_oder->phigiao); ?></span></td>
             <td><span class="text-ellipsis">{{$value_oder->ngdat}}</span></td>
            
             <td><span class="text-ellipsis">

@@ -173,9 +173,14 @@ class Deliverynotescontroller extends Controller
             $delivery_id=DB::table('phieu_giao')
             ->where('trangthai',$status_dn)->paginate(10);
         }else{
+
             $delivery_id=DB::table('phieu_giao')->paginate(10);
+            $order_id=DB::table('don_dat_hang')->get();
         }
-        return view('admin.deliverynotes')->with('delivery_id',$delivery_id);
+        $order_id=DB::table('don_dat_hang')->get();
+        return view('admin.deliverynotes')
+        ->with('order_id',$order_id)
+        ->with('delivery_id',$delivery_id);
     }
 
     //chi tiet phiếu giao
@@ -378,11 +383,20 @@ class Deliverynotescontroller extends Controller
                                     <td>'.$value_dd->sotien.'</td> 
                                 </tr> ';
                         }
+                            $phigiao=$_GET['phigiao'];
                              foreach ($deliverynotes_id as $key => $value_dn) {      
             $output.='          <tr>
                                    
+                                    <td colspan="2" title="position-center" style="font-size:20px"><b>Phí Vận Chuyển</b></td>
+                                    <td colspan="5"><b class="text-red" style="font-size:20px">'.number_format($phigiao).' VND
+                                    </b></td>
+                                    <
+
+                                </tr>
+                                <tr>
+                                   
                                     <td colspan="2" title="position-center" style="font-size:20px"><b>Tổng Tiền Thu</b></td>
-                                    <td colspan="5"><b class="text-red" style="font-size:20px">'.number_format($value_dn->gia_thu).' VND
+                                    <td colspan="5"><b class="text-red" style="font-size:20px">'.number_format($value_dn->gia_thu+$value_dn->phigiao).' VND
                                     </b></td>
                                     <
 

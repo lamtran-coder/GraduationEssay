@@ -5,12 +5,12 @@
      	    <div class="rsidebar span_1_of_left">
 			  <!-- danh mục lọc -->
 			    <section  class="sky-form">          
-			    <div><h4 class="m_9" text-align="center" >Sản Phẩm Đã Xem</h4></div>
-         			<ul id="row_viewed" >
+			    <div style="text-transform: capitalize;"><h4 class="m_9" text-align="center" >Sản Phẩm Đã Xem</h4></div>
+         			<ul style="text-transform: capitalize;" id="row_viewed" >
 
 				</ul>
-				<div><h4 class="m_9" text-align="center" >Sản Phẩm Yêu Thích</h4></div>
-         			<ul id="row_wishlist" >                     
+				<div style="text-transform: capitalize;"><h4 class="m_9" text-align="center" >Sản Phẩm Yêu Thích</h4></div>
+         			<ul style="text-transform: capitalize;" id="row_wishlist" >                     
 				</ul>
 			    </section>
 			    <div class="clear"></div>
@@ -94,7 +94,7 @@
 						<?php endforeach ?>
 					</ul>
 				</div>
-				<div style="height:60px;">
+				<div style="height:90px;">
 					<ul>
 						<?php foreach ($all_detail_size as $key => $value_size): ?>
 							<li><input class="radio-mau-size" name="size_hidden" checked="checked" type="radio" value="{{$value_size->ma_size}}" id="b{{$key}}"><label for="b{{$key}}" class="ladel-mau-size">{{$value_size->ma_size}}</label></li>
@@ -119,20 +119,11 @@
 			 <li type="hidden" id="{{$value_det->ma_sp}}" onclick="add_wistlist(this.id)"><img src="{{asset('public/frontend/images/wish.png')}}" alt=""/><a href="#">Thêm vào danh sách yêu thích</a>
 			</li>
 			</ul>
-			
-           <!--  <div class="social_single">	
-			   <ul>	
-				  <li class="fb"><a href="#"><span> </span></a></li>
-				  <li class="tw"><a href="#"><span> </span></a></li>
-				  <li class="g_plus"><a href="#"><span> </span></a></li>
-				  <li class="rss"><a href="#"><span> </span></a></li>		
-			   </ul>
-		    </div> -->
-			<p class="m_desc">{{$value_det->mo_ta}}</p>
 		</div>
 		<div class="clear"></div>
-     
-     	<h2>Sản Phẩm Tượng Tự</h2>
+		<div class="mota">Mô Tả<p class="m_desc">{{$value_det->mo_ta}}</p></div>	
+     <div style="text-transform: capitalize;">
+     	<h2 style="padding: 15px; font-size: 25px; font-weight: bold;">Sản Phẩm Tượng Tự</h2>
          <ul id="flexiselDemo3">
 			@foreach($related_product as $key => $related)
      	 	<?php if (($ma_dm = '$related->ma_dm')&&($related->goc_nhin==0)): ?>	
@@ -147,6 +138,7 @@
 			 <?php endif ?>
 			 @endforeach	
 		 </ul>
+	</div>
 	    <script type="text/javascript">
 		 $(window).load(function() {
 			$("#flexiselDemo1").flexisel();
@@ -238,7 +230,7 @@
 		<form action="#">
 			@csrf
      	<div class="comment-new">
-     		<div>
+     		<div >
      			<label><?php echo ucwords($username); ?></label>
      			<input style="color:black" type="hidden"   class="comment_name" value="<?php echo $username; ?>" >
      			
@@ -265,10 +257,11 @@
      				<?php }?>
      			</ul>
      			<!-- đánh giá --> 
+     			<div>
      			<textarea class="style_comment comment_content"></textarea>
-     			
+     			<button class="btn_comment"><i class="fa fa-upload send-comment"></i></button>
+     			</div>
      		</div>
-     		<button><i class="fa fa-upload send-comment"></i></button>
      		<div id="notify_comment"></div>
      	</div>
      	</form>

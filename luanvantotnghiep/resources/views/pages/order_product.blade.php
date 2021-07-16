@@ -102,7 +102,7 @@
                     	</ul>
                     </div>
                     <h2>Phương Thức Thanh Toán</h2>
-                    <div class="pay">
+                    <div class="pay" style="text-align: center;">
                     	<ul><?php 
                                 if($payment_option==1){
                                     $result='Thanh Toán Khi Nhận Hàng';
@@ -113,7 +113,23 @@
                                 }
                             ?>
                     		<li><?php echo $result; ?></li>
+                            
+                           
+                           
                     	</ul>
+                        <div>
+                        <?php if ($payment_option==2) { ?>
+                            <img src="{{asset('public/frontend/images/Agribank.jpg')}}" alt="">
+                            <div>Nôi Dung chuyển khoảng : <br> [Tiền Cọc/Thanh Toán][Họ tên][Số điện thoại]</div>
+                            <div>Ví Dụ :Tiền Cọc - Nguyễn Văn A - 0123456789</div>
+                            <div style="font-size: 31px;color: #f37e09;">Vui Lòng Chuyển Khoảng Trong 24h Để Được Giao Hàng Dúng Giời!<br>Cảm Ơn!</div>
+                        <?php }elseif ($payment_option==3) { ?>
+                            <img src="{{asset('public/frontend/images/momo.jpg')}}" alt="">
+                             <div>Nôi Dung chuyển khoảng : <br> [Tiền Cọc/Thanh Toán][Họ tên][Số điện thoại]</div>
+                            <div>Ví Dụ :Tiền Cọc - Nguyễn Văn A - 0123456789</div>
+                            <div style="font-size: 31px;color: #f37e09;">Vui Lòng Chuyển Khoảng Trong 24h Để Được Giao Hàng Dúng Giời!<br>Cảm Ơn!</div>
+                        <?php } ?>
+                        </div>
                     </div>
 
                 <div>
@@ -159,13 +175,24 @@
                                  ?>
                                  <?php $tienck=($Sum_mony*$chiec_khau_tong)/100;
                                     echo number_format($tienck); ?>
-                            </b><p>%</p></span></li>
-                            <li>Thành Tiền<span><b><?php $result=$Sum_mony*(100-$chiec_khau_tong)/100;
-                            echo number_format($result); ?></b><p>VND</p></span></li>
-                            <li>Tiền Cọc<span><b>
+                            </b><p>VND</p></span></li>
+                            <li>Phí Giao<span><b>
+                                 
+                                <?php if($sum_qty<20){
+                                    $mony_deli=35000;
+                                }else{
+                                    $mony_deli=0;
+                                }
+                                echo $mony_deli;
+                                ?>
+                            </b><p>VND</p></span></li>
+                            <li style="color:red;font-size: 30px;">Thành Tiền<span><b>
+                            <?php $thanhtien=$Sum_mony*(100-$chiec_khau_tong)/100;
+                            echo number_format($thanhtien+$mony_deli); ?></b><p>VND</p></span></li>
+                            <li style="color:red;">Tiền Cọc<span><b>
                             <?php
                                 if($sum_qty>=40){
-                                    $prepayment=$result*(30/100);
+                                    $prepayment=$thanhtien*(30/100);
                                 }else{
                                     $prepayment=0;
                                 }
@@ -178,11 +205,11 @@
                         <form action="{{URL::to('/save-order')}}" class="form-order-new" method="POST">
                             @csrf
                             <input type="hidden" name="total_deductions" value="<?php echo $chiec_khau_tong; ?>">
-                            <input type="hidden" name="total_payment" value="<?php echo $result; ?>">
+                            <input type="hidden" name="total_payment" value="<?php echo $thanhtien; ?>">
                             <input type="hidden" name='sum_qty' value="<?php echo $sum_qty; ?>">
                             <input type="hidden" name="ma_kh" value="<?php echo $ma_kh_address; ?>">
                             <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-                            <input type="submit" value="Đặt Hàng">
+                            <button class="btn_checkout">Đặt Hàng</button>
                         </form>
                     </div>
                 </div>

@@ -72,7 +72,13 @@ class Ordercontroller extends Controller
         }else{
             $data['tien_coc']=0;
         }
+        if (($request->sum_qty)<20) {
+           $data['phigiao']=35000;
+        }else{
+            $data['phigiao']=0;
+        }
         $data['ma_kh']=$request->ma_kh;
+
         DB::table('don_dat_hang')->insert($data);
 
         $content=Cart::content();
@@ -211,7 +217,7 @@ class Ordercontroller extends Controller
         ->with('cate_product',$cate_product)
         ->with('design_id',$design_id)
         ->with('order_detail_view',$order_detail_view)
-         ->with('rating_id',$rating_id);
+         ;
 
     }
 
