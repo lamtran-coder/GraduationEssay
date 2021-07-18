@@ -1,14 +1,10 @@
 @extends('layout')
 @section('index_content')
-   <div style="background: white;height: 50px;color: black;">
-
-
-	</div>
 <div class="main-w3layouts wrapper">
 		<div class="main-agileinfo">
 			<div class="agileits-top">
 				<h1 class="color">điền thông tin</h1>
-				<form action="{{URL::to('/add-user')}}" method="POST">
+				<form action="{{URL::to('/add-user')}}" method="POST" style="font-size: 14px;">
 					@csrf
 					<hr>
 					<label style="color:white;">Họ Và Tên</label>
@@ -59,7 +55,9 @@
 						</label>
 						<div class="clear"> </div>
 					</div>
+				
 					<input type="submit" class="submit-dangky" name="add_user" value="ĐĂNG KÝ">
+
 				</form>
 				<p><a class="dangnhapngay" href="{{URL::to('/login-user')}}"> ĐĂNG NHẬP NGAY</a></p>
 			</div>

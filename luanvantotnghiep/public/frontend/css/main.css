@@ -124,7 +124,7 @@ h1 {
 
 /*-- main --*/
 .main-w3layouts {
-  padding: 3em 0 1em;
+  padding: 1em 0 1em;
   background: url('../images/den.jpg');
   /*fallback for old browsers */
  /* background: -webkit-linear-gradient(to top, #76b852, #8DC26F);
@@ -259,6 +259,9 @@ input.submit-dangky {
     border-radius: 50px;
     font-size: 17px;
     text-align: center;
+    width: 140px;
+    margin: 5px;
+    margin-left: 160px;
 }
 .agileits-top p a:hover {
   color: #76b852;
@@ -552,15 +555,15 @@ input.checkbox:checked:after {
 
 @media(max-width:1366px) {
   h1 {
-    font-size: 2.6em;
+    font-size: 2em;
   }
 
   .agileits-top {
-    padding: 2em;
+    padding: 10px;
   }
 
   .main-agileinfo {
-    margin: 2em auto;
+    margin: 0em auto;
   }
 
   .main-agileinfo {

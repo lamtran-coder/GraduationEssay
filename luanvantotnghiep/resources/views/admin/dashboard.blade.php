@@ -69,183 +69,105 @@
 			</div>	
 		<!-- //market-->
 		<div class="row">
-			<div class="panel-body">
-				<div class="col-md-12 w3ls-graph">
 
-				</div>
-			</div>
-		</div>
-		<div class="agil-info-calendar">
-		<!-- calendar -->
-		<div class="col-md-6 agile-calendar">
-			<div class="calendar-widget">
-                <div class="panel-heading ui-sortable-handle">
-					<span class="panel-icon">
-                      <i class="fa fa-calendar-o"></i>
-                    </span>
-                    <span class="panel-title"> Calendar Widget</span>
-                </div>
-				<!-- grids -->
-					<div class="agile-calendar-grid">
-						<div class="page">
-							
-							<div class="w3l-calendar-left">
-								<div class="calendar-heading">
-									
-								</div>
-								<div class="monthly" id="mycalendar"></div>
-							</div>
-							
-							<div class="clearfix"> </div>
-						</div>
+			<div class="thongke">
+				<div class="bieudo">
+				<form autocomplete="off" >
+					@csrf 
+							<p>Từ Ngày:</p> 
+							<input type="text" class="form-control"  id="datepicker" style="width: 160px;">
+							<p>Đến ngày:</p>
+							<input type="text" class="form-control"  id="datepicker2"  style="width: 160px;" >
+							<input type="button" id="btn-dashboard-filter" value="Lọc Kết Quả">
+							<select class="form-control" style="width: 160px;font-size: 17px;">
+								<option>Chọn</option>
+								<option>7 ngày</option>
+								<option>30 ngày</option>
+								<option>12 tháng</option>
+							</select>
+				</form>
+
+				<hr>
+						<h3 style="text-align: center;text-transform: capitalize;">Thống kê danh số Tháng</h3>
+
+					<div style="margin-top: 70px;background: white;">			
+							<div id="mychart" style="height: 300px;"></div>
 					</div>
 			</div>
-		</div>
-		<!-- //calendar -->
-		<div class="col-md-6 w3agile-notifications">
-			<div class="notifications">
-				<!--notification start-->
-				
-					<header class="panel-heading">
-						Notification 
-					</header>
-					<div class="notify-w3ls">
-						<div class="alert alert-info clearfix">
-							<span class="alert-icon"><i class="fa fa-envelope-o"></i></span>
-							<div class="notification-info">
-								<ul class="clearfix notification-meta">
-									<li class="pull-left notification-sender"><span><a href="#">Jonathan Smith</a></span> send you a mail </li>
-									<li class="pull-right notification-time">1 min ago</li>
-								</ul>
-								<p>
-									Urgent meeting for next proposal
-								</p>
-							</div>
-						</div>
-						<div class="alert alert-danger">
-							<span class="alert-icon"><i class="fa fa-facebook"></i></span>
-							<div class="notification-info">
-								<ul class="clearfix notification-meta">
-									<li class="pull-left notification-sender"><span><a href="#">Jonathan Smith</a></span> mentioned you in a post </li>
-									<li class="pull-right notification-time">7 Hours Ago</li>
-								</ul>
-								<p>
-									Very cool photo jack
-								</p>
-							</div>
-						</div>
-						<div class="alert alert-success ">
-							<span class="alert-icon"><i class="fa fa-comments-o"></i></span>
-							<div class="notification-info">
-								<ul class="clearfix notification-meta">
-									<li class="pull-left notification-sender">You have 5 message unread</li>
-									<li class="pull-right notification-time">1 min ago</li>
-								</ul>
-								<p>
-									<a href="#">Anjelina Mewlo, Jack Flip</a> and <a href="#">3 others</a>
-								</p>
-							</div>
-						</div>
-						<div class="alert alert-warning ">
-							<span class="alert-icon"><i class="fa fa-bell-o"></i></span>
-							<div class="notification-info">
-								<ul class="clearfix notification-meta">
-									<li class="pull-left notification-sender">Domain Renew Deadline 7 days ahead</li>
-									<li class="pull-right notification-time">5 Days Ago</li>
-								</ul>
-								<p>
-									Next 5 July Thursday is the last day
-								</p>
-							</div>
-						</div>
-						<div class="alert alert-info clearfix">
-							<span class="alert-icon"><i class="fa fa-envelope-o"></i></span>
-							<div class="notification-info">
-								<ul class="clearfix notification-meta">
-									<li class="pull-left notification-sender"><span><a href="#">Jonathan Smith</a></span> send you a mail </li>
-									<li class="pull-right notification-time">1 min ago</li>
-								</ul>
-								<p>
-									Urgent meeting for next proposal
-								</p>
-							</div>
-						</div>
-						
-					</div>
-				
-				<!--notification end-->
-				</div>
 			</div>
-			<div class="clearfix"> </div>
 		</div>
+
+
+
 		
 		<div class="agileits-w3layouts-stats">
-					<div class="col-md-4 stats-info widget">
-						<div class="stats-info-agileits">
-							<div class="stats-title">
-								<h4 class="title_thongke">Thống kê tổng sản phẩm bài viết đơn hàng</h4>
-							</div>
-							<div class="stats-body" id="donut">
-								<ul class="list-unstyled">
+					<div class="col-md-6 stats-info stats-last widget-shadow">
+						<div class="stats-last-agile" style="background:#c7ebce;">
+							
+								
+							<div class="row">
+										
 
-
-								</ul>
-							</div>
+							<p class="title_thongke">Truy cập thống kê</p>
+							<div id="my_statistical_access" style="height: 250px;background: #FFF; border-radius: 15px;"></div>
+							<script type="text/javascript">
+								new Morris.Bar({
+									 
+									  element: 'my_statistical_access',
+									  
+									 barColors: ['blue'],
+									  data: [
+									    { key: 'Đang online', value: <?php echo $visitor_count; ?> },
+									    { key: 'Tháng trước', value: <?php echo $visitor_last_month_count; ?> },
+									    { key: 'Tháng này', value: <?php echo $visitor_this_month_count; ?> },
+									    { key: 'Một năm', value: <?php echo $visitor_year_count; ?> },
+									    { key: 'Tổng truy cập', value: <?php echo $visitors_total; ?> }
+									  ],
+									  xkey: 'key',
+									  ykeys: ['value'],
+									  labels: ['Lược truy cập']
+									});
+							</script>
+						</div>
+								
+							
 						</div>
 					</div>
-					<div class="col-md-8 stats-info stats-last widget-shadow">
-						<div class="stats-last-agile">
-							<table class="table stats-table ">
-								<thead>
-								<div class="row">
-	<style type="text/css">
-		table.table.table-bordered.table-dark {
-		    background: #32383e;
-		}
-		table.table.table-bordered.table-dark tr th {
-		    color: #fff;
-		}
-	</style>
-
-<p class="title_thongke">Thống kê truy cập</p>
-
-<table class="table table-bordered table-dark">
-  <thead>
-    <tr>
-      <th scope="col">Đang online</th>
-      <th scope="col">Tổng tháng trước</th>
-      <th scope="col">Tổng tháng này</th>
-      <th scope="col">Tổng một năm</th>
-      <th scope="col">Tổng truy cập</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>{{$visitor_count}}</td>
-      <td>{{$visitor_last_month_count}}</td>
-      <td>{{$visitor_this_month_count}}</td>
-      <td>{{$visitor_year_count}}</td>
-      <td>{{$visitors_total}}</td>
-    </tr>
-   
-  </tbody>
-</table>
-
-</div>
-								</thead>
-								<tbody>
+					<div class="col-md-6 stats-info stats-last widget-shadow">
+						<div class="stats-last-agile" style="background:#c7ebce;">
+							
 								
-						
-					
+							<div class="row">	
+							<p class="title_thongke" style="text-transform: capitalize;">Top 10 sản phẩm bán chạy nhất</p>
+								<div id="top10product" style="height: 250px;background: #FFF; border-radius: 15px;text-transform: capitalize;" ></div>
+							<script type="text/javascript">
+								new Morris.Bar({
+									 
+									  element: 'top10product',
+									  
+									 barColors: ['#b77414'],
+									  data: [
+									  
+									    { key: 'áo', value: 10 },
+									    { key: 'quần', value: 35 },
+									    { key: 'Phụ Kiện', value: 15 },
+									    { key: 'giày', value: 55 }
+									  ],
+									  xkey: 'key',
+									  ykeys: ['value'],
+									  labels: ['Lược truy cập']
+									});
+							</script>
+						</div>
 								
-								
-								</tbody>
-							</table>
+							
 						</div>
 					</div>
 					<div class="clearfix"> </div>
 				</div>
 		</div>
 	</section>
+
+					
 </section>
 @endsection

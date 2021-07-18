@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Session;
 use App\Models\Visitors;
+use App\Models\Phan_tich_so_lieu;
 use Carbon\Carbon;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
@@ -71,13 +72,9 @@ class Admincontroller extends Controller
     $customer =DB::table('khach_hang')->count();
     $comment=DB::table('binh_luan')->count();
     $product=DB::table('san_pham')->count();
-    //nhiệm vụ hàng ngày
-    $date_dh=date('Y-m-d');
-    $date_dh=date('d-m-Y',strtotime($date_dh));
-    $delivery_date=DB::table('phieu_giao')->where('nggiao',$date_dh)->where('trangthai','0')->get();
+    
     return view('admin.dashboard')
     ->with(compact('visitors_total','visitor_count','visitor_last_month_count','visitor_this_month_count','visitor_year_count','product','comment','order','customer'))
-    ->with('delivery_date',$delivery_date)
     ;
     }
     public function dashboard(Request $request){
@@ -158,7 +155,31 @@ class Admincontroller extends Controller
         
         
     }
+    public function loc_theo_ngay(Request $request){
+        $data=$request->all();
+        $from_date=$data['from_date'];
+        $from_date=date('d-m-Y',strtotime($from_date));
+        $to_date=$data['to_date'];
+        $to_date=date('d-m-Y',strtotime($to_date));
+        $get=DB::table('don_dat_hang')
+        ->selectRaw('sum(solg_sp)as solg, sum(tong_tt)as banhang, count(ngdat)as tongdon,Sum(phigiao)as phivanchuyen,ngdat')
+        ->groupBy('ngdat')
+        ->orderby('ngdat','ASC')
+        ->get();
+        foreach ($get as $key => $val) {
+            if (($from_date<=$val->ngdat)&&($to_date>=$val->ngdat)) {
+                $chart_data[]=array(
+                        'ngdat'=>$val->ngdat,
+                        'tongdon'=>$val->tongdon,
+                        'banhang'=>$val->banhang,
+                        'phivanchuyen'=>$val->phivanchuyen,
+                        'solg'=>$val->solg
 
+                );
+            }
+        }
+        echo $data=json_encode($chart_data);
+    }
 
 
 

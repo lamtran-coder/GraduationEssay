@@ -12,7 +12,7 @@
           @csrf
       <div class="col-sm-3">
         <div class="input-group">
-          <input type="text" class="input-sm form-control"name="keywords_submit" placeholder="nhập từ khóa" value="">
+          <input type="text" class="input-sm form-control"name="keywords_submit" placeholder="nhập từ khóa">
           <span class="input-group-btn">
             <button class="btn btn-sm btn-default" type="button">Go!</button>
           </span>

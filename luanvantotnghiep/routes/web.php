@@ -95,6 +95,10 @@ Route::get('/show-order/{user_id}','Ordercontroller@show_order');
 //bachend
 Route::get('/admin','Admincontroller@index');
 Route::get('/dashboard','Admincontroller@show_dashboard');
+
+Route::post('/loc-theo-ngay','Admincontroller@loc_theo_ngay');
+
+
 Route::get('/logout','Admincontroller@logout');
 Route::get('/trang-ca-nhan','Admincontroller@personal_information');
 Route::post('/update-ten-nv/{email}','Admincontroller@update_name');
