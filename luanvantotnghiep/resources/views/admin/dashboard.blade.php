@@ -79,7 +79,7 @@
 							<p>Đến ngày:</p>
 							<input type="text" class="form-control"  id="datepicker2"  style="width: 160px;" >
 							<input type="button" id="btn-dashboard-filter" value="Lọc Kết Quả">
-							<select class="form-control" style="width: 160px;font-size: 17px;">
+							<select class="loc_khoang_thoi_gian form-control" style="width: 160px;font-size: 17px;">
 								<option>Chọn</option>
 								<option>7 ngày</option>
 								<option>30 ngày</option>

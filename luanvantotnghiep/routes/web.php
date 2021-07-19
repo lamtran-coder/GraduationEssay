@@ -97,7 +97,7 @@ Route::get('/admin','Admincontroller@index');
 Route::get('/dashboard','Admincontroller@show_dashboard');
 
 Route::post('/loc-theo-ngay','Admincontroller@loc_theo_ngay');
-
+Route::post('/loc-nhieu-ngay','AdminController@loc_nhieu_ngay');
 
 Route::get('/logout','Admincontroller@logout');
 Route::get('/trang-ca-nhan','Admincontroller@personal_information');
@@ -136,7 +136,6 @@ Route::get('/edit-product/{ma_sp}','Productcontroller@edit_product');
 Route::get('/delete-product/{ma_sp}','Productcontroller@delete_product');
 Route::post('/save-product','Productcontroller@save_product');
 Route::post('/update-product/{ma_sp}','Productcontroller@update_product');
-Route::post('/search-product-ad','Productcontroller@search_product_ad');
 
 
 	
@@ -182,7 +181,6 @@ Route::post('/save-size-product','Detail_productcontroller@save_size_product');
 	//khách hàng
 Route::get('/all-customer','Customercontroller@all_customer');
 Route::get('/dia-chi-nhan/{email}','Customercontroller@customer_address');
-Route::post('/search-customer','Customercontroller@search_customer');
 
 //banner
 Route::get('/manage-slider','Slidercontroller@manage_slider');

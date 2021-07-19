@@ -155,14 +155,13 @@ class Admincontroller extends Controller
         
         
     }
+    //Biểu Đồ Thống kê doanh số theo tháng Lọc theo khoảng thời gian
     public function loc_theo_ngay(Request $request){
         $data=$request->all();
         $from_date=$data['from_date'];
-        $from_date=date('d-m-Y',strtotime($from_date));
         $to_date=$data['to_date'];
-        $to_date=date('d-m-Y',strtotime($to_date));
         $get=DB::table('don_dat_hang')
-        ->selectRaw('sum(solg_sp)as solg, sum(tong_tt)as banhang, count(ngdat)as tongdon,Sum(phigiao)as phivanchuyen,ngdat')
+        ->selectRaw('sum(solg_sp)as solg, sum(tong_tt)as banhang, count(ngdat)as tongdon,Sum(phigiao)as phivanchuyen , ngdat')
         ->groupBy('ngdat')
         ->orderby('ngdat','ASC')
         ->get();
@@ -179,6 +178,31 @@ class Admincontroller extends Controller
             }
         }
         echo $data=json_encode($chart_data);
+    }
+    //Biểu Đồ Thống kê doanh số theo tháng Lọc Giá Trị nhiều Ngày
+    public function loc_nhieu_ngay(){
+        $sub30days = Carbon::now('Asia/Ho_Chi_minh')->subdays(30)->toDateString();
+        $now = Carbon::now('Asia/Ho_Chi_minh')->toDateString();
+       
+        $get=DB::table('don_dat_hang')
+        ->selectRaw('sum(solg_sp)as solg, sum(tong_tt)as banhang, count(ngdat)as tongdon,Sum(phigiao)as phivanchuyen ,ngdat')
+        ->groupBy('ngdat')
+        ->orderby('ngdat','ASC')
+        ->get();
+          foreach ($get as $key => $val) {
+                if (($sub30days<=$val->ngdat)&&($now>=$val->ngdat)){
+                    $chart_data[]=array(
+                            'ngdat'=>$val->ngdat,
+                            'tongdon'=>$val->tongdon,
+                            'banhang'=>$val->banhang,
+                            'phivanchuyen'=>$val->phivanchuyen,
+                            'solg'=>$val->solg
+
+                    );
+                }
+
+            }
+          echo $data = json_encode($chart_data);
     }
 
 

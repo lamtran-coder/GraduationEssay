@@ -7,12 +7,12 @@
     <div class="panel-heading">
       Danh sách đơn hàng
     </div>
-    <div class="row w3-res-tb">
-      <form action="{{URL::to('/search-order')}}" method="post">
+    <div class="row w3-res-tb " style="margin-left:100px">
+      <form autocomplete="off">
           @csrf
-      <div class="col-sm-3">
+      <div class="col-sm-8">
         <div class="input-group">
-          <input type="text" class="input-sm form-control"name="keywords_submit" placeholder="nhập từ khóa" value="">
+          <input type="text" class="input-sm form-control" name="keywords_search">
           <span class="input-group-btn">
           <button class="btn btn-sm btn-default" type="button">Tìm</button>
           </span>
@@ -60,8 +60,8 @@
             <th>Tên khách hàng</th>
             <th>số lượng</th>
             
-            <th>Tiền cọc</th>
             <th>Phí Giao</th>
+            <th>Tiền cọc</th>
             <th>tổng tiền</th>
             <th>ngày đặt</th>
             <th>trạng thái</th>
@@ -92,7 +92,7 @@
             <td><span class="text-ellipsis"><?php echo number_format($value_oder->tien_coc); ?></span></td>
 
             <td><span class="text-ellipsis"><?php echo number_format($value_oder->tong_tt+$value_oder->phigiao); ?></span></td>
-            <td><span class="text-ellipsis">{{$value_oder->ngdat}}</span></td>
+            <td><span class="text-ellipsis"><?php echo date('d-m-Y',strtotime($value_oder->ngdat)); ?></span></td>
            
             <td><span class="text-ellipsis">
                   

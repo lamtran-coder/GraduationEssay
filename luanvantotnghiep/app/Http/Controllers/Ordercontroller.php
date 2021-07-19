@@ -61,7 +61,6 @@ class Ordercontroller extends Controller
         $ma_ddh=$date_ht['year'].'Y'.$date_ht['mon'].'M'.$date_ht['mday'].'D'.rand(0,9999);
         $data['ma_ddh']=$ma_ddh;
         $date_dh=date('Y-m-d');
-        $date_dh=date('d-m-Y',strtotime($date_dh));
         $data['ngdat']=$date_dh;
         $data['ck_tong']=$request->total_deductions;
         $data['tong_tt']=$request->total_payment;
@@ -234,7 +233,7 @@ class Ordercontroller extends Controller
     }
     public function all_order_product(){
         $this->AuthLogin();
-        if (isset($_GET['date_star'])&&isset($_GET['date_end'])) {
+        if (isset($_GET['date_star'])&&isset($_GET['date_end'])){
             $date_star = $_GET['date_star'];
             $date_end = $_GET['date_end'];
             $date_star=date('d-m-Y',strtotime($date_star));
@@ -252,6 +251,15 @@ class Ordercontroller extends Controller
             ->paginate(10);
         }elseif(isset($_GET['status_od'])&&($_GET['status_od']==5)){
             $all_oder=DB::table('don_dat_hang')->orderby('ngdat','ASC')->paginate(10);
+        }
+        elseif(isset($_GET['keywords_search'])){
+            $keywords=$_GET['keywords_search'];
+            $all_oder=DB::table('don_dat_hang')
+            ->join('khach_hang','khach_hang.ma_kh','=','don_dat_hang.ma_kh')
+            ->select('don_dat_hang.*','khach_hang.ten_kh')
+            ->where('ma_ddh','like','%'. $keywords .'%')
+            ->orwhere('khach_hang.ten_kh','like','%'. $keywords .'%')
+            ->orderby('ngdat','ASC')->paginate(10);
         }
         else{
         $all_oder=DB::table('don_dat_hang')->orderby('ngdat','ASC')->paginate(10);

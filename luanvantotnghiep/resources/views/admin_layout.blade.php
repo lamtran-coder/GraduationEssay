@@ -295,6 +295,7 @@ Thông báo</p>
 <!-- biều đồ Thống kê doanh thu theo tháng -->
     <script type="text/javascript">
             $(document).ready(function(){
+                chart30daysorder();
                     var chart = new Morris.Bar({
                          
                           element: 'mychart',
@@ -307,7 +308,20 @@ Thông báo</p>
                             labels: ['đơn hàng','doanh số','Phi vận chuyển','số lượng']
                         
                         });
-                                       
+            
+             function chart30daysorder(){
+                 var _token = $('input[name="_token"]').val();
+                 $.ajax({
+                     url: "{{url('/loc-nhieu-ngay')}}",
+                     method: "POST",
+                     dataType: "JSON",
+                     data:{_token:_token},
+                     success:function(data){
+                         chart.setData(data);
+                     }
+                 });
+                }
+
             $('#btn-dashboard-filter').click(function(){
                
                 var _token = $('input[name="_token"]').val();

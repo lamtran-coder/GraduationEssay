@@ -31,33 +31,35 @@ class Productcontroller extends Controller
     }
     public function all_product(){
         $this->AuthLogin();
-        $all_product=DB::table('san_pham')->paginate(5);
+        if(isset($_GET['keywords_search'])){
+            $keywords=$_GET['keywords_search'];
+            $all_product=DB::table('san_pham')
+            ->where('ten_sp','like','%'. $keywords .'%')
+            ->orwhere('ma_sp',$keywords)
+            ->orwhere('ma_dm',$keywords)
+            ->paginate(10);
+        }
+        elseif(isset($_GET['option_product'])){
+            $option=$_GET['option_product'];
+            if ($option=='giam') {
+                $all_product=DB::table('san_pham')->orderby('gia_sale','desc')->paginate(10);
+            }
+            elseif($option=='tang'){
+                 $all_product=DB::table('san_pham')->orderby('gia_sale','ASC')->paginate(10);
+            }
+            elseif($option=='tatca'){
+                $all_product=DB::table('san_pham')->paginate(10);
+            }else{
+                 $all_product=DB::table('san_pham')->paginate(10);
+            }
+        }
+        else{
+            $all_product=DB::table('san_pham')->paginate(10);
+        }
         $img_id=DB::table('hinh_anh')->get();
         $manager_product=view('admin.product_all')->with('all_product',$all_product)->with('img_id',$img_id);
         return view('admin_layout')->with('admin.product_all',$manager_product);
         
-    }
-    //tim kiem san pham của admin
-    public function search_product_ad(Request $request){
-        $this->AuthLogin();
-        $keywords=$request->keywords_submit;
-         $img_id=DB::table('hinh_anh')->get();
-         $search_pro_ad=DB::table('san_pham')
-          ->join('danh_muc_sp','danh_muc_sp.ma_dm','=','san_pham.ma_dm')
-          ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
-          ->join('chat_lieu','chat_lieu.ma_cl','=','danh_muc_sp.ma_cl')
-          ->where('san_pham.ten_sp','like','%'. $keywords .'%')
-          ->orwhere('thiet_ke.ten_tk','like','%'. $keywords .'%')
-          ->orwhere('chat_lieu.ten_cl','like','%'. $keywords .'%')
-          ->get();
-          if ($search_pro_ad) {
-            return view('admin.product_search')
-            ->with('search_pro_ad',$search_pro_ad)
-            ->with('img_id',$img_id);
-          }else{
-             return view('admin.product_all');
-          }
-
     }
     public function save_product(Request $request){
         $validator=$request->validate([

@@ -10,8 +10,17 @@ class Customercontroller extends Controller
 {
     //admin
     public function all_customer(){
+        if (isset($_GET['keywords_search'])) {
+            $keyword=$_GET['keywords_search'];
+            $use_id=DB::table('user')
+            ->orwhere('ten_nd','like','%'. $keyword .'%')
+            ->orwhere('sodt','like','%'. $keyword .'%')
+            ->orderby('user_id','desc')->paginate(10);
+        }else{
+
         $use_id=DB::table('user')->orderby('user_id','desc')->get();
-        $customer_id=DB::table('khach_hang')->orderby('ma_kh','desc')->get();
+        }
+        $customer_id=DB::table('khach_hang')->orderby('ma_kh','desc')->paginate(10);
         return view('admin.customer_all')
         ->with('customer_id',$customer_id)
         ->with('use_id',$use_id)

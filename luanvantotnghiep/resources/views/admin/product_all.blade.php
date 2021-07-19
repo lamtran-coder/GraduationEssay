@@ -5,25 +5,50 @@
         <div class="table-agile-info">
   <div class="panel panel-default">
     <div class="panel-heading">
-      Liệt Kê Chi Tiết sản phẩm
+      Liệt Kê Danh Sách sản phẩm
     </div>
    <div class="row w3-res-tb">
-      <div class="col-sm-4">
-         <div></div>
+    <div class="col-sm-4 m-b-xs">
+      <form style="display: flex;">
+        <select  name="option_product" class="form-control" style="width: 200px;">
+          <option value="tatca">Tất Cả</option>
+          <option value="tang">Giá Tăng Dần</option>
+          <option value="giam">Giá Giảm Dân</option>
+        </select>
+           <button  type="submit">Tìm</button>
+        </form>                
       </div>
-       <form action="{{URL::to('/search-product-ad')}}" method="post">
-          @csrf
-      <div class="col-sm-3">
+      <div class="col-sm-4">
+        <span style="font-size: 18px;font-weight: bold; text-transform: capitalize;">Tìm Kiếm Theo "</span><span style="color :red;font-weight: bold;">
+        <?php if (isset($_GET['option_product'])) {
+                  $result=$_GET['option_product'];
+                  if ($result=='tang') {
+                    echo "Giá Sale Tăng Dần";
+                  }elseif($result=='giam'){
+                    echo "Giá Sale Giảm Dần";
+                  }else{
+                    echo "Tất Cả";
+                  }
+              }elseif(isset($_GET['keywords_search'])){
+                echo $result=$_GET['keywords_search'];
+              }else{
+                echo "Tất Cả";
+              } 
+        ?> "
+        </span>
+      </div>
+       <form>
+      <div class="col-sm-4">
         <div class="input-group">
-          <input type="text" class="input-sm form-control"name="keywords_submit" placeholder="nhập từ khóa" value="">
+          <input type="text" class="input-sm form-control"name="keywords_search">
           <span class="input-group-btn">
-            <button class="btn btn-sm btn-default" type="button">Go!</button>
+            <input type="button" class="btn btn-sm btn-default" value="Tìm">
           </span>
-         
          </div>
         </div>
         </form>
       </div>
+
     <div class="table-responsive">
       <table class="table table-striped b-t b-light">
         <thead style="font-size:15px">
