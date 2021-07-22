@@ -22,11 +22,11 @@ class SliderController extends Controller
     public function manage_slider(){
         $this->AuthLogin();
         $all_slide = Slider::orderBy('slider_id','DESC')->paginate(2);
-        return view('admin.list_slider')->with(compact('all_slide'));
+        return view('admin.Img_event.list_slider')->with(compact('all_slide'));
     }
     public function add_slider(){
         $this->AuthLogin();
-        return view('admin.add_slider');
+        return view('admin.Img_event.add_slider');
     }
     public function unactive_slide($slide_id){
        

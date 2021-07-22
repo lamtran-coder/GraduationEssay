@@ -15,7 +15,8 @@
                 	<?php  $username=Session::get('username');
                 		   $phone=Session::get('phone');
                 		   $address=Session::get('address');
-                		   $email=Session::get('email'); ?>
+                		   $email=Session::get('email');
+                     ?>
                     <header class="header-tt">Người Nhận Mới</header>
                     <div class="customer-cart">
                         <form action="{{URL::to('/save-checkout-kh')}}" method="POST" >
@@ -34,11 +35,13 @@
                 </div>
                 <div class="address-user">
                     <h3>Danh Sách Các địa chỉ đã lưu</h3>
-                    <ul>
                        <?php $email=Session::get('email'); ?> 
-                       <form method="GET" action="{{URL::to('/payment')}}">
-                            @csrf
-                            <?php foreach ($customer_id as $key => $value_cus){
+                    <form method="GET" action="{{URL::to('/payment')}}">
+                        <ul>
+                            <?php 
+                            if (isset($email)) {
+                            
+                            foreach ($customer_id as $key => $value_cus){
                                 if($value_cus->email==$email){
                                  if($value_cus->ma_kh!=null){
                                     if($key==0){ ?> 
@@ -46,27 +49,23 @@
                                         <span><label for="address_cus"><input name="ma_kh_address" size="20" checked="checked" id="address_cus" value="{{$value_cus->ma_kh}}" type="radio">{{$value_cus->ten_kh}}</label></span>
                                         <span>({{$value_cus->sodt}})</span>
                                         <span>{{$value_cus->diachi}}</span>
-                                        <!-- <span><a href="{{URL::to('/delete-checkout-kh/'.$value_cus->ma_kh)}}"><i class="fa fa-times-circle" aria-hidden="true"></i></a></span> -->
                                     </li>
                                 <?php }else{ ?>
                                     <li>
                                         <span><label><input name="ma_kh_address" size="20" checked="checked" value="{{$value_cus->ma_kh}}" type="radio">{{$value_cus->ten_kh}}</label></span>
                                         <span>({{$value_cus->sodt}})</span>
                                         <span>{{$value_cus->diachi}}</span>
-                                        <!-- <span><a href="{{URL::to('/delete-checkout-kh/'.$value_cus->ma_kh)}}"><i class="fa fa-times-circle" aria-hidden="true"></i></a></span> -->
                                     </li>
-                            <?php  }}}
-                                
+                            <?php  }}}}
                             }?>
                             <hr>
-                            <button class="btn_checkout">Tiếp Theo</button>
-                        </form>
                         
-                    <ul>    
-                     {{$customer_id->links()}}
+                        </ul>    
+                            <button class="btn_checkout">Tiếp Theo</button>
+                    </form>
+                    
                 </div>
             </div>
-
         </section>
     </section>
 </section>

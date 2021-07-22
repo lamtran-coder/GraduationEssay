@@ -21,12 +21,11 @@
 	                   </div>
 	                   <input type="hidden" name="start_price" id="start_price">
 	                   <input type="hidden" name="end_price" id="end_price">
-
+	                    <button>Lọc</button>
 	                    <br>
 	                    <div class="clearfix"></div>
-	                    <button>Lọc</button>
 	                    <!-- <input type="submit" name="filter_price" value="Lọc giá"> -->
-	               </form>
+	             </form>
 		</div>
   		<form action="">
   		<div style="padding: 10px;"><button style="width: 200px;">Tìm kiếm</button></div>
@@ -78,20 +77,37 @@
         		</form>
         		</div>
 			</div>
+			<div></div>
 	        <div class="pager styling-pager">   
 	           <div class="limiter visible-desktop">
-	            <label>Show</label>
-	           	 <select>
-				 <option value="" selected="selected">9</option>
-			        <option value="">15</option>
-			        <option value="">30</option>
-		    	</select> per page        
+	                {{$all_product->links()}}
 	            </div>
 	        <ul class="styling-pager" >
-	        	{{$all_product->links()}}
-	        </ul>
-	        	
-	        	
+	        	<?php 
+	        		if (isset($_GET['sort_by'])){
+	        			$sort_by=$_GET['sort_by'];
+	        			if ($sort_by=="tang_dan") {
+	        				echo 'Các Sản Phẩm Giá:<br> "Tăng Dần"';
+	        			}elseif($sort_by=="giam_dan"){
+	        				echo 'Các Sản Phẩm Giá:<br> "Giảm Dần"';
+	        			}elseif($sort_by=="kytu_az"){
+	        				echo 'Các Sản Phẩm Từ:<br> "A - Z"';
+	        			}elseif($sort_by=="kytu_za"){
+	        				echo 'Các Sản Phẩm Từ:<br> "Z - A"';
+	        			}
+	        		}elseif(isset($_GET['keywords_submit'])){
+	        			$keywords_submit=$_GET['keywords_submit'];
+	        			echo 'từ khóa tìm kiếm là: "'.$keywords_submit.'"';
+	        		}elseif(isset($_GET['ma_tk_search'])){
+	        			$ma_tk_search=$_GET['ma_tk_search'];
+	        			foreach ($all_style as $key => $val_style) {
+	        				if ($val_style->ma_tk==$ma_tk_search) {
+	        					echo 'Các sản phẩm có thiết kế:"<br>'.$val_style->ten_tk.'"';
+	        				}
+	        			}
+	        		}
+	        	 ?>
+	        </ul>	
 		   <div class="clear"></div>
 
 	       	
@@ -164,11 +180,7 @@
                                        <input type="hidden" name="mau_hidden" min="1" value="{{$value_pro->ten_mau}}">
                                        <input type="hidden" name="size_hidden" min="1" value="{{$value_pro->ma_size}}">
                                         <input type="hidden" name="quantity_h" min="1" value="1">
-                            <button style="height: 32px;
-                                        width: 100%;
-                                        font-size: 20px;
-                                        background: black;
-                                        color: #FFF;">Mua Ngay</button>
+                            <button class="btn_mua_nhanh">Mua Ngay</button>
                             </form>
 					  </li>
 					
@@ -197,15 +209,15 @@
               steps:10000,
               values: [ {{$min_price}}, {{$max_price}} ],
               slide: function( event, ui ) {
-                $( "#amount" ).val( "đ" + ui.values[ 0 ] + " - đ" + ui.values[ 1 ] );
+                $( "#amount" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ]+" VND" );
 
 
                 $( "#start_price" ).val(ui.values[ 0 ]);
                 $( "#end_price" ).val(ui.values[ 1 ]);
               }
             });
-            $( "#amount" ).val( "đ" + $( "#slider-range" ).slider( "values", 0 ) +
-              " - đ" + $( "#slider-range" ).slider( "values", 1 ) );
+            $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) +
+              " - " + $( "#slider-range" ).slider( "values", 1 ) +" VND");
 
         }); 
 </script>

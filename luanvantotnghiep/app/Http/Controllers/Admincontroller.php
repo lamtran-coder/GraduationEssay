@@ -204,7 +204,67 @@ class Admincontroller extends Controller
             }
           echo $data = json_encode($chart_data);
     }
+    //Biểu Đồ Thống kê doanh số theo tháng Lọc khoang thoi gian
+    public function loc_khoang_thoi_gian(Request $request){
 
-
+        $data = $request->all();
+        $sub7days = Carbon::now('Asia/Ho_Chi_Minh')->subdays(7)->toDateString();
+        $sub365days = Carbon::now('Asia/Ho_Chi_Minh')->subdays(365)->toDateString();
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        if($data['dashboard_value']=='7ngay'){
+            $get=DB::table('don_dat_hang')
+            ->selectRaw('sum(solg_sp)as solg, sum(tong_tt)as banhang, count(ngdat)as tongdon,Sum(phigiao)as phivanchuyen ,ngdat')
+            ->groupBy('ngdat')
+            ->orderby('ngdat','ASC')
+            ->get();
+            foreach ($get as $key => $val) {
+                if (($sub7days<=$val->ngdat)&&($now>=$val->ngdat)){
+                    $chart_data[]=array(
+                            'ngdat'=>$val->ngdat,
+                            'tongdon'=>$val->tongdon,
+                            'banhang'=>$val->banhang,
+                            'phivanchuyen'=>$val->phivanchuyen,
+                            'solg'=>$val->solg
+                    );
+                }
+            }
+        }elseif($data['dashboard_value']=='12thang'){
+            $get=DB::table('don_dat_hang')
+            ->selectRaw('sum(solg_sp)as solg, sum(tong_tt)as banhang, count(ngdat)as tongdon,Sum(phigiao)as phivanchuyen ,ngdat')
+            ->groupBy('ngdat')
+            ->orderby('ngdat','ASC')
+            ->get();
+            
+            foreach ($get as $key => $val) {
+                if (($sub365days<=$val->ngdat)&&($now>=$val->ngdat)){ 
+                    $chart_data[]=array(
+                            'ngdat'=>$val->ngdat,
+                            'tongdon'=>$val->tongdon,
+                            'banhang'=>$val->banhang,
+                            'phivanchuyen'=>$val->phivanchuyen,
+                            'solg'=>$val->solg
+                    );
+                }
+            }
+              
+        }
+        echo $data = json_encode($chart_data);
+    }
+    //Biểu Đô 10 sản phẩm bán chạy 
+    public function banchaytop10(){
+        $get=DB::table('chi_tiet_don_hang')
+        ->selectRaw('SUM(solg_sp)AS solg,SUM(sotien)AS doanhso,ma_sp')
+        ->groupBy('chi_tiet_don_hang.ma_sp')
+        ->orderby('solg','desc')
+        ->paginate(10);
+        foreach ($get as $key => $val) {
+            $chart_data_sp[]=array(
+                'ma_sp'=>$val->ma_sp,
+                'doanhsosp'=>$val->doanhso,
+                'solgsp'=>$val->solg
+            );
+        }
+        echo $data_sp = json_encode($chart_data_sp);
+    }
 
 }

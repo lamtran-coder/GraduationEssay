@@ -81,9 +81,9 @@
 							<input type="button" id="btn-dashboard-filter" value="Lọc Kết Quả">
 							<select class="loc_khoang_thoi_gian form-control" style="width: 160px;font-size: 17px;">
 								<option>Chọn</option>
-								<option>7 ngày</option>
-								<option>30 ngày</option>
-								<option>12 tháng</option>
+								<option value="7ngay">7 ngày</option>
+								<option value="thangtruoc">Tháng Trước</option>
+								<option value="12thang">12 tháng</option>
 							</select>
 				</form>
 
@@ -140,24 +140,7 @@
 							<div class="row">	
 							<p class="title_thongke" style="text-transform: capitalize;">Top 10 sản phẩm bán chạy nhất</p>
 								<div id="top10product" style="height: 250px;background: #FFF; border-radius: 15px;text-transform: capitalize;" ></div>
-							<script type="text/javascript">
-								new Morris.Bar({
-									 
-									  element: 'top10product',
-									  
-									 barColors: ['#b77414'],
-									  data: [
-									  
-									    { key: 'áo', value: 10 },
-									    { key: 'quần', value: 35 },
-									    { key: 'Phụ Kiện', value: 15 },
-									    { key: 'giày', value: 55 }
-									  ],
-									  xkey: 'key',
-									  ykeys: ['value'],
-									  labels: ['Lược truy cập']
-									});
-							</script>
+							
 						</div>
 								
 							

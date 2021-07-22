@@ -25,7 +25,7 @@ class Categorycontroller extends Controller
         ->orderby('ma_tk','desc')->get();
         $material_id=DB::table('chat_lieu')
         ->orderby('ma_cl','desc')->get();
-        return view('admin.Category_add')
+        return view('admin.Category.Category_add')
         ->with('material_id',$material_id)
         ->with('design_id',$design_id);
     }
@@ -34,7 +34,7 @@ class Categorycontroller extends Controller
         $all_Category=DB::table('danh_muc_sp')->paginate(5);
         $design_id=DB::table('thiet_ke')->get();
         $material_id=DB::table('chat_lieu')->get();
-        $manager_Category=view('admin.Category_all')
+        $manager_Category=view('admin.Category.Category_all')
         ->with('all_Category',$all_Category)
         ->with('design_id',$design_id)
         ->with('material_id',$material_id);
@@ -74,28 +74,6 @@ class Categorycontroller extends Controller
           
     }
 
-    //tim kiếm danh muc qua tên danh mục
-    public function search_cate_ad(Request $request){
-         $this->AuthLogin();
-        $keywords=$request->keywords_submit;
-        $design_id=DB::table('thiet_ke')->get();
-        $material_id=DB::table('chat_lieu')->get();
-        $search_cate=DB::table('danh_muc_sp')
-        ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
-        ->join('chat_lieu','chat_lieu.ma_cl','=','danh_muc_sp.ma_cl')
-        ->where('danh_muc','like','%'. $keywords .'%')
-        ->orwhere('thiet_ke.ten_tk','like','%'. $keywords .'%')
-        ->orwhere('chat_lieu.ten_cl','like','%'. $keywords .'%')
-        ->get();
-          if ($search_cate) {
-              return view('admin.category_search')->with('search_cate',$search_cate)->with('design_id',$design_id)->with('material_id',$material_id);
-          }else{
-            return view('admin.Category_all');
-          }
-           
-       
-    }
-
     //trang thái
     public function unactive_category($ma_dm){
          $this->AuthLogin();
@@ -113,7 +91,7 @@ class Categorycontroller extends Controller
         $edit_Category=DB::table('danh_muc_sp')->where('ma_dm',$ma_dm)->get();
         $design_id=DB::table('thiet_ke')->get();
         $material_id=DB::table('chat_lieu')->get();
-        $manager_Category=view('admin.Category_edit')->with('edit_Category',$edit_Category)->with('design_id',$design_id)->with('material_id',$material_id);
+        $manager_Category=view('admin.Category.Category_edit')->with('edit_Category',$edit_Category)->with('design_id',$design_id)->with('material_id',$material_id);
         return view('admin_layout')->with('admin.Category_edit',$manager_Category);
     }
     public function update_Category(Request $request,$ma_dm){
@@ -123,7 +101,6 @@ class Categorycontroller extends Controller
         $data['danh_muc']=$request->category_name;
         $data['ma_cl']=$request->material_key;
         $data['ma_tk']=$request->design_key;
-        
         DB::table('danh_muc_sp')->where('ma_dm',$ma_dm)->update($data);
         return Redirect::to('/all-Category');
     }

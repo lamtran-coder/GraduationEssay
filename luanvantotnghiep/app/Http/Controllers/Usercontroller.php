@@ -30,7 +30,7 @@ class Usercontroller extends Controller
           ->groupBy('thiet_ke.ma_tk')
           ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
           ->get();
-        return view('pages.login_user')
+        return view('pages.User.login_user')
         ->with('cate_product',$cate_product)
         ->with('design_id',$design_id);
     }
@@ -44,7 +44,7 @@ class Usercontroller extends Controller
           ->groupBy('thiet_ke.ma_tk')
           ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
           ->get();
-        return view('pages.sign_up')
+        return view('pages.User.sign_up')
         ->with('cate_product',$cate_product)
         ->with('design_id',$design_id);
     }
@@ -147,7 +147,7 @@ class Usercontroller extends Controller
           ->groupBy('thiet_ke.ma_tk')
           ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
           ->get();
-        return view('pages.information_user')
+        return view('pages.User.information_user')
         ->with('cate_product',$cate_product)
         ->with('design_id',$design_id)
         ->with('user_id',$user_id);
@@ -174,7 +174,7 @@ class Usercontroller extends Controller
           ->groupBy('thiet_ke.ma_tk')
           ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
           ->get();
-        return view('pages.change_password')
+        return view('pages.User.change_password')
         ->with('cate_product',$cate_product)
         ->with('design_id',$design_id)->with('user_id',$user_id);
 

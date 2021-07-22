@@ -7,13 +7,8 @@
     <div class="panel-heading">
       liệt kê danh mục
     </div>
-     <div class="row w3-res-tb">
-      <div class="col-sm-4">
-      </div>
        <div class="row w3-res-tb">
-      
-       <form action="{{URL::to('/search-cate-ad')}}" method="post">
-          @csrf
+       <form >
       <div class="col-sm-3">
         <div class="input-group">
           <input type="text" class="input-sm form-control"name="keywords_submit" placeholder="nhập từ khóa" value="">
@@ -23,9 +18,8 @@
          </div>
         </div>
       </form>
-        
       </div>
-    </div>
+   
     <div class="table-responsive">
       <table class="table table-striped b-t b-light">
         <thead>

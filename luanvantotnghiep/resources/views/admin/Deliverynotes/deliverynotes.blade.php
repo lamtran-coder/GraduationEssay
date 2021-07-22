@@ -8,47 +8,42 @@
       Danh sách Phiếu Giao
     </div>
     <div class="row w3-res-tb">
-       <form action="{{URL::to('/search-order')}}" method="post">
-          @csrf
+       <form>
       <div class="col-sm-3">
         <div class="input-group">
           <input type="text" class="input-sm form-control"name="keywords_submit" placeholder="nhập từ khóa" value="">
           <span class="input-group-btn">
-            <button class="btn btn-sm btn-default" type="button">Go!</button>
+            <button class="btn btn-sm btn-default" type="button">Tim</button>
           </span>
-         
          </div>
         </div>
-        
-      </form>
-      </div>
-
-
-    <div class="table-responsive">
-      <div>
-      <ul style="display: -webkit-inline-box;padding: 10px;">
+       </form>
+       <form>
+        <div class="col-sm-6">
+          <div style="display:flex;">
+          <span style="padding:5px">Từ :</span> 
+          <input style="padding-left: 20px;width: 170px;" class="input-sm form-control" name="date_star_dn" type="date">
+          <span style="padding:5px">Đến :</span> 
+          <input style="padding-left: 20px;width: 170px;" class="input-sm form-control" name="date_end_dn" type="date">
+          <button>Tìm</button>
+          </div>
+        </div>
+        </form>
         <form action="">
-          @csrf
-        <li style="padding-left: 20px;">
-          <span>Từ</span>: 
-          <input style="padding-left: 20px;" name="date_star_dn" type="date">
-          <span>Đến</span>:
-          <input style="padding-left: 20px;"name="date_end_dn" type="date">
-         <button >Tìm</button>
-        </li>
-        </form>
-      </ul>
+        <div class="col-sm-3">
+          <div class="form-group" style="display:flex;">
+           <select name="status_dn" class="input-sm form-control" style="width:140px">
+            <option value="all">Hiện Thị Tất Cả</option>
+            <option value="0">Đang Giao</option>
+            <option value="1">Đã Giao</option>
+          </select>
+          <button>Lọc</button>
+          </div>
+        </div>
+      </form>
+      
       </div>
-      <div style="float: right;padding-right: 5%;font-size: 20px;margin: 5px;">
-        <form >
-          @csrf
-        <select name="status_dn" >
-          <option value="0">Đang Giao</option>
-          <option value="1">Đã Giao</option>
-        </select>
-        <button>Tìm</button>
-        </form>
-      </div>
+    <div class="table-responsive">
       <table class="table table-striped b-t b-light">
         <thead>
           <tr>

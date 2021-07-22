@@ -121,6 +121,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </script>
 </head>
 <body>
+<div class="header">
   <div class="header-top">
      <div class="wrap"> 
         <div class="logo">
@@ -145,7 +146,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <?php } ?>
                     </a></li> 
                 </ul>
-            <li><a href=""><p><?php echo ucwords($username); ?></p></a></li>
+            <li><a href=""><p style="font-weight: bolder;"><?php echo ucwords($username); ?></p></a></li>
             </li>
             </ul>
            </ul>
@@ -230,9 +231,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     <div>
                                     <ul class="cart-des">
                                         <?php foreach ($design_id as $key => $value_des): ?>
-                                            <?php if ($value_des->danh_muc==$value_cate->danh_muc): ?>        
-                                                <a href="{{URL::to('/danh-muc-san-pham/'.$value_des->ma_tk)}}"><li style="font-size: 20px;"><?php echo mb_strtoupper($value_des->ten_tk,'utf-8') ?></li></a>
-                                            <?php endif ?>    
+                                            <?php if ($value_des->danh_muc==$value_cate->danh_muc): ?>
+                                            <form action="{{URL::to('/ke-hang')}}">       
+                                           
+                                                <input type="hidden" name="ma_tk_search" value="<?php echo $value_des->ma_tk ?>">
+                                                <button type="submit" class="search_ma_tk"><li><?php echo mb_strtoupper($value_des->ten_tk,'utf-8') ?></li></button>
+                                            
+                                            </form> 
+                                            <?php endif ?>  
                                         <?php endforeach ?>
                                     </ul>
                                     </div>          
@@ -256,15 +262,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
            <div class="clear"></div>
         </div>
         <div class="search-product" >
-            <form class="form-search-sp " action="{{URL::to('/tim-kiem')}}" method="get">
-                @csrf
-                    <input type="text" class="input-search"  name="keywords_submit" value="" placeholder="nhập từ khóa"> 
+            <form class="form-search-sp " action="{{URL::to('/ke-hang')}}" method="get">
+                <input type="text" class="input-search" name="keywords_submit" placeholder="nhập từ khóa"> 
             </form>
         </div>
        </div>
+       </div>
+       <div class="index_content">
         
                  @yield('index_content')
-       
+       </div>
         <div class="footer">
           <div class="footer-top">
             <div class="wrap">
@@ -290,25 +297,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="wrap">
                 <div class="section group">
                 <div class="col_1_of_middle span_1_of_middle">
-                    <dl id="sample" class="dropdown">
-                    <dt><a href="#"><span>Vui lòng chọn một quốc gia</span></a></dt>
-                    <dd>
-                        <ul>
-                            <li><a href="#">Hoa Kỳ<img class="flag" src="{{asset('public/frontend/images/us.png')}}" alt="" /><span class="value">US</span></a></li>
-                        </ul>
-                     </dd>
-                    </dl>
+                   
                  </div>
                 <div class="col_1_of_middle span_1_of_middle">
-                    <ul class="f_list1">
-                        <li><span class="m_8">ĐĂNG KÝ EMAIL VÀ ĐƯỢC GIẢM GIÁ 15%</span>
-                        <div class="search-email">      
-                            <input type="text" name="s" class="textbox" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
-                            <input type="submit" value="Tìm" id="submit" name="submit">
-                            <div id="response"> </div>
-                        </div><div class="clear"></div>
-                        </li>
-                    </ul>
+                   
                 </div>
                 <div class="clear"></div>
                </div>

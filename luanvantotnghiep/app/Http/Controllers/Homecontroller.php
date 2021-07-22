@@ -34,7 +34,7 @@ class Homecontroller extends Controller
         //hiện đánh ngoài index kết quả chưa được
       $rating_id= DB::table('danh_gia')->get();
         //hiện đánh ngoài index kết quả chưa được
-        return view('pages.home')
+        return view('pages.Home.home')
         ->with('cate_product',$cate_product)
         ->with('all_product',$all_product)
         ->with('rating_id',$rating_id)
@@ -43,54 +43,6 @@ class Homecontroller extends Controller
         
         ;
     }
-    // tìm kiếm trên thanh tìm kiếm
-     public function search(Request $request){
-
-      $keywords=$request->keywords_submit;
-      $cate_product = DB::table('danh_muc_sp')
-      ->select('danh_muc')
-      ->groupBy('danh_muc')
-      ->get();
-      $design_id=DB::table('thiet_ke')
-      ->join('danh_muc_sp','danh_muc_sp.ma_tk','thiet_ke.ma_tk')
-      ->where('danh_muc_sp.trang_thai','1')
-      ->groupBy('thiet_ke.ma_tk')
-      ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
-      ->get();
-      $search_product=DB::table('san_pham')
-      ->join('danh_muc_sp','danh_muc_sp.ma_dm','=','san_pham.ma_dm')
-      ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
-      ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
-      ->join('chat_lieu','chat_lieu.ma_cl','=','danh_muc_sp.ma_cl')
-      ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','san_pham.ma_sp')
-      ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
-      ->orwhere('danh_muc_sp.danh_muc','like','%'. $keywords .'%')
-      ->orwhere('san_pham.ten_sp','like','%'. $keywords .'%')
-      ->orwhere('thiet_ke.ten_tk','like','%'. $keywords .'%')
-      ->orwhere('chat_lieu.ten_cl','like','%'. $keywords .'%')
-      ->groupBy('san_pham.ma_sp')
-      ->get();
-      $all_material=DB::table('chat_lieu')->orderby('ma_cl','desc')->get();
-      $all_style=DB::table('thiet_ke')->orderby('ma_tk','desc')->get();
-      $all_color=DB::table('mau')->orderby('ma_mau','desc')->get();
-      $rating_id= DB::table('danh_gia')->get();
-
-      if ($search_product) {
-         return view('pages.search')
-         ->with('cate_product',$cate_product)
-         ->with('all_material',$all_material)
-         ->with('design_id',$design_id)
-         ->with('all_style',$all_style)
-         ->with('all_color',$all_color)
-         ->with('search_product',$search_product)
-         ->with('rating_id',$rating_id);
-      }
-      else{
-        return view('pages.search');
-        }
-
-     }
-
      //trang gioi thieu
     public function about(){
         $cate_product = DB::table('danh_muc_sp')
@@ -103,7 +55,7 @@ class Homecontroller extends Controller
       ->groupBy('thiet_ke.ma_tk')
       ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
       ->get();
-        return view('pages.about')->with('cate_product',$cate_product)->with('design_id',$design_id);
+        return view('pages.About.about')->with('cate_product',$cate_product)->with('design_id',$design_id);
     }
     // trang chính sách
     public function policy(){
@@ -117,6 +69,6 @@ class Homecontroller extends Controller
       ->groupBy('thiet_ke.ma_tk')
       ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
       ->get();
-        return view('pages.policy')->with('cate_product',$cate_product)->with('design_id',$design_id);
+        return view('pages.Policy.policy')->with('cate_product',$cate_product)->with('design_id',$design_id);
     }
 }

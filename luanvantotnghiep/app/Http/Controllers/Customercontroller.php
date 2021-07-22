@@ -14,23 +14,26 @@ class Customercontroller extends Controller
             $keyword=$_GET['keywords_search'];
             $use_id=DB::table('user')
             ->orwhere('ten_nd','like','%'. $keyword .'%')
+            ->orwhere('diachi','like','%'. $keyword .'%')
             ->orwhere('sodt','like','%'. $keyword .'%')
             ->orderby('user_id','desc')->paginate(10);
         }else{
 
-        $use_id=DB::table('user')->orderby('user_id','desc')->get();
+        $use_id=DB::table('user')->orderby('user_id','desc')->paginate(10);
         }
-        $customer_id=DB::table('khach_hang')->orderby('ma_kh','desc')->paginate(10);
-        return view('admin.customer_all')
+        $customer_id=DB::table('khach_hang')->get();
+        $order_id=DB::table('don_dat_hang')->get();
+        return view('admin.Customer.customer_all')
         ->with('customer_id',$customer_id)
         ->with('use_id',$use_id)
+        ->with('order_id',$order_id)
         ;
 
     }
     public function customer_address($email){
         $customer_id=DB::table('khach_hang')->orderby('ma_kh','desc')->where('email',$email)->get();
         $order_id=DB::table('don_dat_hang')->get();
-        return view('admin.customer_address')
+        return view('admin.Customer.customer_address')
         ->with('customer_id',$customer_id)
         ->with('order_id',$order_id)
         ;
@@ -49,6 +52,6 @@ class Customercontroller extends Controller
             return view('admin.customer_all');
           }
            
-       }
+    }
 
 }

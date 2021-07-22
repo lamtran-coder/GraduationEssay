@@ -22,9 +22,6 @@ Route::get('/tim-kiem','Homecontroller@search');
 Route::get('/chinh-sach','Homecontroller@policy');
 //Giới Thiệu
 Route::get('/gioi-thieu','Homecontroller@about');
-//Trang Tìm Kiếm Theo Danh Mục
-Route::get('/danh-muc-san-pham/{ma_tk}','Productcontroller@show_category_home');
-Route::post('/search-cate-ad','Categorycontroller@search_cate_ad');
 //user
 //------Trang Đăng nhập
 Route::get('/login-user','UserController@login_user');
@@ -44,8 +41,6 @@ Route::post('/update-ten-nv/{user_id}','UserController@update_user');
 Route::get('/change-pass','UserController@change_pass');
 //------------Đổi Mật Khẩu
 Route::post('/update-pass/{user_id}','UserController@update_pass');
-
-
 
 //---------Trang Cửa Hàng
 Route::get('/ke-hang','Productcontroller@show_product');
@@ -98,6 +93,8 @@ Route::get('/dashboard','Admincontroller@show_dashboard');
 
 Route::post('/loc-theo-ngay','Admincontroller@loc_theo_ngay');
 Route::post('/loc-nhieu-ngay','AdminController@loc_nhieu_ngay');
+Route::post('/loc-khoang-thoi-gian','AdminController@loc_khoang_thoi_gian');
+Route::post('/ban-chay-top10','AdminController@banchaytop10');
 
 Route::get('/logout','Admincontroller@logout');
 Route::get('/trang-ca-nhan','Admincontroller@personal_information');

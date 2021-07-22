@@ -102,15 +102,13 @@
                         <li>Tổng giá trị đơn hàng trên 1.500.000 vnd đến 3.000.000 vnd giảm 5% .</li>
                         <li>Tổng giá trị đơn hàng trên 3.000.000 vnd đến 5.000.000 vnd giảm 7%.</li>
                         <li>Tổng giá trị đơn hàng trên 5.000.000 giảm 10%.</li>
-                        <li>Ngoài ra khách hàng số lượng trên 20 sản phẩm sẽ được tính mức chiết khấu khách hàng sỉ và phải thành toán tiền cộc 30%.</li>
+                        <li>Tổng giá trị đơn hàng trên 20 triệu và dưới 50 tr sẽ được chiết khấu thêm 13% trên tổng hóa đơn.</li>
+                        <li>Tổng giá trị đơn hàng sỉ trên 50 triệu sẽ được chiết khấu thêm 15% trên tổng hóa đơn.</li>
+                        <li>Ngoài ra khách hàng số lượng trên 20 sản phẩm sẽ thành toán tiền cộc 30%.</li>
                     </ul>
                     <span>Đối với khách hàng sỉ là khách hàng nhu cầu mua sản phẩm với số lượng lớn sản phẩm với giá được chiết khấu: </span>
                     <ul >
-                        <li>Mỗi lô cần phải trên 20 sản phẩm có cùng một mã sản phẩm.</li>
-                        <li>Nếu khách hàng chỉ có nhu cầu mua dưới 3 lô thì sẽ vẫn được tính chiết khấu từng lô nhưng sẽ không được tính chiết khấu thêm</li>
-                        <li>Khách hàng phải mua trên 3 lô hàng thì mới tính giá bán chiết khấu trên từng lô và được áp dụng hình thức chiết khấu thêm(nếu đủ điều kiện).</li>
-                        <li>Nếu tổng giá trị đơn hàng trên 20 triệu sẽ được chiết khấu thêm 13% trên tổng hóa đơn.</li>
-                        <li>Nếu tổng giá trị đơn hàng sỉ trên 50 triệu sẽ được chiết khấu thêm 15% trên tổng hóa đơn.</li>
+                        <li>Mỗi lô cần phải trên 20 sản phẩm có cùng một mã sản phẩm được tính giá chiếc khấu từng loại sản phẩm và cũng được tính chiếc khấu tổng giá trị đơn hàng như trên.</li>
                         <li>Khách hàng đặt hàng đăng nhập vào hệ thống chọn phương thức thanh toán(bắt buộc) chuyển khoản 30% giá trị đơn hàng.</li>
                     </ul>     
                 </div>

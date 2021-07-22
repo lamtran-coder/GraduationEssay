@@ -9,23 +9,26 @@
     </div>
     <div class="row w3-res-tb">
       <div class="col-sm-5 m-b-xs">
-        <select class="input-sm form-control w-sm inline v-middle">
-          <option value="0">Bulk action</option>
-          <option value="1">Delete selected</option>
-          <option value="2">Bulk edit</option>
-          <option value="3">Export</option>
+        <form>
+        <select class="input-sm form-control w-sm inline v-middle" name="sap_xep">
+          <option>Tất Cả</option>
+          <option value="Tang">Số Lượng Tăng Dần</option>
+          <option value="Giam">Số Lượng Giảm Dần</option>
         </select>
-        <button class="btn btn-sm btn-default">Apply</button>                
+        <button class="btn btn-sm btn-default" style="button">Lọc</button>
+        </form>                
       </div>
       <div class="col-sm-4">
       </div>
       <div class="col-sm-3">
+          <form action="">
         <div class="input-group">
-          <input type="text" class="input-sm form-control" placeholder="Search">
+          <input type="text" class="input-sm form-control" name="keywords_search">
           <span class="input-group-btn">
             <button class="btn btn-sm btn-default" type="button">Go!</button>
           </span>
         </div>
+          </form>
       </div>
     </div>
     <div class="table-responsive">
@@ -90,8 +93,12 @@
         <div class="col-sm-5 text-center">
           <small class="text-muted inline m-t-sm m-b-sm"></small>
         </div>
-        <div class="col-sm-7 text-right text-center-xs">                
-          {{$all_detail_product->links()}}
+        <div class="col-sm-7 text-right text-center-xs">
+        <?php if (!isset($_GET['keywords_search'])&&!isset($_GET['sap_xep'])) {
+           echo $all_detail_product->links();
+          }
+        ?>                
+         
         </div>
       </div>
     </footer>

@@ -70,7 +70,7 @@ class Cartcontroller extends Controller
         ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
         ->orderby('san_pham.ma_sp','desc')->get(); 
         $all_img=DB::table('hinh_anh')->get();
-        return view('pages.show_cart')
+        return view('pages.Cart.show_cart')
         ->with('cate_product',$cate_product)
         ->with('design_id',$design_id)
         ->with('all_product',$all_product);

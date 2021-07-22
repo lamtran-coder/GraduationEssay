@@ -55,7 +55,6 @@ class Ordercontroller extends Controller
         $date_mo=date('Y-m-d');
         $newdate=strtotime('+7 day',strtotime($date_mo));
         $newdate=date('d-m-Y',$newdate);
-        //echo $newdate.'<br>'.$data['ngdat'];
         $data['nggiaodk']=$newdate;
         $date_ht=getdate();
         $ma_ddh=$date_ht['year'].'Y'.$date_ht['mon'].'M'.$date_ht['mday'].'D'.rand(0,9999);
@@ -269,7 +268,7 @@ class Ordercontroller extends Controller
         // $date_dh=date('Y-m-d');
         // $date_dh=date('d-m-Y',strtotime($date_dh));
         // $delivery_date=DB::table('phieu_giao')->where('nggiao',$date_dh)->where('trangthai','0')->get();
-        return view('admin.order_product_all')
+        return view('admin.Order.order_product_all')
         //->with('delivery_date',$delivery_date)
         ->with('all_cus',$all_cus)
         ->with('all_oder',$all_oder);
@@ -294,7 +293,7 @@ class Ordercontroller extends Controller
         $delivery_id=DB::table('phieu_giao')
         ->where('ma_ddh',$ma_ddh)->orderby('tienconlai','desc')->get();
         
-        return view('admin.order_detail_all')
+        return view('admin.Order.order_detail_all')
         ->with('customer_id',$customer_id)
         ->with('order_detail_id',$order_detail_id)
         ->with('order_id',$order_id)

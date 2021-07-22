@@ -7,47 +7,41 @@
     <div class="panel-heading">
       Danh sách đơn hàng
     </div>
-    <div class="row w3-res-tb " style="margin-left:100px">
-      <form autocomplete="off">
-          @csrf
-      <div class="col-sm-8">
+    <div class="row w3-res-tb ">
+      <div class="col-sm-3">
+      <form>
         <div class="input-group">
           <input type="text" class="input-sm form-control" name="keywords_search">
           <span class="input-group-btn">
           <button class="btn btn-sm btn-default" type="button">Tìm</button>
           </span>
         </div>
-      </div>
       </form>
       </div>
-    <div class="table-responsive">
-        <div>
-      <ul style="display: -webkit-inline-box;padding: 10px;">
-        <form>
-        <li style="padding-left: 20px;">
-          <span>Từ</span>: 
-          <input style="padding-left: 20px;" name="date_star" type="date">
+      <div class="col-sm-6" >
+        <form style="display:flex;">
+        <span>Từ</span>: 
+          <input name="date_star" type="date">
           <span>Đến</span>:
-          <input style="padding-left: 20px;"name="date_end" type="date">
+          <input name="date_end" type="date">
          <button >Tìm</button>
-        </li>
         </form>
-      </ul>
       </div>
-      <div style="float: right;padding-right: 13%;font-size: 20px;">
-        <form >
-          @csrf
-        <select name="status_od"  >
+      <div class="col-sm-3">
+        <form style="display:flex;">
+          <select name="status_od" class="form-control" style="width: 200px;">
           <option value="5">Hiện Thị Tất Cả</option>
           <option value="0">Đang Xử Lý</option>
           <option value="1">Đang Lấy Hàng</option>
           <option value="2">Đã Lấy Xong</option>
           <option value="3">Chưa Giao Hết</option>
            <option value="4">Đã Hoàn Thành</option>
-        </select>
+          </select>
         <button>Tìm</button>
         </form>
       </div>
+    </div>
+    <div class="table-responsive">
       <table class="table table-striped b-t b-light">
         <thead>
           <tr>
@@ -75,7 +69,7 @@
         <tr>
          
          
-           <th style="width:20px;">
+           <th style="width:10px;">
               <label class="i-checks m-b-none">
                 <input type="checkbox"><i></i>
               </label>
@@ -123,9 +117,12 @@
       <div class="row">
         
         <div class="col-sm-5 text-center">
-          <small class="text-muted inline m-t-sm m-b-sm">showing 10</small>
+         
         </div>
         <div class="col-sm-7 text-right text-center-xs">                
+          
+        </div>
+        <div class="col-sm-3">
           {{$all_oder->links()}}
         </div>
       </div>

@@ -121,7 +121,7 @@
             <td>
               <form>
               <select name="dogMenu" id="{{$value_pro->ma_sp}}" class="dogMenu">
-                <option selected="selected">Chọn</option>
+                <option selected="selected" value="{{url::to('/all-product')}}">Chọn</option>
                 <option value="{{URL::to('/add-images-product/'.$value_pro->ma_sp)}}">Thêm Ảnh</option>
                 <option value="{{URL::to('/add-detail-product/'.$value_pro->ma_sp)}}">Thêm Chi Tiêt</option>
               </select>
@@ -130,7 +130,7 @@
                $(document).ready(function(){
                     $('#{{$value_pro->ma_sp}}').change(function(){
                       var chn=$(this).val();
-                      if (chn||chn!="") {
+                      if (chn||chn!=""||chn!="notthing") {
                         window.location=chn;
                       }
                       return false;

@@ -158,7 +158,14 @@ class Deliverynotescontroller extends Controller
     //danh sách phiếu giao
     public function all_delivery_notes (){
         $this->AuthLogin();
-        if (isset($_GET['date_star_dn'])&&isset($_GET['date_end_dn'])) {
+        if (isset($_GET['keywords_submit'])){
+            $keyword=$_GET['keywords_submit'];
+            $delivery_id=DB::table('phieu_giao')
+            ->where('ma_pg','like','%'. $keyword .'%')
+            ->orwhere('ma_ddh','like','%'. $keyword .'%')
+            ->paginate(10);
+        }
+        elseif (isset($_GET['date_star_dn'])&&isset($_GET['date_end_dn'])) {
             $date_star = $_GET['date_star_dn'];
             $date_end = $_GET['date_end_dn'];
             $date_star=date('d-m-Y',strtotime($date_star));
@@ -169,16 +176,21 @@ class Deliverynotescontroller extends Controller
             ->paginate(10);
         }
         elseif(isset($_GET['status_dn'])) {
+
             $status_dn = $_GET['status_dn'];
-            $delivery_id=DB::table('phieu_giao')
-            ->where('trangthai',$status_dn)->paginate(10);
+            if ($status_dn!='all') {
+                $delivery_id=DB::table('phieu_giao')
+                ->where('trangthai',$status_dn)->paginate(10);
+            }else{
+                return Redirect::to('/all-delivery-notes');
+            }
         }else{
 
             $delivery_id=DB::table('phieu_giao')->paginate(10);
             $order_id=DB::table('don_dat_hang')->get();
         }
         $order_id=DB::table('don_dat_hang')->get();
-        return view('admin.deliverynotes')
+        return view('admin.Deliverynotes.deliverynotes')
         ->with('order_id',$order_id)
         ->with('delivery_id',$delivery_id);
     }
@@ -193,7 +205,7 @@ class Deliverynotescontroller extends Controller
         ->join('don_dat_hang','don_dat_hang.ma_ddh','=','phieu_giao.ma_ddh')
         ->join('khach_hang','khach_hang.ma_kh','=','don_dat_hang.ma_kh')
         ->where('phieu_giao.ma_pg',$ma_pg)->get();
-        return view('admin.deliverynotes_in')
+        return view('admin.Deliverynotes.deliverynotes_in')
         ->with('deliverynotes_detail_id',$deliverynotes_detail_id)
         ->with('deliverynotes_id',$deliverynotes_id)
         ->with('product_id',$product_id)

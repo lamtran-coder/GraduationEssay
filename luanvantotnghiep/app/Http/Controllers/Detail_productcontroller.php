@@ -27,7 +27,7 @@ class Detail_productcontroller extends Controller
         $color_id=DB::table('mau')->orderby('ten_mau','desc')->get();
         $size_id=DB::table('size')->orderby('ma_size','desc')->get();
         $detail_product_id=DB::table('chi_tiet_san_pham')->where('ma_sp',$ma_sp)->get();
-        return view('admin.detail_product_add')
+        return view('admin.Detail_product.detail_product_add')
         ->with('product_id',$product_id)
         ->with('color_id',$color_id)
         ->with('size_id',$size_id)
@@ -87,11 +87,32 @@ class Detail_productcontroller extends Controller
     }
     public function all_detail_product(){
          $this->AuthLogin();
-        $product_id=DB::table('san_pham')->orderby('ten_sp','desc')->get();
-        $color_id=DB::table('mau')->orderby('ten_mau','desc')->get();
-        
-        $all_detail_product=DB::table('chi_tiet_san_pham')->paginate(10);
-        return view('admin.detail_product_all')->with('all_detail_product',$all_detail_product)
+        if (isset($_GET['keywords_search'])) {
+            $keyword=$_GET['keywords_search'];
+            $all_detail_product=DB::table('chi_tiet_san_pham')
+            ->join('san_pham','san_pham.ma_sp','=','chi_tiet_san_pham.ma_sp')
+            ->select('chi_tiet_san_pham.*','san_pham.ten_sp')
+            ->where('chi_tiet_san_pham.ma_sp','like','%'. $keyword .'%')
+            ->orwhere('san_pham.ten_sp','like','%'. $keyword .'%')
+            ->get();
+        } 
+        elseif (isset($_GET['sap_xep'])) {
+            $result=$_GET['sap_xep'];
+            if ($result=='Tang') {
+                $all_detail_product=DB::table('chi_tiet_san_pham')->orderby('so_lg','desc')->get();
+            }elseif($result=='Giam'){
+                 $all_detail_product=DB::table('chi_tiet_san_pham')->orderby('so_lg','ASC')->get();
+            }else{
+                return Redirect::to('/all-detail-product');
+            }
+        }
+        else{
+            $all_detail_product=DB::table('chi_tiet_san_pham')->paginate(20);
+        }
+        $product_id=DB::table('san_pham')->get();
+        $color_id=DB::table('mau')->get();
+        return view('admin.Detail_product.detail_product_all')
+        ->with('all_detail_product',$all_detail_product)
         ->with('product_id',$product_id)
         ->with('color_id',$color_id)
         ;

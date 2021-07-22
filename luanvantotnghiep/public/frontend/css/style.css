@@ -118,7 +118,7 @@ body{
 }
 /**** Slider *****/
 .index-banner{
-	padding:10px 0;
+	padding:65px 0;
 }
 
 
@@ -201,7 +201,7 @@ body{
 }
 i.fa.fa-shopping-cart.fa-shopping-cart-styling {
     font-size: 40px;
-    color: #79660e;
+    color: #003e00;
 }
 .sub-icon2.list {
     padding: 20px 0px;
@@ -216,7 +216,7 @@ i.fa.fa-shopping-cart.fa-shopping-cart-styling {
 	width:28.5%;
 	float:left;
 	text-align: right;
-	margin-top:4%;
+	margin-top:7%;
 }
 .slider-right h1{
 	color:#000;

@@ -293,11 +293,10 @@ Thông báo</p>
 <!-- binh luan -->
 
 <!-- biều đồ Thống kê doanh thu theo tháng -->
-    <script type="text/javascript">
-            $(document).ready(function(){
+<script type="text/javascript">
+        $(document).ready(function(){
                 chart30daysorder();
                     var chart = new Morris.Bar({
-                         
                           element: 'mychart',
                           //option chart
                           barColors: ['#819C79', '#fc8710','#FF6541', '#A4ADD3', '#766B56'],
@@ -340,10 +339,51 @@ Thông báo</p>
                         }   
                 });
             });
+            $('.loc_khoang_thoi_gian').change(function(){
+                var dashboard_value = $(this).val();
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url: "{{url('/loc-khoang-thoi-gian')}}",
+                    method: "POST",
+                    dataType: "JSON",
+                    data:{dashboard_value:dashboard_value,_token:_token},
+                    success:function(data){
+                        chart.setData(data);
+                    }
+                });
             });
+        });
     </script>
 <!-- //biều đồ Thống kê doanh thu theo tháng -->
 
+<!-- biều đồ sản phẩm bán chạy nhất -->
+<script type="text/javascript">
+    $(document).ready(function(){
+        banchaytop10();  
+        var dcchart=new Morris.Bar({
+                element: 'top10product',
+                barColors: ['#FF6541','#766B56','#819C79', '#fc8710', '#A4ADD3'],
+                parseTime: false,
+                hideHover: 'auto',
+                xkey: 'ma_sp',
+                ykeys: ['doanhsosp','solgsp'],
+                labels: ['doanh số','số lượng' ]
+            });
+        function banchaytop10(){
+             var _token = $('input[name="_token"]').val();
+             $.ajax({
+                 url: "{{url('/ban-chay-top10')}}",
+                 method: "POST",
+                 dataType: "JSON",
+                 data:{_token:_token},
+                 success:function(data){
+                     dcchart.setData(data);
+                 }
+             });
+            }
+        });
+</script>
+<!-- //biều đồ sản phẩm bán chạy nhất -->
 
 <!-- duyet binh lan -->
 <script type="text/javascript">
