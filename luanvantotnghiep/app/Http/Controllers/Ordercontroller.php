@@ -65,22 +65,14 @@ class Ordercontroller extends Controller
         $data['tong_tt']=$request->total_payment;
         $data['trangthai']=0;
         $data['solg_sp']=$request->sum_qty;
-        if (($request->sum_qty)>=40) {
-           $data['tien_coc']=($request->total_payment)*(30/100);
-        }else{
-            $data['tien_coc']=0;
-        }
-        if (($request->sum_qty)<20) {
-           $data['phigiao']=35000;
-        }else{
-            $data['phigiao']=0;
-        }
+        $data['tien_coc']=$request->deposit;
+        $data['phigiao']=$request->mony_deli_h;
         $data['ma_kh']=$request->ma_kh;
 
         DB::table('don_dat_hang')->insert($data);
 
         $content=Cart::content();
-        
+        //1-N chi tiet đơn đặt hàng
         foreach ($content as $key => $v_content) 
         { 
             $data_detail['ma_ddh']=$ma_ddh;
@@ -90,6 +82,7 @@ class Ordercontroller extends Controller
             $data_detail['solg_sp']=$v_content->qty;
             $data_detail['trang_thai']=0;
             $sum_qty_pro=$v_content->qty; 
+            //tính chiếc khấu sỉ của sản phẩm
             foreach ($content as $key_2 => $v_content_2) {
                if(($v_content->id==$v_content_2->id)&&($key!=$key_2)){ 
                     $sum_qty_pro+=$v_content->qty+$v_content_2->qty;      
@@ -107,10 +100,11 @@ class Ordercontroller extends Controller
             $details_product=DB::table('chi_tiet_san_pham')
             ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
             ->get();
+            //cập nhật số lượng sản phẩm bên bảng chi tiết sản phẩm
             foreach ($details_product as $key => $value_det_pro) {
                 if (($value_det_pro->ten_mau==$v_content->options->ten_mau) && ($value_det_pro->ma_size == $v_content->options->ma_size)&&($value_det_pro->ma_sp==$v_content->id)) 
                 {
-                    $Sub_detail_sp['so_lg']=$value_det_pro->so_lg-$v_content->qty;
+                    $Sub_detail_sp['so_lg']=$value_det_pro->so_lg-($v_content->qty);
                     DB::table('chi_tiet_san_pham')
                     ->where('ma_sp',$value_det_pro->ma_sp)
                     ->where('ma_size',$value_det_pro->ma_size)
@@ -118,6 +112,7 @@ class Ordercontroller extends Controller
                 }
             }
             $product_id=DB::table('san_pham')->get();
+            //cập nhật số lượng sản phẩm bên bảng sản phẩm
             foreach ($product_id as $key => $value_pro) {
                 if ($value_pro->ma_sp==$v_content->id) 
                 {
@@ -128,10 +123,7 @@ class Ordercontroller extends Controller
                 }
             }
             
-
-        }   
-
-      
+        }     
         return Redirect::to('/show-order/'.$user_id); 
 
     }

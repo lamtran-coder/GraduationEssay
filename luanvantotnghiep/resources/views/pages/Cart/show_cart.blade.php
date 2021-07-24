@@ -43,12 +43,12 @@
                     <?php foreach ($content as $key_1 => $v_content): ?>  
                     <tbody class="from-table">
                       <tr class="form-tr">
-                        <td class="form-td"><a style="font-size:22px" href="{{URL::to('/product-details/'.$v_content->id)}}">{{$v_content->id}}<hr>{{$v_content->name}}</a></td>
+                        <td class="form-td"><a style="font-size: 135%;" href="{{URL::to('/product-details/'.$v_content->id)}}">{{$v_content->id}}<hr>{{$v_content->name}}</a></td>
                         <td class="form-td"><a href="{{URL::to('/product-details/'.$v_content->id)}}"><img  width="150px" height="150px" src="{{URL::to('public/uploads/product/'.$v_content->options->anh)}}" alt=""></a></td>
-                        <td class="form-td"><span style="font-size:25px;">{{$v_content->options->ma_size}}<hr>{{$v_content->options->ten_mau}}
+                        <td class="form-td"><span style="font-size: 135%;">{{$v_content->options->ma_size}}<hr>{{$v_content->options->ten_mau}}
                         </span></td>
-                        <td class="form-td"><span style="font-size:25px;"><?php echo number_format($v_content->price).' VND'; ?></span></td>
-                        <td class="form-td"><span style="font-size:25px;">
+                        <td class="form-td"><span style="font-size: 135%;"><?php echo number_format($v_content->price).' VND'; ?></span></td>
+                        <td class="form-td"><span style="font-size: 135%;">
                             <?php
                                 $sum_qty_pro=$v_content->qty;
                                 foreach ($content as $key_2 => $v_content_2) {
@@ -95,6 +95,7 @@
                   </table>
                 </div>
             </div>
+            
                 <div class="discount-card">
                     <span>Với giảm giá trên tổng giá trị đơn hàng ta có các mức sau:</span>
                     <ul >

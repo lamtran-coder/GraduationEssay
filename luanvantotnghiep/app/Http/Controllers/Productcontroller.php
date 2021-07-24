@@ -66,8 +66,8 @@ class Productcontroller extends Controller
             'category_product_id'=>'required',
             'product_name'=>'required',
             'product_desc'=>'required',
-            'corner_price'=>'required|numeric|min:4|max:10',
-            'sale_pricee'=>'required|numeric|min:4|max:10',
+            'corner_price'=>'required|numeric',
+            'sale_pricee'=>'required|numeric',
             'discount'=>'required|numeric',
           
         ],[
@@ -77,25 +77,16 @@ class Productcontroller extends Controller
 
             'corner_price.required'=>'***Nhập Giá Góc Sản Phẩm***',
             'corner_price.numeric'=>'***Nhập Giá Góc Là Số***',
-            'corner_price.min'=>'***Nhập Giá Góc Tốt Thiểu 4 Số Tốt Đa 10***',
-            'corner_price.max'=>'***Nhập Giá Góc Tốt Thiểu 4 Số Tốt Đa 10***',
+    
 
             'sale_pricee.required'=>'***Nhập Giá Sale Sản Phẩm***',
             'sale_pricee.numeric'=>'***Nhập Giá Sale Là Số***',
-            'sale_pricee.min'=>'***Nhập Giá Sale Tốt Thiểu 4 Số Tốt Đa 10***',
-            'sale_pricee.max'=>'***Nhập Giá Sale Tốt Thiểu 4 Số Tốt Đa 10***',
 
             'discount.required'=>'***Nhập Chiêt Khấu Sản Phẩm***',
             'discount.numeric'=>'***Nhập Chiêt Khấu Sản Phẩm Là Số***',
 
            
         ]);
-        if ($validator->flails()) {
-            return redirect()
-                            ->back()
-                            ->withErrors($validator)
-                            ->withInput();
-        }
         $data=array();
         $result=($request->category_product_id).'S'.rand(0,99);
         $data['ma_sp']=$result;
@@ -127,8 +118,8 @@ class Productcontroller extends Controller
             'category_product_id'=>'required',
             'product_name'=>'required',
             'product_desc'=>'required',
-            'corner_price'=>'required|numeric|min:4|max:10',
-            'sale_pricee'=>'required|numeric|min:4|max:10',
+            'corner_price'=>'required|numeric',
+            'sale_pricee'=>'required|numeric',
             'discount'=>'required|numeric',
             'amount_product'=>'required|numeric'
         ],[
@@ -138,13 +129,9 @@ class Productcontroller extends Controller
 
             'corner_price.required'=>'***Nhập Giá Góc Sản Phẩm***',
             'corner_price.numeric'=>'***Nhập Giá Góc Là Số***',
-            'corner_price.min'=>'***Nhập Giá Góc Tốt Thiểu 4 Số Tốt Đa 10***',
-            'corner_price.max'=>'***Nhập Giá Góc Tốt Thiểu 4 Số Tốt Đa 10***',
 
             'sale_pricee.required'=>'***Nhập Giá Sale Sản Phẩm***',
             'sale_pricee.numeric'=>'***Nhập Giá Sale Là Số***',
-            'sale_pricee.min'=>'***Nhập Giá Sale Tốt Thiểu 4 Số Tốt Đa 10***',
-            'sale_pricee.max'=>'***Nhập Giá Sale Tốt Thiểu 4 Số Tốt Đa 10***',
 
             'discount.required'=>'***Nhập Chiêt Khấu Sản Phẩm***',
             'discount.numeric'=>'***Nhập Chiêt Khấu Sản Phẩm Là Số***',
@@ -206,35 +193,31 @@ class Productcontroller extends Controller
             'product_images_id.required'=>'***Chưa chọn Sản Phẩm***',
             'images_pro.required'=>'***Chưa Chọn Hình Sản Phẩm***',
         ]);
-        $all_img=DB::table('hinh_anh')->where('ma_sp',$request->product_images_id)->get();
+        $result=$_SERVER['HTTP_REFERER'];
+        $all_img=DB::table('hinh_anh')->get();
         foreach ($all_img as $key => $value) {
-             $result=$_SERVER['HTTP_REFERER'];
-      
-           if (($request->images_view==0)&&($request->images_view==$value->goc_nhin)) {
-                Session::put('message_img','Thêm hình ảnh sản phẩm không thành công');
-
-                  return Redirect::to($result);
-           }else{
-                $data=array();
-                $data['ma_sp']=$request->product_images_id;
-                $data['goc_nhin']=$request->images_view;
-                $get_images=$request->file('images_pro');
-                if($get_images){
-                    $get_images_name=$get_images->getClientOriginalName();
-                    $name_imgages=current(explode('.',$get_images_name));
-                    $new_images=$name_imgages.'-'.rand(0,999).'.'.$get_images->getClientOriginalExtension();
-                    $get_images->move('public/uploads/product',$new_images);
-                    $data['hinhanh'] = $new_images; 
-                    DB::table('hinh_anh')->insert($data);
-                    Session::put('message_img','Thêm hinh ảnh sản phẩm thành công');
-                     return Redirect::to($result);
-                }
-                else{
-                    Session::put('message_img','Thêm hình ảnh sản phẩm không thành công');
-                     return Redirect::to($result);
+            if ($value->ma_sp==$request->product_images_id) {
+                if (($value->goc_nhin==0)&&($request->images_view==0)) {
+                    Session::put('message_img','Thêm hinh ảnh không thành công');
+                    return Redirect::to($result);
                 }
             }
         }
+        $data=array();
+        $data['ma_sp']=$request->product_images_id;
+        $data['goc_nhin']=$request->images_view;
+        $get_images=$request->file('images_pro');
+        $get_images_name=$get_images->getClientOriginalName();
+        $name_imgages=current(explode('.',$get_images_name));
+        $new_images=$name_imgages.'-'.rand(0,999).'.'.$get_images->getClientOriginalExtension();
+        $get_images->move('public/uploads/product',$new_images);
+        $data['hinhanh'] = $new_images;
+        print_r($data); 
+        DB::table('hinh_anh')->insert($data);
+        Session::put('message_img','Thêm hinh ảnh sản phẩm thành công');
+        return Redirect::to($result);
+
+        
         
     }
 
@@ -453,6 +436,7 @@ class Productcontroller extends Controller
 
 
     }
+    
     //bình luận
     public function load_comment(Request $request){
         $ma_sp=$request->ma_sp;

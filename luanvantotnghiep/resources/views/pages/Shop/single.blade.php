@@ -81,14 +81,14 @@
 						</div>
 			<ul class="options">
 				<h4 class="m_9">CHỌN KÍCH CỠ</h4>
-				<form action="{{URL::to('/save-cart')}}" method="POST">
+				<form action="{{URL::to('/save-cart')}}" class="form_chon" method="POST">
 				@csrf
 				<div style="height:100px;">
 					<ul>
 						<?php foreach ($all_detail_color as $key_ => $value_d_color): ?>
 							<?php foreach ($all_color as $key_1 => $value_color): ?>
 								<?php if ($value_color->ma_mau==$value_d_color->ma_mau): ?>	
-							<li><input class="radio-mau-size" name="mau_hidden" size="25" checked="checked" type="radio" value="{{$value_color->ten_mau}}" id="a{{$key_1}}"><label class="ladel-mau-size" for="a{{$key_1}}">{{$value_color->ten_mau}}</label></li>
+							<li><input class="radio-mau-size mau-key" name="mau_hidden" size="25" type="radio" value="{{$value_color->ten_mau}}" id="a{{$key_1}}"><label class="ladel-mau-size" for="a{{$key_1}}">{{$value_color->ten_mau}}</label></li>
 								<?php endif ?>
 							<?php endforeach ?>
 						<?php endforeach ?>
@@ -97,7 +97,7 @@
 				<div style="height:90px;">
 					<ul>
 						<?php foreach ($all_detail_size as $key => $value_size): ?>
-							<li><input class="radio-mau-size" name="size_hidden" checked="checked" type="radio" value="{{$value_size->ma_size}}" id="b{{$key}}"><label for="b{{$key}}" class="ladel-mau-size">{{$value_size->ma_size}}</label></li>
+							<li><input class="radio-mau-size size-key" name="size_hidden"  type="radio"  value="{{$value_size->ma_size}}" id="b{{$key}}"><label for="b{{$key}}" class="ladel-mau-size">{{$value_size->ma_size}}</label></li>
 						<?php endforeach ?>
 					</ul>
 				</div >
@@ -107,10 +107,12 @@
 					<div class="next">+</div>
 					<div class="clear"></div>
 				</div>
-				<input type="hidden" name="masp_hidden" min="1" value="{{$value_det->ma_sp}}">
+				<input type="hidden" class="key_product" name="masp_hidden" min="1" value="{{$value_det->ma_sp}}">
+				<div id="solg_sp"></div>
 				<button class="button-mua" style="margin-left: 40px;">CHỌN MUA</button>
 				</form>
 				<div class="clear"></div>
+				
 			</ul>
 			<ul>
 				

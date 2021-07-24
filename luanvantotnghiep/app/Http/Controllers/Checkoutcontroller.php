@@ -60,7 +60,6 @@ class Checkoutcontroller extends Controller
    }
    public function payment(){
      $this->AuthLogin_user();
-        $all_customer=DB::table('khach_hang')->get();
         $cate_product = DB::table('danh_muc_sp')
             ->select('danh_muc')
             ->groupBy('danh_muc')
@@ -70,15 +69,11 @@ class Checkoutcontroller extends Controller
           ->groupBy('thiet_ke.ma_tk')
           ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
           ->get();
-        $all_product=DB::table('san_pham')->where ('trang_thai','1')
-        ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
-        ->orderby('san_pham.ma_sp','desc')->limit(6)->get(); 
-
+        
        return view('pages.payment')
         ->with('cate_product',$cate_product)
         ->with('design_id',$design_id)
-        ->with('all_product',$all_product)
-        ->with('all_customer',$all_customer);
+        ;
    }
 
     

@@ -69,7 +69,7 @@
                             <p class="m_2">{{$value_pro->ten_sp}}</p>
                             <div class="grid_img">
                             <?php if ($value_pro->goc_nhin==0): ?>     
-                            <div class="css3"><img src="public/uploads/product/{{$value_pro->hinhanh}}" height="300px" width="250px" alt=""/>
+                            <div class="css3"><img src="public/uploads/product/{{$value_pro->hinhanh}}" height="300px" width="100%" alt=""/>
                             <?php endif ?>
                             </div>
                               <div class="mask">
@@ -83,6 +83,7 @@
                             <?php echo number_format($value_pro->gia_sale).' VND';  ?></div>
                         </div>
                     </div>
+                    <div style="background: #595757;">
                     <span class="rating">
                         <ul class="list-inline" style="display: -webkit-box;" title="Average Raiting">
                         <?php
@@ -105,7 +106,7 @@
                                     else{
                                     $color = 'color:#black;';} 
                                 }   
-                            echo '<li style="cursor: pointer;'.$color.'font-size: 15px;" >&#9733;</li>';
+                            echo '<li style="cursor: pointer;'.$color.'font-size: 100%;margin-left: 5%;" >&#9733;</li>';
                             } 
                         }else{
                             for ($count=1; $count<=5; $count++) {     
@@ -114,7 +115,7 @@
                             }
                             else{
                              $color = 'color:#black;';}
-                            echo '<li style="cursor: pointer;'.$color.'font-size: 15px;" >&#9733;</li>';
+                            echo '<li style="cursor: pointer;'.$color.'font-size: 100%;margin-left: 5%;" >&#9733;</li>';
                             }
                          }
 
@@ -123,20 +124,18 @@
                             </a>
 
                     </span>
-                        <ul class="list">
-                          <li>
-                            <form action="{{URL::to('/save-cart')}}" method="POST">
-                                       @csrf    
-                                       <input type="hidden" name="masp_hidden" min="1" value="{{$value_pro->ma_sp}}">
-                                       <input type="hidden" name="mau_hidden" min="1" value="{{$value_pro->ten_mau}}">
-                                       <input type="hidden" name="size_hidden" min="1" value="{{$value_pro->ma_size}}">
-                                       <input type="hidden" name="quantity_h" min="1" value="1">
-                            <button class="btn_mua_nhanh">Mua Ngay</button>
-                                        
-                            </form>
-                           </li>
-                         </ul>
-                        <div class="clear"></div>
+                    <div class="mua_nhanh">
+                        <form action="{{URL::to('/save-cart')}}" method="POST">
+                       @csrf    
+                       <input type="hidden" name="masp_hidden" min="1" value="{{$value_pro->ma_sp}}">
+                       <input type="hidden" name="mau_hidden" min="1" value="{{$value_pro->ten_mau}}">
+                       <input type="hidden" name="size_hidden" min="1" value="{{$value_pro->ma_size}}">
+                       <input type="hidden" name="quantity_h" min="1" value="1">
+                        <button class="btn_mua_nhanh">Mua Ngay</button>         
+                        </form>
+                    </div>
+                    </div>
+                    <div class="clear"></div>
                 </div>
                 <?php endif ?>  
             <?php endforeach ?>

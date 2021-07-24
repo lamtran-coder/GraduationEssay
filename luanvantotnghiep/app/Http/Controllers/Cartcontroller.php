@@ -27,7 +27,7 @@ class Cartcontroller extends Controller
         echo"<pre>";
         print_r($product_info);
         echo"</pre>";
-        if (isset($product_info->ma_sp)) {
+        if (isset($product_info)) {
         $data['id']=$product_info->ma_sp;
         $data['qty']=$quantity_h;
         $data['name']=$product_info->ten_sp;
@@ -54,7 +54,7 @@ class Cartcontroller extends Controller
         $qty=$request->cart_quantity;
         Cart::update($rowId,$qty);
         $result=$_SERVER['HTTP_REFERER'];
-          return Redirect::to($result);
+        return Redirect::to($result);
     }
     public function show_cart(){
         $cate_product = DB::table('danh_muc_sp')
@@ -66,7 +66,7 @@ class Cartcontroller extends Controller
           ->groupBy('thiet_ke.ma_tk')
           ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
           ->get();;
-         $all_product=DB::table('san_pham')->where ('trang_thai','1')
+        $all_product=DB::table('san_pham')->where ('trang_thai','1')
         ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
         ->orderby('san_pham.ma_sp','desc')->get(); 
         $all_img=DB::table('hinh_anh')->get();

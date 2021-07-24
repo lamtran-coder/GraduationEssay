@@ -424,8 +424,8 @@ p.m_2{
 }
 .list{
 	float: left;
-	background: #08080B;
-	width: 50%;
+	
+	width: 53.5%;
 	padding: 0.75% 0;
 	text-align: center;
 }
@@ -1793,7 +1793,7 @@ p.cart a:hover {
 		font-size: 0.8125em;
 	}
 	.list2 {
-		width: 48.5%;
+		width: 50%;
 	}
 	.rating {
 		padding: 2.2% 5%;

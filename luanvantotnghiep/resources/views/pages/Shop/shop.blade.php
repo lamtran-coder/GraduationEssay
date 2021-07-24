@@ -87,13 +87,13 @@
 	        		if (isset($_GET['sort_by'])){
 	        			$sort_by=$_GET['sort_by'];
 	        			if ($sort_by=="tang_dan") {
-	        				echo 'Các Sản Phẩm Giá:<br> "Tăng Dần"';
+	        				echo 'Sản Phẩm Giá:<br> "Tăng Dần"';
 	        			}elseif($sort_by=="giam_dan"){
-	        				echo 'Các Sản Phẩm Giá:<br> "Giảm Dần"';
+	        				echo 'Sản Phẩm Giá:<br> "Giảm Dần"';
 	        			}elseif($sort_by=="kytu_az"){
-	        				echo 'Các Sản Phẩm Từ:<br> "A - Z"';
+	        				echo 'Sản Phẩm Từ:<br> "A - Z"';
 	        			}elseif($sort_by=="kytu_za"){
-	        				echo 'Các Sản Phẩm Từ:<br> "Z - A"';
+	        				echo 'Sản Phẩm Từ:<br> "Z - A"';
 	        			}
 	        		}elseif(isset($_GET['keywords_submit'])){
 	        			$keywords_submit=$_GET['keywords_submit'];
@@ -102,7 +102,7 @@
 	        			$ma_tk_search=$_GET['ma_tk_search'];
 	        			foreach ($all_style as $key => $val_style) {
 	        				if ($val_style->ma_tk==$ma_tk_search) {
-	        					echo 'Các sản phẩm có thiết kế:"<br>'.$val_style->ten_tk.'"';
+	        					echo 'sản phẩm có thiết kế:<br>"'.$val_style->ten_tk.'"';
 	        				}
 	        			}
 	        		}
@@ -131,7 +131,8 @@
 		  			 <div class="price"><strike>{{$value_pro->gia_goc}}</strike>&emsp;{{$value_pro->gia_sale}}VND</div>
 			   	</div>
 			</div>
-			<span class="rating Raiting-shop">
+			<div>
+			<span class="rating Raiting-shop" style="height: 21px;">
                         <ul class="list-inline" style="display: -webkit-box;" title="Average Raiting">
                        
                         <?php
@@ -154,7 +155,7 @@
                                     else{
                                     $color = 'color:#black;';} 
                                 }   
-                            echo '<li style="cursor: pointer;'.$color.'font-size: 15px;" >&#9733;</li>';
+                            echo '<li style="cursor: pointer;'.$color.'font-size: 100%;margin-left: 5%;" >&#9733;</li>';
                             } 
                         }else{
                             for ($count=1; $count<=5; $count++) {     
@@ -163,7 +164,7 @@
                             }
                             else{
                              $color = 'color:#black;';}
-                            echo '<li style="cursor: pointer;'.$color.'font-size: 15px;" >&#9733;</li>';
+                            echo '<li style="cursor: pointer;'.$color.'font-size: 100%;margin-left: 5%;" >&#9733;</li>';
                             }
                          }
 
@@ -172,19 +173,15 @@
                             </a>
 
                     </span>
-				 <ul class="list2">
-				  
-					  <li><form action="{{URL::to('/save-cart')}}" method="POST">
-                                       @csrf    
-                                       <input type="hidden" name="masp_hidden" min="1" value="{{$value_pro->ma_sp}}">
-                                       <input type="hidden" name="mau_hidden" min="1" value="{{$value_pro->ten_mau}}">
-                                       <input type="hidden" name="size_hidden" min="1" value="{{$value_pro->ma_size}}">
-                                        <input type="hidden" name="quantity_h" min="1" value="1">
-                            <button class="btn_mua_nhanh">Mua Ngay</button>
-                            </form>
-					  </li>
-					
-				 </ul>
+				 <form action="{{URL::to('/save-cart')}}" method="POST">
+                    @csrf    
+                    <input type="hidden" name="masp_hidden" min="1" value="{{$value_pro->ma_sp}}">
+                    <input type="hidden" name="mau_hidden" min="1" value="{{$value_pro->ten_mau}}">
+                    <input type="hidden" name="size_hidden" min="1" value="{{$value_pro->ma_size}}">
+                    <input type="hidden" name="quantity_h" min="1" value="1">
+                	<button class="btn_mua_nhanh_shop">Mua Ngay</button>
+                  </form>
+                  </div>
 		    	    <div class="clear"></div>
 		    	</a>
 	    </div>

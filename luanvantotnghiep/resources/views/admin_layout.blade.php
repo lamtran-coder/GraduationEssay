@@ -332,7 +332,6 @@ Thông báo</p>
                     method:"POST",
                     dataType:"JSON",
                     data:{from_date:from_date,to_date:to_date,_token:_token},
-                    
                     success:function(data)
                         {
                             chart.setData(data);

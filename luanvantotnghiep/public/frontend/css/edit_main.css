@@ -46,8 +46,8 @@ form.form-search-sp {
 form.form-search-sp>input[type="text"] {
     background: #198657;
     color: white;
-    font-size: 15px;
-    padding-left: 35px;
+    font-size: 100%;
+    padding-left: 3%;
     border-radius: 20px;
     text-transform: uppercase;
 }
@@ -56,12 +56,12 @@ input.input-search {
     margin: 5px 5px 5px 5px;
 }
 .col_1_of_3.span_1_of_3.show-pro {
-    margin-left: 42px;
+    margin-left: 3.5%;
     background: #FFF;
 }
 .col_1_of_single1.span_1_of_single1.show-pro {
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 2%;
+    margin-right: 2%;
 }
 i.fa.fa-user.fa-user-styling {
     font-size: 30px;
@@ -131,10 +131,12 @@ button.button-mua {
     width: 132px;
     background: orange;
     font-size: 20px;
+    transition: 0.4s;
 }
 button.button-mua:hover {
     background: #ffa5009e;
     color: #000000c7;
+    transition: 0.4s;
 }
 .radio-mau-size{
     display: none;
@@ -151,6 +153,7 @@ label.ladel-mau-size{
     align-items: center;
     cursor: pointer;
     text-transform: capitalize;
+    transition: 0.4s;
 }
 label.ladel-mau-size:before{
     /*content: "";
@@ -173,6 +176,7 @@ input[type="radio"].radio-mau-size:checked+label:before{
 label.ladel-mau-size:hover {
     background: #115b08;
     color: #FFF;
+    transition: 0.4s;
 }
 .number-product{
     width: 119px;
@@ -202,8 +206,8 @@ div.next{
     height: 25px;
     position: absolute;
     color: #F0E68C;
-   /* z-index: 1000;*/
     cursor: pointer;
+    transition: 0.4s;
 }
 div.prev{
     display: block;
@@ -217,6 +221,7 @@ div.next{
 .prev:hover, .next:hover {
     background: #F0E68C;
     color: #2F4F4F;
+    transition: 0.4s;
 }
 
 
@@ -228,9 +233,9 @@ section.sky-form {
 }
 
 .panel-heading {
-    font-size: 40px;
-    padding: 15px;
-    padding-left: 20px;
+    font-size: 220%;
+    padding: 2%;
+    padding-left: 3%;
     background: #ffff0000;
     color: #000000;
 }
@@ -276,7 +281,7 @@ i.fa.fa-trash.fa-trash-styling {
 td.form-td {
     border: 5px solid #FFF;
     vertical-align: middle;
-    font-size: 20px;
+    font-size: 120%;
 }
 td.form-td>a{
    color: #ff0000;
@@ -287,10 +292,10 @@ td.form-td>a:hover{
 tr.form-tr {
     border: 5px solid #FFF;
 }
-div.product-billing{
+div.product-billing {
     float: right;
     background: #93929247;
-    width: 595px;
+    width: 49.123%;
     height: auto;
     border: 15px solid #d4cfcf;
 }
@@ -373,11 +378,11 @@ i.fa.fa-trash.fa-trash-styling-mini {
     font-size: 25px;
 }
 .discount-card {
-    width: 552px;
+    width: 44%;
     height: auto;
     display: inline-block;
-    font-size: 22px;
-    padding: 20px;
+    font-size: 107%;
+    padding: 1%;
     background: #93929247;
     border: 15px solid #d4cfcf;
 }
@@ -407,11 +412,10 @@ i.fa.fa-trash.fa-trash-styling-mini {
     padding-left: 35px;
 }
 .user-billing {
-    width: 700px;
+    width: 56%;
     height: auto;
     border: 1px solid;
     float: left;
-    
 }
 .customer-cart{
     padding: 30px;
@@ -589,7 +593,7 @@ button.btn_comment {
     font-size: 20px;
 }
 .address-user {
-    width: 545px;
+    width: 43.5%;
     height: auto;
     border: 1px solid;
     display: inline-block;
@@ -598,9 +602,9 @@ button.btn_comment {
     text-transform: capitalize;
 }
 div.address-user>h3 {
-    padding: 20px;
+    padding: 3%;
     text-align: center;
-    font-size: 30px;
+    font-size: 200%;
     background: #6e676736;
 }
 div.address-user>form{
@@ -649,7 +653,7 @@ div.checkaddress>a {
 
 div.main-order{
     padding: 0px;
-    margin: 0px;
+    margin-top: 165px;
     width: 100%;
     height: auto;
     border: 1px solid;
@@ -676,8 +680,8 @@ div.order-you{
 }
 div.search-product {
     padding: 0px;
-    padding-left: 25px;
-    width: auto;
+    padding-left: 2.5%;
+    width: 96%;
     height: 15px;
 }
 .span_2_of_3 {
@@ -882,7 +886,8 @@ h3.m_3 {
 }
 
 .rating {
-    padding: 2.4% 5%;
+ 
+    width: 40%;
 }
 a.color7:hover {
     opacity: 0.5;
@@ -893,10 +898,10 @@ a.color7:hover {
     font-weight: bold;
     text-transform: capitalize;
 }
-button.btn_mua_nhanh{
-    height: 32px;
-    width: 100%;
-    font-size: 20px;
+button.btn_mua_nhanh {
+    width: 50%;
+    height: 36px;
+    font-size: 100%;
     background: black;
     color: #FFF;
     border: none;
@@ -920,3 +925,27 @@ button.btn_mua_nhanh:hover{
 .index_content {
     margin-top: 120px;
 }
+
+.price {
+    color: #555;
+    font-size: 140%;
+    font-weight: 700;
+}
+button.btn_mua_nhanh_shop {
+    width: 50%;
+    height: 32.5px;
+    font-size: 100%;
+    background: black;
+    color: #FFF;
+    border: none;
+}
+/*div#solg_sp {
+    padding: 2%;
+    margin: 5px;
+    margin-left: 2%;
+    width: 27%;
+    text-align: center;
+    text-transform: uppercase;
+    border: 1px solid #FFF;
+    font-weight: bold;
+}*/

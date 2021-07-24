@@ -46,6 +46,7 @@ Route::post('/update-pass/{user_id}','UserController@update_pass');
 Route::get('/ke-hang','Productcontroller@show_product');
 //---------Trang chi tiet sản phẩm
 Route::get('/product-details/{ma_sp}','Productcontroller@product_details');
+Route::post('/solg-sanpham','Productcontroller@solg_sanpham');
 //------------------Binh luan
 Route::post('/load-comment','Productcontroller@load_comment');
 Route::post('/send-comment','Productcontroller@send_comment');
@@ -136,7 +137,6 @@ Route::post('/update-product/{ma_sp}','Productcontroller@update_product');
 
 
 	
-
 	//hình ảnh sản phẩm
 Route::get('/add-images-product/{ma_sp}','Productcontroller@add_images_product');
 Route::post('/save-images-product','Productcontroller@save_images_product');

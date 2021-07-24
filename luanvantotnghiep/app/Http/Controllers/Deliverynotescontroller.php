@@ -75,8 +75,8 @@ class Deliverynotescontroller extends Controller
             $chiec_khau_tong=0;}
 
         $data['solg_sp']=$Sum_qty;
-        $gia_dc=$Sum_mony_1*(100-$chiec_khau_tong)/100;
-        if($gia_dc>=$tiencoc) {
+        $gia_giao=$Sum_mony_1*(100-$chiec_khau_tong)/100;
+        if($gia_giao>=$tiencoc) {
             $gia_thu=($Sum_mony_1*(100-$chiec_khau_tong)/100)-$tiencoc;   
             $data['gia_thu']=$gia_thu;
             $tiencl=$tong_tt-$gia_thu;
@@ -99,7 +99,7 @@ class Deliverynotescontroller extends Controller
                 $query-> where('trangthai','0')
                      -> orwhere('trangthai','1');
                  })->update($status);}
-        }elseif($gia_dc<$tiencoc){
+        }elseif($gia_giao<$tiencoc){
             $tiencoccon=$tiencoc-($Sum_mony_1*(100-$chiec_khau_tong)/100);   
             $data['gia_thu']=0;
             $tiencl=$tong_tt-$tiencoccon;
@@ -211,7 +211,7 @@ class Deliverynotescontroller extends Controller
         ->with('product_id',$product_id)
         ;
     }
-
+    //cập nhật trang thái phiếu giao
     public function unactive_delivery($ma_pg){
         $this->AuthLogin();
         DB::table('phieu_giao')->where('ma_pg',$ma_pg)->update(['trangthai'=>1]);
@@ -235,6 +235,7 @@ class Deliverynotescontroller extends Controller
             }
            $dem_tt_ct++;
         }
+        //so sánh tổng trang thái với với tổng trang thái 2 và 3
         if(($dem_tt_ct==$dem_tt_3)&&($dem_tt_3>0)&&($dem_tt_ct>0)) {  
 
             DB::table('don_dat_hang')
@@ -250,9 +251,9 @@ class Deliverynotescontroller extends Controller
             ->Where(function($query){
             $query->orwhere('don_dat_hang.trangthai','1')   //Trang thái 1 ->3
                  -> orwhere('don_dat_hang.trangthai','2'); //Trang thái 2 ->3
-             })->update(['don_dat_hang.trangthai'=>3]);
+            })->update(['don_dat_hang.trangthai'=>3]);
         }
-            //xác thực sản phẩm 
+        //xác thực sản phẩm 
             foreach ($delivery_id as $key => $value_dn) {
                 foreach ($order_detail_id as $key => $value_od){
                     //sản phẩm chi tiết phiếu giao giống chi tiêt đơn đặt hàng để cập nhật trang thái sản phẩm trong chi tiết đơn hàng từ 2->3       

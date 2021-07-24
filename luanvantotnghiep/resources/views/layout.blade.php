@@ -377,7 +377,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             if(data == 'done')
             {
              alert("Bạn đã đánh giá "+index +" trên 5 . Vui lòng cho chúng tôi cảm nhận về sản phẩm");
-
             }
             else
             {
@@ -451,7 +450,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                          var data = JSON.parse(localStorage.getItem('viewed'));
 
                          data.reverse();
-                          document.getElementById('row_viewed').style.overflow = 'scroll';
+                         document.getElementById('row_viewed').style.overflow = 'scroll';
                          document.getElementById('row_viewed').style.height = '550px';
 
                          for(i=0;i<data.length;i++){
