@@ -245,16 +245,6 @@ Thông báo</p>
                         <span>Danh Sách Đơn Đặt Hàng</span>
                     </a>
                 </li>
-                
-                <li class="sub-menu">
-                    <a href="{{URL::to('/all-delivery-notes')}}">
-                        <i class="fa fa-book"></i>
-                        <span>Danh Sách Phiếu Giao</span>
-                    </a>
-                </li>
-                
-               
-               
             </ul>          
         </div>
         <!-- sidebar menu end-->
@@ -303,7 +293,7 @@ Thông báo</p>
                             parseTime: false,
                             hideHover: 'auto',
                             xkey: 'ngdat',
-                           ykeys: ['tongdon', 'banhang','phivanchuyen','solg'],
+                            ykeys: ['tongdon', 'banhang','phivanchuyen','solg'],
                             labels: ['đơn hàng','doanh số','Phi vận chuyển','số lượng']
                         
                         });
@@ -324,7 +314,6 @@ Thông báo</p>
             $('#btn-dashboard-filter').click(function(){
                
                 var _token = $('input[name="_token"]').val();
-
                 var from_date = $('#datepicker').val();
                 var to_date = $('#datepicker2').val();
                  $.ajax({
@@ -474,26 +463,7 @@ Thông báo</p>
 
 		});
 	</script>
-    <script type="text/javascript">
-                  $( function() {
-                    $( "#datepicker2" ).datepicker({
-                        prevText:"Tháng Trước",
-                         nextText:"Tháng Sau", 
-                         dateFormat:"yy-mm-dd",
-                          dayNamesMin:['Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7','Chủ Nhật'], 
-                          duration:"show"
-                    });
-                  } );
-                  $( function() {
-                    $( "#datepicker" ).datepicker({
-                        prevText:"Tháng Trước",
-                         nextText:"Tháng Sau", 
-                         dateFormat:"yy-mm-dd",
-                          dayNamesMin:['Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7','Chủ Nhật'], 
-                          duration:"show"
-                    });
-                  } );  
-    </script>
+  
 	<!-- //calendar -->
 
 </body>

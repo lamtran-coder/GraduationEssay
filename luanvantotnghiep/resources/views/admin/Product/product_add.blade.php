@@ -71,7 +71,7 @@
                                         <?php endif ?>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Giá sale</label>
+                                        <label for="exampleInputEmail1">Giá bán</label>
                                         <input type="text" class="form-control main-styling" name="sale_pricee" value="{{old('sale_pricee')}}" >
                                         <?php if ($errors->has('sale_pricee')): ?>
                                         <span style="color:red">{{$errors->first('sale_pricee')}}</span>

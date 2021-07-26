@@ -24,6 +24,16 @@ body a{
 	-ms-transition: 0.5s all ease;
 	text-decoration:none;
 }
+::placeholder, 
+::-webkit-input-placeholder,
+:-moz-placeholder,
+::-moz-placeholder,
+:-ms-input-placeholder,
+::-ms-input-placeholder{ 
+  color: deeppink;
+  font-size: 5rem;
+  text-transform: uppercase;
+}
 h1,h2,h3,h4,h5,h6{
 	margin:0;			   
 }

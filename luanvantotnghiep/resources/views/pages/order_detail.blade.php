@@ -56,7 +56,7 @@
                              ?>
                             </td>
                             <td class="form-td"><?php echo number_format($v_order_detail->sotien).'VND'; ?></td>   
-                            <td class="form-td" style="color: red;">
+                            <td class="form-td" style="font-weight: bold;">
                                 <?php 
                                     if ($v_order_detail->trang_thai==0){
                                         echo "Đang xử lý";
@@ -66,6 +66,8 @@
                                         echo '<p style="color:blue">Đang Giao</p>';
                                     }elseif($v_order_detail->trang_thai==3){
                                         echo '<p style="color:blue">Đã Nhận</p>';
+                                    }elseif($v_order_detail->trang_thai==4){
+                                        echo '<p style="color:red">Đã Hủy</p>';
                                     }
                                 ?>
                             </td>

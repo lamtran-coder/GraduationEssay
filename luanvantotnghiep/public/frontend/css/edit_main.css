@@ -49,7 +49,7 @@ form.form-search-sp>input[type="text"] {
     font-size: 100%;
     padding-left: 3%;
     border-radius: 20px;
-    text-transform: uppercase;
+    
 }
 input.input-search {
     padding: 5px;
@@ -284,10 +284,13 @@ td.form-td {
     font-size: 120%;
 }
 td.form-td>a{
-   color: #ff0000;
-}
-td.form-td>a:hover{
+    font-size: 100%;
+    font-weight: bold;
    color: red;
+}
+td.form-td>a:hover {
+    font-weight: bold;
+    color: #ad1307;
 }
 tr.form-tr {
     border: 5px solid #FFF;
@@ -653,7 +656,7 @@ div.checkaddress>a {
 
 div.main-order{
     padding: 0px;
-    margin-top: 165px;
+    margin-top: 175px;
     width: 100%;
     height: auto;
     border: 1px solid;
@@ -802,7 +805,7 @@ div.pakes-new-product{
     width: 95%;
 }
 td.form-td:hover {
-    background: #000000b3;
+    background: #b5adadf2;
     color: white;
 }
 .status-order {
@@ -939,13 +942,14 @@ button.btn_mua_nhanh_shop {
     color: #FFF;
     border: none;
 }
-/*div#solg_sp {
+div#solg_sp {
     padding: 2%;
     margin: 5px;
     margin-left: 2%;
-    width: 27%;
+    width: 30%;
     text-align: center;
     text-transform: uppercase;
     border: 1px solid #FFF;
     font-weight: bold;
-}*/
+    background: #e9e9e9;
+}

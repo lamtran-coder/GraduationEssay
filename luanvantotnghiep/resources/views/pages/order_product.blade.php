@@ -43,20 +43,16 @@
                         <td class="form-td"><span style="font-size:25px;"><?php echo number_format($v_content->price).' VND'; ?></span></td>
                         <td class="form-td"><span style="font-size:25px;">
                             <?php
-                            
                             $sum_qty_pro=0;
                             if($v_content->qty<20){ 
                                 foreach ($content as $key_2 => $v_content_2) {
                                    if(($v_content->id==$v_content_2->id)&&($key_1!=$key_2))
                                    { 
-                                        $sum_qty_pro+=$v_content->qty+$v_content_2->qty;
-                                            
+                                        $sum_qty_pro+=$v_content->qty+$v_content_2->qty;      
                                    } 
                                 }   
                                 if($sum_qty_pro>=20){
-                                        $ck_sp=$v_content->options->chiet_khau;
-                                          
-                                         
+                                        $ck_sp=$v_content->options->chiet_khau;     
                                 }else{ $ck_sp=0;}
                             }
                             else{
@@ -64,16 +60,12 @@
                                 
                                 $ck_sp=$v_content->options->chiet_khau;
                             }
-                            
-                                echo $ck_sp.'%';
-                               
-                              
-                        
+                                echo $ck_sp.'%';   
                             ?>
-                                
                             </span></td>
-                        <td class="form-td"><span><form action="{{URL::to('/update-qty-cart')}}" method="POST">
-                                    @csrf
+                        <td class="form-td"><span>
+                            <form action="{{URL::to('/update-qty-cart')}}" method="POST">
+                                @csrf
                                 <input class="textbot-update" type="textbox" name="cart_quantity" value="{{$v_content->qty}}">
                                 <input type="hidden" name="rowId_cart" value="{{$v_content->rowId}}" >
                                 <button class="button-update">update</button> 
@@ -191,8 +183,8 @@
                             echo number_format($thanhtien+$mony_deli); ?></b><p>VND</p></span></li>
                             <li style="color:red;">Tiền Cọc<span><b>
                             <?php
-                                if($sum_qty>=40){
-                                    $prepayment=$thanhtien*(30/100);
+                                if($thanhtien>10000000){
+                                    $prepayment=5000000;
                                 }else{
                                     $prepayment=0;
                                 }

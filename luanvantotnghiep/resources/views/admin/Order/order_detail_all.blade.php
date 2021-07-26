@@ -54,7 +54,7 @@
                                 </tr>
                                 <tr>
                                     <td>Ngày Đặt Hàng</td>
-                                    <td>{{$cus_id->ngdat}}</td>
+                                    <td><?php echo  date('d-m-Y',strtotime($cus_id->ngdat))?></td>
                                 </tr>
                                 <tr>
                                     <td>Ngày Giao Hàng</td>
@@ -131,9 +131,11 @@
                                         }elseif($order_de_id->trang_thai==1){
                                             echo '<option value="1">Đã lấy hàng</option>';
                                         }elseif($order_de_id->trang_thai==2){
-                                            echo '<option value="1">Đang Giao</option>';
+                                            echo '<option value="2">Đang Giao</option>';
                                         }elseif($order_de_id->trang_thai==3){
                                             echo '<option value="3">Đã Nhận</option>';
+                                        }elseif($order_de_id->trang_thai==4){
+                                            echo '<option value="4">Hủy Đơn</option>';
                                         }
                                          
                                          ?>
@@ -144,65 +146,7 @@
                                    
                                 </tr>
                             <?php endforeach ?>
-                            <tr>
-                                <?php foreach ($order_id as $key => $value_or): ?>
-                                <td colspan="1"><b class="text-red">Tiền Trả Trước</b></td>
-                                <td colspan="1">
-                                <b class="text-red" style="font-size :25px;color:red">
-                                <?php $tiencoc=$value_or->tien_coc; 
-                                echo number_format($tiencoc).''.'vnd';?></b>
-                                </td>
-                                <td colspan="1"><b>Tổng Tiền</b></td>
-                                <td colspan="3"><b class="text-red" style="font-size :25px;color:red"> 
-                                    <?php $tong_tt=$value_or->tong_tt-$tiencoc;
-                                    echo number_format($tong_tt).''.'vnd';?></b></td>
-                                    <?php $ma_ddh=$value_or->ma_ddh; ?>
-                                <?php endforeach ?>
-                            </tr>  
-                                <?php foreach ($delivery_id as $key => $value_dn): ?>
-                            <tr>
-                                <td colspan="1"><b class="text-red">Số Lần Còn Giao</b></td>
-                                <td colspan="1">
-                                <b class="text-red" style="font-size :25px;color:red">
-                                    <?php 
-                                        if ($value_dn->tienconlai>0) {
-                                            echo "Còn 1 lần";
-                                        }elseif($value_dn->tienconlai==0){
-                                            echo "Đã Hoàn Thành";
-                                        }
-                                     ?>
-                                 </b>
-                                </td>
-                                <td colspan="1"><b>Số Tiền Còn Lại</b></td>
-                                <td colspan="3">
-                                    <b class="text-red" style="font-size :25px;color:red"> 
-                                     <?php if (isset($value_dn->tienconlai)) {
-                                                $tien_tt=$value_dn->tienconlai;
-                                            echo number_format($tien_tt);
-                                        }?>    
-                                    </b>
-                                </td>
-                                    
-                                
-                            </tr>
-                                <?php endforeach ?>
                             </tbody>
-                            <td class="giao">
-                                <form action="{{URL::to('/save-delivery-notes/'.$ma_ddh)}}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="ma_ddh_h" value="<?php echo $ma_ddh; ?>">
-                                    <input type="hidden" name="email_h" value="<?php echo $email_ad; ?>">
-                                    <?php 
-                                    if (isset($tien_tt)) {
-                                        echo '<input type="hidden" name="tiencoc_h" value="0">';
-                                        echo '<input type="hidden" name="tong_tt_h" value="'.$tien_tt.'">';
-                                    }else{
-                                     echo '<input type="hidden" name="tiencoc_h" value="'.$tiencoc.'">';
-                                     echo '<input type="hidden" name="tong_tt_h" value="'.$tong_tt.'">';
-                                    }?>
-                                    <button>Giao</button>
-                                </form>
-                            </td>
                         </table>
                         <?php 
                                     $message_ct=Session::get('message_ct');

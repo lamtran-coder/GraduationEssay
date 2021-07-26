@@ -120,6 +120,7 @@
                          }
 
                         ?>
+                          <?php echo '<li style="font-size:100%">('.$dem.')</li>' ?>
                         </ul>
                             </a>
 

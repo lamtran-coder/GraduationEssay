@@ -263,7 +263,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
         <div class="search-product" >
             <form class="form-search-sp " action="{{URL::to('/ke-hang')}}" method="get">
-                <input type="text" class="input-search" name="keywords_submit" placeholder="nhập từ khóa"> 
+                <input type="text" class="input-search" name="keywords_submit" placeholder="nhập tên sản phẩm, danh mục, thiết kế, chất liệu,..."> 
             </form>
         </div>
        </div>

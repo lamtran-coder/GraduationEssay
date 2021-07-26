@@ -227,4 +227,7 @@ select.dogMenu {
 input#btn-dashboard-filter:hover {
     background: #ed6c25;
 }
-
+::placeholder {
+  color: blue;
+  font-size: 1.5em;
+}

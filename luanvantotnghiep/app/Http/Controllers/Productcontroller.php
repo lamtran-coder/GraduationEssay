@@ -57,8 +57,11 @@ class Productcontroller extends Controller
             $all_product=DB::table('san_pham')->paginate(10);
         }
         $img_id=DB::table('hinh_anh')->get();
-        $manager_product=view('admin.Product.product_all')->with('all_product',$all_product)->with('img_id',$img_id);
-        return view('admin_layout')->with('admin.Product.product_all',$manager_product);
+        $so_lg_id=DB::table('chi_tiet_san_pham')->get();
+        $manager_product=view('admin.Product.product_all')->with('all_product',$all_product)->with('img_id',$img_id)->with('so_lg_id',$so_lg_id);
+        return view('admin_layout')
+        ->with('admin.Product.product_all',$manager_product)
+        ;
         
     }
     public function save_product(Request $request){
@@ -92,7 +95,6 @@ class Productcontroller extends Controller
         $data['ma_sp']=$result;
         $data['ten_sp']=$request->product_name;
         $data['mo_ta']=$request->product_desc;
-        $data['solg_sp']=0;
         $data['gia_goc']=$request->corner_price;
         $data['gia_sale']=$request->sale_pricee;
         $data['trang_thai']=1;
@@ -436,7 +438,28 @@ class Productcontroller extends Controller
 
 
     }
-    
+    //hien thị số lượng sản phẩm 
+    public function solg_sanpham(Request $request){
+        $mau=$request->radiocolor;
+        $size=$request->radiosize;
+        $key=$request->key;
+        $solg_sp=DB::table('chi_tiet_san_pham')
+        ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
+        ->where('chi_tiet_san_pham.ma_size',$size)
+        ->where('mau.ten_mau',$mau)
+        ->where('chi_tiet_san_pham.ma_sp',$key)
+        ->get();
+        $output='tạm hết hàng';
+        foreach ($solg_sp as $key => $value) {
+            if ($value->so_lg>0) {
+                $output='<ladel>Số Lượng Tồn : '.$value->so_lg.'</ladel>';
+            }else{
+                $output='tạm hết hàng';
+            }
+        }
+        echo($output);
+
+    }
     //bình luận
     public function load_comment(Request $request){
         $ma_sp=$request->ma_sp;

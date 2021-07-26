@@ -43,7 +43,7 @@
                     <?php foreach ($content as $key_1 => $v_content): ?>  
                     <tbody class="from-table">
                       <tr class="form-tr">
-                        <td class="form-td"><a style="font-size: 135%;" href="{{URL::to('/product-details/'.$v_content->id)}}">{{$v_content->id}}<hr>{{$v_content->name}}</a></td>
+                        <td class="form-td"><a  href="{{URL::to('/product-details/'.$v_content->id)}}">{{$v_content->id}}<hr>{{$v_content->name}}</a></td>
                         <td class="form-td"><a href="{{URL::to('/product-details/'.$v_content->id)}}"><img  width="150px" height="150px" src="{{URL::to('public/uploads/product/'.$v_content->options->anh)}}" alt=""></a></td>
                         <td class="form-td"><span style="font-size: 135%;">{{$v_content->options->ma_size}}<hr>{{$v_content->options->ten_mau}}
                         </span></td>
@@ -70,23 +70,19 @@
                         <td class="form-td"><span>
                             <form action="{{URL::to('/update-qty-cart')}}" method="POST">
                                     @csrf
-                                <input class="textbot-update" type="textbox" name="cart_quantity" value="{{$v_content->qty}}">
+                                <input class="textbot-update" type="number" name="cart_quantity" value="{{$v_content->qty}}" min="1" max="<?php echo $v_content->options->so_lg; ?>">
                                 <input type="hidden" name="rowId_cart" value="{{$v_content->rowId}}" >
                                 <button class="button-update">update</button> 
                             </form>
-        
-                            <?php 
-                                if ($v_content->qty>$v_content->options->so_lg) {
-                                    echo '<hr><p style="color:red;">Không đủ số lượng : <br>'.$v_content->qty.'/'.$v_content->options->so_lg.'<p>
-                                    <br><p>Thời gian chờ dài</p>';
-                                }
-                            ?>
 
                         </span></td>
-                        <td class="form-td"><span style="font-size:25px;"><?php 
+                        <td class="form-td"><span style="font-size:25px;">
+                            <?php
+                            
                             $subTotal=($v_content->price*$v_content->qty)*(100-$ck_sp)/100;
                             $Sum_mony+=$subTotal;
                             echo number_format($subTotal).''.'vnd';
+                            
                              ?></span></td>
                         <td class="form-td"><a href="{{URL::to('/delete-to-cart/'.$v_content->rowId)}}"><i class="fa fa-trash fa-trash-styling"></i></a></td>
                       </tr>

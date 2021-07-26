@@ -2,16 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 //-------------------------------forntend---------------------------------------------------
 //Trang-Chu
 Route::get('/', 'Homecontroller@index');
@@ -72,7 +62,6 @@ Route::post('/update-qty-cart','Cartcontroller@update_qty_cart');
 
 
 //Trang Thông Tin Giao Hang
-// Route::get('/show-checkout','UserController@all_customers_user');
 Route::get('/show-checkout','Checkoutcontroller@show_checkout');
 //-----------------Xóa Khách Hàng Nhận
 Route::get('/delete-checkout-kh/{ma_kh}','Checkoutcontroller@delete_checkout_kh');
@@ -80,13 +69,15 @@ Route::get('/delete-checkout-kh/{ma_kh}','Checkoutcontroller@delete_checkout_kh'
 Route::post('/save-checkout-kh','Checkoutcontroller@save_checkout_kh');
 //Trang thanh toán
 Route::get('/payment','Checkoutcontroller@payment');
-
-
-
+//Trang Đặt Hàng
 Route::get('/new-order','Ordercontroller@new_order');
 Route::post('/save-order','Ordercontroller@save_order');
+//Trang hiển Thị Đơn Đặt Hàng
 Route::get('/show-order/{user_id}','Ordercontroller@show_order');
-
+//Hủy Đơn Đặt Hàng
+Route::get('/delete-order-now/{ma_ddh}','Ordercontroller@delete_order_now');
+//Trang hiển Thị Chi Tiết Đơn Đặt Hàng
+Route::get('/order-detail-view/{ma_ddh}','Ordercontroller@order_detail_view');
 
 //bachend
 Route::get('/admin','Admincontroller@index');
@@ -146,19 +137,10 @@ Route::post('/save-images-product','Productcontroller@save_images_product');
 //đơn đặt hàng
 Route::get('/all-order','Ordercontroller@all_order_product');
 Route::get('/order-details/{ma_ddh}','Ordercontroller@order_details');
-
+Route::get('/update-recieve/{ma_ddh}','Ordercontroller@update_recieve');
 //chi tiết đơn đặt hàng
-Route::get('/order-detail-view/{ma_ddh}','Ordercontroller@order_detail_view');
-Route::post('/update-status-od/{so_ct}','Ordercontroller@update_status_order_detail');
-//Phiếu giao hàng
-Route::post('/save-delivery-notes/{ma_ddh}','Deliverynotescontroller@save_delivery_notes');
-Route::get('/all-delivery-notes','Deliverynotescontroller@all_delivery_notes');	
-// chi tiết phiếu giao
-Route::get('/deliverynotes-detail/{ma_pg}','Deliverynotescontroller@deliverynotes_detail');
-Route::get('/unactive-delivery/{ma_pg}','Deliverynotescontroller@unactive_delivery');
 
-// in chi tiet phieu giao
-Route::get('/print-deliverynotes/{checkout_code}','Deliverynotescontroller@print_order');	
+Route::post('/update-status-od/{so_ct}','Ordercontroller@update_status_order_detail');	
 
 
 	//chi tiet sản phẩm

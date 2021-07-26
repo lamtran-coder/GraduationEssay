@@ -12,12 +12,13 @@
     <div class="status-order">
         <ul>
             <form>
-            @csrf
+                @csrf
                 <a href="{{URL::to('/show-order/'.$user_id)}}"><li class="color5" >Tất Cả</li></a>
                 <a href="{{Request::url()}}?status=0"><li class="color1" >Đang Chờ Xử lý</li></a>
                 <a href="{{Request::url()}}?status=1"><li class="color2" >Đang Lấy Hàng</li></a>
                 <a href="{{Request::url()}}?status=2"><li class="color3" >Đang Giao</li></a>
                 <a href="{{Request::url()}}?status=3"><li class="color4" >Đã Nhận</li></a>
+                <a href="{{Request::url()}}?status=4"><li class="color4" >Đơn Hủy</li></a>
             </form>
         </ul>
     </div>
@@ -54,21 +55,20 @@
                             	{{$value_user->sodt}}<hr>
                             	{{$value_user->diachi}}
                             </td> 
-                            <td class="form-td">
+                            <td class="form-td" style="font-weight: bold;">
                                 <?php 
-                                if ($value_user->trangthai==0) {
-                                    echo'<b style="color:black">Đang xử lý</b>';
-                                }elseif($value_user->trangthai==1){
+                                if ($value_user->trangthai==0) {?>
+                                    <b style="font-weight: bold;">Đang xử lý</b><hr>
+                                    <a href="{{URL::to('/delete-order-now/'.$value_user->ma_ddh)}}" onclick="return confirm('bạn muốn xóa đơn hàng này?')">Hủy Đơn</a>
+                                 <?php  }elseif($value_user->trangthai==1){
                                     echo'<b style="color:yellow">Đang Lấy Hàng</b>';
                                 }elseif($value_user->trangthai==2){
-                                    echo'<b style="color:mediumblue">Đang Giao Hàng</b>';
+                                    echo'<b style="color:mediumblue">Đang Giao</b>';
                                 }elseif($value_user->trangthai==3){
-                                    echo'<b style="color:red">Đã Nhận 1 phần</b>';
-                                }elseif($value_user->trangthai==4){
                                     echo'<b style="color:red">Đã Nhận</b>';
+                                }elseif($value_user->trangthai==4){
+                                    echo'<b style="color:red">Đã Hủy</b>';
                                 }
-
-                         
                                 ?>
 
                             </td>

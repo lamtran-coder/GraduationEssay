@@ -60,7 +60,7 @@
             </th>
             <th>Mã sản phẩm<br>Tên sản phẩm</th>
             <th>Hình ảnh</th>
-            <th>Số lượng</th>
+          
             <th>Mô tả</th>
             <th>Giá góc</th>
             <th>Giá sale</th>
@@ -89,7 +89,7 @@
               }
                ?>
              </a>
-            <td><span class="text-ellipsis">{{$value_pro->solg_sp}}</span></td>
+            
             <td><span class="text-ellipsis" id="AnHien{{$key_pro}}">{{$value_pro->mo_ta}}</span>
                  <script>
                   $(document).ready(function(){
@@ -105,14 +105,15 @@
             <td><span class="text-ellipsis"><?php echo number_format($value_pro->gia_goc); ?></span></td>
             <td><span class="text-ellipsis"><?php echo number_format($value_pro->gia_sale); ?></span></td>
             <td><span class="text-ellipsis">
-               <?php
-
-                if($value_pro->solg_sp==0){
-                  echo "Tạm hết hàng";
-                }else{
-                  echo "còn sản phẩm";
+              <?php 
+              $sum_solg=0;
+                foreach ($so_lg_id as $key => $val_del) {
+                  if ($val_del->ma_sp==$value_pro->ma_sp) {
+                    $sum_solg+=$val_del->so_lg;
+                  }
                 }
-                ?>
+                echo $sum_solg;
+               ?>
             </span></td>
             <td><span class="text-ellipsis">{{$value_pro->chiet_khau}}%</span></td>
             <td><span class="text-ellipsis">{{$value_pro->ma_dm}}</span></td>

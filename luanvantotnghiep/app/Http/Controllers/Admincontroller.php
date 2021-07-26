@@ -102,7 +102,7 @@ class Admincontroller extends Controller
             session::put('diachi',$result->diachi);
             return Redirect::to('/dashboard');}
         else{
-            session::put('message','Mật khẩu hoặc email sai. Vui lòng nhập lại');
+            session::put('message_login','Mật khẩu hoặc email sai. Vui lòng nhập lại');
             return Redirect::to('/admin');
         }
         
@@ -160,6 +160,8 @@ class Admincontroller extends Controller
         $data=$request->all();
         $from_date=$data['from_date'];
         $to_date=$data['to_date'];
+        $from_date=date('Y-m-d',strtotime($from_date));
+        $to_date=date('Y-m-d',strtotime($to_date));
         $get=DB::table('don_dat_hang')
         ->selectRaw('sum(solg_sp)as solg, sum(tong_tt)as banhang, count(ngdat)as tongdon,Sum(phigiao)as phivanchuyen , ngdat')
         ->groupBy('ngdat')

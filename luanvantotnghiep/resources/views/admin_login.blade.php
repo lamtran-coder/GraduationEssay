@@ -33,7 +33,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<h2>Đăng nhập</h2>
 		<ul class="alert text-danger"> 
 			<?php 
-			$message=Session::get('message');
+			$message=Session::get('message_login');
 			if($message){
 				echo '<li>'.$message.'</li>';
 				Session::put('message',null);

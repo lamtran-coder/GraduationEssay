@@ -43,12 +43,6 @@ class Detail_productcontroller extends Controller
         $data['ma_size']=$request->ct_size;
         $data['so_lg']=$request->solg_sp;
         $solg_update=DB::table('san_pham')->get();
-            foreach ($solg_update as $key => $value) {
-                if($value->ma_sp==$result){
-                    $sum_sl['solg_sp']=$value->solg_sp+$request->solg_sp;
-                    DB::table('san_pham')->where('ma_sp',$result)->update($sum_sl);
-                }
-            }
         DB::table('chi_tiet_san_pham')->insert($data);
         Session::put('message','Thêm chi tiet sản phẩm thành công');
         $result=$_SERVER['HTTP_REFERER'];
@@ -72,16 +66,6 @@ class Detail_productcontroller extends Controller
                            
             }
         }
-        $product_id=DB::table('san_pham')->where('ma_sp',$ma_sp)->get();
-        foreach ($product_id as $key => $value_pro) {
-            if ($value_pro->ma_sp==$ma_sp) {
-                $sum['solg_sp']=$so_lg+$value_pro->solg_sp;
-                DB::table('san_pham')
-                ->where('ma_sp',$ma_sp)
-                ->update($sum);
-            }
-        }       
-
         $result=$_SERVER['HTTP_REFERER'];
         return Redirect::to($result);
     }

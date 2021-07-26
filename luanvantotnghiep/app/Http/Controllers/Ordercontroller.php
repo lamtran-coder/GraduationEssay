@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Session;
 use Cart;
-use Carbon;
+use Carbon\Carbon;
 use PDF;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
@@ -111,18 +111,6 @@ class Ordercontroller extends Controller
                     ->where('ma_mau',$value_det_pro->ma_mau)->update($Sub_detail_sp);
                 }
             }
-            $product_id=DB::table('san_pham')->get();
-            //cập nhật số lượng sản phẩm bên bảng sản phẩm
-            foreach ($product_id as $key => $value_pro) {
-                if ($value_pro->ma_sp==$v_content->id) 
-                {
-                    $Sub_sp['solg_sp']=$value_pro->solg_sp-$v_content->qty;
-                    DB::table('san_pham')
-                    ->where('ma_sp',$value_pro->ma_sp)
-                    ->update($Sub_sp);
-                }
-            }
-            
         }     
         return Redirect::to('/show-order/'.$user_id); 
 
@@ -210,6 +198,13 @@ class Ordercontroller extends Controller
          ;
 
     }
+    //hủy đơn Đặt hàng
+    public function delete_order_now($ma_ddh){
+        DB::table('don_dat_hang')->where('ma_ddh',$ma_ddh)->update(['trangthai'=>4]);
+        DB::table('chi_tiet_don_hang')->where('ma_ddh',$ma_ddh)->update(['trang_thai'=>4]);
+        $result=$_SERVER['HTTP_REFERER'];
+        return Redirect::to($result);
+    }
 
 
 
@@ -227,8 +222,8 @@ class Ordercontroller extends Controller
         if (isset($_GET['date_star'])&&isset($_GET['date_end'])){
             $date_star = $_GET['date_star'];
             $date_end = $_GET['date_end'];
-            $date_star=date('d-m-Y',strtotime($date_star));
-            $date_end=date('d-m-Y',strtotime($date_end));
+            $date_star=date('Y-m-d',strtotime($date_star));
+            $date_end=date('Y-m-d',strtotime($date_end));
             $all_oder=DB::table('don_dat_hang')
             ->where('ngdat','>=',$date_star)
             ->where('ngdat','<=',$date_end)
@@ -240,8 +235,6 @@ class Ordercontroller extends Controller
             ->where('trangthai',$status_od)
             ->orderby('ngdat','ASC')
             ->paginate(10);
-        }elseif(isset($_GET['status_od'])&&($_GET['status_od']==5)){
-            $all_oder=DB::table('don_dat_hang')->orderby('ngdat','ASC')->paginate(10);
         }
         elseif(isset($_GET['keywords_search'])){
             $keywords=$_GET['keywords_search'];
@@ -253,15 +246,15 @@ class Ordercontroller extends Controller
             ->orderby('ngdat','ASC')->paginate(10);
         }
         else{
-        $all_oder=DB::table('don_dat_hang')->orderby('ngdat','ASC')->paginate(10);
+        $now = Carbon::now('Asia/Ho_Chi_minh')->toDateString();
+        $all_oder=DB::table('don_dat_hang')
+                    ->orderby('ngdat','desc')
+                    ->where('trangthai','0')
+                    ->where('ngdat',$now)
+                    ->paginate(10);
         }
         $all_cus=DB::table('khach_hang')->get();
-        //nhiệm vụ hàng ngày
-        // $date_dh=date('Y-m-d');
-        // $date_dh=date('d-m-Y',strtotime($date_dh));
-        // $delivery_date=DB::table('phieu_giao')->where('nggiao',$date_dh)->where('trangthai','0')->get();
         return view('admin.Order.order_product_all')
-        //->with('delivery_date',$delivery_date)
         ->with('all_cus',$all_cus)
         ->with('all_oder',$all_oder);
     }
@@ -282,15 +275,12 @@ class Ordercontroller extends Controller
         ->get();
         $order_id = DB::table('don_dat_hang')->where('ma_ddh',$ma_ddh)->get();
         $admin_id = DB::table('admin')->where('vi_tri','GH')->get();
-        $delivery_id=DB::table('phieu_giao')
-        ->where('ma_ddh',$ma_ddh)->orderby('tienconlai','desc')->get();
         
         return view('admin.Order.order_detail_all')
         ->with('customer_id',$customer_id)
         ->with('order_detail_id',$order_detail_id)
         ->with('order_id',$order_id)
         ->with('admin_id',$admin_id)
-        ->with('delivery_id',$delivery_id)
         ;
        
     }
@@ -299,7 +289,25 @@ class Ordercontroller extends Controller
         $result=$request->ma_ddh_od;
         $data['trang_thai']=$request->status_od;
         DB::table('chi_tiet_don_hang')->where('so_ct',$so_ct)->update($data);
+
+        $detail_order_id=DB::table('chi_tiet_don_hang')->where('ma_ddh',$result)->get();
+        $dem_0=0;
+        foreach ($detail_order_id as $key => $val_oder) {
+            if ($val_oder->trang_thai==0) {
+                $dem_0++;
+            }
+        }
+        if (($dem_0>0)) {
+            DB::table('don_dat_hang')->where('ma_ddh',$result)->update(['trangthai'=>1]);
+        }else{
+            DB::table('don_dat_hang')->where('ma_ddh',$result)->update(['trangthai'=>2]);
+        }
        return Redirect::to('/order-details/'.$result);
+    }
+    public function update_recieve($ma_ddh){
+        DB::table('don_dat_hang')->where('ma_ddh',$ma_ddh)->update(['trangthai'=>3]);
+        DB::table('chi_tiet_don_hang')->where('ma_ddh',$ma_ddh)->update(['trang_thai'=>3]);
+        return Redirect::to('/all-order?status_od=3');
     }
     
 

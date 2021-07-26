@@ -10,32 +10,28 @@
     <div class="row w3-res-tb ">
       <div class="col-sm-3">
       <form>
-        <div class="input-group">
-          <input type="text" class="input-sm form-control" name="keywords_search">
-          <span class="input-group-btn">
-          <button class="btn btn-sm btn-default" type="button">Tìm</button>
-          </span>
-        </div>
+        <input type="text" style="width: 170px;" name="keywords_search" placeholder="Nhập Mã Đơn Đặt Hàng , tên khách hàng">
+          <button>Tìm</button>
       </form>
       </div>
       <div class="col-sm-6" >
         <form style="display:flex;">
         <span>Từ</span>: 
-          <input name="date_star" type="date">
+          <input name="date_star" type="text" id="date_star" class="form-control" style="width:100px" value="{{old('date_star')}}">
           <span>Đến</span>:
-          <input name="date_end" type="date">
+          <input name="date_end" type="text" id="date_end" class="form-control" style="width:100px" value="{{old('date_end')}}">
          <button >Tìm</button>
         </form>
+        
       </div>
       <div class="col-sm-3">
         <form style="display:flex;">
           <select name="status_od" class="form-control" style="width: 200px;">
-          <option value="5">Hiện Thị Tất Cả</option>
           <option value="0">Đang Xử Lý</option>
           <option value="1">Đang Lấy Hàng</option>
-          <option value="2">Đã Lấy Xong</option>
-          <option value="3">Chưa Giao Hết</option>
-           <option value="4">Đã Hoàn Thành</option>
+          <option value="2">Đang Giao</option>
+          <option value="3">Đã nhận</option>
+          <option value="4">Đơn hủy</option>
           </select>
         <button>Tìm</button>
         </form>
@@ -96,13 +92,17 @@
                           }elseif($value_oder->trangthai==1){
                             echo '<span style="color:#6AF3D6;">Đang lấy hàng</span>';
                           }elseif($value_oder->trangthai==2){
-                            echo '<span style="color:#1A5FC6;">Đã Lấy Xong</span>';
+                          ?>
+                           <a href="{{URL::to('/update-recieve/'.$value_oder->ma_ddh)}}"><span style="color:blue;font-weight: 800;">Đang Giao</span></a>
+                          <?php
                           }elseif($value_oder->trangthai==3){
-                            echo '<span style="color:#E19712;">Chưa Giao Hết</span>';
+                            echo '<span style="color:#E19712;">Đã nhận</span>';
                           }elseif($value_oder->trangthai==4){
-                            echo '<span style="color:red;">Đã Hoàn Thành</span>';
+                            echo '<span style="color:red;">Hủy Đơn</span>';
                           }
+
                         ?>
+
             </span></td>
                 <td><a href="{{URL::to('/order-details/'.$value_oder->ma_ddh)}}" class="active styling-edit" ui-toggle-class="">
                <i class="fa fa-search" style="font-size: 30px;"></i></a>
@@ -129,6 +129,26 @@
     </footer>
   </div>
 </div>
+<script type="text/javascript">
+           $( function() {
+            $( "#date_star" ).datepicker({
+                prevText:"Tháng Trước",
+                 nextText:"Tháng Sau", 
+                 dateFormat:"dd-mm-yy",
+                  dayNamesMin:['Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7','Chủ Nhật'], 
+                  duration:"show"
+            });
+          } );
+          $( function() {
+            $( "#date_end" ).datepicker({
+                prevText:"Tháng Trước",
+                 nextText:"Tháng Sau", 
+                 dateFormat:"dd-mm-yy",
+                  dayNamesMin:['Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7','Chủ Nhật'], 
+                  duration:"show"
+            });
+          } );
+        </script>
 </section>
 </section>
 @endsection
