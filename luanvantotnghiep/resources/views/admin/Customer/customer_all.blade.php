@@ -8,52 +8,91 @@
       Danh sách khách hàng
     </div>
     <div class="row w3-res-tb">
-      <div class="col-sm-4">
-        <?php if (isset($_GET['keywords_search'])): ?>
-            <span style="color:red;font-size: 20px;padding-left: 30px;font-weight: bolder;">Từ Khóa: <?php echo $result=$_GET['keywords_search']; ?></span>
-        <?php endif ?>
-      </div>
-      <div class="col-sm-3">
-        <?php if (isset($_GET['keywords_search'])): ?>
-        <a href="{{URL::to('/all-customer')}}" style="color:red;font-size: 20px;padding-left: 30px;font-weight: bolder;">Hiện Tất Cả</a>
-        <?php endif ?>
-      </div>
-       <form >
         <div class="col-sm-4">
+        <form >
           <div class="input-group">
-            <input type="text" class="input-sm form-control" name="keywords_search" placeholder="nhập từ khóa">
+            <input type="text" class="input-sm form-control" name="keywords_search" placeholder="nhập tên, số điện thoại, email, địa chỉ ">
             <span class="input-group-btn">
               <button class="btn btn-sm btn-default" type="button">Tìm</button>
             </span>
           </div>
+        </form>
         </div>
-      </form>
+      <div class="col-sm-4">
+        
+      </div>
     </div>
     <div class="table-responsive">
       <table class="table table-striped b-t b-light">
         <thead>
-          <tr>
-            <th style="width:20px;">
-              <label class="i-checks m-b-none">
-                <input type="checkbox"><i></i>
-              </label>
+          <tr class="thanhloc">
+          
+            <th>
+              <?php 
+              if (isset($_GET['Sap_Xep_Ten'])) {
+                $result=$_GET['Sap_Xep_Ten'];
+                if ($result=="A-Z") { ?>
+                <a style="color: #ff8181;" href="{{Request::url()}}?Sap_Xep_Ten=Z-A">Tên khách hàng&darr;</a>
+               <?php }elseif ($result=="Z-A"){?>
+               <a style="color: #ff8181;" href="{{Request::url()}}?Sap_Xep_Ten=A-Z">Tên khách hàng&uarr;</a>
+              <?php }}else{ ?>
+               <a href="{{Request::url()}}?Sap_Xep_Ten=A-Z">Tên khách hàng</a>
+              <?php  }?>
             </th>
-    
-            <th>Tên khách hàng</th>
-            <th>Email</th>
-            <th>So điện thoại</th>
-            <th>Địa chỉ</th>
-            <th>Tiền Đã Tiêu</th>
-            <th>Xem Người Nhận</th>
+            <th>
+               <?php 
+              if (isset($_GET['Sap_Xep_Email'])) {
+                $result=$_GET['Sap_Xep_Email'];
+                if ($result=="A-Z") { ?>
+                <a style="color: #ff8181;" href="{{Request::url()}}?Sap_Xep_Email=Z-A">Email&darr;</a>
+               <?php }elseif ($result=="Z-A"){?>
+               <a style="color: #ff8181;" href="{{Request::url()}}?Sap_Xep_Email=A-Z">Email&uarr;</a>
+              <?php }}else{ ?>
+               <a href="{{Request::url()}}?Sap_Xep_Email=A-Z">Email</a>
+              <?php  }?>
+            </th>
+            <th>
+              <?php 
+              if (isset($_GET['Sap_Xep_SDT'])) {
+                $result=$_GET['Sap_Xep_SDT'];
+                if ($result=="A-Z") { ?>
+                <a style="color: #ff8181;" href="{{Request::url()}}?Sap_Xep_SDT=Z-A">Số điện thoại&darr;</a>
+               <?php }elseif ($result=="Z-A"){?>
+               <a style="color: #ff8181;" href="{{Request::url()}}?Sap_Xep_SDT=A-Z">Số điện thoại&uarr;</a>
+              <?php }}else{ ?>
+               <a href="{{Request::url()}}?Sap_Xep_SDT=A-Z">Số điện thoại</a>
+              <?php  }?>
+            </th>
+            <th>
+              <?php 
+              if (isset($_GET['Sap_Xep_Dia_Chi'])) {
+                $result=$_GET['Sap_Xep_Dia_Chi'];
+                if ($result=="A-Z") { ?>
+                <a style="color: #ff8181;" href="{{Request::url()}}?Sap_Xep_Dia_Chi=Z-A">Địa chỉ&darr;</a>
+               <?php }elseif ($result=="Z-A"){?>
+               <a style="color: #ff8181;" href="{{Request::url()}}?Sap_Xep_Dia_Chi=A-Z">Địa chỉ&uarr;</a>
+              <?php }}else{ ?>
+               <a href="{{Request::url()}}?Sap_Xep_Dia_Chi=A-Z">Địa chỉ</a>
+              <?php  }?>
+            </th>
+            <th>
+              <?php 
+              if (isset($_GET['Tien_Tieu'])) {
+                $result=$_GET['Tien_Tieu'];
+                if ($result=="tang") { ?>
+                <a style="color: #ff8181;" href="{{Request::url()}}?Tien_Tieu=giam">Tiền Đã Tiêu&darr;</a>
+               <?php }elseif ($result=="giam"){?>
+               <a style="color: #ff8181;" href="{{Request::url()}}?Tien_Tieu=tang">Tiền Đã Tiêu&uarr;</a>
+              <?php }}else{ ?>
+               <a href="{{Request::url()}}?Tien_Tieu=tang">Tiền Đã Tiêu</a>
+              <?php  }?>
+            </th>
+            <th></th>
           </tr>
         </thead>
         <tbody  style="text-transform: none;">
           <?php foreach ($use_id as $key => $value_user): ?>
-            
-         
           <tr>
-            <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-           
             <td><span class="text-ellipsis">{{$value_user->ten_nd}}</span></td>
             <td><span class="text-ellipsis">{{$value_user->email}}</span></td>
             <td><span class="text-ellipsis">{{$value_user->sodt}}</span></td>
@@ -69,20 +108,7 @@
                   <button id="button{{$key}}">...</button>
             </td>
             <td><span class="text-ellipsis" style="color:red;font-size: 20px;">
-                <?php
-                 
-                $Sum_od=0;
-                foreach ($customer_id as $key => $val) {
-                  if ($value_user->email==$val->email) {
-                      foreach ($order_id as $key => $value_od) {
-                        if ($val->ma_kh==$value_od->ma_kh) {
-                          $Sum_od+=$value_od->tong_tt; 
-                        }
-                      }
-                  }
-                } 
-                echo number_format($Sum_od);
-                ?>
+                <?php echo number_format($value_user->sodatieu).' vnđ'; ?>
             </span></td>
             <td><a href="{{URL::to('/dia-chi-nhan/'.$value_user->email)}}"><i class="fa fa-search" style="font-size: 30px;"></i></a></td>
           </tr>
@@ -96,11 +122,11 @@
       <div class="row">
         
         <div class="col-sm-5 text-center">
-          <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+  
         </div>
         <div class="col-sm-7 text-right text-center-xs">                
           <ul class="pagination pagination-sm m-t-none m-b-none">
-            {{$use_id->links()}}
+            {{ $use_id->appends(Request::all())->links() }}
           </ul>
         </div>
       </div>

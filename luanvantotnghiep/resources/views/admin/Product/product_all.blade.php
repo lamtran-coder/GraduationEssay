@@ -8,66 +8,135 @@
       Liệt Kê Danh Sách sản phẩm
     </div>
    <div class="row w3-res-tb">
-    <div class="col-sm-4 m-b-xs">
-      <form style="display: flex;">
-        <select  name="option_product" class="form-control" style="width: 200px;">
-          <option value="tatca">Tất Cả</option>
-          <option value="tang">Giá Tăng Dần</option>
-          <option value="giam">Giá Giảm Dân</option>
-        </select>
-           <button  type="submit">Tìm</button>
-        </form>                
+    <div class="col-sm-4 m-b-xs">           
       </div>
-      <div class="col-sm-4">
-        <span style="font-size: 18px;font-weight: bold; text-transform: capitalize;">Tìm Kiếm Theo "</span><span style="color :red;font-weight: bold;">
-        <?php if (isset($_GET['option_product'])) {
-                  $result=$_GET['option_product'];
-                  if ($result=='tang') {
-                    echo "Giá Sale Tăng Dần";
-                  }elseif($result=='giam'){
-                    echo "Giá Sale Giảm Dần";
-                  }else{
-                    echo "Tất Cả";
-                  }
-              }elseif(isset($_GET['keywords_search'])){
-                echo $result=$_GET['keywords_search'];
-              }else{
-                echo "Tất Cả";
-              } 
-        ?> "
-        </span>
-      </div>
+      
+      <div class="col-sm-8">
        <form>
-      <div class="col-sm-4">
         <div class="input-group">
-          <input type="text" class="input-sm form-control"name="keywords_search">
+          <input type="text" class="input-sm form-control"name="keywords_search" placeholder="nhập mã sản phẩm, tên sản phẩm, mã danh mục" >
           <span class="input-group-btn">
-            <input type="button" class="btn btn-sm btn-default" value="Tìm">
+            <input type="button" class="btn btn-sm btn-default" value="Tìm" >
           </span>
          </div>
-        </div>
         </form>
+        </div>
       </div>
 
     <div class="table-responsive">
       <table class="table table-striped b-t b-light">
-        <thead style="font-size:15px">
-          <tr >
-            <th style="width:20px;">
-              <label class="i-checks m-b-none">
-                <input type="checkbox"><i></i>
-              </label>
+        <thead>
+          <tr class="thanhloc">
+            <th>
+              <?php 
+              if (isset($_GET['Sap_Xep_Ma'])) {
+                $result=$_GET['Sap_Xep_Ma'];
+                if ($result=="tang") { ?>
+                <a style="color: #ff8181;" href="{{Request::url()}}?Sap_Xep_Ma=giam">Mã sản phẩm&darr;</a>
+               <?php }elseif ($result=="giam"){?>
+               <a style="color: #ff8181;" href="{{Request::url()}}?Sap_Xep_Ma=tang">Mã sản phẩm&uarr;</a>
+              <?php }}else{ ?>
+               <a href="{{Request::url()}}?Sap_Xep_Ma=tang">Mã sản phẩm</a>
+              <?php  }?>
             </th>
-            <th>Mã sản phẩm<br>Tên sản phẩm</th>
-            <th>Hình ảnh</th>
+            <th>
+              <?php 
+              if (isset($_GET['Sap_Xep_Ten'])) {
+                $result=$_GET['Sap_Xep_Ten'];
+                if ($result=="A-Z") { ?>
+                <a style="color: #ff8181;" href="{{Request::url()}}?Sap_Xep_Ten=Z-A">Tên&darr;</a>
+               <?php }elseif ($result=="Z-A"){?>
+               <a style="color: #ff8181;" href="{{Request::url()}}?Sap_Xep_Ten=A-Z">Tên&uarr;</a>
+              <?php }}else{ ?>
+               <a href="{{Request::url()}}?Sap_Xep_Ten=A-Z">Tên</a>
+              <?php  }?>
+            </th>
+            <th>
+              <?php 
+              if (isset($_GET['Hinh'])) {
+                $result=$_GET['Hinh'];
+                if ($result=="khong") { ?>
+                <a style="color: #ff8181;" href="{{Request::url()}}?Hinh=co">Hình ảnh&darr;</a>
+               <?php }elseif ($result=="co"){?>
+               <a style="color: #ff8181;" href="{{Request::url()}}?Hinh=khong">Hình ảnh&uarr;</a>
+              <?php }}else{ ?>
+               <a href="{{Request::url()}}?Hinh=khong">Hình ảnh</a>
+              <?php  }?>
+            </th>
           
-            <th>Mô tả</th>
-            <th>Giá góc</th>
-            <th>Giá sale</th>
-            <th>Trang thái</th>
-            <th>Chiết khấu</th>
-            <th>Danh mục</th>
-            <th>Cài đặt</th>
+            <th style="width: 70px;">
+              <?php 
+              if (isset($_GET['Mo_Ta'])) {
+                $result=$_GET['Mo_Ta'];
+                if ($result=="tang") { ?>
+                <a style="color: #ff8181;" href="{{Request::url()}}?Mo_Ta=giam">Mô tả&darr;</a>
+               <?php }elseif ($result=="giam"){?>
+               <a style="color: #ff8181;" href="{{Request::url()}}?Mo_Ta=tang">Mô tả&uarr;</a>
+              <?php }}else{ ?>
+               <a href="{{Request::url()}}?Mo_Ta=tang">Mô tả</a>
+              <?php  }?>
+            </th>
+            <th>
+              <?php 
+              if (isset($_GET['Gia_Goc'])) {
+                $result=$_GET['Gia_Goc'];
+                if ($result=="tang") { ?>
+                <a style="color: #ff8181;" href="{{Request::url()}}?Gia_Goc=giam">Giá gốc&darr;</a>
+               <?php }elseif ($result=="giam"){?>
+               <a style="color: #ff8181;" href="{{Request::url()}}?Gia_Goc=tang">Giá gốc&uarr;</a>
+              <?php }}else{ ?>
+               <a href="{{Request::url()}}?Gia_Goc=tang">Giá gốc</a>
+              <?php  }?>
+            </th>
+            <th>
+              <?php 
+              if (isset($_GET['Gia_Sale'])) {
+                $result=$_GET['Gia_Sale'];
+                if ($result=="tang") { ?>
+                <a style="color: #ff8181;" href="{{Request::url()}}?Gia_Sale=giam">Giá sale&darr;</a>
+               <?php }elseif ($result=="giam"){?>
+               <a style="color: #ff8181;" href="{{Request::url()}}?Gia_Sale=tang">Giá sale&uarr;</a>
+              <?php }}else{ ?>
+               <a href="{{Request::url()}}?Gia_Sale=tang">Giá sale</a>
+              <?php  }?>
+            </th>
+            <th>
+              <?php 
+              if (isset($_GET['so_luong'])) {
+                $result=$_GET['so_luong'];
+                if ($result=="tang") { ?>
+                <a style="color: #ff8181;" href="{{Request::url()}}?so_luong=giam">Số lượng&darr;</a>
+               <?php }elseif ($result=="giam"){?>
+               <a style="color: #ff8181;" href="{{Request::url()}}?so_luong=tang">Số lượng&uarr;</a>
+              <?php }}else{ ?>
+               <a href="{{Request::url()}}?so_luong=tang">Số lượng</a>
+              <?php  }?>
+            </th>
+            <th>
+              <?php 
+              if (isset($_GET['chiet_khau'])) {
+                $result=$_GET['chiet_khau'];
+                if ($result=="tang") { ?>
+                <a style="color: #ff8181;" href="{{Request::url()}}?chiet_khau=giam">Chiết khấu&darr;</a>
+               <?php }elseif ($result=="giam"){?>
+               <a style="color: #ff8181;" href="{{Request::url()}}?chiet_khau=tang">Chiết khấu&uarr;</a>
+              <?php }}else{ ?>
+               <a href="{{Request::url()}}?chiet_khau=tang">Chiết khấu</a>
+              <?php  }?>
+            </th>
+            <th>
+               <?php 
+              if (isset($_GET['Danh_Muc'])) {
+                $result=$_GET['Danh_Muc'];
+                if ($result=="tang") { ?>
+                <a style="color: #ff8181;" href="{{Request::url()}}?Danh_Muc=giam">Danh mục&darr;</a>
+               <?php }elseif ($result=="giam"){?>
+               <a style="color: #ff8181;" href="{{Request::url()}}?Danh_Muc=tang">Danh mục&uarr;</a>
+              <?php }}else{ ?>
+               <a href="{{Request::url()}}?Danh_Muc=tang">Danh mục</a>
+              <?php  }?>
+            </th>
+            <th></th>
            
           </tr>
         </thead>
@@ -76,21 +145,16 @@
          	
          
           <tr>
-            <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-            <td><span class="text-ellipsis">{{$value_pro->ma_sp}}<hr>{{$value_pro->ten_sp}}</span></td>
+            
+            <td><span class="text-ellipsis">{{$value_pro->ma_sp}}</span></td>
+            <td><span class="text-ellipsis">{{$value_pro->ten_sp}}</span></td>
             <td><span class="text-ellipsis">
               <a href="{{URL::to('/add-images-product/'.$value_pro->ma_sp)}}">              
-              <?php
-              foreach ($img_id as $key => $value_img) {
-                if(($value_img->ma_sp==$value_pro->ma_sp)&&($value_img->goc_nhin==0)){
-
-                echo '<img src="public/uploads/product/'.$value_img->hinhanh.'" alt="" height="100px" width="100px"></span></td>';
-                }
-              }
-               ?>
+              <img src="{{URL::to('public/uploads/product/'.$value_pro->hinhanh)}}" alt="" height="100px" width="100px"></span></td>
              </a>
-            
-            <td><span class="text-ellipsis" id="AnHien{{$key_pro}}">{{$value_pro->mo_ta}}</span>
+          
+            <td>
+              <span class="text-ellipsis" id="AnHien{{$key_pro}}">{{$value_pro->mo_ta}}</span>
                  <script>
                   $(document).ready(function(){
                     $("#AnHien{{$key_pro}}").hide();
@@ -104,17 +168,7 @@
            
             <td><span class="text-ellipsis"><?php echo number_format($value_pro->gia_goc); ?></span></td>
             <td><span class="text-ellipsis"><?php echo number_format($value_pro->gia_sale); ?></span></td>
-            <td><span class="text-ellipsis">
-              <?php 
-              $sum_solg=0;
-                foreach ($so_lg_id as $key => $val_del) {
-                  if ($val_del->ma_sp==$value_pro->ma_sp) {
-                    $sum_solg+=$val_del->so_lg;
-                  }
-                }
-                echo $sum_solg;
-               ?>
-            </span></td>
+            <td><span class="text-ellipsis">{{$value_pro->solg}}</span></td>
             <td><span class="text-ellipsis">{{$value_pro->chiet_khau}}%</span></td>
             <td><span class="text-ellipsis">{{$value_pro->ma_dm}}</span></td>
               
@@ -142,8 +196,8 @@
               <div class="action">
               <a href="{{URL::to('/edit-product/'.$value_pro->ma_sp)}}" class="active styling-edit" ui-toggle-class="">
               <i class="fa fa-pencil-square-o text-success text-active"></i></a>
-              <a href="{{URL::to('/delete-product/'.$value_pro->ma_sp)}}" class="active styling-edit" ui-toggle-class="" onclick="return confirm('bạn muốn xóa sản phẩm này?')">
-              <i class="fa fa-times text-danger text"></i></a>    
+              <!-- <a href="{{URL::to('/delete-product/'.$value_pro->ma_sp)}}" class="active styling-edit" ui-toggle-class="" onclick="return confirm('bạn muốn xóa sản phẩm này?')">
+              <i class="fa fa-times text-danger text"></i></a>     -->
               </div>  
             </td>
           </tr>
@@ -162,7 +216,7 @@
         </div>
         <div class="col-sm-7 text-right text-center-xs">                
           <ul class="pagination pagination-sm m-t-none m-b-none">
-            {{  $all_product->links() }}
+          {{$all_product->appends(Request::all())->links() }}
           </ul>
         </div>
       </div>

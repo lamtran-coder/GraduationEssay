@@ -80,7 +80,7 @@
 			<div></div>
 	        <div class="pager styling-pager">   
 	           <div class="limiter visible-desktop">
-	                {{$all_product->links()}}
+	                {{$all_product->appends(Request::all())->links() }}
 	            </div>
 	        <ul class="styling-pager" >
 	        	<?php 
@@ -108,11 +108,9 @@
 	        		}
 	        	 ?>
 	        </ul>	
-		   <div class="clear"></div>
-
-	       	
-	    	 </div>
-	    		<div class="clear"></div>
+		    <div class="clear"></div>
+	    	</div>
+	    <div class="clear"></div>
        </div>
 	<div class="box1">
 	<?php foreach ($all_product as $key => $value_pro): ?>
@@ -187,7 +185,7 @@
 	    </div>
 	 <?php endforeach ?>
 	  <div class="clear"></div>
-	  <ul>{{$all_product->links()}}</ul>
+	  <ul>{{$all_product->appends(Request::all())->links() }}</ul>
   	</div>
 	</div>
 

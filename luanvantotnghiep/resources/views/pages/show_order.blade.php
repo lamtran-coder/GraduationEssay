@@ -12,13 +12,13 @@
     <div class="status-order">
         <ul>
             <form>
-                @csrf
+            @csrf
                 <a href="{{URL::to('/show-order/'.$user_id)}}"><li class="color5" >Tất Cả</li></a>
-                <a href="{{Request::url()}}?status=0"><li class="color1" >Đang Chờ Xử lý</li></a>
-                <a href="{{Request::url()}}?status=1"><li class="color2" >Đang Lấy Hàng</li></a>
+                <a href="{{Request::url()}}?status=0"><li class="color1" >Chờ Xác Nhận</li></a>
+                <a href="{{Request::url()}}?status=1"><li class="color2" >Chờ Lấy Hàng</li></a>
                 <a href="{{Request::url()}}?status=2"><li class="color3" >Đang Giao</li></a>
-                <a href="{{Request::url()}}?status=3"><li class="color4" >Đã Nhận</li></a>
-                <a href="{{Request::url()}}?status=4"><li class="color4" >Đơn Hủy</li></a>
+                 <a href="{{Request::url()}}?status=3"><li class="color4" >Đã Giao</li></a>
+                <a href="{{Request::url()}}?status=4"><li class="color2" >Đơn Hủy</li></a>
             </form>
         </ul>
     </div>
@@ -44,7 +44,7 @@
 							
                         <tr class="form-tr">
                             <td class="form-td" style="height:100px">{{$value_user->ma_ddh}}</td>
-                            <td class="form-td">{{$value_user->ngdat}}</td>
+                            <td class="form-td"><?php echo date('d-m-Y',strtotime($value_user->ngdat)); ?></td>
                             
                             <td class="form-td">{{$value_user->solg_sp}} SP</td>
                             
@@ -55,20 +55,23 @@
                             	{{$value_user->sodt}}<hr>
                             	{{$value_user->diachi}}
                             </td> 
-                            <td class="form-td" style="font-weight: bold;">
+                            <td class="form-td" style="font-weight: 800;">
                                 <?php 
                                 if ($value_user->trangthai==0) {?>
-                                    <b style="font-weight: bold;">Đang xử lý</b><hr>
-                                    <a href="{{URL::to('/delete-order-now/'.$value_user->ma_ddh)}}" onclick="return confirm('bạn muốn xóa đơn hàng này?')">Hủy Đơn</a>
+                                    <b style="font-weight: bold;">Chờ Xác Nhận</b><hr>
+                                    <a href="{{URL::to('/delete-order-now/'.$value_user->ma_ddh)}}" onclick="return confirm('bạn muốn hủy đơn hàng này?')">Hủy Đơn</a>
+
                                  <?php  }elseif($value_user->trangthai==1){
-                                    echo'<b style="color:yellow">Đang Lấy Hàng</b>';
+                                    echo'<b style="color:yellow">Chờ Lấy Hàng</b>';
                                 }elseif($value_user->trangthai==2){
                                     echo'<b style="color:mediumblue">Đang Giao</b>';
                                 }elseif($value_user->trangthai==3){
-                                    echo'<b style="color:red">Đã Nhận</b>';
+                                    echo'<b style="color:red">Đã Giao</b>';
                                 }elseif($value_user->trangthai==4){
                                     echo'<b style="color:red">Đã Hủy</b>';
                                 }
+
+                         
                                 ?>
 
                             </td>
@@ -79,7 +82,8 @@
 						<?php endforeach ?>
                     </tbody>                   
                   </table>
-                  {{$order_user_id->links()}}
+               {{$order_user_id->appends(Request::all())->links() }}
+
                 
         </div>
 	</div>

@@ -6,13 +6,13 @@
 <div class="index-banner">
   <div class="wmuSlider example1" style="height: 560px;">
      <div class="wmuSliderWrapper">
-        @php 
-                            $i = 0;
-                    @endphp
-                        @foreach($slider as $key => $slide)
-                            @php 
-                                $i++;
-                            @endphp
+            @php 
+                $i = 0;
+            @endphp
+            @foreach($slider as $key => $slide)
+                @php 
+                    $i++;
+                @endphp
            <article style="position: absolute; width: 100%; opacity: 0;"> 
              <div class="banner-wrap">
                     
@@ -120,7 +120,6 @@
                          }
 
                         ?>
-                          <?php echo '<li style="font-size:100%">('.$dem.')</li>' ?>
                         </ul>
                             </a>
 
@@ -142,7 +141,9 @@
             <?php endforeach ?>
             
                 <!-- thanh phần 1 sản phẩm -->    
-          <div class="pakes-new-product"><p style="float:right;"></p></div>
+          <div class="pakes-new-product"><p style="float:right;">
+                
+          </p></div>
           <div class="clear"></div>
         </div>
          <!-- một hàng 3 sản phẩm -->

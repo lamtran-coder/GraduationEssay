@@ -31,37 +31,227 @@ class Productcontroller extends Controller
     }
     public function all_product(){
         $this->AuthLogin();
-        if(isset($_GET['keywords_search'])){
+        if (isset($_GET['Danh_Muc'])) {
+            $Danh_Muc=$_GET['Danh_Muc'];
+            if ($Danh_Muc=="tang") {
+                $all_product=DB::table('san_pham')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','=','san_pham.ma_sp')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->selectRaw('san_pham.*,sum(chi_tiet_san_pham.so_lg) as solg, hinh_anh.hinhanh,hinh_anh.goc_nhin')
+                ->where('hinh_anh.goc_nhin','0')
+                ->groupBy('san_pham.ma_sp')
+                ->orderby('san_pham.ma_dm','DESC')
+                ->paginate(10);    
+            }elseif ($Danh_Muc=="giam") {
+                $all_product=DB::table('san_pham')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','=','san_pham.ma_sp')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->selectRaw('san_pham.*,sum(chi_tiet_san_pham.so_lg) as solg, hinh_anh.hinhanh,hinh_anh.goc_nhin')
+                ->where('hinh_anh.goc_nhin','0')
+                ->groupBy('san_pham.ma_sp')
+                ->orderby('san_pham.ma_dm','ASC')
+                ->paginate(10);
+            }
+        }
+        elseif (isset($_GET['chiet_khau'])) {
+            $chiet_khau=$_GET['chiet_khau'];
+            if ($chiet_khau=="tang") {
+                $all_product=DB::table('san_pham')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','=','san_pham.ma_sp')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->selectRaw('san_pham.*,sum(chi_tiet_san_pham.so_lg) as solg, hinh_anh.hinhanh,hinh_anh.goc_nhin')
+                ->where('hinh_anh.goc_nhin','0')
+                ->groupBy('san_pham.ma_sp')
+                ->orderby('san_pham.chiet_khau','DESC')
+                ->paginate(10);    
+            }elseif ($chiet_khau=="giam") {
+                $all_product=DB::table('san_pham')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','=','san_pham.ma_sp')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->selectRaw('san_pham.*,sum(chi_tiet_san_pham.so_lg) as solg, hinh_anh.hinhanh,hinh_anh.goc_nhin')
+                ->where('hinh_anh.goc_nhin','0')
+                ->groupBy('san_pham.ma_sp')
+                ->orderby('san_pham.chiet_khau','ASC')
+                ->paginate(10);
+            }
+        }
+        elseif (isset($_GET['so_luong'])) {
+            $so_luong=$_GET['so_luong'];
+            if ($so_luong=="tang") {
+                $all_product=DB::table('san_pham')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','=','san_pham.ma_sp')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->selectRaw('san_pham.*,sum(chi_tiet_san_pham.so_lg) as solg, hinh_anh.hinhanh,hinh_anh.goc_nhin')
+                ->where('hinh_anh.goc_nhin','0')
+                ->groupBy('san_pham.ma_sp')
+                ->orderby('solg','DESC')
+                ->paginate(10);    
+            }elseif ($so_luong=="giam") {
+                $all_product=DB::table('san_pham')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','=','san_pham.ma_sp')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->selectRaw('san_pham.*,sum(chi_tiet_san_pham.so_lg) as solg, hinh_anh.hinhanh,hinh_anh.goc_nhin')
+                ->where('hinh_anh.goc_nhin','0')
+                ->groupBy('san_pham.ma_sp')
+                ->orderby('solg','ASC')
+                ->paginate(10);
+            }
+        }
+        elseif (isset($_GET['Gia_Sale'])) {
+            $Gia_Sale=$_GET['Gia_Sale'];
+            if ($Gia_Sale=="tang") {
+                $all_product=DB::table('san_pham')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','=','san_pham.ma_sp')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->selectRaw('san_pham.*,sum(chi_tiet_san_pham.so_lg) as solg, hinh_anh.hinhanh,hinh_anh.goc_nhin')
+                ->where('hinh_anh.goc_nhin','0')
+                ->groupBy('san_pham.ma_sp')
+                ->orderby('san_pham.gia_sale','DESC')
+                ->paginate(10);    
+            }elseif ($Gia_Sale=="giam") {
+                $all_product=DB::table('san_pham')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','=','san_pham.ma_sp')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->selectRaw('san_pham.*,sum(chi_tiet_san_pham.so_lg) as solg, hinh_anh.hinhanh,hinh_anh.goc_nhin')
+                ->where('hinh_anh.goc_nhin','0')
+                ->groupBy('san_pham.ma_sp')
+                ->orderby('san_pham.gia_sale','ASC')
+                ->paginate(10);
+            }
+        }
+        elseif (isset($_GET['Gia_Goc'])) {
+            $Gia_Goc=$_GET['Gia_Goc'];
+            if ($Gia_Goc=="tang") {
+                $all_product=DB::table('san_pham')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','=','san_pham.ma_sp')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->selectRaw('san_pham.*,sum(chi_tiet_san_pham.so_lg) as solg, hinh_anh.hinhanh,hinh_anh.goc_nhin')
+                ->where('hinh_anh.goc_nhin','0')
+                ->groupBy('san_pham.ma_sp')
+                ->orderby('san_pham.gia_goc','DESC')
+                ->paginate(10);    
+            }elseif ($Gia_Goc=="giam") {
+                $all_product=DB::table('san_pham')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','=','san_pham.ma_sp')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->selectRaw('san_pham.*,sum(chi_tiet_san_pham.so_lg) as solg, hinh_anh.hinhanh,hinh_anh.goc_nhin')
+                ->where('hinh_anh.goc_nhin','0')
+                ->groupBy('san_pham.ma_sp')
+                ->orderby('san_pham.gia_goc','ASC')
+                ->paginate(10);
+            }
+        }
+        elseif (isset($_GET['Mo_Ta'])) {
+            $Mo_Ta=$_GET['Mo_Ta'];
+            if ($Mo_Ta=="tang") {
+                $all_product=DB::table('san_pham')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','=','san_pham.ma_sp')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->selectRaw('san_pham.*,sum(chi_tiet_san_pham.so_lg) as solg, hinh_anh.hinhanh,hinh_anh.goc_nhin')
+                ->where('hinh_anh.goc_nhin','0')
+                ->groupBy('san_pham.ma_sp')
+                ->orderby('san_pham.mo_ta','DESC')
+                ->paginate(10);    
+            }elseif ($Mo_Ta=="giam") {
+                $all_product=DB::table('san_pham')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','=','san_pham.ma_sp')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->selectRaw('san_pham.*,sum(chi_tiet_san_pham.so_lg) as solg, hinh_anh.hinhanh,hinh_anh.goc_nhin')
+                ->where('hinh_anh.goc_nhin','0')
+                ->groupBy('san_pham.ma_sp')
+                ->orderby('san_pham.mo_ta','ASC')
+                ->paginate(10);
+            }
+        }
+        elseif (isset($_GET['Hinh'])) {
+            $Hinh=$_GET['Hinh'];
+            if ($Hinh=="co") {
+                $all_product=DB::table('san_pham')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','=','san_pham.ma_sp')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->selectRaw('san_pham.*,sum(chi_tiet_san_pham.so_lg) as solg, hinh_anh.hinhanh,hinh_anh.goc_nhin')
+                ->where('hinh_anh.goc_nhin','0')
+                ->groupBy('san_pham.ma_sp')
+                ->paginate(10);    
+            }elseif ($Hinh=="khong") {
+                $all_product=DB::table('san_pham')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','=','san_pham.ma_sp')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->selectRaw('san_pham.*,sum(chi_tiet_san_pham.so_lg) as solg, hinh_anh.hinhanh,hinh_anh.goc_nhin')
+                ->where('hinh_anh.goc_nhin',null)
+                ->groupBy('san_pham.ma_sp')
+                ->paginate(10);
+            }
+        }
+        elseif (isset($_GET['Sap_Xep_Ten'])) {
+            $Sap_Xep_Ten=$_GET['Sap_Xep_Ten'];
+            if ($Sap_Xep_Ten=="Z-A") {
+                $all_product=DB::table('san_pham')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','=','san_pham.ma_sp')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->selectRaw('san_pham.*,sum(chi_tiet_san_pham.so_lg) as solg, hinh_anh.hinhanh,hinh_anh.goc_nhin')
+                ->where('hinh_anh.goc_nhin','0')
+                ->groupBy('san_pham.ma_sp')
+                ->orderby('ten_sp','ASC')
+                ->paginate(10);    
+            }elseif ($Sap_Xep_Ten=="A-Z") {
+                $all_product=DB::table('san_pham')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','=','san_pham.ma_sp')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->selectRaw('san_pham.*,sum(chi_tiet_san_pham.so_lg) as solg, hinh_anh.hinhanh,hinh_anh.goc_nhin')
+                ->where('hinh_anh.goc_nhin','0')
+                ->groupBy('san_pham.ma_sp')
+                ->orderby('ten_sp','desc')
+                ->paginate(10);
+            }
+        }
+        elseif (isset($_GET['Sap_Xep_Ma'])) {
+            $Sap_Xep_Ma=$_GET['Sap_Xep_Ma'];
+            if ($Sap_Xep_Ma=="tang") {
+                $all_product=DB::table('san_pham')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','=','san_pham.ma_sp')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->selectRaw('san_pham.*,sum(chi_tiet_san_pham.so_lg) as solg, hinh_anh.hinhanh,hinh_anh.goc_nhin')
+                ->where('hinh_anh.goc_nhin','0')
+                ->groupBy('san_pham.ma_sp')
+                ->orderby('ma_sp','ASC')
+                ->paginate(10);    
+            }elseif ($Sap_Xep_Ma=="giam") {
+                $all_product=DB::table('san_pham')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','=','san_pham.ma_sp')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->selectRaw('san_pham.*,sum(chi_tiet_san_pham.so_lg) as solg, hinh_anh.hinhanh,hinh_anh.goc_nhin')
+                ->where('hinh_anh.goc_nhin','0')
+                ->groupBy('san_pham.ma_sp')
+                ->orderby('ma_sp','desc')
+                ->paginate(10);
+            }
+        }
+        elseif(isset($_GET['keywords_search'])){
             $keywords=$_GET['keywords_search'];
             $all_product=DB::table('san_pham')
-            ->where('ten_sp','like','%'. $keywords .'%')
-            ->orwhere('ma_sp',$keywords)
-            ->orwhere('ma_dm',$keywords)
+            ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','=','san_pham.ma_sp')
+            ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->selectRaw('san_pham.*,sum(chi_tiet_san_pham.so_lg) as solg, hinh_anh.hinhanh,hinh_anh.goc_nhin')
+                ->where('hinh_anh.goc_nhin','0')
+            ->groupBy('san_pham.ma_sp')
+            ->where('san_pham.ten_sp','like','%'. $keywords .'%')
+            ->orwhere('san_pham.ma_sp',$keywords)
+            ->orwhere('san_pham.ma_dm',$keywords)
             ->paginate(10);
         }
-        elseif(isset($_GET['option_product'])){
-            $option=$_GET['option_product'];
-            if ($option=='giam') {
-                $all_product=DB::table('san_pham')->orderby('gia_sale','desc')->paginate(10);
-            }
-            elseif($option=='tang'){
-                 $all_product=DB::table('san_pham')->orderby('gia_sale','ASC')->paginate(10);
-            }
-            elseif($option=='tatca'){
-                $all_product=DB::table('san_pham')->paginate(10);
-            }else{
-                 $all_product=DB::table('san_pham')->paginate(10);
-            }
-        }
         else{
-            $all_product=DB::table('san_pham')->paginate(10);
+            $all_product=DB::table('san_pham')
+                ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','=','san_pham.ma_sp')
+                ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+                ->selectRaw('san_pham.*,sum(chi_tiet_san_pham.so_lg) as solg, hinh_anh.hinhanh,hinh_anh.goc_nhin')
+                ->where('hinh_anh.goc_nhin','0')
+                ->groupBy('san_pham.ma_sp')
+                ->paginate(10);
         }
-        $img_id=DB::table('hinh_anh')->get();
-        $so_lg_id=DB::table('chi_tiet_san_pham')->get();
-        $manager_product=view('admin.Product.product_all')->with('all_product',$all_product)->with('img_id',$img_id)->with('so_lg_id',$so_lg_id);
-        return view('admin_layout')
-        ->with('admin.Product.product_all',$manager_product)
-        ;
+
+        $manager_product=view('admin.Product.product_all')->with('all_product',$all_product);
+        return view('admin_layout')->with('admin.Product.product_all',$manager_product);
         
     }
     public function save_product(Request $request){
@@ -82,8 +272,8 @@ class Productcontroller extends Controller
             'corner_price.numeric'=>'***Nhập Giá Góc Là Số***',
     
 
-            'sale_pricee.required'=>'***Nhập Giá Sale Sản Phẩm***',
-            'sale_pricee.numeric'=>'***Nhập Giá Sale Là Số***',
+            'sale_pricee.required'=>'***Nhập Giá Bán Sản Phẩm***',
+            'sale_pricee.numeric'=>'***Nhập Giá Bán Là Số***',
 
             'discount.required'=>'***Nhập Chiêt Khấu Sản Phẩm***',
             'discount.numeric'=>'***Nhập Chiêt Khấu Sản Phẩm Là Số***',
@@ -132,8 +322,8 @@ class Productcontroller extends Controller
             'corner_price.required'=>'***Nhập Giá Góc Sản Phẩm***',
             'corner_price.numeric'=>'***Nhập Giá Góc Là Số***',
 
-            'sale_pricee.required'=>'***Nhập Giá Sale Sản Phẩm***',
-            'sale_pricee.numeric'=>'***Nhập Giá Sale Là Số***',
+            'sale_pricee.required'=>'***Nhập Giá Bán Sản Phẩm***',
+            'sale_pricee.numeric'=>'***Nhập Giá Bán Là Số***',
 
             'discount.required'=>'***Nhập Chiêt Khấu Sản Phẩm***',
             'discount.numeric'=>'***Nhập Chiêt Khấu Sản Phẩm Là Số***',
@@ -438,28 +628,7 @@ class Productcontroller extends Controller
 
 
     }
-    //hien thị số lượng sản phẩm 
-    public function solg_sanpham(Request $request){
-        $mau=$request->radiocolor;
-        $size=$request->radiosize;
-        $key=$request->key;
-        $solg_sp=DB::table('chi_tiet_san_pham')
-        ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
-        ->where('chi_tiet_san_pham.ma_size',$size)
-        ->where('mau.ten_mau',$mau)
-        ->where('chi_tiet_san_pham.ma_sp',$key)
-        ->get();
-        $output='tạm hết hàng';
-        foreach ($solg_sp as $key => $value) {
-            if ($value->so_lg>0) {
-                $output='<ladel>Số Lượng Tồn : '.$value->so_lg.'</ladel>';
-            }else{
-                $output='tạm hết hàng';
-            }
-        }
-        echo($output);
-
-    }
+    
     //bình luận
     public function load_comment(Request $request){
         $ma_sp=$request->ma_sp;

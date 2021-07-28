@@ -43,6 +43,12 @@ class Detail_productcontroller extends Controller
         $data['ma_size']=$request->ct_size;
         $data['so_lg']=$request->solg_sp;
         $solg_update=DB::table('san_pham')->get();
+            foreach ($solg_update as $key => $value) {
+                if($value->ma_sp==$result){
+                    $sum_sl['solg_sp']=$value->solg_sp+$request->solg_sp;
+                    DB::table('san_pham')->where('ma_sp',$result)->update($sum_sl);
+                }
+            }
         DB::table('chi_tiet_san_pham')->insert($data);
         Session::put('message','Thêm chi tiet sản phẩm thành công');
         $result=$_SERVER['HTTP_REFERER'];
@@ -66,42 +72,20 @@ class Detail_productcontroller extends Controller
                            
             }
         }
+        $product_id=DB::table('san_pham')->where('ma_sp',$ma_sp)->get();
+        foreach ($product_id as $key => $value_pro) {
+            if ($value_pro->ma_sp==$ma_sp) {
+                $sum['solg_sp']=$so_lg+$value_pro->solg_sp;
+                DB::table('san_pham')
+                ->where('ma_sp',$ma_sp)
+                ->update($sum);
+            }
+        }       
+
         $result=$_SERVER['HTTP_REFERER'];
         return Redirect::to($result);
     }
-    public function all_detail_product(){
-         $this->AuthLogin();
-        if (isset($_GET['keywords_search'])) {
-            $keyword=$_GET['keywords_search'];
-            $all_detail_product=DB::table('chi_tiet_san_pham')
-            ->join('san_pham','san_pham.ma_sp','=','chi_tiet_san_pham.ma_sp')
-            ->select('chi_tiet_san_pham.*','san_pham.ten_sp')
-            ->where('chi_tiet_san_pham.ma_sp','like','%'. $keyword .'%')
-            ->orwhere('san_pham.ten_sp','like','%'. $keyword .'%')
-            ->get();
-        } 
-        elseif (isset($_GET['sap_xep'])) {
-            $result=$_GET['sap_xep'];
-            if ($result=='Tang') {
-                $all_detail_product=DB::table('chi_tiet_san_pham')->orderby('so_lg','desc')->get();
-            }elseif($result=='Giam'){
-                 $all_detail_product=DB::table('chi_tiet_san_pham')->orderby('so_lg','ASC')->get();
-            }else{
-                return Redirect::to('/all-detail-product');
-            }
-        }
-        else{
-            $all_detail_product=DB::table('chi_tiet_san_pham')->paginate(20);
-        }
-        $product_id=DB::table('san_pham')->get();
-        $color_id=DB::table('mau')->get();
-        return view('admin.Detail_product.detail_product_all')
-        ->with('all_detail_product',$all_detail_product)
-        ->with('product_id',$product_id)
-        ->with('color_id',$color_id)
-        ;
-    }
-    //size
+    
            
     public function add_size_product(){
         $product_id=DB::table('san_pham')->orderby('ten_sp','desc')->get();

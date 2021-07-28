@@ -102,7 +102,7 @@ class Admincontroller extends Controller
             session::put('diachi',$result->diachi);
             return Redirect::to('/dashboard');}
         else{
-            session::put('message_login','Mật khẩu hoặc email sai. Vui lòng nhập lại');
+            session::put('message','Mật khẩu hoặc email sai. Vui lòng nhập lại');
             return Redirect::to('/admin');
         }
         
@@ -169,8 +169,9 @@ class Admincontroller extends Controller
         ->get();
         foreach ($get as $key => $val) {
             if (($from_date<=$val->ngdat)&&($to_date>=$val->ngdat)) {
-                $chart_data[]=array(
-                        'ngdat'=>$val->ngdat,
+                        $ngdat=date('d-m-Y',strtotime($val->ngdat));
+                        $chart_data[]=array(
+                        'ngdat'=>$ngdat,
                         'tongdon'=>$val->tongdon,
                         'banhang'=>$val->banhang,
                         'phivanchuyen'=>$val->phivanchuyen,
@@ -193,8 +194,9 @@ class Admincontroller extends Controller
         ->get();
           foreach ($get as $key => $val) {
                 if (($sub30days<=$val->ngdat)&&($now>=$val->ngdat)){
+                     $ngdat=date('d-m-Y',strtotime($val->ngdat));
                     $chart_data[]=array(
-                            'ngdat'=>$val->ngdat,
+                            'ngdat'=>$ngdat,
                             'tongdon'=>$val->tongdon,
                             'banhang'=>$val->banhang,
                             'phivanchuyen'=>$val->phivanchuyen,
@@ -221,8 +223,9 @@ class Admincontroller extends Controller
             ->get();
             foreach ($get as $key => $val) {
                 if (($sub7days<=$val->ngdat)&&($now>=$val->ngdat)){
+                     $ngdat=date('d-m-Y',strtotime($val->ngdat));
                     $chart_data[]=array(
-                            'ngdat'=>$val->ngdat,
+                            'ngdat'=>$ngdat,
                             'tongdon'=>$val->tongdon,
                             'banhang'=>$val->banhang,
                             'phivanchuyen'=>$val->phivanchuyen,
@@ -239,8 +242,9 @@ class Admincontroller extends Controller
             
             foreach ($get as $key => $val) {
                 if (($sub365days<=$val->ngdat)&&($now>=$val->ngdat)){ 
+                        $ngdat=date('d-m-Y',strtotime($val->ngdat));
                     $chart_data[]=array(
-                            'ngdat'=>$val->ngdat,
+                            'ngdat'=>$ngdat,
                             'tongdon'=>$val->tongdon,
                             'banhang'=>$val->banhang,
                             'phivanchuyen'=>$val->phivanchuyen,

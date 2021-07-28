@@ -64,14 +64,14 @@
                                         <?php endif ?>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Giá góc</label>
+                                        <label for="exampleInputEmail1">Giá gốc</label>
                                         <input type="text" class="form-control main-styling" name="corner_price"  value="{{old('corner_price')}}">
                                         <?php if ($errors->has('corner_price')): ?>
                                         <span style="color:red">{{$errors->first('corner_price')}}</span>
                                         <?php endif ?>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Giá bán</label>
+                                        <label for="exampleInputEmail1">Giá sale</label>
                                         <input type="text" class="form-control main-styling" name="sale_pricee" value="{{old('sale_pricee')}}" >
                                         <?php if ($errors->has('sale_pricee')): ?>
                                         <span style="color:red">{{$errors->first('sale_pricee')}}</span>

@@ -103,8 +103,7 @@
 				</div >
 				<div class="number-product">
 					<div class="prev">-</div>
-					<div style="float: left; margin-left: 25px;">
-						<input class="number-spinner" min="1" name="quantity_h" type="number" value="1" ></div>
+					<div style="float: left; margin-left: 25px;"><input class="number-spinner" min="1" name="quantity_h" type="number" value="1"></div>
 					<div class="next">+</div>
 					<div class="clear"></div>
 				</div>
@@ -112,25 +111,6 @@
 				<div id="solg_sp"></div>
 				<button class="button-mua" style="margin-left: 40px;">CHỌN MUA</button>
 				</form>
-				<script type="text/javascript">
-				//kiểm trả số lượng tồn của sản phẩm có sai mã khác nhau
-					$(document).ready(function(){
-						$('.form_chon').on('change',function(){
-							var _token = $('input[name="_token"]').val();
-							var radiocolor = $('.mau-key:checked').val();
-							var radiosize = $('.size-key:checked').val();
-							var key=$('.key_product').val();
-							$.ajax({
-							url:"{{url('/solg-sanpham')}}",
-							method:"POST",
-							data:{key:key,radiocolor:radiocolor, radiosize:radiosize,_token:_token},
-							success:function(data){
-								$('#solg_sp').html(data);
-							}
-							});
-						});
-					});
-				</script>
 				<div class="clear"></div>
 				
 			</ul>
@@ -222,11 +202,10 @@
 				}
 			});
 			$('.next').on("click", function(){
-				
 				var next=$(this).closest('.number-product').find('input').val();
 				if (next==100) {
 					$(this).closest('.number-product').find('input').val("100");
-				}else {
+				}else{
 					var nextVal=++next;
 					$(this).closest('.number-product').find('input').val(nextVal);
 				}

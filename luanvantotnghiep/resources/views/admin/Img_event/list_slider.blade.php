@@ -8,23 +8,18 @@
       liệt kê danh mục
     </div>
      <div class="row w3-res-tb">
-      <div class="col-sm-4">
-      </div>
-       <div class="row w3-res-tb">
+     
       
-       <form action="{{URL::to('/search-cate-ad')}}" method="post">
-          @csrf
-      <div class="col-sm-3">
-        <div class="input-group">
-          <input type="text" class="input-sm form-control"name="keywords_submit" placeholder="nhập từ khóa" value="">
-          <span class="input-group-btn">
-            <button class="btn btn-sm btn-default" type="button">TÌM</button>
-          </span>
-         </div>
+        <div class="col-sm-8">
+          <div class="form-group">
+       <form style="display:flex;">
+          <input type="text" class="input-sm form-control"name="keywords_submit" placeholder="nhập tên ảnh sự kiện" value="">
+          <button >TÌM</button>
+       </form>
+       </div>
         </div>
-      </form>
         
-      </div>
+    
     </div>
     <div class="table-responsive">
       <table class="table table-striped b-t b-light">
@@ -35,7 +30,7 @@
                 <input type="checkbox"><i></i>
               </label>
             </th>
-             <th>Tên slide</th>
+             <th>Tên Ảnh Sự Kiện</th>
             <th>Hình ảnh</th>
             <th>Mô tả</th>
             <th>Tình trạng</th>

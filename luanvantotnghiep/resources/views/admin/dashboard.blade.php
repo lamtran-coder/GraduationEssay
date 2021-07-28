@@ -74,39 +74,19 @@
 				<div class="bieudo">
 				<form autocomplete="off" >
 					@csrf 
-					<p>Từ Ngày:</p> 
-					<input type="text" class="form-control"  id="datepicker" style="width: 160px;">
-					<p>Đến ngày:</p>
-					<input type="text" class="form-control"  id="datepicker2"  style="width: 160px;" >
-					<input type="button" id="btn-dashboard-filter" value="Lọc Kết Quả">
-					<select class="loc_khoang_thoi_gian form-control" style="width: 160px;font-size: 17px;">
-						<option>Chọn</option>
-						<option value="7ngay">7 ngày</option>
-						<option value="thangtruoc">Tháng Trước</option>
-						<option value="12thang">12 tháng</option>
-					</select>
+							<p>Từ Ngày:</p> 
+							<input type="text" class="form-control"  id="datepicker" style="width: 160px;">
+							<p>Đến ngày:</p>
+							<input type="text" class="form-control"  id="datepicker2"  style="width: 160px;" >
+							<input type="button" id="btn-dashboard-filter" value="Lọc Kết Quả">
+							<select class="loc_khoang_thoi_gian form-control" style="width: 160px;font-size: 17px;">
+								<option>Chọn</option>
+								<option value="7ngay">7 ngày</option>
+								<option value="thangtruoc">Tháng Trước</option>
+								<option value="12thang">12 tháng</option>
+							</select>
 				</form>
-				  <script type="text/javascript">
-				      $( function() {
-				        $( "#datepicker2" ).datepicker({
-				            prevText:"Tháng Trước",
-				             nextText:"Tháng Sau", 
-				             dateFormat:"dd-mm-yy",
-				              dayNamesMin:['Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7','Chủ Nhật'], 
-				              duration:"show"
-				        });
-				      } );
-				      $( function() {
-				        $( "#datepicker" ).datepicker({
-				            prevText:"Tháng Trước",
-				             nextText:"Tháng Sau", 
-				             dateFormat:"dd-mm-yy",
-				              dayNamesMin:['Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7','Chủ Nhật'], 
-				              duration:"show"
-				        });
-				      } );
-				                    
-				    </script>
+
 				<hr>
 						<h3 style="text-align: center;text-transform: capitalize;">Thống kê danh số Tháng</h3>
 

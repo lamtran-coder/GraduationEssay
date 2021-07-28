@@ -18,7 +18,7 @@
                 <a href="{{Request::url()}}?status_de=1"><li class="color2" >Đang Lấy Hàng</li></a>
                 <a href="{{Request::url()}}?status_de=2"><li class="color3" >Đang Giao</li></a>
                 <a href="{{Request::url()}}?status_de=3"><li class="color4" >Đã Nhận</li></a>
-                <a href="{{Request::url()}}?status_de=4"><li class="color5" >Hủy Hàng</li></a>
+                <a href="{{Request::url()}}?status_de=5"><li class="color5" >Hủy Hàng</li></a>
             </form>
         </ul>
     </div>
@@ -56,7 +56,7 @@
                              ?>
                             </td>
                             <td class="form-td"><?php echo number_format($v_order_detail->sotien).'VND'; ?></td>   
-                            <td class="form-td" style="font-weight: bold;">
+                            <td class="form-td" style="color: red;">
                                 <?php 
                                     if ($v_order_detail->trang_thai==0){
                                         echo "Đang xử lý";
@@ -67,7 +67,7 @@
                                     }elseif($v_order_detail->trang_thai==3){
                                         echo '<p style="color:blue">Đã Nhận</p>';
                                     }elseif($v_order_detail->trang_thai==4){
-                                        echo '<p style="color:red">Đã Hủy</p>';
+                                        echo '<p style="color:blue">Đã Hủy</p>';
                                     }
                                 ?>
                             </td>

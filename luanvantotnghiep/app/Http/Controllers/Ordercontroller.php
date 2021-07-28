@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Session;
 use Cart;
-use Carbon\Carbon;
+use Carbon;
 use PDF;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
@@ -111,6 +111,18 @@ class Ordercontroller extends Controller
                     ->where('ma_mau',$value_det_pro->ma_mau)->update($Sub_detail_sp);
                 }
             }
+            $product_id=DB::table('san_pham')->get();
+            //cập nhật số lượng sản phẩm bên bảng sản phẩm
+            foreach ($product_id as $key => $value_pro) {
+                if ($value_pro->ma_sp==$v_content->id) 
+                {
+                    $Sub_sp['solg_sp']=$value_pro->solg_sp-$v_content->qty;
+                    DB::table('san_pham')
+                    ->where('ma_sp',$value_pro->ma_sp)
+                    ->update($Sub_sp);
+                }
+            }
+            
         }     
         return Redirect::to('/show-order/'.$user_id); 
 
@@ -137,7 +149,7 @@ class Ordercontroller extends Controller
             ->orderby('ngdat','ASC')
             ->where('user.user_id',$user_id)
             ->where('don_dat_hang.trangthai',$status)
-            ->paginate(10);
+            ->paginate(5);
             return view('pages.show_order')
             ->with('cate_product',$cate_product)
             ->with('design_id',$design_id)
@@ -150,7 +162,7 @@ class Ordercontroller extends Controller
             ->select('don_dat_hang.trangthai','don_dat_hang.ma_ddh','don_dat_hang.ngdat','don_dat_hang.solg_sp','don_dat_hang.tong_tt','don_dat_hang.tien_coc','khach_hang.ten_kh','khach_hang.diachi','khach_hang.sodt','khach_hang.email')
             ->where('user.user_id',$user_id)
             ->orderby('ngdat','ASC')
-            ->paginate(10);
+            ->paginate(5);
             return view('pages.show_order')
             ->with('cate_product',$cate_product)
             ->with('design_id',$design_id)
@@ -219,7 +231,116 @@ class Ordercontroller extends Controller
     }
     public function all_order_product(){
         $this->AuthLogin();
-        if (isset($_GET['date_star'])&&isset($_GET['date_end'])){
+        if (isset($_GET['Trang_thai'])) {
+            $Trang_thai=$_GET['Trang_thai'];
+            if ($Trang_thai=="tang") {
+                $all_oder=DB::table('don_dat_hang')
+                ->orderby('trangthai','ASC')
+                ->paginate(10);    
+            }elseif ($Trang_thai=="giam") {
+                $all_oder=DB::table('don_dat_hang')
+                ->orderby('trangthai','desc')
+                ->paginate(10);
+            }
+        }
+        elseif (isset($_GET['Ngay_Dat'])) {
+            $Ngay_Dat=$_GET['Ngay_Dat'];
+            if ($Ngay_Dat=="tang") {
+                $all_oder=DB::table('don_dat_hang')
+                ->orderby('ngdat','ASC')
+                ->paginate(10);    
+            }elseif ($Ngay_Dat=="giam") {
+                $all_oder=DB::table('don_dat_hang')
+                ->orderby('ngdat','desc')
+                ->paginate(10);
+            }
+        }
+        elseif (isset($_GET['Sap_Xep_Ma'])) {
+            $Sap_Xep_Ma=$_GET['Sap_Xep_Ma'];
+            if ($Sap_Xep_Ma=="tang") {
+                $all_oder=DB::table('don_dat_hang')
+                ->orderby('ma_ddh','ASC')
+                ->paginate(10);    
+            }elseif ($Sap_Xep_Ma=="giam") {
+                $all_oder=DB::table('don_dat_hang')
+                ->orderby('ma_ddh','desc')
+                ->paginate(10);
+            }
+        }
+        elseif (isset($_GET['ten'])) {
+            $ten=$_GET['ten'];
+            if ($ten=="Z-A") {
+                $all_oder=DB::table('don_dat_hang')
+                ->join('khach_hang','khach_hang.ma_kh','=','don_dat_hang.ma_kh')
+                ->orderby('khach_hang.ten_kh','ASC')
+                ->paginate(10);    
+            }elseif ($ten=="A-Z") {
+                $all_oder=DB::table('don_dat_hang')
+                ->join('khach_hang','khach_hang.ma_kh','=','don_dat_hang.ma_kh')
+                ->orderby('khach_hang.ten_kh','desc')
+                ->paginate(10);
+            }
+        }
+        elseif (isset($_GET['tong_tien'])) {
+            $tong_tien=$_GET['tong_tien'];
+            if ($tong_tien=="tang") {
+                $all_oder=DB::table('don_dat_hang')
+                ->orderby('tong_tt','ASC')
+                ->paginate(10);    
+            }elseif ($tong_tien=="giam") {
+                $all_oder=DB::table('don_dat_hang')
+                ->orderby('tong_tt','desc')
+                ->paginate(10);
+            }
+        }
+        elseif (isset($_GET['tong_tien'])) {
+            $tong_tien=$_GET['tong_tien'];
+            if ($tong_tien=="tang") {
+                $all_oder=DB::table('don_dat_hang')
+                ->orderby('tong_tt','ASC')
+                ->paginate(10);    
+            }elseif ($tong_tien=="giam") {
+                $all_oder=DB::table('don_dat_hang')
+                ->orderby('tong_tt','desc')
+                ->paginate(10);
+            }
+        }
+        elseif (isset($_GET['tien_coc'])) {
+            $tien_coc=$_GET['tien_coc'];
+            if ($tien_coc=="tang") {
+                $all_oder=DB::table('don_dat_hang')
+                ->orderby('tien_coc','ASC')
+                ->paginate(10);    
+            }elseif ($tien_coc=="giam") {
+                $all_oder=DB::table('don_dat_hang')
+                ->orderby('tien_coc','desc')
+                ->paginate(10);
+            }
+        }
+        elseif (isset($_GET['phi_giao'])) {
+            $phi_giao=$_GET['phi_giao'];
+            if ($phi_giao=="tang") {
+                $all_oder=DB::table('don_dat_hang')
+                ->where('phigiao','>',0)
+                ->paginate(10);    
+            }elseif ($phi_giao=="giam") {
+                $all_oder=DB::table('don_dat_hang')
+                ->where('phigiao','0')
+                ->paginate(10);
+            }
+        }
+        elseif (isset($_GET['so_luong'])) {
+            $so_luong=$_GET['so_luong'];
+            if ($so_luong=="tang") {
+                $all_oder=DB::table('don_dat_hang')
+                ->orderby('solg_sp','ASC')
+                ->paginate(10);    
+            }elseif ($so_luong=="giam") {
+                $all_oder=DB::table('don_dat_hang')
+                ->orderby('solg_sp','desc')
+                ->paginate(10);
+            }
+        }elseif (isset($_GET['date_star'])&&isset($_GET['date_end'])){
             $date_star = $_GET['date_star'];
             $date_end = $_GET['date_end'];
             $date_star=date('Y-m-d',strtotime($date_star));
@@ -229,12 +350,14 @@ class Ordercontroller extends Controller
             ->where('ngdat','<=',$date_end)
             ->paginate(10);
         }
-        elseif(isset($_GET['status_od'])&&($_GET['status_od']<5)) {
+        elseif(isset($_GET['status_od'])&&($_GET['status_od']!="tatca")) {
             $status_od = $_GET['status_od'];
             $all_oder=DB::table('don_dat_hang')
             ->where('trangthai',$status_od)
             ->orderby('ngdat','ASC')
             ->paginate(10);
+        }elseif(isset($_GET['status_od'])&&($_GET['status_od']=="tatca")){
+            $all_oder=DB::table('don_dat_hang')->orderby('ngdat','ASC')->paginate(10);
         }
         elseif(isset($_GET['keywords_search'])){
             $keywords=$_GET['keywords_search'];
@@ -246,12 +369,7 @@ class Ordercontroller extends Controller
             ->orderby('ngdat','ASC')->paginate(10);
         }
         else{
-        $now = Carbon::now('Asia/Ho_Chi_minh')->toDateString();
-        $all_oder=DB::table('don_dat_hang')
-                    ->orderby('ngdat','desc')
-                    ->where('trangthai','0')
-                    ->where('ngdat',$now)
-                    ->paginate(10);
+        $all_oder=DB::table('don_dat_hang')->orderby('ngdat','ASC')->paginate(10);
         }
         $all_cus=DB::table('khach_hang')->get();
         return view('admin.Order.order_product_all')
@@ -275,12 +393,14 @@ class Ordercontroller extends Controller
         ->get();
         $order_id = DB::table('don_dat_hang')->where('ma_ddh',$ma_ddh)->get();
         $admin_id = DB::table('admin')->where('vi_tri','GH')->get();
-        
+        $delivery_id=DB::table('phieu_giao')
+        ->where('ma_ddh',$ma_ddh)->orderby('tienconlai','desc')->get();   
         return view('admin.Order.order_detail_all')
         ->with('customer_id',$customer_id)
         ->with('order_detail_id',$order_detail_id)
         ->with('order_id',$order_id)
         ->with('admin_id',$admin_id)
+        ->with('delivery_id',$delivery_id)
         ;
        
     }
@@ -289,25 +409,7 @@ class Ordercontroller extends Controller
         $result=$request->ma_ddh_od;
         $data['trang_thai']=$request->status_od;
         DB::table('chi_tiet_don_hang')->where('so_ct',$so_ct)->update($data);
-
-        $detail_order_id=DB::table('chi_tiet_don_hang')->where('ma_ddh',$result)->get();
-        $dem_0=0;
-        foreach ($detail_order_id as $key => $val_oder) {
-            if ($val_oder->trang_thai==0) {
-                $dem_0++;
-            }
-        }
-        if (($dem_0>0)) {
-            DB::table('don_dat_hang')->where('ma_ddh',$result)->update(['trangthai'=>1]);
-        }else{
-            DB::table('don_dat_hang')->where('ma_ddh',$result)->update(['trangthai'=>2]);
-        }
        return Redirect::to('/order-details/'.$result);
-    }
-    public function update_recieve($ma_ddh){
-        DB::table('don_dat_hang')->where('ma_ddh',$ma_ddh)->update(['trangthai'=>3]);
-        DB::table('chi_tiet_don_hang')->where('ma_ddh',$ma_ddh)->update(['trang_thai'=>3]);
-        return Redirect::to('/all-order?status_od=3');
     }
     
 

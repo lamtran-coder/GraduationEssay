@@ -31,14 +31,103 @@ class Categorycontroller extends Controller
     }
     public function all_Category(){
          $this->AuthLogin();
-        $all_Category=DB::table('danh_muc_sp')->paginate(5);
-        $design_id=DB::table('thiet_ke')->get();
-        $material_id=DB::table('chat_lieu')->get();
-        $manager_Category=view('admin.Category.Category_all')
-        ->with('all_Category',$all_Category)
-        ->with('design_id',$design_id)
-        ->with('material_id',$material_id);
-        return view('admin_layout')->with('admin.Category_all',$manager_Category);
+        if (isset($_GET['Trang_thai'])) {
+            $Trang_thai=$_GET['Trang_thai'];
+            if ($Trang_thai==1) {
+                $all_Category=DB::table('danh_muc_sp')
+                ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
+                ->join('chat_lieu','chat_lieu.ma_cl','=','danh_muc_sp.ma_cl')
+                ->select('danh_muc_sp.*','chat_lieu.ten_cl','thiet_ke.ten_tk')
+                ->where('danh_muc_sp.trang_thai','1')
+                ->paginate(10);   
+            }elseif ($Trang_thai==0) {
+                $all_Category=DB::table('danh_muc_sp')
+                ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
+                ->join('chat_lieu','chat_lieu.ma_cl','=','danh_muc_sp.ma_cl')
+                ->select('danh_muc_sp.*','chat_lieu.ten_cl','thiet_ke.ten_tk')
+                 ->where('danh_muc_sp.trang_thai','0')
+                ->paginate(10);
+            }
+        }
+        elseif (isset($_GET['Chat_Lieu'])) {
+            $Chat_Lieu=$_GET['Chat_Lieu'];
+            if ($Chat_Lieu=="Z-A") {
+                $all_Category=DB::table('danh_muc_sp')
+                ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
+                ->join('chat_lieu','chat_lieu.ma_cl','=','danh_muc_sp.ma_cl')
+                ->select('danh_muc_sp.*','chat_lieu.ten_cl','thiet_ke.ten_tk')
+                ->orderby('chat_lieu.ten_cl','DESC')
+                ->paginate(10);   
+            }elseif ($Chat_Lieu=="A-Z") {
+                $all_Category=DB::table('danh_muc_sp')
+                ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
+                ->join('chat_lieu','chat_lieu.ma_cl','=','danh_muc_sp.ma_cl')
+                ->select('danh_muc_sp.*','chat_lieu.ten_cl','thiet_ke.ten_tk')
+                ->orderby('chat_lieu.ten_cl','ASC')
+                ->paginate(10);
+            }
+        }
+         elseif (isset($_GET['Thiet_Ke'])) {
+            $Thiet_Ke=$_GET['Thiet_Ke'];
+            if ($Thiet_Ke=="Z-A") {
+                $all_Category=DB::table('danh_muc_sp')
+                ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
+                ->join('chat_lieu','chat_lieu.ma_cl','=','danh_muc_sp.ma_cl')
+                ->select('danh_muc_sp.*','chat_lieu.ten_cl','thiet_ke.ten_tk')
+                ->orderby('thiet_ke.ten_tk','DESC')
+                ->paginate(10);   
+            }elseif ($Thiet_Ke=="A-Z") {
+                $all_Category=DB::table('danh_muc_sp')
+                ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
+                ->join('chat_lieu','chat_lieu.ma_cl','=','danh_muc_sp.ma_cl')
+                ->select('danh_muc_sp.*','chat_lieu.ten_cl','thiet_ke.ten_tk')
+                ->orderby('thiet_ke.ten_tk','ASC')
+                ->paginate(10);
+            }
+        }
+         elseif (isset($_GET['Sap_Xep_ten'])) {
+            $Sap_Xep_ten=$_GET['Sap_Xep_ten'];
+            if ($Sap_Xep_ten=="Z-A") {
+                $all_Category=DB::table('danh_muc_sp')
+                ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
+                ->join('chat_lieu','chat_lieu.ma_cl','=','danh_muc_sp.ma_cl')
+                ->select('danh_muc_sp.*','chat_lieu.ten_cl','thiet_ke.ten_tk')
+                ->orderby('danh_muc_sp.danh_muc','DESC')
+                ->paginate(10);   
+            }elseif ($Sap_Xep_ten=="A-Z") {
+                $all_Category=DB::table('danh_muc_sp')
+                ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
+                ->join('chat_lieu','chat_lieu.ma_cl','=','danh_muc_sp.ma_cl')
+                ->select('danh_muc_sp.*','chat_lieu.ten_cl','thiet_ke.ten_tk')
+                ->orderby('danh_muc_sp.danh_muc','ASC')
+                ->paginate(10);
+            }
+        }
+        elseif (isset($_GET['Sap_Xep_Ma'])) {
+            $Sap_Xep_Ma=$_GET['Sap_Xep_Ma'];
+            if ($Sap_Xep_Ma=="tang") {
+                $all_Category=DB::table('danh_muc_sp')
+                ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
+                ->join('chat_lieu','chat_lieu.ma_cl','=','danh_muc_sp.ma_cl')
+                ->select('danh_muc_sp.*','chat_lieu.ten_cl','thiet_ke.ten_tk')
+                ->orderby('danh_muc_sp.ma_dm','DESC')
+                ->paginate(10);   
+            }elseif ($Sap_Xep_Ma=="giam") {
+                $all_Category=DB::table('danh_muc_sp')
+                ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
+                ->join('chat_lieu','chat_lieu.ma_cl','=','danh_muc_sp.ma_cl')
+                ->select('danh_muc_sp.*','chat_lieu.ten_cl','thiet_ke.ten_tk')
+                ->orderby('danh_muc_sp.ma_dm','ASC')
+                ->paginate(10);
+            }
+        }else{
+            $all_Category=DB::table('danh_muc_sp')
+            ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
+            ->join('chat_lieu','chat_lieu.ma_cl','=','danh_muc_sp.ma_cl')
+            ->select('danh_muc_sp.*','chat_lieu.ten_cl','thiet_ke.ten_tk')
+            ->paginate(10); 
+        }
+        return view('admin.Category.Category_all')->with('all_Category',$all_Category);
     }
     
     public function save_Category(Request $request){

@@ -98,7 +98,7 @@ td.giao>form>button {
     margin: 0px;
     height: 50px;
     width: 100%;
-    background: black;
+    background: #00b19f;
     color: white;
     font-size: 18px;
     font-style: normal;
@@ -109,9 +109,9 @@ td.giao>form>button:hover {
 }
 select.status_order_detail {
     height: 30px;
-    padding: 5px;
+   
     font-size: 15px;
-    width: 65%;
+    width: 75%;
 }
 
 .footer-left {
@@ -227,7 +227,13 @@ select.dogMenu {
 input#btn-dashboard-filter:hover {
     background: #ed6c25;
 }
-::placeholder {
-  color: blue;
-  font-size: 1.5em;
+tr.thanhloc {
+    font-size: 14px;
+}
+tr.thanhloc>th{
+    background: #358b8e;
+    color: white;
+}
+tr.thanhloc>th>a{
+    color: white;
 }
