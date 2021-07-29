@@ -63,7 +63,7 @@
               <br/><button class="btn btn-default btn-xs btn-reply-comment" data-product_id="{{$com->comment_product_id}}"  data-comment_id="{{$com->comment_id}}">Trả lời bình luận</button>
               @endif
            </td>
-            <td>{{$com->comment_date}}</td>
+            <td><?php echo date("H:i:s d-m-Y ",strtotime($com->comment_date)); ?></td>
             <?php foreach ($all_product as $key => $value_pro): ?>
               <?php if ($com->comment_product_id==$value_pro->ma_sp): ?>     
             <td><a href="{{URL::to('/product-details/'.$value_pro->ma_sp)}} " target="_blank"> {{$value_pro->ten_sp}}</a></td>
@@ -89,14 +89,7 @@
           <small class="text-muted inline m-t-sm m-b-sm"></small>
         </div>
         <div class="col-sm-7 text-right text-center-xs">                
-          <ul class="pagination pagination-sm m-t-none m-b-none">
-            <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
-            <li><a href="">1</a></li>
-            <li><a href="">2</a></li>
-            <li><a href="">3</a></li>
-            <li><a href="">4</a></li>
-            <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
-          </ul>
+          {{$comment->appends(Request::all())->links() }}
         </div>
       </div>
     </footer>

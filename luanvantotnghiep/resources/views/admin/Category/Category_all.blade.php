@@ -9,12 +9,12 @@
     </div>
        <div class="row w3-res-tb">
        <form >
-      <div class="col-sm-3">
-        <div class="input-group">
-          <input type="text" class="input-sm form-control"name="keywords_submit" placeholder="nhập từ khóa" value="">
-          <span class="input-group-btn">
-            <button class="btn btn-sm btn-default" type="button">TÌM</button>
-          </span>
+      <div class="col-sm-8">
+        <div class="input-group" style="display:flex;">
+          <input type="text" class="input-sm form-control"name="keywords_submit" placeholder="nhập Mã, Tên Danh Mục, Tên Thiết Kế, Tên Chất Liệu">
+         
+            <button >TÌM</button>
+         
          </div>
         </div>
       </form>

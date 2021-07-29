@@ -43,11 +43,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<form action="{{URL::to('/admin-dashboard')}}" method="post" >
 			@csrf			
 
-			<input type="text" class="ggg" name="email" id="email_user" placeholder="E-MAIL" >
+			<input type="text" class="ggg login" name="email" id="email_user" placeholder="E-MAIL" >
 			<?php if ($errors->has('email')): ?>
                 <span style="color:red;">{{$errors->first('email')}}</span>
             <?php endif ?>
-			<input type="password" class="ggg" name="matkhau" id="password_user" placeholder="MẬT KHẨU" >
+			<input type="password" class="ggg login" name="matkhau" id="password_user" placeholder="MẬT KHẨU" >
 			<?php if ($errors->has('matkhau')): ?>
                 <span style="color:red;">{{$errors->first('matkhau')}}</span>
             <?php endif ?>

@@ -940,13 +940,13 @@ button.btn_mua_nhanh_shop {
     color: #FFF;
     border: none;
 }
-/*div#solg_sp {
-    padding: 2%;
+div#solg_sp {
+    padding: 1%;
     margin: 5px;
-    margin-left: 2%;
-    width: 27%;
+    width: 31%;
     text-align: center;
     text-transform: uppercase;
     border: 1px solid #FFF;
     font-weight: bold;
-}*/
+    background: #efefef;
+}

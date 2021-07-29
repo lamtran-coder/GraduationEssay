@@ -72,12 +72,9 @@
                             ?>
                                 
                             </span></td>
-                        <td class="form-td"><span><form action="{{URL::to('/update-qty-cart')}}" method="POST">
-                                    @csrf
-                                <input class="textbot-update" type="textbox" name="cart_quantity" value="{{$v_content->qty}}">
-                                <input type="hidden" name="rowId_cart" value="{{$v_content->rowId}}" >
-                                <button class="button-update">update</button> 
-                            </form></span></td>
+                        <td class="form-td"><span>{{$v_content->qty}}
+    
+                           </span></td>
                         <td class="form-td"><span style="font-size:25px;"><?php 
                             $subTotal=($v_content->price*$v_content->qty)*(100-$ck_sp)/100;
                             $Sum_mony+=$subTotal;

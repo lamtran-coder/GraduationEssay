@@ -71,11 +71,29 @@
                     </header>
                     <div class="panel-body">
                         <div class="position-center">
+                             <form action="">
+                            <?php if (isset($_GET['tim_thiet_ke'])) {
+                                    $tim_thiet_ke=$_GET['tim_thiet_ke'];
+                                 }else{
+                                     $tim_thiet_ke="";
+                                 }
+                                 if (isset($_GET['tim_chat_lieu'])) {
+                                    $tim_chat_lieu=$_GET['tim_chat_lieu'];
+                                 }else{
+                                     $tim_chat_lieu="";
+                                 }
+                             ?>
+                            <div class="form-group" style="display:flex;">
+                                <input type="text" class="form-control" style="width: 150px;" name="tim_thiet_ke" placeholder="nhập tên thiết kê" value="<?php echo $tim_thiet_ke ?>">
+                                <input type="text" class="form-control" style="width: 150px;margin-left: 5px;" name="tim_chat_lieu" placeholder="nhập tên chất kiệu" value="<?php echo $tim_chat_lieu ?>" >
+                                <button>Tìm</button>
+                            </div>
+                            </form>
                             <form role="form" action="{{URL::to('/save-Category')}}" method="post">
                                 @csrf
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Tên danh mục sản phẩm </label>
-                                    <select name="category_key" style="height :150px" class="form-control input-sm m-bot15 main-styling" multiple>
+                                    <select name="category_key"  class="form-control input-sm m-bot15 main-styling" >
                                    
                                         <option value="AO">Áo</option>
                                         <option value="QU">Quần</option>
@@ -89,7 +107,8 @@
                                 <div class="form-group">
 
                                     <label for="exampleInputEmail1">Thiết kế</label>
-                                   <select name="design_key" style="height :150px" class="form-control input-sm m-bot15 main-styling" multiple>
+
+                                   <select name="design_key"  class="form-control input-sm m-bot15 main-styling" >
                                     <?php foreach ($design_id as $key => $value_des): ?>
                                         <option value="{{$value_des->ma_tk}}">{{$value_des->ten_tk}}</option>
                                     <?php endforeach ?>
@@ -102,7 +121,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Chất liệu</label>
-                                    <select name="material_key" style="height :150px" class="form-control input-sm m-bot15 main-styling" multiple > 
+                                    <select name="material_key" class="form-control input-sm m-bot15 main-styling"  > 
                                     <?php foreach ($material_id as $key => $value_mat): ?>
                                           <option value="{{$value_mat->ma_cl}}">{{$value_mat->ten_cl}}</option>
                                     <?php endforeach ?>

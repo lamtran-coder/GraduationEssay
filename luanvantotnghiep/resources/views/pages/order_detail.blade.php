@@ -72,11 +72,9 @@
                                 ?>
                             </td>
                         </tr>				
-					
 						<?php endforeach ?>
                     </tbody>                   
                   </table>
-
                 {{$order_detail_view->links()}}
         </div>
 	</div>

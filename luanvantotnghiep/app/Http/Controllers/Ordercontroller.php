@@ -111,18 +111,7 @@ class Ordercontroller extends Controller
                     ->where('ma_mau',$value_det_pro->ma_mau)->update($Sub_detail_sp);
                 }
             }
-            $product_id=DB::table('san_pham')->get();
-            //cập nhật số lượng sản phẩm bên bảng sản phẩm
-            foreach ($product_id as $key => $value_pro) {
-                if ($value_pro->ma_sp==$v_content->id) 
-                {
-                    $Sub_sp['solg_sp']=$value_pro->solg_sp-$v_content->qty;
-                    DB::table('san_pham')
-                    ->where('ma_sp',$value_pro->ma_sp)
-                    ->update($Sub_sp);
-                }
-            }
-            
+                
         }     
         return Redirect::to('/show-order/'.$user_id); 
 
@@ -150,10 +139,7 @@ class Ordercontroller extends Controller
             ->where('user.user_id',$user_id)
             ->where('don_dat_hang.trangthai',$status)
             ->paginate(5);
-            return view('pages.show_order')
-            ->with('cate_product',$cate_product)
-            ->with('design_id',$design_id)
-            ->with('order_user_id',$order_user_id);
+            
             
         }else{
             $order_user_id=DB::table('don_dat_hang')
@@ -163,11 +149,11 @@ class Ordercontroller extends Controller
             ->where('user.user_id',$user_id)
             ->orderby('ngdat','ASC')
             ->paginate(5);
-            return view('pages.show_order')
-            ->with('cate_product',$cate_product)
-            ->with('design_id',$design_id)
-            ->with('order_user_id',$order_user_id);
         }
+        return view('pages.show_order')
+        ->with('cate_product',$cate_product)
+        ->with('design_id',$design_id)
+        ->with('order_user_id',$order_user_id);
         
     }
     //chi tiet đơn đặt hàng

@@ -21,17 +21,61 @@ class Categorycontroller extends Controller
     }
     public function add_Category(){
         $this->AuthLogin();
-        $design_id=DB::table('thiet_ke')
-        ->orderby('ma_tk','desc')->get();
-        $material_id=DB::table('chat_lieu')
-        ->orderby('ma_cl','desc')->get();
+        if (isset($_GET['tim_chat_lieu'])||isset($_GET['tim_thiet_ke']))
+        {
+            if (isset($_GET['tim_thiet_ke'])) {
+                $tim_thiet_ke=$_GET['tim_thiet_ke'];
+                $design_id=DB::table('thiet_ke')
+                ->orwhere('ten_tk','like','%'. $tim_thiet_ke .'%')
+                ->orderby('ma_tk','desc')->get();
+                $material_id=DB::table('chat_lieu')
+                ->orderby('ma_cl','desc')->get();
+            }
+            if (isset($_GET['tim_chat_lieu'])) {
+                $tim_chat_lieu=$_GET['tim_chat_lieu'];
+                $design_id=DB::table('thiet_ke')
+                ->get();
+                $material_id=DB::table('chat_lieu')
+                ->orwhere('ten_cl','like','%'. $tim_chat_lieu .'%')
+                ->get();
+            }
+            if (isset($_GET['tim_chat_lieu'])&&isset($_GET['tim_thiet_ke'])) {
+                $tim_chat_lieu=$_GET['tim_chat_lieu'];
+                $tim_thiet_ke=$_GET['tim_thiet_ke'];
+                $material_id=DB::table('chat_lieu')
+                ->where('ten_cl','like','%'. $tim_chat_lieu .'%')
+                ->get();
+                $design_id=DB::table('thiet_ke')
+                ->where('ten_tk','like','%'. $tim_thiet_ke .'%')
+                ->get();
+            }
+        }
+        else{
+            $design_id=DB::table('thiet_ke')
+            ->orderby('ma_tk','desc')->get();
+            $material_id=DB::table('chat_lieu')
+            ->orderby('ma_cl','desc')->get();
+        }
+       
         return view('admin.Category.Category_add')
         ->with('material_id',$material_id)
         ->with('design_id',$design_id);
     }
     public function all_Category(){
          $this->AuthLogin();
-        if (isset($_GET['Trang_thai'])) {
+         if (isset($_GET['keywords_submit'])) {
+            $keywords=$_GET['keywords_submit'];
+          $all_Category=DB::table('danh_muc_sp')
+        ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
+        ->join('chat_lieu','chat_lieu.ma_cl','=','danh_muc_sp.ma_cl')
+        ->select('danh_muc_sp.*','chat_lieu.ten_cl','thiet_ke.ten_tk')
+        ->where('ma_dm','like','%'.$keywords.'%')
+        ->orwhere('danh_muc','like','%'.$keywords.'%')
+        ->orwhere('ten_cl','like','%'.$keywords.'%')
+        ->orwhere('ten_tk','like','%'.$keywords.'%')
+        ->paginate(10);
+         }
+        elseif (isset($_GET['Trang_thai'])) {
             $Trang_thai=$_GET['Trang_thai'];
             if ($Trang_thai==1) {
                 $all_Category=DB::table('danh_muc_sp')

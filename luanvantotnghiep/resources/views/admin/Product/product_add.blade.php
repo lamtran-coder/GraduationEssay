@@ -20,29 +20,20 @@
                                 </div>
                         <div class="panel-body">
                             <div class="position-center">
+                                <form action="">
+                                <div class="form-group" style="display:flex;">
+                                <input type="text" class="form-control " name="keywords_search" style="width:400px" placeholder="nhập danh mục, tên thiết kế, tên chất liệu cần tìm">
+                                <button>Tìm</button>
+                                </div>
+                                </form>
                                 <form role="form" action="{{URL::to('/save-product')}}" method="post">
                                     @csrf
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Danh mục</label>
-                                        <select name="category_product_id" class="form-control input-sm m-bot15 main-styling" multiple style="height: 130px;text-transform: capitalize;width: 550px;">
-                                            
-                                            <?php 
-                                            foreach ($cate_product as $key => $value_cate) {
-                                               foreach ($design_id as $key => $value_des) {
-                                                   if($value_cate->ma_tk==$value_des->ma_tk){
-                                                        $result1=$value_des->ten_tk;
-                                                    }
-
-                                                }
-                                                foreach($material_id as $key => $value_mat){
-                                                    if($value_cate->ma_cl==$value_mat->ma_cl){
-                                                        $result2=$value_mat->ten_cl;
-                                                    }
-                                                }
-                                                $result=$value_cate->ma_dm;
-                                                echo '<option value="'.$result.'">'.$result.'-'.$result1.'-'.$result2.'</option>';
-                                            }
-                                            ?>  
+                                        <select name="category_product_id" class="form-control input-sm m-bot15 main-styling"  style="text-transform: capitalize;width: 550px;">
+                                        <?php foreach ($cate_product as $key => $val): ?>
+                                            <option>{{$val->ma_dm}}-{{$val->ten_tk}}-{{$val->ten_cl}}</option>
+                                        <?php endforeach ?>
                                         </select>
                                     <?php if ($errors->has('category_product_id')): ?>
                                         <span style="color:red">{{$errors->first('category_product_id')}}</span>

@@ -21,12 +21,26 @@ class Productcontroller extends Controller
     }
     public function add_product(){
         $this->AuthLogin();
-        $cate_product=DB::table('danh_muc_sp')->orderby('danh_muc','ASC')->get();
-        $design_id=DB::table('thiet_ke')->orderby('ma_tk','desc')->get();
-        $material_id=DB::table('chat_lieu')->orderby('ma_cl','desc')->get();
+        if (isset($_GET['keywords_search'])) {
+            $keywords=$_GET['keywords_search'];
+            $cate_product=DB::table('danh_muc_sp')
+            ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
+            ->join('chat_lieu','chat_lieu.ma_cl','=','danh_muc_sp.ma_cl')
+            ->orwhere('danh_muc','like','%'. $keywords .'%')
+            ->orwhere('ten_tk','like','%'. $keywords .'%')
+            ->orwhere('ten_cl','like','%'. $keywords .'%')
+            ->get();
+        }else{
+
+        $cate_product=DB::table('danh_muc_sp')
+        ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
+        ->join('chat_lieu','chat_lieu.ma_cl','=','danh_muc_sp.ma_cl')
+        ->get();
+        }
         $product_id=DB::table('san_pham')->orderby('ma_sp','desc')->get();
-        return view('admin.Product.product_add')->with('cate_product',$cate_product)->with('product_id',$product_id)
-        ->with('design_id',$design_id)->with('material_id',$material_id)
+        return view('admin.Product.product_add')
+        ->with('cate_product',$cate_product)
+        ->with('product_id',$product_id)
         ;
     }
     public function all_product(){
@@ -606,7 +620,9 @@ class Productcontroller extends Controller
         ->join('danh_muc_sp','danh_muc_sp.ma_dm','=','san_pham.ma_dm')
         ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
        ->where('danh_muc_sp.ma_dm',$ma_dm)->whereNotIn('san_pham.ma_sp',[$ma_sp])->get();
-
+        $user_raiting=DB::table('danh_gia')
+        ->where('ma_sp',$ma_sp)
+        ->get();
         $rating = DB::table('danh_gia')->where('ma_sp',$ma_sp)->avg('rating');
         $rating = round($rating);
         
@@ -623,12 +639,33 @@ class Productcontroller extends Controller
         ->with('all_color',$all_color)
         ->with('all_img',$all_img)
         ->with('rating',$rating)
+        ->with('user_raiting',$user_raiting)
         ->with('related_product',$related_product)
         ->with('details_product',$details_product);
 
 
     }
-    
+    //hien thị số lượng
+    public function solg_sanpham(Request $request){
+        $mau=$request->radiocolor;
+        $size=$request->radiosize;
+        $key=$request->key;
+        $solg_sp=DB::table('chi_tiet_san_pham')
+        ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
+        ->where('chi_tiet_san_pham.ma_size',$size)
+        ->where('mau.ten_mau',$mau)
+        ->where('chi_tiet_san_pham.ma_sp',$key)
+        ->get();
+        $output='thiếu size hoặc màu';
+        foreach ($solg_sp as $key => $value) {
+            if ($value->so_lg>0) {
+                $output='<ladel>Số Lượng Tồn : '.$value->so_lg.'</ladel>';
+            }else{
+                $output='tạm hết hàng';
+            }
+        }
+        echo($output);
+    }
     //bình luận
     public function load_comment(Request $request){
         $ma_sp=$request->ma_sp;
@@ -676,8 +713,11 @@ class Productcontroller extends Controller
        
     }
     public function list_comment(){
-       $comment = binh_luan::with('san_pham')->where('comment_parent_comment','=',0)->orderBy('comment_status','DESC')->get();
-        $comment_rep = binh_luan::with('san_pham')->where('comment_parent_comment','>',0)->get();
+       $comment = binh_luan::with('san_pham')
+       ->where('comment_parent_comment','=',0)
+       ->orderBy('comment_status','DESC')
+       ->paginate(10);
+       $comment_rep = binh_luan::with('san_pham')->where('comment_parent_comment','>',0)->get();
        $all_product=DB::table('san_pham')
         ->where ('trang_thai','1')->get();
         return view('admin.Comment.list_comment')->with(compact('comment','comment_rep'))

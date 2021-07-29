@@ -31,13 +31,11 @@ class Checkoutcontroller extends Controller
         ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
         ->orderby('san_pham.ma_sp','desc')->limit(6)->get(); 
         $customer_id=DB::table('khach_hang')->orderby('ma_kh','desc')->get();
-       return view('pages.show_checkout')
+       return view('pages.Checkout.show_checkout')
         ->with('cate_product',$cate_product)
         ->with('all_product',$all_product)
         ->with('design_id',$design_id)
-        ->with('customer_id',$customer_id)
-        ;
-      
+        ->with('customer_id',$customer_id);
     }
     public function save_checkout_kh(Request $request){
         $data = array();
@@ -70,7 +68,7 @@ class Checkoutcontroller extends Controller
           ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
           ->get();
         
-       return view('pages.payment')
+       return view('pages.Payment.payment')
         ->with('cate_product',$cate_product)
         ->with('design_id',$design_id)
         ;

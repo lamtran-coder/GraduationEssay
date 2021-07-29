@@ -111,6 +111,25 @@
 				<div id="solg_sp"></div>
 				<button class="button-mua" style="margin-left: 40px;">CHỌN MUA</button>
 				</form>
+				<script type="text/javascript">
+					//kiểm trả số lượng tồn của sản phẩm có sai mã khác nhau
+						$(document).ready(function(){
+						$('.form_chon').on('change',function(){
+							var _token = $('input[name="_token"]').val();
+							var radiocolor = $('.mau-key:checked').val();
+							var radiosize = $('.size-key:checked').val();
+							var key=$('.key_product').val();
+							$.ajax({
+							url:"{{url('/solg-sanpham')}}",
+							method:"POST",
+							data:{key:key,radiocolor:radiocolor, radiosize:radiosize,_token:_token},
+							success:function(data){
+								$('#solg_sp').html(data);
+							 }
+							});
+						});
+						});
+					</script>
 				<div class="clear"></div>
 				
 			</ul>
@@ -228,14 +247,15 @@
      	</div>
      	<?php $username=Session::get('username');?>
      	<?php if ($username!=null): ?>
+     	<?php $user_id=Session::get('user_id');?>
+     	
      		
 		<form action="#">
 			@csrf
      	<div class="comment-new">
      		<div >
-     			<label><?php echo ucwords($username); ?></label>
+     			<label><?php echo ucwords($username); ?><?php echo ucwords($user_id); ?></label>
      			<input style="color:black" type="hidden"   class="comment_name" value="<?php echo $username; ?>" >
-     			
      			<!-- đánh giá -->
      			<ul class="list-inline" style="display: -webkit-box;" title="Average Raiting">
      				<?php 

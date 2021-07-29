@@ -120,8 +120,11 @@
                          }
 
                         ?>
+                       
+                    (<?php echo $dem; ?>)
                         </ul>
                             </a>
+
 
                     </span>
                     <div class="mua_nhanh">

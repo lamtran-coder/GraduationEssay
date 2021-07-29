@@ -2393,9 +2393,10 @@ input.ggg{
     border: 1px solid #fff;
     outline: none;
     font-size: 14px;
-    color: #fff;
+    color: #000;
     margin: 14px 0px;
-	background: none;
+    font-weight: 800;
+	
 }
 .w3layouts-main span {
     font-size: 16px;
