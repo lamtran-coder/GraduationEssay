@@ -144,9 +144,17 @@ class Customercontroller extends Controller
             ->paginate(10);
         }
         $order_id=DB::table('don_dat_hang')->get();
+        //thong báo
+        $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->where('che_do',null)->get();
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,che_do')
+        ->orderby('thoi_gian','desc')
+        ->get();
         return view('admin.Customer.customer_all')
         ->with('use_id',$use_id)
         ->with('order_id',$order_id)
+        ->with('solg_messe',$solg_messe)
+        ->with('message_id',$message_id)
         ;
 
     }
@@ -324,8 +332,16 @@ class Customercontroller extends Controller
         ->where('khach_hang.email',$email)
         ->paginate(5);
         }
+        //thong báo
+        $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->where('che_do',null)->get();
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,che_do')
+        ->orderby('thoi_gian','desc')
+        ->get();
         return view('admin.Customer.customer_address')
-        ->with('customer_id',$customer_id);
+        ->with('customer_id',$customer_id)
+        ->with('solg_messe',$solg_messe)
+        ->with('message_id',$message_id);
     }
     
 

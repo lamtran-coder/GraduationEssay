@@ -21,12 +21,28 @@ class SliderController extends Controller
     
     public function manage_slider(){
         $this->AuthLogin();
+        //thong báo
+        $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->where('che_do',null)->get();
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,che_do')
+        ->orderby('thoi_gian','desc')
+        ->get();
         $all_slide = Slider::orderBy('slider_id','DESC')->paginate(2);
-        return view('admin.Img_event.list_slider')->with(compact('all_slide'));
+        return view('admin.Img_event.list_slider')->with(compact('all_slide'))
+        ->with('solg_messe',$solg_messe)
+        ->with('message_id',$message_id);
     }
     public function add_slider(){
         $this->AuthLogin();
-        return view('admin.Img_event.add_slider');
+        //thong báo
+        $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->where('che_do',null)->get();
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,che_do')
+        ->orderby('thoi_gian','desc')
+        ->get();
+        return view('admin.Img_event.add_slider')
+        ->with('solg_messe',$solg_messe)
+        ->with('message_id',$message_id);
     }
     public function unactive_slide($slide_id){
        

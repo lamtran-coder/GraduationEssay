@@ -38,10 +38,17 @@ class Productcontroller extends Controller
         ->get();
         }
         $product_id=DB::table('san_pham')->orderby('ma_sp','desc')->get();
+        //thong báo
+        $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->where('che_do',null)->get();
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,che_do')
+        ->orderby('thoi_gian','desc')
+        ->get();
         return view('admin.Product.product_add')
         ->with('cate_product',$cate_product)
         ->with('product_id',$product_id)
-        ;
+        ->with('solg_messe',$solg_messe)
+        ->with('message_id',$message_id);
     }
     public function all_product(){
         $this->AuthLogin();
@@ -263,9 +270,17 @@ class Productcontroller extends Controller
                 ->groupBy('san_pham.ma_sp')
                 ->paginate(10);
         }
-
-        $manager_product=view('admin.Product.product_all')->with('all_product',$all_product);
-        return view('admin_layout')->with('admin.Product.product_all',$manager_product);
+        //thong báo
+        $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->where('che_do',null)->get();
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,che_do')
+        ->orderby('thoi_gian','desc')
+        ->get();
+        return view('admin.Product.product_all')
+        ->with('all_product',$all_product)
+        ->with('solg_messe',$solg_messe)
+        ->with('message_id',$message_id);
+        
         
     }
     public function save_product(Request $request){
@@ -315,8 +330,19 @@ class Productcontroller extends Controller
         $design_id=DB::table('thiet_ke')->get();
         $material_id=DB::table('chat_lieu')->get();
         $cate_product_id=DB::table('danh_muc_sp')->get();
-        $manager_product=view('admin.Product.product_edit')->with('edit_product_id',$edit_product_id)->with('design_id',$design_id)->with('material_id',$material_id)->with('cate_product_id',$cate_product_id);
-        return view('admin_layout')->with('manager_product',$manager_product);
+        //thong báo
+        $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->where('che_do',null)->get();
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,che_do')
+        ->orderby('thoi_gian','desc')
+        ->get();
+         return view('admin.Product.product_edit')
+         ->with('edit_product_id',$edit_product_id)
+         ->with('design_id',$design_id)
+         ->with('material_id',$material_id)
+         ->with('cate_product_id',$cate_product_id)
+         ->with('solg_messe',$solg_messe)
+        ->with('message_id',$message_id);
       
     }
     public function update_product(Request $request,$ma_sp){
@@ -441,6 +467,9 @@ class Productcontroller extends Controller
           ->groupBy('thiet_ke.ma_tk')
           ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
           ->get();
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,user_id,che_do')
+        ->get();
         $min_price = DB::table('san_pham')->min('san_pham.gia_goc');
         $max_price = DB::table('san_pham')->max('san_pham.gia_goc');
 
@@ -583,7 +612,8 @@ class Productcontroller extends Controller
         ->with('max_price',$max_price)
         ->with('rating_id',$rating_id)
         ->with('min_price_range',$min_price_range)
-        ->with('max_price_range',$max_price_range);
+        ->with('max_price_range',$max_price_range)
+        ->with('message_id',$message_id);
     }
 
      // show chi tiết sản phẩm
@@ -620,14 +650,21 @@ class Productcontroller extends Controller
         ->join('danh_muc_sp','danh_muc_sp.ma_dm','=','san_pham.ma_dm')
         ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
        ->where('danh_muc_sp.ma_dm',$ma_dm)->whereNotIn('san_pham.ma_sp',[$ma_sp])->get();
-        $user_raiting=DB::table('danh_gia')
-        ->where('ma_sp',$ma_sp)
+        $user_raiting=DB::table('don_dat_hang')
+        ->join('khach_hang','khach_hang.ma_kh','=','don_dat_hang.ma_kh')
+        ->join('chi_tiet_don_hang','chi_tiet_don_hang.ma_ddh','=','don_dat_hang.ma_ddh')
+        ->select('chi_tiet_don_hang.ma_sp','khach_hang.email')
+        ->where('chi_tiet_don_hang.ma_sp',$ma_sp)
+        ->where('chi_tiet_don_hang.trang_thai','3')
         ->get();
+        $rating_id=DB::table('danh_gia')->get();
         $rating = DB::table('danh_gia')->where('ma_sp',$ma_sp)->avg('rating');
         $rating = round($rating);
         
-       
-
+        //thông báo
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,user_id')
+        ->get();
         return view('pages.Shop.single')
         ->with('cate_product',$cate_product)
         ->with('all_product',$all_product)
@@ -639,9 +676,11 @@ class Productcontroller extends Controller
         ->with('all_color',$all_color)
         ->with('all_img',$all_img)
         ->with('rating',$rating)
+        ->with('rating_id',$rating_id)
         ->with('user_raiting',$user_raiting)
         ->with('related_product',$related_product)
-        ->with('details_product',$details_product);
+        ->with('details_product',$details_product)
+        ->with('message_id',$message_id);
 
 
     }
@@ -720,8 +759,16 @@ class Productcontroller extends Controller
        $comment_rep = binh_luan::with('san_pham')->where('comment_parent_comment','>',0)->get();
        $all_product=DB::table('san_pham')
         ->where ('trang_thai','1')->get();
+        //thong báo
+        $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->where('che_do',null)->get();
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,che_do')
+        ->orderby('thoi_gian','desc')
+        ->get();
         return view('admin.Comment.list_comment')->with(compact('comment','comment_rep'))
-        ->with('all_product',$all_product);
+        ->with('all_product',$all_product)
+        ->with('solg_messe',$solg_messe)
+        ->with('message_id',$message_id);
     }
      public function allow_comment(Request $request){
         $data = $request->all();
@@ -765,6 +812,7 @@ class Productcontroller extends Controller
         $rating = new Rating();
         $rating->ma_sp = $data['ma_sp'];
         $rating->rating = $data['index'];
+        $rating->user_id =$data['user_id'];
         $rating->save();
         echo 'done';
     }

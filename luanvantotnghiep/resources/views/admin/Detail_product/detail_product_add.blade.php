@@ -55,11 +55,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Chiều cao </label>
-                                        <input type="text" class="form-control main-styling" name="chieu_cao" placeholder="chiều cao" required="">
+                                        <input type="text" class="form-control main-styling" name="chieu_cao" placeholder="chiều cao" value="0">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Cân nặng</label>
-                                        <input type="text" min=1 class="form-control main-styling" name="can_nang" placeholder="Cân nặng" required="">
+                                        <input type="text" min=1 class="form-control main-styling" name="can_nang" placeholder="Cân nặng" value="0">
                                     </div>
                                    
                                     

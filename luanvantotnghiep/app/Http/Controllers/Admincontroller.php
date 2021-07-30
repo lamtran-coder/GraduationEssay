@@ -73,8 +73,17 @@ class Admincontroller extends Controller
     $comment=DB::table('binh_luan')->count();
     $product=DB::table('san_pham')->count();
     
+    //thong báo
+    $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->where('che_do',null)->get();
+    $message_id=DB::table('thong_bao')
+    ->selectRaw('noi_dung,thoi_gian,che_do')
+    ->orderby('thoi_gian','desc')
+    ->get();
+    
     return view('admin.dashboard')
     ->with(compact('visitors_total','visitor_count','visitor_last_month_count','visitor_this_month_count','visitor_year_count','product','comment','order','customer'))
+    ->with('message_id',$message_id)
+    ->with('solg_messe',$solg_messe)
     ;
     }
     public function dashboard(Request $request){

@@ -123,10 +123,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <!-- inbox dropdown end -->
         <!-- notification dropdown start-->
         <li id="header_notification_bar" class="dropdown">
+                
+            
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 
                 <i class="fa fa-bell-o"></i>
-                <span class="badge bg-warning">1</span>
+                <?php foreach ($solg_messe as $key => $so_lg): ?>
+                    <span class="badge bg-warning">{{$so_lg->solg}}</span>     
+                <?php endforeach ?>
             </a>
             <ul class="dropdown-menu extended notification">
                 <li>
@@ -134,12 +138,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 Thông báo</p>
                 </li>
                 <li>
-                    <div class="alert alert-info clearfix">
-                        <span class="alert-icon"><i class="fa fa-bolt"></i></span>
+            <?php foreach ($message_id as $key => $val_mes): ?>
+                <?php if ($val_mes->che_do!='admin'): ?>
+                    
+               
+                    <div class="alert alert-info clearfix" style="background:#e9e3e3;">
+                        <span class="alert-icon"style="background:red;"><i class="fa fa-bolt" ></i></span>
                         <div class="noti-info">
-                            <a href="#"> Máy chủ số 1 bị quá tải.</a>
+                            <a href="#" style="text-transform: capitalize;">{{$val_mes->noi_dung}}</a>
+                            <br><?php echo date('H:i:s d-m-Y',strtotime($val_mes->thoi_gian)); ?>
                         </div>
                     </div>
+                 <?php endif ?>
+            <?php endforeach ?>
                 </li>
 
             </ul>

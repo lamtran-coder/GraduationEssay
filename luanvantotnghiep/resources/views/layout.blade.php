@@ -129,7 +129,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
         <div class="cssmenu">
            <ul>
-            
             <li> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</li>
             <ul class="icon2 sub-icon2 profile_img">
             <li><a class="" href="{{URL::to('/login-user')}}"><i class="fa fa-user fa-user-styling"></i></a>
@@ -146,20 +145,29 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <?php } ?>
                     </a></li> 
                 </ul>
-            <li><a href=""><p style="font-weight: bolder;"><?php echo ucwords($username); ?></p></a></li>
             </li>
+            <?php $username=Session::get('username');
+                      $user_id=Session::get('user_id');
+                    if ($username!=null) { ?>
+            <li><a href=""><p style="font-weight: bolder;"><?php echo ucwords($username); ?></p></a></li>
+            <?php }?>
             </ul>
            </ul>
         </div>
+                    <?php  $content=Cart::content(); ?> 
         <ul class="icon2 sub-icon2 profile_img">
-            <li><a class="" href="{{URL::to('/show-cart')}}"><i class="fa fa-shopping-cart fa-shopping-cart-styling"></i></a>
+            <li><a class="" href="{{URL::to('/show-cart')}}"><i class="fa fa-shopping-cart fa-shopping-cart-styling"></i><i
+                class="message_qty_cart">
+                (<?php 
+                $dem_sp=0;
+                foreach ($content as $key => $val_con) {
+                    $dem_sp++;
+                } 
+                echo $dem_sp;
+                ?>)
+            </i></a>
                 <ul class="sub-icon2 list">
                     <li><a href="{{URL::to('/show-cart')}}"><h3>Giỏ hàng</h3></a></li>
-                    <?php  $content=Cart::content();
-                        // echo '<pre>';
-                        // print_r($content);
-                        // echo '</pre>';
-                    ?> 
                        <table class="show-cart-mini">
                             <tbody>
                                 <?php foreach ($content as $key => $v_content): ?> 
@@ -253,10 +261,29 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                <li class="active grid"><a class="color4" href="{{URL::to('/gioi-thieu')}}">Giới thiệu</a></li>               
                 <li><a class="color5" href="{{URL::to('/chinh-sach')}}">Chính sách</a></li>
                 <li><a class="color6" href="{{URL::to('/ke-hang')}}">Cửa Hàng</a></li>
-                <li>
+                    
                 
+                <ul class="icon2 sub-icon2 profile_img">
+                <li><a class="" href=""><i class="fa fa-bell fa-bell-styling" aria-hidden="true"></i></a>
+                    <ul class="sub-icon2 list fa-bell-styling">
+                    <?php
+                     $user_id=Session::get('user_id'); 
+                    if (isset($user_id)){ ?>
+                        <?php
+                        $fl=false; 
+                        foreach ($message_id as $key => $val_mes){ ?>
+                            <?php if ($user_id==$val_mes->user_id){ ?>
+                                <li><i class="fa fa-bell" style="color:yellow;font-size: 30px;" aria-hidden="true"></i>{{$val_mes->noi_dung}}<br>
+                                    <p style="float:right;"><?php echo date('H:i:s d-m-Y',strtotime($val_mes->thoi_gian)); ?></p></li>
+                            <?php  $fl=true; } ?>
+                        <?php }
+                        if($fl==false){ ?>
+                        <li style="color:black;">Chưa Có Thông Báo Mới...</li>
+                        <?php } ?>
+                    <?php } ?>
+                    </ul>
                 </li>
-
+                </ul>
                 
            </ul>
            <div class="clear"></div>
@@ -364,14 +391,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     $(document).on('click', '.raiting', function(){
         var index = $(this).data("index");
         var ma_sp = $(this).data('ma_sp');
+        var user_id=$('.user_id').val();
         var _token = $('input[name="_token"]').val();
             // alert(index)
             // alert(ma_sp)
             // alert(_token)
+            // alert(user_id)
           $.ajax({
            url:"{{url('insert-rating')}}",
            method:"POST",
-           data:{index:index, ma_sp:ma_sp,_token:_token},
+           data:{index:index, ma_sp:ma_sp,_token:_token,user_id:user_id},
            success:function(data)
            {
             if(data == 'done')

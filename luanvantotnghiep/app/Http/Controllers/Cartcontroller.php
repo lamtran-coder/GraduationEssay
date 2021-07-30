@@ -65,7 +65,10 @@ class Cartcontroller extends Controller
           ->join('danh_muc_sp','danh_muc_sp.ma_tk','thiet_ke.ma_tk')->where('danh_muc_sp.trang_thai','1')
           ->groupBy('thiet_ke.ma_tk')
           ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
-          ->get();;
+          ->get();
+        $message_id=DB::table('thong_bao')
+      ->selectRaw('noi_dung,thoi_gian,user_id')
+      ->get();
         $all_product=DB::table('san_pham')->where ('trang_thai','1')
         ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
         ->orderby('san_pham.ma_sp','desc')->get(); 
@@ -73,7 +76,8 @@ class Cartcontroller extends Controller
         return view('pages.Cart.show_cart')
         ->with('cate_product',$cate_product)
         ->with('design_id',$design_id)
-        ->with('all_product',$all_product);
+        ->with('all_product',$all_product)
+        ->with('message_id',$message_id);
     }
     
 }

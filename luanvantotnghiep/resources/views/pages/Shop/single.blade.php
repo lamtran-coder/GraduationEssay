@@ -247,6 +247,7 @@
      	</div>
      	<?php $username=Session::get('username');?>
      	<?php if ($username!=null): ?>
+     	<?php $email=Session::get('email');?>
      	<?php $user_id=Session::get('user_id');?>
      	
      		
@@ -254,35 +255,59 @@
 			@csrf
      	<div class="comment-new">
      		<div >
-     			<label><?php echo ucwords($username); ?><?php echo ucwords($user_id); ?></label>
+     			<label><?php echo ucwords($username); ?></label>
      			<input style="color:black" type="hidden"   class="comment_name" value="<?php echo $username; ?>" >
+     			<input type="hidden" class="user_id" name="user_id" value="{{$user_id}}">
      			<!-- đánh giá -->
-     			<ul class="list-inline" style="display: -webkit-box;" title="Average Raiting">
-     				<?php 
-					for ($count=1; $count<=5; $count++) { 
-						if($count<=$rating){
-	                             $color = 'color:#ffcc00;';
-	                         }
-	                         else {
-	                             $color = 'color:#ccc;';
-	                         }
-					?>	
-     				<li title="Đánh giá sao" 
-     				id="{{$value_det->ma_sp}}-{{$count}}"
-     				data-index="{{$count}}"
-     				data-ma_sp="{{$value_det->ma_sp}}"
-     				data-rating="{{$rating}}"
-     				class="raiting"
-     				style="cursor: pointer; <?php echo $color;  ?> font-size: 30px;" 
-     				>&#9733;	
-     				</li>
-     				<?php }?>
-     			</ul>
+     			<?php
+     			$result=0; 
+     			foreach ($user_raiting as $key => $val){
+     				if ($val->email==$email) {
+     					$result=1;
+     				}
+     			} ?>	
+     			<?php if ($result==1){ ?>
+     				<?php
+     					$result_id=false; 
+     					foreach ($rating_id as $key => $val_id) {
+     						if (($val_id->user_id==$user_id)&&($value_det->ma_sp==$val_id->ma_sp)) {
+     							$result_id=true;
+     						}
+     					}
+     					if ($result_id==false) {?>
+     						
+     			
+		     			<ul class="list-inline" style="display: -webkit-box;" title="Average Raiting">
+		     				<?php 
+							for ($count=1; $count<=5; $count++) { 
+								if($count<=$rating){
+			                             $color = 'color:#ffcc00;';
+			                         }
+			                         else {
+			                             $color = 'color:#ccc;';
+			                         }
+							?>	
+		     				<li title="Đánh giá sao" 
+		     				id="{{$value_det->ma_sp}}-{{$count}}"
+		     				data-index="{{$count}}"
+		     				data-ma_sp="{{$value_det->ma_sp}}"
+		     				data-rating="{{$rating}}"
+		     				class="raiting"
+		     				style="cursor: pointer; <?php echo $color;  ?> font-size: 30px;" 
+		     				>&#9733;	
+		     				</li>
+		     				<?php }?>
+		     			</ul>
+		     			<?php	}?>  
      			<!-- đánh giá --> 
      			<div>
      			<textarea class="style_comment comment_content"></textarea>
      			<button class="btn_comment"><i class="fa fa-upload send-comment"></i></button>
      			</div>
+     			<?php }else{
+     				echo'<div class="mess">Chưa Mua Hàng Vui Long Mua Hàng </div>';
+     			} ?>
+     			
      		</div>
      		<div id="notify_comment"></div>
      	</div>

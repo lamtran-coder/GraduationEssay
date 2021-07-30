@@ -56,10 +56,17 @@ class Categorycontroller extends Controller
             $material_id=DB::table('chat_lieu')
             ->orderby('ma_cl','desc')->get();
         }
-       
+       //thong báo
+        $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->where('che_do',null)->get();
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,che_do')
+        ->orderby('thoi_gian','desc')
+        ->get();
         return view('admin.Category.Category_add')
         ->with('material_id',$material_id)
-        ->with('design_id',$design_id);
+        ->with('design_id',$design_id)
+        ->with('solg_messe',$solg_messe)
+        ->with('message_id',$message_id);
     }
     public function all_Category(){
          $this->AuthLogin();
@@ -171,7 +178,16 @@ class Categorycontroller extends Controller
             ->select('danh_muc_sp.*','chat_lieu.ten_cl','thiet_ke.ten_tk')
             ->paginate(10); 
         }
-        return view('admin.Category.Category_all')->with('all_Category',$all_Category);
+        //thong báo
+        $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->get();
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian')
+        ->orderby('thoi_gian','desc')
+        ->get();
+        return view('admin.Category.Category_all')
+        ->with('all_Category',$all_Category)
+        ->with('solg_messe',$solg_messe)
+        ->with('message_id',$message_id);
     }
     
     public function save_Category(Request $request){
@@ -224,8 +240,18 @@ class Categorycontroller extends Controller
         $edit_Category=DB::table('danh_muc_sp')->where('ma_dm',$ma_dm)->get();
         $design_id=DB::table('thiet_ke')->get();
         $material_id=DB::table('chat_lieu')->get();
-        $manager_Category=view('admin.Category.Category_edit')->with('edit_Category',$edit_Category)->with('design_id',$design_id)->with('material_id',$material_id);
-        return view('admin_layout')->with('admin.Category_edit',$manager_Category);
+        //thong báo
+        $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->where('che_do',null)->get();
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,che_do')
+        ->orderby('thoi_gian','desc')
+        ->get();
+        return view('admin.Category.Category_edit')
+        ->with('edit_Category',$edit_Category)
+        ->with('design_id',$design_id)
+        ->with('material_id',$material_id)
+        ->with('solg_messe',$solg_messe)
+        ->with('message_id',$message_id);
     }
     public function update_Category(Request $request,$ma_dm){
         $data=array();
@@ -263,15 +289,6 @@ class Categorycontroller extends Controller
         DB::table('thiet_ke')->insert($data);
         Session::put('message','Thêm thành công');
         return Redirect::to('/add-design');     
-    }
-    //add chất liệu
-    public function add_material(){
-         $this->AuthLogin();
-        $design_id=DB::table('thiet_ke')->orderby('ma_tk','desc')->get();
-        $material_id=DB::table('chat_lieu')->orderby('ma_cl','desc')->get();
-        return view('admin.Category_add')
-        ->with('material_id',$material_id)
-            ->with('design_id',$design_id);
     }
     public function save_material(Request $request){
         $data=array();

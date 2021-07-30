@@ -27,11 +27,19 @@ class Detail_productcontroller extends Controller
         $color_id=DB::table('mau')->orderby('ten_mau','desc')->get();
         $size_id=DB::table('size')->orderby('ma_size','desc')->get();
         $detail_product_id=DB::table('chi_tiet_san_pham')->where('ma_sp',$ma_sp)->get();
+        //thong báo
+        $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->get();
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian')
+        ->orderby('thoi_gian','desc')
+        ->get();
         return view('admin.Detail_product.detail_product_add')
         ->with('product_id',$product_id)
         ->with('color_id',$color_id)
         ->with('size_id',$size_id)
-        ->with('detail_product_id',$detail_product_id);
+        ->with('detail_product_id',$detail_product_id)
+        ->with('solg_messe',$solg_messe)
+        ->with('message_id',$message_id);
        
     }
         //lưu 
@@ -87,23 +95,15 @@ class Detail_productcontroller extends Controller
     }
     
            
-    public function add_size_product(){
-        $product_id=DB::table('san_pham')->orderby('ten_sp','desc')->get();
-        $color_id=DB::table('mau')->orderby('ten_mau','desc')->get();
-        $size_id=DB::table('size')->orderby('ma_size','desc')->get();
-        return view('admin.detail_product_add')
-        ->with('product_id',$product_id)
-        ->with('color_id',$color_id)
-        ->with('size_id',$size_id);
-    }
+    
     public function save_size_product(Request $request){
         $data=array();
         $data['ma_size']=$request->size_key;
-        $data['chieu_cao']=$request->chieu_cao;
-        $data['can_nang']=$request->can_nang;
+        $data['chieu_x']=$request->chieu_cao;
+        $data['chieu_y']=$request->can_nang;
         DB::table('size')->insert($data);
-        Session::put('message','Thêm size sản phẩm thành công');
-        return Redirect::to('/add-size-product');
+        $result=$_SERVER['HTTP_REFERER'];
+        return Redirect::to($result);
     }
 
 
@@ -111,22 +111,13 @@ class Detail_productcontroller extends Controller
 
 
     //màu
-    public function add_color_product(){
-         $this->AuthLogin();
-        $product_id=DB::table('san_pham')->orderby('ten_sp','desc')->get();
-        $color_id=DB::table('mau')->orderby('ten_mau','desc')->get();
-        $size_id=DB::table('size')->orderby('ma_size','desc')->get();
-        return view('admin.detail_product_add')
-        ->with('product_id',$product_id)
-        ->with('color_id',$color_id)
-        ->with('size_id',$size_id);
-    }
+    
     public function save_color_product(Request $request){
         $data=array();
         $data['ten_mau']=$request->color_name;
         DB::table('mau')->insert($data);
-        Session::put('message','Thêm màu sản phẩm thành công');
-        return Redirect::to('/add-color-product');
+        $result=$_SERVER['HTTP_REFERER'];
+        return Redirect::to($result);
        
     }
     

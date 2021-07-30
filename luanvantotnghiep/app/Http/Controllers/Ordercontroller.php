@@ -36,7 +36,9 @@ class Ordercontroller extends Controller
           ->groupBy('thiet_ke.ma_tk')
           ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
           ->get();
-
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,user_id')
+        ->get();
          $all_product=DB::table('san_pham')->where ('trang_thai','1')
         ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
         ->orderby('san_pham.ma_sp','desc')->get();
@@ -47,10 +49,12 @@ class Ordercontroller extends Controller
         ->with('design_id',$design_id)
         ->with('all_product',$all_product)
         ->with('customer_id',$customer_id)
+        ->with('message_id',$message_id)
         ;
     }
     public function save_order(Request $request){
         $user_id=$request->user_id;
+
         $data=array();
         $date_mo=date('Y-m-d');
         $newdate=strtotime('+7 day',strtotime($date_mo));
@@ -69,6 +73,9 @@ class Ordercontroller extends Controller
         $data['phigiao']=$request->mony_deli_h;
         $data['ma_kh']=$request->ma_kh;
 
+        $data_mess['user_id']=$user_id;
+        $data_mess['noi_dung']='Đơn hàng mới '.$ma_ddh;
+        DB::table('thong_bao')->insert($data_mess);
         DB::table('don_dat_hang')->insert($data);
 
         $content=Cart::content();
@@ -111,6 +118,7 @@ class Ordercontroller extends Controller
                     ->where('ma_mau',$value_det_pro->ma_mau)->update($Sub_detail_sp);
                 }
             }
+
                 
         }     
         return Redirect::to('/show-order/'.$user_id); 
@@ -127,6 +135,9 @@ class Ordercontroller extends Controller
           ->join('danh_muc_sp','danh_muc_sp.ma_tk','thiet_ke.ma_tk')->where('danh_muc_sp.trang_thai','1')
           ->groupBy('thiet_ke.ma_tk')
           ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
+          ->get();
+        $message_id=DB::table('thong_bao')
+          ->selectRaw('noi_dung,thoi_gian,user_id')
           ->get();
         if (isset($_GET['status'])) {
             $status = $_GET['status'];
@@ -147,13 +158,16 @@ class Ordercontroller extends Controller
             ->join('user','user.email','=','khach_hang.email')
             ->select('don_dat_hang.trangthai','don_dat_hang.ma_ddh','don_dat_hang.ngdat','don_dat_hang.solg_sp','don_dat_hang.tong_tt','don_dat_hang.tien_coc','khach_hang.ten_kh','khach_hang.diachi','khach_hang.sodt','khach_hang.email')
             ->where('user.user_id',$user_id)
+            ->where('don_dat_hang.trangthai','0')
+            ->where('don_dat_hang.ngdat',date('Y-m-d'))
             ->orderby('ngdat','ASC')
             ->paginate(5);
         }
         return view('pages.show_order')
         ->with('cate_product',$cate_product)
         ->with('design_id',$design_id)
-        ->with('order_user_id',$order_user_id);
+        ->with('order_user_id',$order_user_id)
+        ->with('message_id',$message_id);
         
     }
     //chi tiet đơn đặt hàng
@@ -169,6 +183,9 @@ class Ordercontroller extends Controller
           ->groupBy('thiet_ke.ma_tk')
           ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
           ->get();
+        $message_id=DB::table('thong_bao')
+      ->selectRaw('noi_dung,thoi_gian,user_id')
+      ->get();
         if (isset($_GET['status_de'])) {
             $status_de = $_GET['status_de'];
         $order_detail_view = DB::table('chi_tiet_don_hang')
@@ -193,15 +210,44 @@ class Ordercontroller extends Controller
         ->with('cate_product',$cate_product)
         ->with('design_id',$design_id)
         ->with('order_detail_view',$order_detail_view)
-         ;
+         ->with('message_id',$message_id);
 
     }
     //hủy đơn Đặt hàng
     public function delete_order_now($ma_ddh){
+        
         DB::table('don_dat_hang')->where('ma_ddh',$ma_ddh)->update(['trangthai'=>4]);
         DB::table('chi_tiet_don_hang')->where('ma_ddh',$ma_ddh)->update(['trang_thai'=>4]);
-        $result=$_SERVER['HTTP_REFERER'];
-        return Redirect::to($result);
+        $details_order_id=DB::table('chi_tiet_don_hang')
+        ->join('don_dat_hang','don_dat_hang.ma_ddh','=','chi_tiet_don_hang.ma_ddh')
+        ->join('khach_hang','khach_hang.ma_kh','=','don_dat_hang.ma_kh')
+        ->join('user','user.email','=','khach_hang.email')
+        ->where('chi_tiet_don_hang.ma_ddh',$ma_ddh)->get();
+        foreach ($details_order_id as $key => $val_od) {
+            if ($val_od->trang_thai==4) {
+                
+                $so_luong=DB::table('chi_tiet_san_pham')
+                ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
+                ->where('ma_sp',$val_od->ma_sp)
+                ->where('mau.ten_mau',$val_od->ten_mau)
+                ->where('ma_size',$val_od->size)->get(['so_lg']);
+                foreach ($so_luong as $key => $val) {
+                    $result=$val->so_lg+$val_od->solg_sp; 
+                }
+                DB::table('chi_tiet_san_pham')
+                ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
+                ->where('ma_sp',$val_od->ma_sp)
+                ->where('mau.ten_mau',$val_od->ten_mau)
+                ->where('ma_size',$val_od->size)
+                ->update(['so_lg'=>$result]);
+                $user_id=$val_od->user_id;
+            }
+        }
+        $data['noi_dung']='hủy đơn '.$ma_ddh;
+        $data['user_id']=$user_id;
+        DB::table('thong_bao')->insert($data);
+        $url_id=$_SERVER['HTTP_REFERER'];
+        return Redirect::to($url_id);
     }
 
 
@@ -358,9 +404,17 @@ class Ordercontroller extends Controller
         $all_oder=DB::table('don_dat_hang')->orderby('ngdat','ASC')->paginate(10);
         }
         $all_cus=DB::table('khach_hang')->get();
+        //thong báo
+        $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->where('che_do',null)->get();
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,che_do')
+        ->orderby('thoi_gian','desc')
+        ->get();
         return view('admin.Order.order_product_all')
         ->with('all_cus',$all_cus)
-        ->with('all_oder',$all_oder);
+        ->with('all_oder',$all_oder)
+        ->with('solg_messe',$solg_messe)
+        ->with('message_id',$message_id);
     }
    
 
@@ -368,6 +422,7 @@ class Ordercontroller extends Controller
         $this->AuthLogin();
         $customer_id=DB::table('khach_hang')
         ->join('don_dat_hang','don_dat_hang.ma_kh','=','khach_hang.ma_kh')
+        ->join('user','user.email','=','khach_hang.email')
         ->where('don_dat_hang.ma_ddh',$ma_ddh)->get();
        
         $order_detail_id = DB::table('chi_tiet_don_hang')
@@ -380,13 +435,21 @@ class Ordercontroller extends Controller
         $order_id = DB::table('don_dat_hang')->where('ma_ddh',$ma_ddh)->get();
         $admin_id = DB::table('admin')->where('vi_tri','GH')->get();
         $delivery_id=DB::table('phieu_giao')
-        ->where('ma_ddh',$ma_ddh)->orderby('tienconlai','desc')->get();   
+        ->where('ma_ddh',$ma_ddh)->orderby('tienconlai','desc')->get();  
+        //thong báo
+        $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->where('che_do',null)->get();
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,che_do')
+        ->orderby('thoi_gian','desc')
+        ->get();
         return view('admin.Order.order_detail_all')
         ->with('customer_id',$customer_id)
         ->with('order_detail_id',$order_detail_id)
         ->with('order_id',$order_id)
         ->with('admin_id',$admin_id)
         ->with('delivery_id',$delivery_id)
+        ->with('solg_messe',$solg_messe)
+        ->with('message_id',$message_id)
         ;
        
     }
@@ -397,7 +460,17 @@ class Ordercontroller extends Controller
         DB::table('chi_tiet_don_hang')->where('so_ct',$so_ct)->update($data);
        return Redirect::to('/order-details/'.$result);
     }
-    
+    public function message_user(Request $request,$user_id){
+        $request->validate([
+            'noi_dung'=>'required'],
+        ['noi_dung.required'=>'không để trống']);
+        $data['noi_dung']=$request->noi_dung;
+        $data['user_id']=$user_id;
+        $data['che_do']='admin';
+        DB::table('thong_bao')->insert($data);
+        $result=$_SERVER['HTTP_REFERER'];
+        return Redirect::to($result);
+    }
 
 }
     

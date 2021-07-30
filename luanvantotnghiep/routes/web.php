@@ -149,6 +149,7 @@ Route::get('/order-details/{ma_ddh}','Ordercontroller@order_details');
 //chi tiết đơn đặt hàng
 Route::get('/order-detail-view/{ma_ddh}','Ordercontroller@order_detail_view');
 Route::post('/update-status-od/{so_ct}','Ordercontroller@update_status_order_detail');
+Route::post('/message-user/{user_id}','Ordercontroller@message_user');
 //Phiếu giao hàng
 Route::post('/save-delivery-notes/{ma_ddh}','Deliverynotescontroller@save_delivery_notes');
 Route::get('/all-delivery-notes','Deliverynotescontroller@all_delivery_notes');	

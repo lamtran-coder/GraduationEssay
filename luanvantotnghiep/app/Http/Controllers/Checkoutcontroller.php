@@ -27,6 +27,9 @@ class Checkoutcontroller extends Controller
           ->groupBy('thiet_ke.ma_tk')
           ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
           ->get();
+        $message_id=DB::table('thong_bao')
+          ->selectRaw('noi_dung,thoi_gian,user_id')
+          ->get();
         $all_product=DB::table('san_pham')->where ('trang_thai','1')
         ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
         ->orderby('san_pham.ma_sp','desc')->limit(6)->get(); 
@@ -35,7 +38,9 @@ class Checkoutcontroller extends Controller
         ->with('cate_product',$cate_product)
         ->with('all_product',$all_product)
         ->with('design_id',$design_id)
-        ->with('customer_id',$customer_id);
+        ->with('customer_id',$customer_id)
+        ->with('customer_id',$customer_id)
+        ->with('message_id',$message_id);
     }
     public function save_checkout_kh(Request $request){
         $data = array();
@@ -67,10 +72,13 @@ class Checkoutcontroller extends Controller
           ->groupBy('thiet_ke.ma_tk')
           ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
           ->get();
-        
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,user_id')
+        ->get();
        return view('pages.Payment.payment')
         ->with('cate_product',$cate_product)
         ->with('design_id',$design_id)
+        ->with('message_id',$message_id)
         ;
    }
 

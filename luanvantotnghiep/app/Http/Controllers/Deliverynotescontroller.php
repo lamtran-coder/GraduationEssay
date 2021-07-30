@@ -273,9 +273,17 @@ class Deliverynotescontroller extends Controller
             $order_id=DB::table('don_dat_hang')->get();
         }
         $order_id=DB::table('don_dat_hang')->get();
+        //thong báo
+        $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->where('che_do',null)->get();
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,che_do')
+        ->orderby('thoi_gian','desc')
+        ->get();
         return view('admin.Deliverynotes.deliverynotes')
         ->with('order_id',$order_id)
-        ->with('delivery_id',$delivery_id);
+        ->with('delivery_id',$delivery_id)
+        ->with('solg_messe',$solg_messe)
+        ->with('message_id',$message_id);
     }
 
     //chi tiet phiếu giao
@@ -288,11 +296,17 @@ class Deliverynotescontroller extends Controller
         ->join('don_dat_hang','don_dat_hang.ma_ddh','=','phieu_giao.ma_ddh')
         ->join('khach_hang','khach_hang.ma_kh','=','don_dat_hang.ma_kh')
         ->where('phieu_giao.ma_pg',$ma_pg)->get();
+        $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->where('che_do',null)->get();
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,che_do')
+        ->orderby('thoi_gian','desc')
+        ->get();
         return view('admin.Deliverynotes.deliverynotes_in')
         ->with('deliverynotes_detail_id',$deliverynotes_detail_id)
         ->with('deliverynotes_id',$deliverynotes_id)
         ->with('product_id',$product_id)
-        ;
+        ->with('solg_messe',$solg_messe)
+        ->with('message_id',$message_id);
     }
     //cập nhật trang thái phiếu giao
     public function unactive_delivery($ma_pg){

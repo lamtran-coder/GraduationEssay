@@ -21,6 +21,11 @@ class Homecontroller extends Controller
       ->groupBy('thiet_ke.ma_tk')
       ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
       ->get();
+      //thong báo
+      $message_id=DB::table('thong_bao')
+      ->selectRaw('noi_dung,thoi_gian,user_id,che_do')
+      ->orderby('thoi_gian','desc')
+      ->get();
       $slider = Slider::orderBy('slider_id','DESC')->where('slider_status','1')->take(4)->get();
       $all_product=DB::table('san_pham')
       ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
@@ -40,6 +45,7 @@ class Homecontroller extends Controller
         ->with('rating_id',$rating_id)
         ->with('design_id',$design_id)
         ->with('slider',$slider)
+        ->with('message_id',$message_id)
         
         ;
     }
@@ -49,13 +55,20 @@ class Homecontroller extends Controller
             ->select('danh_muc')
             ->groupBy('danh_muc')
             ->get();
-            $design_id=DB::table('thiet_ke')
+        $design_id=DB::table('thiet_ke')
       ->join('danh_muc_sp','danh_muc_sp.ma_tk','thiet_ke.ma_tk')
       ->where('danh_muc_sp.trang_thai','1')
       ->groupBy('thiet_ke.ma_tk')
       ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
       ->get();
-        return view('pages.About.about')->with('cate_product',$cate_product)->with('design_id',$design_id);
+      $message_id=DB::table('thong_bao')
+      ->selectRaw('noi_dung,thoi_gian,user_id,che_do')
+      ->orderby('thoi_gian','desc')
+      ->get();
+        return view('pages.About.about')
+        ->with('cate_product',$cate_product)
+        ->with('design_id',$design_id)
+        ->with('message_id',$message_id);
     }
     // trang chính sách
     public function policy(){
@@ -63,12 +76,17 @@ class Homecontroller extends Controller
             ->select('danh_muc')
             ->groupBy('danh_muc')
             ->get();
-            $design_id=DB::table('thiet_ke')
+        $design_id=DB::table('thiet_ke')
       ->join('danh_muc_sp','danh_muc_sp.ma_tk','thiet_ke.ma_tk')
       ->where('danh_muc_sp.trang_thai','1')
       ->groupBy('thiet_ke.ma_tk')
       ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
       ->get();
-        return view('pages.Policy.policy')->with('cate_product',$cate_product)->with('design_id',$design_id);
+      $message_id=DB::table('thong_bao')
+      ->selectRaw('noi_dung,thoi_gian,user_id,che_do')
+      ->orderby('thoi_gian','desc')
+      ->get();
+        return view('pages.Policy.policy')->with('cate_product',$cate_product)->with('design_id',$design_id)
+        ->with('message_id',$message_id);
     }
 }

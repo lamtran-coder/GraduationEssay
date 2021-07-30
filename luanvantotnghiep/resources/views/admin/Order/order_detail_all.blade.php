@@ -34,7 +34,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($customer_id as $key => $cus_id): ?>
+                                <?php foreach ($customer_id as $key => $cus_id){ ?>
                                 <tr>
                                     <td>Người Nhận</td>
                                     <td>{{$cus_id->ten_kh}}</td>
@@ -60,7 +60,7 @@
                                     <td>Ngày Giao Hàng</td>
                                     <td>{{$cus_id->nggiaodk}}</td>
                                 </tr> 
-                                 <?php endforeach ?>
+                                 <?php $user_id=$cus_id->user_id;} ?>
                                 </tbody>
                             </table>
 
@@ -91,6 +91,21 @@
                                     <tr>
                                         <td>Email</td>
                                         <td><?php if ($email_ad) {echo $email_ad;} ?></td>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr>
+                                        <td>nhập thông báo</td>
+                                        <td >
+                                            <form action="{{URL::to('/message-user/'.$user_id)}}" style="display: flex;" method="post">
+                                             @csrf
+                                                <textarea rows="5" name="noi_dung"></textarea>
+                                                <button>Gửi</button>
+                                            </form>
+                                            <?php if ($errors->has('noi_dung')): ?>
+                                                <span style="color:red">{{$errors->first('noi_dung')}}</span>
+                                            <?php endif ?>
+                                        </td> 
                                     </tr>
                                 </tbody>
                             </table>

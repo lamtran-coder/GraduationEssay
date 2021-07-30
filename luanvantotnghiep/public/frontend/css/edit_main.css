@@ -950,3 +950,52 @@ div#solg_sp {
     font-weight: bold;
     background: #efefef;
 }
+.mess {
+    padding: 5px;
+    color: #ff7272;
+    background: black;
+}
+i.message_qty_cart {
+    font-size: 20px;
+    color: red;
+}
+i.fa.fa-bell.fa-bell-styling {
+    font-size: 25px;
+    color: #ffff00;
+}
+ul.sub-icon2.list.fa-bell-styling{
+    padding: 5px;
+    overflow-y: scroll;
+    height: 220px;
+}
+ul.sub-icon2.list.fa-bell-styling>li {
+    font-size: 15px;
+    background: #e4e2a4;
+    text-align: left;
+    padding: 20px;
+    text-transform: capitalize;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 2px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #00afff; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #00afffad; 
+}
