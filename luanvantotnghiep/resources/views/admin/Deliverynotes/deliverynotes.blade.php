@@ -3,29 +3,41 @@
 <section id="main-content">
     <section class="wrapper">
         <div class="table-agile-info">
+  <?php 
+        if (isset($_GET['date_star_dn'])&&isset($_GET['date_end_dn'])) {
+        $date_star_dn=$_GET['date_star_dn'];
+        $date_end_dn=$_GET['date_end_dn'];
+        }else{
+          $date_star_dn="";
+          $date_end_dn="";
+        }
+        if (isset($_GET['keywords_submit'])) {
+          $keywords_submit=$_GET['keywords_submit'];
+        }else{
+          $keywords_submit="";
+        }
+  ?>
   <div class="panel panel-default">
     <div class="panel-heading">
       Danh sách Phiếu Giao
     </div>
     <div class="row w3-res-tb">
-       <form>
       <div class="col-sm-4">
-        <div class="input-group">
-          <input type="text" class="input-sm form-control"name="keywords_submit" placeholder="nhập mã đơn đặt hàng, mã phiếu giao" value="">
-          <span class="input-group-btn">
-            <button class="btn btn-sm btn-default" type="button">Tim</button>
-          </span>
-         </div>
-        </div>
-       </form>
        <form>
-        <div class="col-sm-5">
-          <div style="display:flex;">
-          <span style="padding:5px">Từ :</span> 
-          <input style="width: 120px;font-size: 20px;" class="input-sm form-control" name="date_star_dn" type="text" id="date_star_dn">
-          <span style="padding:5px">Đến :</span> 
-          <input style="width: 120px;font-size: 20px;" class="input-sm form-control" name="date_end_dn" type="text" id="date_end_dn">
-          <button>Tìm</button>
+        <div class="input-group" style="display:flex;">
+          <input type="text" class="input-lg form-control"name="keywords_submit" placeholder="nhập mã đơn, mã phiếu giao" value="<?php echo $keywords_submit; ?>">
+          <button class="btn">Tìm</button>
+         </div>
+       </form>
+      </div>
+      <div class="col-sm-4">
+       <form>
+          <div style="display:flex;align-items: center;">
+          <span>Từ:</span> 
+          <input  class="input-lg form-control" style="width: 130px" name="date_star_dn" type="text" id="date_star_dn" value="<?php echo $date_star_dn; ?>">
+          <span>Đến:</span> 
+          <input class="input-lg form-control" style="width: 130px" name="date_end_dn" type="text" id="date_end_dn" value="<?php echo $date_end_dn; ?>">
+          <button class="btn">Tìm</button>
           </div>
           <script type="text/javascript">
             $( function() {
@@ -47,20 +59,20 @@
               });
             } );  
           </script>
+         </form>
         </div>
-        </form>
+        <div class="col-sm-4" style="float:right;">
         <form action="">
-        <div class="col-sm-3">
           <div class="form-group" style="display:flex;">
-           <select name="status_dn" class="input-sm form-control" style="width:140px">
+           <select name="status_dn" class="input-lg form-control" style="width:200px;margin-left: 30px;">
             <option value="all">Hiện Thị Tất Cả</option>
             <option value="0">Đang Giao</option>
             <option value="1">Đã Giao</option>
           </select>
-          <button>Lọc</button>
+          <button class="btn">Lọc</button>
           </div>
+        </form>
         </div>
-      </form>
       
       </div>
     <div class="table-responsive">

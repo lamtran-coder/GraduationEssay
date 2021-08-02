@@ -11,6 +11,14 @@ class Cartcontroller extends Controller
 {
     public function save_cart(Request $request)
     {
+        $request->validate([
+            'size_hidden'=>'required',
+            'mau_hidden'=>'required',
+            'quantity_h'=>'required'
+        ],['size_hidden.required'=>'Vui Lòng Chọn Size',
+          'mau_hidden.required'=>'Vui Lòng Chọn Màu',
+          'quantity_h.required'=>'Vui Lòng Chọn Số Lượng'
+        ]);
         $ma_sp_h=$request->masp_hidden;
         $ma_size_h=$request->size_hidden;
         $mau_h=$request->mau_hidden;
@@ -52,6 +60,12 @@ class Cartcontroller extends Controller
     public function update_qty_cart(Request $request){
         $rowId=$request->rowId_cart;
         $qty=$request->cart_quantity;
+        $quantity_sum=$request->quantity_sum;
+        if ($quantity_sum<$qty) {
+            Session::put('quasoluong','Quá Số Lượng <br>'.$quantity_sum);
+            $result=$_SERVER['HTTP_REFERER'];
+            return Redirect::to($result);
+        }
         Cart::update($rowId,$qty);
         $result=$_SERVER['HTTP_REFERER'];
         return Redirect::to($result);

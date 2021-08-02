@@ -401,7 +401,7 @@ class Ordercontroller extends Controller
             ->orderby('ngdat','ASC')->paginate(10);
         }
         else{
-        $all_oder=DB::table('don_dat_hang')->orderby('ngdat','ASC')->paginate(10);
+        $all_oder=DB::table('don_dat_hang')->orderby('ngdat','desc')->paginate(10);
         }
         $all_cus=DB::table('khach_hang')->get();
         //thong báo

@@ -8,7 +8,7 @@
     <div class="panel-heading">
       Chi tiết đơn hàng
     </div>
-<section class="content-header">
+    <section class="content-header">
         <ol class="breadcrumb">
             <li><a href="{{URL::to('/dashboard')}}"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
             <li><a href="{{URL::to('/all-order')}}">Đơn hàng</a></li>
@@ -99,7 +99,7 @@
                                         <td >
                                             <form action="{{URL::to('/message-user/'.$user_id)}}" style="display: flex;" method="post">
                                              @csrf
-                                                <textarea rows="5" name="noi_dung"></textarea>
+                                                <textarea rows="5" class="form-control input-lg" name="noi_dung"></textarea>
                                                 <button>Gửi</button>
                                             </form>
                                             <?php if ($errors->has('noi_dung')): ?>
@@ -137,8 +137,9 @@
                                     <td>
                                     <form action="{{URL::to('/update-status-od/'.$order_de_id->so_ct)}}" method="post">
                                         @csrf
+                                    <div class="form-group" style="display:flex">
                                     <input type="hidden" name="ma_ddh_od" value="<?php echo $order_de_id->ma_ddh; ?>">
-                                    <select name="status_od" class="status_order_detail">
+                                    <select name="status_od" class="form-control input-ms" class="status_order_detail" style="width: 120px;">
                                         <?php 
                                         if ($order_de_id->trang_thai==0) {
                                             echo '<option value="0">Chờ lấy hàng</option>';
@@ -156,6 +157,7 @@
                                          ?>
                                     </select>
                                     <button>UP</button>
+                                    </div>
                                     </form>
                                      </td>
                                    
@@ -183,9 +185,9 @@
                                 <b class="text-red" style="font-size :25px;color:red">
                                     <?php 
                                         if ($value_dn->tienconlai>0) {
-                                            echo "Còn 1 lần";
+                                            echo "Còn Hàng";
                                         }elseif($value_dn->tienconlai==0){
-                                            echo "Đã Hoàn Thành";
+                                            echo "Đã Giao Hết";
                                         }
                                      ?>
                                  </b>
@@ -227,12 +229,15 @@
                         </table>
                         <?php 
                             $message_ct=Session::get('message_ct');
-                            if($message_ct){
-                                echo '<span style="color:red;font-size:30px;padding-left:50px;">'.$message_ct.'<span>';
-                                Session::put('message_ct',null);
-                            }
-                                   
-                        ?>
+                            if($message_ct){?>    
+                            <script type="text/javascript">
+                                $(document).ready(function(){
+                                    alert('<?php echo $message_ct; ?>')
+                                })
+                            </script>
+                           <?php  Session::put('message_ct',null);
+                        }?>
+
                     </div>
                 </div>
                

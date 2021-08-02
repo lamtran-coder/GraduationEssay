@@ -1,6 +1,5 @@
 @extends('admin_layout')
 @section('admin_content')
-
 <section id="main-content" style="background: #ffffff;">
     <section class="wrapper">
         <div class="panel-body">

@@ -4,9 +4,32 @@
          <div class="wrap">
      	    <div class="rsidebar span_1_of_left">
 			  <!-- danh mục lọc -->
-			    <section  class="sky-form">          
+			    <section  class="sky-form">
+			    <div style="text-transform: capitalize;">
+			    <h4 class="m_9" text-align="center" >Đánh giá</h4>
+				</div>
+         			<ul class="danh_gia">
+	         			<li><span>&#10029;&#10029;&#10029;&#10029;&#10029;</span><p>(
+	         				<?php echo $rating5;?>
+	         			)</p></li>
+	         			<li><span>&#10029;&#10029;&#10029;&#10029;</span><p>(
+	         				<?php echo $rating4;?>
+	         			)</p></li>
+	         			<li><span>&#10029;&#10029;&#10029;</span><p>(
+	         				<?php echo $rating3;?>
+	         			)</p></li>
+	         			<li><span>&#10029;&#10029;</span><p>(
+	         				<?php echo $rating2;?>
+	         			)</p></li>
+	         			<li><span>&#10029;</span><p>(
+	         				<?php echo $rating1;?>
+	         			)</p></li>
+	         			<li><span style="font-size:17px">Tổng Đánh Giá:</span><p>
+	         			   (<?php echo $ratingsum;?>) 
+	         			</p></li>
+         			</ul>    
 			    <div style="text-transform: capitalize;"><h4 class="m_9" text-align="center" >Sản Phẩm Đã Xem</h4></div>
-         			<ul style="text-transform: capitalize;" id="row_viewed" >
+         			<ul style="text-transform: capitalize;overflow-x:hidden;" id="row_viewed" >
 
 				</ul>
 				<div style="text-transform: capitalize;"><h4 class="m_9" text-align="center" >Sản Phẩm Yêu Thích</h4></div>
@@ -83,6 +106,9 @@
 				<h4 class="m_9">CHỌN KÍCH CỠ</h4>
 				<form action="{{URL::to('/save-cart')}}" class="form_chon" method="POST">
 				@csrf
+				<?php if ($errors->has('mau_hidden')): ?>
+                    <br><span style="color:red">{{$errors->first('mau_hidden')}}</span>
+                <?php endif ?>
 				<div style="height:100px;">
 					<ul>
 						<?php foreach ($all_detail_color as $key_ => $value_d_color): ?>
@@ -94,6 +120,9 @@
 						<?php endforeach ?>
 					</ul>
 				</div>
+				<?php if ($errors->has('size_hidden')): ?>
+                    <br><span style="color:red">{{$errors->first('size_hidden')}}</span>
+                <?php endif ?>
 				<div style="height:90px;">
 					<ul>
 						<?php foreach ($all_detail_size as $key => $value_size): ?>
@@ -101,6 +130,9 @@
 						<?php endforeach ?>
 					</ul>
 				</div >
+				<?php if ($errors->has('quantity_h')): ?>
+	                    <br><span style="color:red">{{$errors->first('quantity_h')}}</span>
+	            <?php endif ?>
 				<div class="number-product">
 					<div class="prev">-</div>
 					<div style="float: left; margin-left: 25px;"><input class="number-spinner" min="1" name="quantity_h" type="number" value="1"></div>
@@ -110,7 +142,7 @@
 				<input type="hidden" class="key_product" name="masp_hidden" min="1" value="{{$value_det->ma_sp}}">
 				<div id="solg_sp"></div>
 				<button class="button-mua" style="margin-left: 40px;">CHỌN MUA</button>
-				</form>
+				</form> 
 				<script type="text/javascript">
 					//kiểm trả số lượng tồn của sản phẩm có sai mã khác nhau
 						$(document).ready(function(){
@@ -145,7 +177,7 @@
 		<div class="mota">Mô Tả<p class="m_desc">{{$value_det->mo_ta}}</p></div>	
      <div style="text-transform: capitalize;">
      	<h2 style="padding: 15px; font-size: 25px; font-weight: bold;">Sản Phẩm Tượng Tự</h2>
-         <ul id="flexiselDemo3">
+         <ul id="flexiselDemo3" class="product_cate">
 			@foreach($related_product as $key => $related)
      	 	<?php if (($ma_dm = '$related->ma_dm')&&($related->goc_nhin==0)): ?>	
      	 	<li><a href="{{URL::to('/product-details/'.$related->ma_sp)}}">
@@ -258,7 +290,6 @@
      			<label><?php echo ucwords($username); ?></label>
      			<input style="color:black" type="hidden"   class="comment_name" value="<?php echo $username; ?>" >
      			<input type="hidden" class="user_id" name="user_id" value="{{$user_id}}">
-     			<!-- đánh giá -->
      			<?php
      			$result=0; 
      			foreach ($user_raiting as $key => $val){
@@ -275,8 +306,7 @@
      						}
      					}
      					if ($result_id==false) {?>
-     						
-     			
+		     			<!-- đánh giá -->
 		     			<ul class="list-inline" style="display: -webkit-box;" title="Average Raiting">
 		     				<?php 
 							for ($count=1; $count<=5; $count++) { 
@@ -305,7 +335,7 @@
      			<button class="btn_comment"><i class="fa fa-upload send-comment"></i></button>
      			</div>
      			<?php }else{
-     				echo'<div class="mess">Chưa Mua Hàng Vui Long Mua Hàng </div>';
+     				echo'<div class="mess">Bạn không thể bình luận khi chưa nhận hàng</div>';
      			} ?>
      			
      		</div>

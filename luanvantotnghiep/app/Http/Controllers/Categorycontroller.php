@@ -179,9 +179,9 @@ class Categorycontroller extends Controller
             ->paginate(10); 
         }
         //thong báo
-        $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->get();
+        $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->where('che_do',null)->get();
         $message_id=DB::table('thong_bao')
-        ->selectRaw('noi_dung,thoi_gian')
+        ->selectRaw('noi_dung,thoi_gian,che_do')
         ->orderby('thoi_gian','desc')
         ->get();
         return view('admin.Category.Category_all')
@@ -207,18 +207,17 @@ class Categorycontroller extends Controller
             if ($result==$value_pro->ma_dm) {
                Session::put('message','Không thành công');
                return Redirect::to('/add-Category'); 
-            }else{
-                $data=array();
-                $data['ma_dm']=$result;
-                $data['danh_muc']=$request->category_key;
-                $data['ma_cl']=$request->material_key;
-                $data['ma_tk']=$request->design_key;   
-                $data['trang_thai']=$request->category_status;
-                DB::table('danh_muc_sp')->insert($data);
-                Session::put('message','Thêm thành công');
-                return Redirect::to('/add-Category');
             }
         }
+        $data=array();
+        $data['ma_dm']=$result;
+        $data['danh_muc']=$request->category_key;
+        $data['ma_cl']=$request->material_key;
+        $data['ma_tk']=$request->design_key;   
+        $data['trang_thai']=$request->category_status;
+        DB::table('danh_muc_sp')->insert($data);
+        Session::put('message','Thêm thành công');
+        return Redirect::to('/add-Category');
         
           
     }

@@ -41,7 +41,7 @@
 		<div class="row row1">
 			<div class="col col-4">
 				@foreach ($all_color as $key =>$color)
-				<label class="checkbox"><input type="checkbox" name="checkbox_col[]" value="{{$color->ma_mau}}" ><i></i>{{$color->ten_mau}}</label>
+				<label class="checkbox"><input type="checkbox" name="checkbox_col" value="{{$color->ma_mau}}" ><i></i>{{$color->ten_mau}}</label>
 				@endforeach
 			</div>
 		</div>
@@ -49,7 +49,7 @@
 		<div class="row row1">
 			<div class="col col-4">
 				@foreach ($all_material as $key =>$material)
-				<label class="checkbox"><input type="checkbox" name="checkbox_mat[]" value="{{$material->ma_cl}}" ><i></i>{{$material->ten_cl}}</label>
+				<label class="checkbox"><input type="checkbox" name="checkbox_mat" value="{{$material->ma_cl}}" ><i></i>{{$material->ten_cl}}</label>
 				@endforeach
 			</div>
 		</div>
@@ -57,6 +57,9 @@
 		
 		<h4 class="m_9" text-align="center" >Sản Phẩm Đã Xem</h4>
          <ul id="row_viewed" ></ul>
+         <div style="text-transform: capitalize;"><h4 class="m_9" text-align="center" >Sản Phẩm Yêu Thích</h4></div>
+         		<ul style="text-transform: capitalize;" id="row_wishlist" >                     
+				</ul>
 		</section>
 		
 	<!-- 	danh mục lọc -->

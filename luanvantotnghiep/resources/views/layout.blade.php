@@ -17,8 +17,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <link href="{{asset('public/backend/css/font-awesome.css')}}" rel="stylesheet"> 
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 <script type="text/javascript" src="{{asset('public/frontend/js/jquery.min.js')}}"></script>
-
-
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -406,6 +404,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             if(data == 'done')
             {
              alert("Bạn đã đánh giá "+index +" trên 5 . Vui lòng cho chúng tôi cảm nhận về sản phẩm");
+             location.reload();
             }
             else
             {
@@ -474,12 +473,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <!-- Sản phẩm Đã xem -->
         <script type="text/javascript">
             function viewed(){
-                     if(localStorage.getItem('viewed')!=null){
+                     if(sessionStorage.getItem('viewed')!=null){
 
-                         var data = JSON.parse(localStorage.getItem('viewed'));
+                         var data = JSON.parse(sessionStorage.getItem('viewed'));
 
                          data.reverse();
-                         document.getElementById('row_viewed').style.overflow = 'scroll';
+                         document.getElementById('row_viewed').style.overflowY = 'scroll';
                          document.getElementById('row_viewed').style.height = '550px';
 
                          for(i=0;i<data.length;i++){
@@ -489,7 +488,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             var image = data[i].image;
                             var url = data[i].url;
 
-                            $('#row_viewed').append('<li><a><div  class="nbs-flexisel-item"style="margin:10px"style="display:block;"><div><img width="125px" height="150px" src="'+image+'"></div><div class=""><p><a href="'+url+'">'+name+'</a></p> <p>'+price+'</p></div> </div> </a></li>');
+                            $('#row_viewed').append('<li><a href="'+url+'"><div  class="product_viewed"style="margin:10px"style="display:block;"><div><img width="125px" height="150px" src="'+image+'"></div><div class="edit_url"><p><a href="'+url+'">'+name+'</a></p> <p>'+price+'</p></div> </div> </a></li>');
                         }
 
                     }
@@ -517,11 +516,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         'image': image
                     }
 
-                    if(localStorage.getItem('viewed')==null){
-                       localStorage.setItem('viewed', '[]');
+                    if(sessionStorage.getItem('viewed')==null){
+                       sessionStorage.setItem('viewed', '[]');
                     }
 
-                    var old_data = JSON.parse(localStorage.getItem('viewed'));
+                    var old_data = JSON.parse(sessionStorage.getItem('viewed'));
 
                     var matches = $.grep(old_data, function(obj){
                         return obj.id == id;
@@ -533,14 +532,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                         old_data.push(newItem);
 
-                       $('#row_viewed').append('<div class="nbs-flexisel-item"style="margin:10px 0"><div ><img width="125px" height="150px" src="'+image+'"></div><div class=""><p><a href="'+url+'">'+name+'</a></p> <p>'+price+'</p></div> </div>');
+                       $('#row_viewed').append('<div class="product_viewed"style="margin:10px 0"><div ><img width="125px" height="150px" src="'+image+'"></div><div class="edit_url"><p><a href="'+url+'">'+name+'</a></p> <p>'+price+'</p></div> </div>');
 
                     }
                    
-                    localStorage.setItem('viewed', JSON.stringify(old_data));
+                    sessionStorage.setItem('viewed', JSON.stringify(old_data));
                     }
                     
-                   
                 }
         </script>
         <!-- Sản phẩm Đã xem -->
@@ -551,13 +549,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
      function view(){
         
 
-         if(localStorage.getItem('data')!=null){
+         if(sessionStorage.getItem('data')!=null){
 
-             var data = JSON.parse(localStorage.getItem('data'));
+             var data = JSON.parse(sessionStorage.getItem('data'));
 
              data.reverse();
 
-             document.getElementById('row_wishlist').style.overflow = 'scroll';
+             document.getElementById('row_wishlist').style.overflowY = 'scroll';
              document.getElementById('row_wishlist').style.height = '550px';
             
              for(i=0;i<data.length;i++){
@@ -567,7 +565,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 var image = data[i].image;
                 var url = data[i].url;
 
-                $('#row_wishlist').append('<div class="row" style="margin:10px 0"><div class="col-md-4"><img width="125px" height="150px" src="'+image+'"></div><div class=""><p><a href="'+url+'">'+name+'</a></p> <p>'+price+'</p></div>');
+                $('#row_wishlist').append('<div class="row product_viewed" style="margin:10px 0"><div class="col-md-4"><img width="125px" height="150px" src="'+image+'"></div><div class="edit_url"><p><a href="'+url+'">'+name+'</a></p> <p>'+price+'</p></div>');
             }
 
         }
@@ -594,11 +592,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             'image': image
         }
 
-        if(localStorage.getItem('data')==null){
-           localStorage.setItem('data', '[]');
+        if(sessionStorage.getItem('data')==null){
+           sessionStorage.setItem('data', '[]');
         }
 
-        var old_data = JSON.parse(localStorage.getItem('data'));
+        var old_data = JSON.parse(sessionStorage.getItem('data'));
           
         var matches = $.grep(old_data, function(obj){
             return obj.id == id;
@@ -611,12 +609,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
             old_data.push(newItem);
 
-           $('#row_wishlist').append('<div class="row" style="margin:10px 0"><div class="col-md-4"><img width="125px" height="150px" src="'+image+'"></div><div class=""><p><a href="'+url+'">'+name+'</a></p> <p>'+price+'</p></div>');
-
-        }
-       
-        localStorage.setItem('data', JSON.stringify(old_data));
-
+           $('#row_wishlist').append('<div class="row" style="margin:10px 0"><div class="col-md-4"><img width="125px" height="150px" src="'+image+'"></div><div class="edit_url"><p><a href="'+url+'">'+name+'</a></p> <p>'+price+'</p></div>');
+        }    
+        sessionStorage.setItem('data', JSON.stringify(old_data));
+        
        
    }
 </script>

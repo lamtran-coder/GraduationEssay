@@ -4,6 +4,13 @@
 	<section class="wrapper">
      	<div class="row">
             <div class="col-lg-12">
+                <section class="content-header">
+                    <ol class="breadcrumb">
+                        <li><a href="{{URL::to('/dashboard')}}"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+                        <li><a href="{{URL::to('/all-product')}}">Sản phẩm</a></li>
+                        <li class="active">Chi Tiết Sản Phẩm</li>
+                    </ol>
+                </section>
                     <section class="panel">
                         <header class="panel-heading">
                          	màu mới

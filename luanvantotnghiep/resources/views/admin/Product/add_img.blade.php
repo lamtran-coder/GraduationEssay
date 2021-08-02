@@ -5,6 +5,13 @@
         <div class="row">
             <div class="col-lg-12">
                     <section class="panel">
+                        <section class="content-header">
+                            <ol class="breadcrumb">
+                                <li><a href="{{URL::to('/dashboard')}}"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+                                <li><a href="{{URL::to('/all-product')}}">Danh Sách Sản Phẩm</a></li>
+                                <li class="active">Hình ảnh</li>
+                            </ol>
+                        </section>
                         <header class="panel-heading">
                             hình ảnh mới 
                         </header>

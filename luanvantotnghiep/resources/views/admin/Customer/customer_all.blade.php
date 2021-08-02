@@ -8,13 +8,11 @@
       Danh sách khách hàng
     </div>
     <div class="row w3-res-tb">
-        <div class="col-sm-4">
+        <div class="col-sm-12">
         <form >
-          <div class="input-group">
-            <input type="text" class="input-sm form-control" name="keywords_search" placeholder="nhập tên, số điện thoại, email, địa chỉ ">
-            <span class="input-group-btn">
-              <button class="btn btn-sm btn-default" type="button">Tìm</button>
-            </span>
+          <div class="input-group" style="display:flex;">
+            <input type="text" class="input-lg form-control" name="keywords_search" placeholder="nhập tên khách hàng, số điện thoại, email, địa chỉ ">
+              <button class="btn  btn-default">Tìm</button>
           </div>
         </form>
         </div>
@@ -26,7 +24,6 @@
       <table class="table table-striped b-t b-light">
         <thead>
           <tr class="thanhloc">
-          
             <th>
               <?php 
               if (isset($_GET['Sap_Xep_Ten'])) {
@@ -75,19 +72,18 @@
                <a href="{{Request::url()}}?Sap_Xep_Dia_Chi=A-Z">Địa chỉ</a>
               <?php  }?>
             </th>
-            <th>
-              <?php 
-              if (isset($_GET['Tien_Tieu'])) {
-                $result=$_GET['Tien_Tieu'];
+            
+            <th><?php 
+              if (isset($_GET['Trang_thai'])) {
+                $result=$_GET['Trang_thai'];
                 if ($result=="tang") { ?>
-                <a style="color: #ff8181;" href="{{Request::url()}}?Tien_Tieu=giam">Tiền Đã Tiêu&darr;</a>
+                <a style="color: #ff8181;" href="{{Request::url()}}?Trang_thai=giam">Trạng Thái&darr;</a>
                <?php }elseif ($result=="giam"){?>
-               <a style="color: #ff8181;" href="{{Request::url()}}?Tien_Tieu=tang">Tiền Đã Tiêu&uarr;</a>
+               <a style="color: #ff8181;" href="{{Request::url()}}?Trang_thai=tang">Trạng Thái&uarr;</a>
               <?php }}else{ ?>
-               <a href="{{Request::url()}}?Tien_Tieu=tang">Tiền Đã Tiêu</a>
-              <?php  }?>
-            </th>
-            <th></th>
+               <a href="{{Request::url()}}?Trang_thai=tang">Trạng Thái</a>
+              <?php  }?></th>
+            <th><i class="fa fa-users-cog"></i></th>
           </tr>
         </thead>
         <tbody  style="text-transform: none;">
@@ -105,10 +101,35 @@
                       });
                   });
                   </script>
-                  <button id="button{{$key}}">...</button>
+                  <button class="btn" id="button{{$key}}">...</button>
             </td>
-            <td><span class="text-ellipsis" style="color:red;font-size: 20px;">
-                <?php echo number_format($value_user->sodatieu).' vnđ'; ?>
+    
+            <td><span class="text-ellipsis" >
+              <form action="{{URL::to('/update-status-user/'.$value_user->user_id)}}" method="post">
+                @csrf
+              <div class="form-group" style="display:flex;width: 200px;">
+                  <?php if ($value_user->trang_thai==0){
+                echo'<select class="form-control input-lg option-status" name="status_user" style="color:lime;background:#0994a1;width: 200px;">';
+                    echo '<option value="0">Đang Hoạt Động</option>';
+                    echo '<option style="color:yellow;" value="1">Khóa Tạm Thời</option>';
+                    echo '<option style="color:#a30303;" value="2">Khóa Vĩnh Viển</option>';
+                echo'</select>';    
+                       }elseif ($value_user->trang_thai==1) {
+                echo'<select class="form-control input-lg option-status" name="status_user" style="color:yellow;background:#0994a1;width: 200px;">';
+                    echo '<option value="1">Khóa Tạm Thời</option>';
+                    echo '<option style="color:lime;" value="0">Đang Hoạt Động</option>';
+                echo'</select>';    
+                       }elseif ($value_user->trang_thai==2) {
+                echo'<select class="form-control input-lg option-status" name="status_user" style="color:#a30303;background:#0994a1;width: 200px;">';
+                    echo '<option value="2">Khóa Vĩnh Viển</option>';    
+                    echo '<option style="color:lime;" value="0">Đang Hoạt Động</option>';
+                echo'</select>'; 
+                       }
+                  ?>
+                
+                <button class="btn">UPDATE</button>
+              </div>
+              </form>
             </span></td>
             <td><a href="{{URL::to('/dia-chi-nhan/'.$value_user->email)}}"><i class="fa fa-search" style="font-size: 30px;"></i></a></td>
           </tr>

@@ -28,9 +28,9 @@ class Detail_productcontroller extends Controller
         $size_id=DB::table('size')->orderby('ma_size','desc')->get();
         $detail_product_id=DB::table('chi_tiet_san_pham')->where('ma_sp',$ma_sp)->get();
         //thong báo
-        $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->get();
+        $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->where('che_do',null)->get();
         $message_id=DB::table('thong_bao')
-        ->selectRaw('noi_dung,thoi_gian')
+        ->selectRaw('noi_dung,thoi_gian,che_do')
         ->orderby('thoi_gian','desc')
         ->get();
         return view('admin.Detail_product.detail_product_add')

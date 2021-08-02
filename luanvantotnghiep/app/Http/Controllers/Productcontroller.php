@@ -311,6 +311,13 @@ class Productcontroller extends Controller
         ]);
         $data=array();
         $result=($request->category_product_id).'S'.rand(0,99);
+        $product_id=DB::table('san_pham')->get();
+        foreach ($product_id as $key => $val_pro) {
+            if ($result==$val_pro->ma_sp) {
+                Session::put('message','Lỗi Vui Lòng Thêm Lại');
+                return Redirect::to('/add-product');
+            }
+        }
         $data['ma_sp']=$result;
         $data['ten_sp']=$request->product_name;
         $data['mo_ta']=$request->product_desc;
@@ -387,11 +394,6 @@ class Productcontroller extends Controller
         DB::table('san_pham')->where('ma_sp',$ma_sp)->update($data);
         return Redirect::to('/all-product');
     }
-    // public function delete_product($ma_sp){
-    //     DB::table('san_pham')->where('ma_sp',$ma_sp)->delete();
-    //     DB::table('hinh_anh')->where('ma_sp',$ma_sp)->delete();
-    //     return Redirect::to('/all-product');
-    // }
 
 
 
@@ -405,12 +407,20 @@ class Productcontroller extends Controller
         $material_id=DB::table('chat_lieu')->orderby('ma_cl','desc')->get();
         $product_id=DB::table('san_pham')->where('ma_sp',$ma_sp)->orderby('ma_sp','desc')->get();
         $img_id=DB::table('hinh_anh')->where('ma_sp',$ma_sp)->orderby('goc_nhin','ASC')->paginate(4);
+        //thong báo
+        $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->where('che_do',null)->get();
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,che_do')
+        ->orderby('thoi_gian','desc')
+        ->get();
         return view('admin.Product.add_img')
         ->with('product_id',$product_id)
         ->with('cate_product',$cate_product)
         ->with('design_id',$design_id)
         ->with('material_id',$material_id)
         ->with('img_id',$img_id)
+        ->with('solg_messe',$solg_messe)
+        ->with('message_id',$message_id)
         ;
     }
     public function save_images_product(Request $request){
@@ -475,6 +485,7 @@ class Productcontroller extends Controller
 
         $min_price_range = $min_price + 5000;
         $max_price_range = $max_price + 100000;
+        //tìm kiếm thiết kế trên menu
         if (isset($_GET['ma_tk_search'])) {
             $ma_tk_search=$_GET['ma_tk_search'];
             $all_product=DB::table('san_pham')
@@ -489,6 +500,7 @@ class Productcontroller extends Controller
           ->paginate(10);
 
         }
+        //tìm kiếm bằng từ khóa
         elseif (isset($_GET['keywords_submit'])) {
            $keywords=$_GET['keywords_submit'];
            $all_product=DB::table('san_pham')
@@ -505,6 +517,7 @@ class Productcontroller extends Controller
           ->groupBy('san_pham.ma_sp')
           ->paginate(10);
         }
+        //tìm kiếm lọc sản phẩm ở shop
         elseif(isset($_GET['checkbox_des'])||isset($_GET['checkbox_col'])||isset($_GET['checkbox_mat'])){
             if(isset($_GET['checkbox_des'])){
                 $checkbox_des=$_GET['checkbox_des'];
@@ -530,8 +543,9 @@ class Productcontroller extends Controller
             ->orwhere('chi_tiet_san_pham.ma_mau',$checkbox_col)
             ->orwhere('danh_muc_sp.ma_cl',$checkbox_mat)
             ->groupBy('san_pham.ma_sp')->paginate(12);
-
-        }elseif (isset($_GET['sort_by'])) {
+        }
+        //Lọc sản phẩm theo giá
+        elseif (isset($_GET['sort_by'])) {
             $sort_by = $_GET['sort_by'];
             if($sort_by=='giam_dan'){
                 $all_product = DB::table('san_pham')
@@ -568,6 +582,7 @@ class Productcontroller extends Controller
             }
    
         }
+        //Lọc sản phẩm bằng giá
         elseif(isset($_GET['start_price']) && $_GET['end_price']){
 
             $min_price = $_GET['start_price'];
@@ -575,10 +590,10 @@ class Productcontroller extends Controller
             
             $all_product = DB::table('san_pham')
             ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
-            ->whereBetween('san_pham.gia_goc',[$min_price,$max_price])
+            ->whereBetween('san_pham.gia_sale',[$min_price,$max_price])
             ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','san_pham.ma_sp')
             ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
-            ->orderby('san_pham.gia_goc','desc')
+            ->orderby('san_pham.gia_sale','desc')
             ->where ('san_pham.trang_thai','1')
             ->where('hinh_anh.goc_nhin','0')
             ->groupBy('san_pham.ma_sp')
@@ -641,6 +656,7 @@ class Productcontroller extends Controller
         ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
         ->where ('trang_thai','1')->orderby('san_pham.ma_sp','desc')->get();
 
+        //sản phẩm liên quan
         foreach($details_product as $key => $value){
             $ma_dm = $value->ma_dm;
             $ma_sp=$value->ma_sp;
@@ -650,6 +666,8 @@ class Productcontroller extends Controller
         ->join('danh_muc_sp','danh_muc_sp.ma_dm','=','san_pham.ma_dm')
         ->join('thiet_ke','thiet_ke.ma_tk','=','danh_muc_sp.ma_tk')
        ->where('danh_muc_sp.ma_dm',$ma_dm)->whereNotIn('san_pham.ma_sp',[$ma_sp])->get();
+
+        //đáng giá sản phẩm khi đã nhận hàng
         $user_raiting=DB::table('don_dat_hang')
         ->join('khach_hang','khach_hang.ma_kh','=','don_dat_hang.ma_kh')
         ->join('chi_tiet_don_hang','chi_tiet_don_hang.ma_ddh','=','don_dat_hang.ma_ddh')
@@ -665,6 +683,15 @@ class Productcontroller extends Controller
         $message_id=DB::table('thong_bao')
         ->selectRaw('noi_dung,thoi_gian,user_id')
         ->get();
+
+        //bảng đánh giá sao
+        $rating5=DB::table('danh_gia')->where('rating','5')->where('ma_sp',$ma_sp)->count();
+        $rating4=DB::table('danh_gia')->where('rating','4')->where('ma_sp',$ma_sp)->count();
+        $rating3=DB::table('danh_gia')->where('rating','3')->where('ma_sp',$ma_sp)->count();
+        $rating2=DB::table('danh_gia')->where('rating','2')->where('ma_sp',$ma_sp)->count();
+        $rating1=DB::table('danh_gia')->where('rating','1')->where('ma_sp',$ma_sp)->count();
+        $ratingsum=DB::table('danh_gia')->where('ma_sp',$ma_sp)->count();
+
         return view('pages.Shop.single')
         ->with('cate_product',$cate_product)
         ->with('all_product',$all_product)
@@ -680,7 +707,13 @@ class Productcontroller extends Controller
         ->with('user_raiting',$user_raiting)
         ->with('related_product',$related_product)
         ->with('details_product',$details_product)
-        ->with('message_id',$message_id);
+        ->with('message_id',$message_id)
+        ->with('rating5',$rating5)
+        ->with('rating4',$rating4)
+        ->with('rating3',$rating3)
+        ->with('rating2',$rating2)
+        ->with('rating1',$rating1)
+        ->with('ratingsum',$ratingsum);
 
 
     }
@@ -754,7 +787,7 @@ class Productcontroller extends Controller
     public function list_comment(){
        $comment = binh_luan::with('san_pham')
        ->where('comment_parent_comment','=',0)
-       ->orderBy('comment_status','DESC')
+       ->orderBy('comment_date','desc')
        ->paginate(10);
        $comment_rep = binh_luan::with('san_pham')->where('comment_parent_comment','>',0)->get();
        $all_product=DB::table('san_pham')

@@ -147,7 +147,7 @@ class Deliverynotescontroller extends Controller
                 DB::table('chi_tiet_phieu_giao')->insert($data_delivery);
             }
         }
-            return Redirect::to('/all-delivery-notes');
+            return Redirect::to('/order-details/'.$ma_ddh);
         }else {
             Session::put('message_ct','Chưa Lấy Hàng');
             return Redirect::to('/order-details/'.$ma_ddh);
@@ -269,8 +269,10 @@ class Deliverynotescontroller extends Controller
             }
         }else{
 
-            $delivery_id=DB::table('phieu_giao')->paginate(10);
-            $order_id=DB::table('don_dat_hang')->get();
+            $delivery_id=DB::table('phieu_giao')
+            ->where('trangthai','0')
+            ->where('nggiao',date('Y-m-d'))
+            ->paginate(10);
         }
         $order_id=DB::table('don_dat_hang')->get();
         //thong báo

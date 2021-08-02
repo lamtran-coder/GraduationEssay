@@ -45,10 +45,10 @@
                       <tr class="form-tr">
                         <td class="form-td"><a style="font-size: 135%;" href="{{URL::to('/product-details/'.$v_content->id)}}">{{$v_content->id}}<hr>{{$v_content->name}}</a></td>
                         <td class="form-td"><a href="{{URL::to('/product-details/'.$v_content->id)}}"><img  width="150px" height="150px" src="{{URL::to('public/uploads/product/'.$v_content->options->anh)}}" alt=""></a></td>
-                        <td class="form-td"><span style="font-size: 135%;">{{$v_content->options->ma_size}}<hr>{{$v_content->options->ten_mau}}
+                        <td class="form-td"><span style="font-size: 90%">{{$v_content->options->ma_size}}<hr>{{$v_content->options->ten_mau}}
                         </span></td>
-                        <td class="form-td"><span style="font-size: 135%;"><?php echo number_format($v_content->price).' VND'; ?></span></td>
-                        <td class="form-td"><span style="font-size: 135%;">
+                        <td class="form-td"><span style="font-size: 90%"><?php echo number_format($v_content->price).' VND'; ?></span></td>
+                        <td class="form-td"><span style="font-size: 90%">
                             <?php
                                 $sum_qty_pro=$v_content->qty;
                                 foreach ($content as $key_2 => $v_content_2) {
@@ -69,19 +69,18 @@
                             </span></td>
                         <td class="form-td"><span>
                             <form action="{{URL::to('/update-qty-cart')}}" method="POST">
-                                    @csrf
-                                <input class="textbot-update" type="textbox" name="cart_quantity" value="{{$v_content->qty}}">
+                                @csrf
+                                <input class="textbot-update qty_fm" type="number" name="cart_quantity" value="{{$v_content->qty}}">
                                 <input type="hidden" name="rowId_cart" value="{{$v_content->rowId}}" >
+                                <input type="hidden" name="quantity_sum" value="{{$v_content->options->so_lg}}">
                                 <button class="button-update">update</button> 
                             </form>
-        
-                            <?php 
-                                if ($v_content->qty>$v_content->options->so_lg) {
-                                    echo '<hr><p style="color:red;">Không đủ số lượng : <br>'.$v_content->qty.'/'.$v_content->options->so_lg.'<p>
-                                    <br><p>Thời gian chờ dài</p>';
-                                }
-                            ?>
+                            <?php $quasoluong=Session::get('quasoluong');
+                            if($quasoluong){
+                                echo '<span style="color:red;size:20px;"><hr>'.$quasoluong.'<span>';
 
+                                Session::put('quasoluong',null);
+                            } ?>
                         </span></td>
                         <td class="form-td"><span style="font-size:25px;"><?php 
                             $subTotal=($v_content->price*$v_content->qty)*(100-$ck_sp)/100;

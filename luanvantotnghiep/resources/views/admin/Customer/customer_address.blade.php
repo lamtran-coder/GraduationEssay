@@ -4,11 +4,17 @@
     <section class="wrapper">
         <div class="table-agile-info">
   <div class="panel panel-default">
+    <section class="content-header">
+                    <ol class="breadcrumb">
+                        <li><a href="{{URL::to('/dashboard')}}"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+                        <li><a href="{{URL::to('/all-product')}}">Đang Sách Khách Hàng</a></li>
+                        <li class="active">Người Nhận</li>
+                    </ol>
+    </section>  
     <div class="panel-heading">
       Danh sách Người nhận
     </div>
     <div class="row w3-res-tb">
-      
        <form >
       <div class="col-sm-8">
         <div class="input-group" style="display:flex;">

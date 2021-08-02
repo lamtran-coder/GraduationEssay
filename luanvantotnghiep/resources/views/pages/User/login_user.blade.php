@@ -5,6 +5,16 @@
 			<div class="agileits-top">
 				<h1 class="color">điền thông tin</h1>
 					<hr>
+					<?php 
+		          $message=Session::get('message');
+		         if($message){ ?>
+		             <script type="text/javascript">
+		             	$(document).ready(function(){
+		             		alert('<?php echo $message; ?>')
+		             	});
+		             </script>   
+		        	<?php Session::put('message',null); 
+		     		}?>  
 					<hr>
 				<form action="{{URL::to('/login-us')}}"method="POST" >
 					@csrf
@@ -24,6 +34,7 @@
                 <?php if ($errors->has('username')): ?>
                    <span style="color:red;">{{$errors->first('username')}}</span>
                 <?php endif ?>
+				
 			</div>
 		</div>
 

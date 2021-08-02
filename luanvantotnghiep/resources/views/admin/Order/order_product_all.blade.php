@@ -2,6 +2,20 @@
 @section('admin_content')
 <section id="main-content">
     <section class="wrapper">
+      <?php 
+        if (isset($_GET['date_star'])&&isset($_GET['date_end'])) {
+        $date_star_dn=$_GET['date_star'];
+        $date_end_dn=$_GET['date_end'];
+        }else{
+          $date_star_dn="";
+          $date_end_dn="";
+        }
+        if (isset($_GET['keywords_search'])) {
+          $keywords_search=$_GET['keywords_search'];
+        }else{
+          $keywords_search="";
+        }
+    ?>
         <div class="table-agile-info">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -11,7 +25,7 @@
       <div class="col-sm-4">
       <form>
         <div class="input-group" style="display:flex;">
-          <input type="text" class="input-sm form-control" name="keywords_search" placeholder="nhập mã đơn, tên khách hàng">
+          <input type="text" class="form-control input-lg" name="keywords_search" placeholder="nhập mã đơn, tên khách hàng" value="<?php echo $keywords_search; ?>">
           <button>Tìm</button>
         </div>
       </form>
@@ -19,10 +33,10 @@
       <div class="col-sm-5" >
         <form style="display:flex;align-items: center;">
         <span>Từ</span>: 
-          <input name="date_star" type="text" style="width: 100px;margin-left: 5px;" id="date_star">
+          <input name="date_star" class="form-control input-lg" type="text" style="width: 130px;margin-left: 5px;" id="date_star" value="<?php echo $date_star_dn;?>">
           <span> Đến</span>:
-          <input name="date_end" type="text" style="width: 100px;margin-left: 5px;"  id="date_end">
-         <button style="height: 28px;">Tìm</button>
+          <input name="date_end" class="form-control input-lg" type="text" style="width: 130px;margin-left: 5px;"  id="date_end" value="<?php echo $date_end_dn;?>">
+         <button style="height: 40px;">Tìm</button>
         </form>
         <script type="text/javascript">
             $( function() {
@@ -47,7 +61,7 @@
       </div>
       <div class="col-sm-3">
         <form style="display:flex;">
-          <select name="status_od" class="form-control" style="width: 200px;font-size: 18px;">
+          <select name="status_od" class="form-control input-lg" style="width: 200px;font-size: 18px;">
           <option value="tatca">Hiện Thị Tất Cả</option>
           <option value="0">Chờ Xác Nhận</option>
           <option value="1">Chờ Lấy Hàng</option>

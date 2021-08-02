@@ -28,7 +28,6 @@
                     <tbody class="from-table">
                         <tr class="form-tr" style="font-size :20px">
                             <td class="form-td" style="height :100px;">Hình Ảnh</td>
-                            <td class="form-td">Mã Sản Phẩm</td>
                             <td class="form-td">Màu</td>
                             <td class="form-td">Size</td>
                             <td class="form-td">Số lượng</td>
@@ -43,8 +42,7 @@
 						<?php foreach ($order_detail_view as $key => $v_order_detail): ?>
 							
                         <tr class="form-tr">
-                            <td class="form-td" style="height:120px"><img src="{{URL::to('public/uploads/product/'.$v_order_detail->hinhanh)}}" height="100px" width="100px" alt=""></td>
-                            <td class="form-td">{{$v_order_detail->ma_sp}}</td>
+                            <td class="form-td" style="height:120px"><a href="{{url::to('/product-details/'.$v_order_detail->ma_sp)}}"><img src="{{URL::to('public/uploads/product/'.$v_order_detail->hinhanh)}}" height="100px" width="100px" alt=""></a></td>
                             <td class="form-td">{{$v_order_detail->ten_mau}}</td>
                             <td class="form-td">{{$v_order_detail->size}}</td>
                             <td class="form-td">{{$v_order_detail->solg_sp}}</td> 

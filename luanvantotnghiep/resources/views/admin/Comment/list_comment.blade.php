@@ -55,12 +55,12 @@
               <?php foreach ($comment_rep as $key => $com_reply): ?>
                 <?php if ($com_reply->comment_parent_comment==$com->comment_id): ?>
                 <li>{{$com_reply->comment}}</li>
-              <?php endif ?>
+                <?php endif ?>
                <?php endforeach ?>
             </ul>
               @if($com->comment_status==0)
               <br/><textarea class="form-control reply_comment_{{$com->comment_id}}" rows="5"></textarea>
-              <br/><button class="btn btn-default btn-xs btn-reply-comment" data-product_id="{{$com->comment_product_id}}"  data-comment_id="{{$com->comment_id}}">Trả lời bình luận</button>
+              <br/><button class="btn" data-product_id="{{$com->comment_product_id}}"  data-comment_id="{{$com->comment_id}}">Trả lời bình luận</button>
               @endif
            </td>
             <td><?php echo date("H:i:s d-m-Y ",strtotime($com->comment_date)); ?></td>

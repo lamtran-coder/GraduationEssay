@@ -10,25 +10,17 @@ class Customercontroller extends Controller
 {
     //admin
     public function all_customer(){
-         if (isset($_GET['Tien_Tieu'])) {
-            $Tien_Tieu=$_GET['Tien_Tieu'];
-            if ($Tien_Tieu=="tang") {
+        if (isset($_GET['Trang_thai'])) {
+            $Trang_thai=$_GET['Trang_thai'];
+            if ($Trang_thai=="tang") {
              $use_id=DB::table('user')
-                ->join('khach_hang','khach_hang.email','=','user.email')
-                ->join('don_dat_hang','don_dat_hang.ma_kh','=','khach_hang.ma_kh')
-                ->where('don_dat_hang.trangthai','<>','4')
-                ->selectRaw('user.*,Sum(don_dat_hang.tong_tt)as sodatieu')
                 ->groupBy('user_id')
-                ->orderby('sodatieu','DESC')
+                ->orderby('trang_thai','DESC')
                 ->paginate(10);     
-            }elseif ($Tien_Tieu=="giam") {
+            }elseif ($Trang_thai=="giam") {
                $use_id=DB::table('user')
-                ->join('khach_hang','khach_hang.email','=','user.email')
-                ->join('don_dat_hang','don_dat_hang.ma_kh','=','khach_hang.ma_kh')
-                ->where('don_dat_hang.trangthai','<>','4')
-                ->selectRaw('user.*,Sum(don_dat_hang.tong_tt)as sodatieu')
                 ->groupBy('user_id')
-                ->orderby('sodatieu','ASC')
+                ->orderby('trang_thai','ASC')
                 ->paginate(10); 
             }
         }
@@ -36,19 +28,11 @@ class Customercontroller extends Controller
             $Sap_Xep_Dia_Chi=$_GET['Sap_Xep_Dia_Chi'];
             if ($Sap_Xep_Dia_Chi=="Z-A") {
              $use_id=DB::table('user')
-                ->join('khach_hang','khach_hang.email','=','user.email')
-                ->join('don_dat_hang','don_dat_hang.ma_kh','=','khach_hang.ma_kh')
-                ->where('don_dat_hang.trangthai','<>','4')
-                ->selectRaw('user.*,Sum(don_dat_hang.tong_tt)as sodatieu')
                 ->groupBy('user_id')
                 ->orderby('user.diachi','DESC')
                 ->paginate(10);     
             }elseif ($Sap_Xep_Dia_Chi=="A-Z") {
                $use_id=DB::table('user')
-                ->join('khach_hang','khach_hang.email','=','user.email')
-                ->join('don_dat_hang','don_dat_hang.ma_kh','=','khach_hang.ma_kh')
-                ->where('don_dat_hang.trangthai','<>','4')
-                ->selectRaw('user.*,Sum(don_dat_hang.tong_tt)as sodatieu')
                 ->groupBy('user_id')
                 ->orderby('user.diachi','ASC')
                 ->paginate(10); 
@@ -58,19 +42,11 @@ class Customercontroller extends Controller
             $Sap_Xep_SDT=$_GET['Sap_Xep_SDT'];
             if ($Sap_Xep_SDT=="Z-A") {
              $use_id=DB::table('user')
-                ->join('khach_hang','khach_hang.email','=','user.email')
-                ->join('don_dat_hang','don_dat_hang.ma_kh','=','khach_hang.ma_kh')
-                ->where('don_dat_hang.trangthai','<>','4')
-                ->selectRaw('user.*,Sum(don_dat_hang.tong_tt)as sodatieu')
                 ->groupBy('user_id')
                 ->orderby('user.sodt','DESC')
                 ->paginate(10);     
             }elseif ($Sap_Xep_SDT=="A-Z") {
                $use_id=DB::table('user')
-                ->join('khach_hang','khach_hang.email','=','user.email')
-                ->join('don_dat_hang','don_dat_hang.ma_kh','=','khach_hang.ma_kh')
-                ->where('don_dat_hang.trangthai','<>','4')
-                ->selectRaw('user.*,Sum(don_dat_hang.tong_tt)as sodatieu')
                 ->groupBy('user_id')
                 ->orderby('user.sodt','ASC')
                 ->paginate(10); 
@@ -80,19 +56,11 @@ class Customercontroller extends Controller
             $Sap_Xep_Email=$_GET['Sap_Xep_Email'];
             if ($Sap_Xep_Email=="Z-A") {
              $use_id=DB::table('user')
-                ->join('khach_hang','khach_hang.email','=','user.email')
-                ->join('don_dat_hang','don_dat_hang.ma_kh','=','khach_hang.ma_kh')
-                ->where('don_dat_hang.trangthai','<>','4')
-                ->selectRaw('user.*,Sum(don_dat_hang.tong_tt)as sodatieu')
                 ->groupBy('user_id')
                 ->orderby('user.email','DESC')
                 ->paginate(10);     
             }elseif ($Sap_Xep_Email=="A-Z") {
                $use_id=DB::table('user')
-                ->join('khach_hang','khach_hang.email','=','user.email')
-                ->join('don_dat_hang','don_dat_hang.ma_kh','=','khach_hang.ma_kh')
-                ->where('don_dat_hang.trangthai','<>','4')
-                ->selectRaw('user.*,Sum(don_dat_hang.tong_tt)as sodatieu')
                 ->groupBy('user_id')
                 ->orderby('user.email','ASC')
                 ->paginate(10); 
@@ -102,19 +70,11 @@ class Customercontroller extends Controller
             $Sap_Xep_Ten=$_GET['Sap_Xep_Ten'];
             if ($Sap_Xep_Ten=="Z-A") {
              $use_id=DB::table('user')
-                ->join('khach_hang','khach_hang.email','=','user.email')
-                ->join('don_dat_hang','don_dat_hang.ma_kh','=','khach_hang.ma_kh')
-                ->where('don_dat_hang.trangthai','<>','4')
-                ->selectRaw('user.*,Sum(don_dat_hang.tong_tt)as sodatieu')
                 ->groupBy('user_id')
                 ->orderby('user.ten_nd','DESC')
                 ->paginate(10);     
             }elseif ($Sap_Xep_Ten=="A-Z") {
                $use_id=DB::table('user')
-                ->join('khach_hang','khach_hang.email','=','user.email')
-                ->join('don_dat_hang','don_dat_hang.ma_kh','=','khach_hang.ma_kh')
-                ->where('don_dat_hang.trangthai','<>','4')
-                ->selectRaw('user.*,Sum(don_dat_hang.tong_tt)as sodatieu')
                 ->groupBy('user_id')
                 ->orderby('user.ten_nd','ASC')
                 ->paginate(10); 
@@ -123,11 +83,6 @@ class Customercontroller extends Controller
         elseif (isset($_GET['keywords_search'])) {
             $keyword=$_GET['keywords_search'];
             $use_id=DB::table('user')
-            ->join('khach_hang','khach_hang.email','=','user.email')
-            ->join('don_dat_hang','don_dat_hang.ma_kh','=','khach_hang.ma_kh')
-            ->where('don_dat_hang.trangthai','<>','4')
-            ->selectRaw('user.*,Sum(don_dat_hang.tong_tt)as sodatieu')
-            ->groupBy('user_id')
             ->where('user.ten_nd','like','%'. $keyword .'%')
             ->orwhere('user.diachi','like','%'. $keyword .'%')
             ->orwhere('user.email','like','%'. $keyword .'%')
@@ -135,12 +90,8 @@ class Customercontroller extends Controller
             ->paginate(10);
         }else{
             $use_id=DB::table('user')
-            ->join('khach_hang','khach_hang.email','=','user.email')
-            ->join('don_dat_hang','don_dat_hang.ma_kh','=','khach_hang.ma_kh')
-            ->where('don_dat_hang.trangthai','<>','4')
-            ->selectRaw('user.*,Sum(don_dat_hang.tong_tt)as sodatieu')
             ->groupBy('user_id')
-            ->orderby('sodatieu','ASC')
+            ->orderby('tg_tao','desc')
             ->paginate(10);
         }
         $order_id=DB::table('don_dat_hang')->get();
@@ -157,6 +108,10 @@ class Customercontroller extends Controller
         ->with('message_id',$message_id)
         ;
 
+    }
+    public function update_status_user(Request $request,$user_id){
+        DB::table('user')->where('user_id',$user_id)->update(['trang_thai'=>$request->status_user]);
+        return Redirect::to('/all-customer');
     }
     public function customer_address($email){
          if (isset($_GET['Tong_Phi_Giao'])) {

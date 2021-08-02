@@ -177,6 +177,7 @@ Route::post('/save-size-product','Detail_productcontroller@save_size_product');
 
 	//khách hàng
 Route::get('/all-customer','Customercontroller@all_customer');
+Route::post('/update-status-user/{user_id}','Customercontroller@update_status_user');
 Route::get('/dia-chi-nhan/{email}','Customercontroller@customer_address');
 
 //banner

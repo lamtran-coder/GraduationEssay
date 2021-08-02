@@ -370,8 +370,8 @@ Thông báo</p>
                 parseTime: false,
                 hideHover: 'auto',
                 xkey: 'ma_sp',
-                ykeys: ['doanhsosp','solgsp'],
-                labels: ['doanh số','số lượng' ]
+                ykeys: ['solgsp'],
+                labels: ['số lượng']
             });
         function banchaytop10(){
              var _token = $('input[name="_token"]').val();

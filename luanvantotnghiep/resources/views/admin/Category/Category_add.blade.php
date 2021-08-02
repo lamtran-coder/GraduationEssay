@@ -142,16 +142,16 @@
                                  <div>
                                  </div>
                             </form>
-                                <ul>
-                                <?php 
-                                    $message=Session::get('message');
-                                    if($message){
-                                        echo '<span style="color:red;size:20px;">'.$message.'<span>';
-
-                                        Session::put('message',null);
-                                    }
-                                 ?>
-                                </ul>
+                            <?php 
+                            $message=Session::get('message');
+                            if($message){?>    
+                            <script type="text/javascript">
+                                $(document).ready(function(){
+                                    alert('<?php echo $message; ?>')
+                                })
+                            </script>
+                           <?php  Session::put('message',null);
+                             }?>
                         </div>
                     </div>
             </section>

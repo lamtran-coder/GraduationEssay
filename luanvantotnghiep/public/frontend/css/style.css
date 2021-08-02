@@ -166,11 +166,11 @@ body{
 }
 .wmuSliderPrev {
 	background-position: -20px -21px;
-	left: 40px;
+	left: 20px;
 }
 .wmuSliderNext {
 	background-position: -100px -21px;
-	right: 40px;
+	right: 20px;
 }
 .wmuSliderPagination {
 	z-index: 2;
@@ -1552,8 +1552,8 @@ p.m_desc{
    display: inline-block;
    text-decoration: none;
    padding: 10px 14px;
-   background: #000;
-   color: #fff;
+   background: #FFF;
+   color: #000;
    text-transform: uppercase;
   	font-size:1em;
 }

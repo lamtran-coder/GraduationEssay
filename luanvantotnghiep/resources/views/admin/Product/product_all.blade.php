@@ -177,8 +177,8 @@
               <form>
               <select name="dogMenu" id="{{$value_pro->ma_sp}}" class="dogMenu">
                 <option selected="selected" value="{{url::to('/all-product')}}">Chọn</option>
-                <option value="{{URL::to('/add-images-product/'.$value_pro->ma_sp)}}">Thêm Ảnh</option>
-                <option value="{{URL::to('/add-detail-product/'.$value_pro->ma_sp)}}">Thêm Chi Tiêt</option>
+                <option value="{{URL::to('/add-images-product/'.$value_pro->ma_sp)}}">Hình Ảnh</option>
+                <option value="{{URL::to('/add-detail-product/'.$value_pro->ma_sp)}}">Chi Tiêt</option>
               </select>
               </form>
               <script type="text/javascript">

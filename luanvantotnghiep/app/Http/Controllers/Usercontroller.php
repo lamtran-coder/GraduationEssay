@@ -50,8 +50,8 @@ class Usercontroller extends Controller
     }
     public function add_user(Request $request){
       $validator=$request->validate([
-        'username'=>['required',"regex:/^[a-z ,.'-]+$/i"],
-        'address'=>'required',
+        'username'=>['required',"regex:/[^a-z0-9A-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]/u"],
+        'address'=>'required',"regex:/[^a-z0-9A-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]/u",
         'phone'=>['required','regex:/(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/','unique:user,sodt'],
         'email'=>'required|email|unique:user,email',
         'password'=>'required|min:6|max:255',
@@ -63,6 +63,7 @@ class Usercontroller extends Controller
         'username.regex'=>' Không Hợp Lệ',
         
         'address.required'=>' Không Để Trống',
+        'address.regex'=>' Không Hợp Lệ',
 
         'phone.required'=>' Không Để Trống',
         'phone.regex'=>'Không Đúng Số Điện Thoại Việt Nam',
@@ -71,7 +72,6 @@ class Usercontroller extends Controller
         'email.required'=>' Không Để Trống',
         'email.email'=>' Không Hợp Lệ',
         'email.unique'=>' Đã Tồn Tại',
-
 
         'password.required'=>' Không Để Trống',
         'password.min'=>' ít nhất 6 ký tự',
@@ -87,6 +87,7 @@ class Usercontroller extends Controller
       $data['sodt'] = $request->phone;
       $data['email'] = $request->email;
       $data['matkhau'] =md5($request->password);
+      $data['trang_thai'] =0;
       
       DB::table('user')->insert($data);
       Session::put('message','Tạo tài khoản thành công');
@@ -106,8 +107,6 @@ class Usercontroller extends Controller
     $validator=$request->validate([
         'email'=>'required|email',
         'password'=>'required|min:6|max:255',
-       
-
       ],[
         'email.required'=>' Không Để Trống',
         'email.email'=>' Không Hợp Lệ',
@@ -120,15 +119,25 @@ class Usercontroller extends Controller
      $password=md5($request->password);
      $result_user=DB::table('user')
      ->where('email',$email)
-     ->where('matkhau',$password)->first();
-     if($result_user){
+     ->where('matkhau',$password)
+     ->first();
+     if(($result_user)&&($result_user->trang_thai==0)){
           Session::put('username',$result_user->ten_nd);
           Session::put('user_id',$result_user->user_id);
           Session::put('phone',$result_user->sodt);
           Session::put('address',$result_user->diachi);
           Session::put('email',$result_user->email);
           return Redirect('/trang-chu');
-     }else{    
+     }
+     elseif(($result_user)&&($result_user->trang_thai==1)) {
+         Session::put('message','Khách Hàng Đã Boom Hàng Nhiều Lần tạm khóa 7 ngày');
+          return Redirect('/login-user');
+     }
+     elseif(($result_user)&&($result_user->trang_thai==2)) {
+         Session::put('message','Khóa Vĩnh Viễn Tài Khoản');
+          return Redirect('/login-user');
+     }
+     else{    
           Session::put('message','Mật khẩu không trung khớp thành công');
           return Redirect('/login-user');
      }
@@ -147,10 +156,15 @@ class Usercontroller extends Controller
           ->groupBy('thiet_ke.ma_tk')
           ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
           ->get();
+        //thông báo
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,user_id')
+        ->get();
         return view('pages.User.information_user')
         ->with('cate_product',$cate_product)
         ->with('design_id',$design_id)
-        ->with('user_id',$user_id);
+        ->with('user_id',$user_id)
+        ->with('message_id',$message_id);
     }
     public function update_user(Request $request,$use_id){
         
@@ -159,11 +173,12 @@ class Usercontroller extends Controller
         $data['sodt']=$request->phone;
         $data['diachi']=$request->address;
         $data['email']=$request->email;
+        $data['trang_thai']=0;
         DB::table('user')->where('user_id',$use_id)->update($data);
         return Redirect::to('/thong-tin-ca-nhan');
 
     }
-     public function change_pass(){
+    public function change_pass(){
         $user_id=DB::table('user')->get();
          $cate_product = DB::table('danh_muc_sp')
             ->select('danh_muc')
@@ -174,10 +189,15 @@ class Usercontroller extends Controller
           ->groupBy('thiet_ke.ma_tk')
           ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
           ->get();
+        //thông báo
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,user_id')
+        ->get();
         return view('pages.User.change_password')
         ->with('cate_product',$cate_product)
-        ->with('design_id',$design_id)->with('user_id',$user_id);
-
+        ->with('design_id',$design_id)
+        ->with('user_id',$user_id)
+        ->with('message_id',$message_id);
     }
     public function update_pass(Request $request,$use_id){
         $data=array();
