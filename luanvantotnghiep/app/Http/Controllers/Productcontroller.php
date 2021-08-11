@@ -731,7 +731,7 @@ class Productcontroller extends Controller
         $output='thiếu size hoặc màu';
         foreach ($solg_sp as $key => $value) {
             if ($value->so_lg>0) {
-                $output='<ladel>Số Lượng Tồn : '.$value->so_lg.'</ladel>';
+                $output='<ladel>Hàng Còn : '.$value->so_lg.'</ladel>';
             }else{
                 $output='tạm hết hàng';
             }

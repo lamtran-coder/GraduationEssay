@@ -38,10 +38,10 @@
                       <tr class="form-tr">
                         <td class="form-td"><a href="{{URL::to('/product-details/'.$v_content->id)}}">{{$v_content->id}}<hr>{{$v_content->name}}</a></td>
                         <td class="form-td"><a href="{{URL::to('/product-details/'.$v_content->id)}}"><img  width="150px" height="150px" src="{{URL::to('public/uploads/product/'.$v_content->options->anh)}}" alt=""></a></td>
-                        <td class="form-td"><span style="font-size:25px;">{{$v_content->options->ma_size}}<hr>{{$v_content->options->ten_mau}}
+                        <td class="form-td"><span >{{$v_content->options->ma_size}}<hr>{{$v_content->options->ten_mau}}
                         </span></td>
-                        <td class="form-td"><span style="font-size:25px;"><?php echo number_format($v_content->price).' VND'; ?></span></td>
-                        <td class="form-td"><span style="font-size:25px;">
+                        <td class="form-td"><span ><?php echo number_format($v_content->price).' VND'; ?></span></td>
+                        <td class="form-td"><span >
                             <?php
                             
                             $sum_qty_pro=0;
@@ -75,7 +75,7 @@
                         <td class="form-td"><span>{{$v_content->qty}}
     
                            </span></td>
-                        <td class="form-td"><span style="font-size:25px;"><?php 
+                        <td class="form-td"><span ><?php 
                             $subTotal=($v_content->price*$v_content->qty)*(100-$ck_sp)/100;
                             $Sum_mony+=$subTotal;
                             echo number_format($subTotal).''.'vnd';
@@ -183,7 +183,7 @@
                                 echo $mony_deli;
                                 ?>
                             </b><p>VND</p></span></li>
-                            <li style="color:red;font-size: 30px;">Thành Tiền<span><b>
+                            <li class="thanh-tien">Thành Tiền<span><b>
                             <?php $thanhtien=$Sum_mony*(100-$chiec_khau_tong)/100;
                             echo number_format($thanhtien+$mony_deli); ?></b><p>VND</p></span></li>
                             <li style="color:red;">Tiền Cọc<span><b>

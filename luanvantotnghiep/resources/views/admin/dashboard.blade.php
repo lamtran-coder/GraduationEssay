@@ -82,7 +82,6 @@
 							<select class="loc_khoang_thoi_gian form-control" style="width: 160px;font-size: 17px;">
 								<option>Chọn</option>
 								<option value="7ngay">7 ngày</option>
-								<option value="thangtruoc">Tháng Trước</option>
 								<option value="12thang">12 tháng</option>
 							</select>
 				</form>
@@ -101,54 +100,97 @@
 
 		
 		<div class="agileits-w3layouts-stats">
-					<div class="col-md-6 stats-info stats-last widget-shadow">
-						<div class="stats-last-agile" style="background:#c7ebce;">
-							
-								
-							<div class="row">
-										
-
-							<p class="title_thongke">Truy cập thống kê</p>
-							<div id="my_statistical_access" style="height: 250px;background: #FFF; border-radius: 15px;"></div>
-							<script type="text/javascript">
-								new Morris.Bar({
-									 
-									  element: 'my_statistical_access',
-									  
-									 barColors: ['blue'],
-									  data: [
-									    { key: 'Đang online', value: <?php echo $visitor_count; ?> },
-									    { key: 'Tháng trước', value: <?php echo $visitor_last_month_count; ?> },
-									    { key: 'Tháng này', value: <?php echo $visitor_this_month_count; ?> },
-									    { key: 'Một năm', value: <?php echo $visitor_year_count; ?> },
-									    { key: 'Tổng truy cập', value: <?php echo $visitors_total; ?> }
-									  ],
-									  xkey: 'key',
-									  ykeys: ['value'],
-									  labels: ['Lược truy cập']
-									});
-							</script>
-						</div>
-								
-							
-						</div>
-					</div>
-					<div class="col-md-6 stats-info stats-last widget-shadow">
-						<div class="stats-last-agile" style="background:#c7ebce;">
-							
-								
-							<div class="row">	
-							<p class="title_thongke" style="text-transform: capitalize;">Top 10 sản phẩm bán chạy nhất</p>
-								<div id="top10product" style="height: 250px;background: #FFF; border-radius: 15px;text-transform: capitalize;" ></div>
-							
-						</div>
-								
-							
-						</div>
-					</div>
-					<div class="clearfix"> </div>
+			<div class="col-md-4 stats-info stats-last widget-shadow">
+				<div class="stats-last-agile" style="background:#c7ebce;">
+					<div class="row">
+					<p class="title_thongke">Trang Thái Đơn Đặt Hàng</p>
+					<div id="donut" style="height: 250px;background: #FFF; border-radius: 15px;"></div>
+				    </div>
 				</div>
+			</div>
+			<div class="col-md-4 stats-info stats-last widget-shadow">
+				<div class="stats-last-agile" style="background:#c7ebce;">
+					
+						
+					<div class="row">	
+					<p class="title_thongke" style="text-transform: capitalize;">Top 10 sản phẩm bán chạy nhất</p>
+						<div id="top10product" style="height: 250px;background: #FFF; border-radius: 15px;text-transform: capitalize;" ></div>
+					
+				</div>
+						
+					
+				</div>
+			</div>
+			<div class="col-md-4 stats-info stats-last widget-shadow">
+				<div class="stats-last-agile" style="background:#c7ebce;">
+					
+						
+					<div class="row">	
+					<p class="title_thongke" style="text-transform: capitalize;">Số Lượng Xử Lý Của Nhân Viên</p>
+						<div id="danhgianv" style="height: 250px;background: #FFF; border-radius: 15px;text-transform: capitalize;" ></div>
+					<!-- biều đồ trang thái đơn hàng-->
+					<script type="text/javascript">
+					    $(document).ready(function(){
+					            var donut = Morris.Donut({
+					              element: 'donut',
+					              resize: true,
+					              colors: [
+					                'green',
+					                '#f5b942',
+					                '#4842f5',
+					                'orange',
+					                'red'
+					                
+					              ],    
+					              data: [
+					                {label:"Đang Xữ Lý", value:<?php echo $Dangxuly; ?>},
+					                {label:"Cho Lấy Hàng", value:<?php echo $Cholayhang; ?>},
+					                {label:"Đang Giao", value:<?php echo $Danggiao; ?>},
+					                {label:"Đã Nhận", value:<?php echo $Danhan; ?>},
+					                {label:"Đã Hủy", value:<?php echo $Dahuy; ?>} 
+					              ]
+					            });
+					         
+					    });
+					</script>
+					<!-- biều đồ trang thái đơn hàng-->
+					</div>
+						
+				<!-- biều đồ Đanh giá Xử lý của nhận viên-->
+				<script type="text/javascript">
+				$(document).ready(function(){
+				        danhgianv();
+				        var dgchart=new Morris.Bar({
+				                element: 'danhgianv',
+				                barColors: ['green','#766B56','#819C79', '#fc8710', '#A4ADD3'],
+				                parseTime: false,
+				                hideHover: 'auto',
+				                xkey: 'tennv',
+				                ykeys: ['solgxl'],
+				                labels: ['số lượng phiếu giao']
+				            });
+				        function danhgianv(){
+				            var _token = $('input[name="_token"]').val();
+				             $.ajax({
+				                 url: "{{url('/dang-gia-nhan-vien')}}",
+				                 method: "POST",
+				                 dataType: "JSON",
+				                 data:{_token:_token},
+				                 success:function(data){
+				                     dgchart.setData(data);
+				                 }
+				            });
+				        }
+				     
+				});
+				</script>
+				<!-- biều đồ Đanh giá Xử lý của nhận viên-->
+	
+				</div>
+			</div>
+			<div class="clearfix"> </div>
 		</div>
+	  </div>
 	</section>
 
 					

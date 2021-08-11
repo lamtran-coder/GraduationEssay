@@ -32,9 +32,6 @@ class Cartcontroller extends Controller
         ->where('chi_tiet_san_pham.so_lg','>=',$quantity_h)
         ->where('chi_tiet_san_pham.ma_sp',$ma_sp_h)
         ->first();
-        echo"<pre>";
-        print_r($product_info);
-        echo"</pre>";
         if (isset($product_info)) {
         $data['id']=$product_info->ma_sp;
         $data['qty']=$quantity_h;

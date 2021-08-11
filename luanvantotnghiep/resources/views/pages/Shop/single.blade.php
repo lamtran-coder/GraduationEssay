@@ -33,7 +33,7 @@
 
 				</ul>
 				<div style="text-transform: capitalize;"><h4 class="m_9" text-align="center" >Sản Phẩm Yêu Thích</h4></div>
-         			<ul style="text-transform: capitalize;" id="row_wishlist" >                     
+         		<ul style="text-transform: capitalize;" id="row_wishlist" >                     
 				</ul>
 			    </section>
 			    <div class="clear"></div>

@@ -59,68 +59,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="nav notify-row" id="top_menu">
     <!--  notification start -->
     <ul class="nav top-menu">
-        <!-- settings start -->
+    
+       
 
-        <li class="dropdown">
-            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                <i class="fa fa-tasks"></i>
-                <span class="badge bg-success">1</span>
-            </a>
-            <ul class="dropdown-menu extended tasks-bar">
-                <li>
-                    <p class="">Bạn có 1 nhiệm vụ đang chờ xử lý</p>
-                </li>
-                
-                <li>
-                    <a href="#">
-                        <div class="task-info clearfix">
-                            <div class="desc pull-left">
-                                <h5>Mục tiêu bán</h5>
-                                <p>25% , Hạn cuối ngày 1 tháng 9 năm 21</p>
-                            </div>
-                                    <span class="notification-pie-chart pull-right" data-percent="45">
-                            <span class="percent"></span>
-                            </span>
-                        </div>
-                    </a>
-                </li>
-               
-                <li class="external">
-                    <a href="#">Xem tất cả nhiệm vụ</a>
-                </li>
-            </ul>
-        </li>
-
-        <!-- settings end -->
-        <!-- inbox dropdown start-->
-        <li id="header_inbox_bar" class="dropdown">
-            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                <i class="fa fa-envelope-o"></i>
-                <span class="badge bg-important">1</span>
-            </a>
-            <ul class="dropdown-menu extended inbox">
-                <li>
-                    <p class="red">Bạn có 1 Mails</p>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="photo"><img alt="avatar" src="{{('public/backend/images/3.png')}}"></span>
-                                <span class="subject">
-                                <span class="from">Trần Tiến</span>
-                                <span class="time">Vừa rồi</span>
-                                </span>
-                                <span class="message">
-                                    Xin chào, đây là một tin nhắn ví dụ.
-                                </span>
-                    </a>
-                </li>
-               
-                <li>
-                    <a href="#">Xem tất cả tin nhắn</a>
-                </li>
-            </ul>
-        </li>
-        <!-- inbox dropdown end -->
         <!-- notification dropdown start-->
         <li id="header_notification_bar" class="dropdown">
                 
@@ -389,63 +330,7 @@ Thông báo</p>
 </script>
 <!-- //biều đồ sản phẩm bán chạy nhất -->
 
-<!-- duyet binh lan -->
-<script type="text/javascript">
-    $('.comment_duyet_btn').click(function(){
-        var comment_status = $(this).data('comment_status');
-        var comment_id = $(this).data('comment_id');
-        var comment_product_id = $(this).attr('id');
-        // alert(comment_status);
-        //  alert(comment_id);
-        //   alert(comment_product_id);
-        if(comment_status==0){
-            var alert = 'Thay đổi thành duyệt thành công';
-        }else{
-            var alert = 'Thay đổi thành không duyệt thành công';
-        }
-          $.ajax({
-                url:"{{url('/allow-comment')}}",
-                method:"POST",
 
-                headers:{
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data:{comment_status:comment_status,comment_id:comment_id,comment_product_id:comment_product_id},
-                success:function(data){
-                    location.reload();
-                   $('#notify_comment').html('<span class="text text-alert">'+alert+'</span>');
-
-                }
-            });
-    });
-    // tra loi binh luan
-    $('.btn-reply-comment').click(function(){
-        var comment_id = $(this).data('comment_id');
-        var comment = $('.reply_comment_'+comment_id).val();
-        var comment_product_id = $(this).data('product_id');
-        
-        // alert(comment);
-        // alert(comment_id);
-        // alert(comment_product_id);
-        
-          $.ajax({
-                url:"{{url('/reply-comment')}}",
-                method:"POST",
-
-                headers:{
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data:{comment:comment,comment_id:comment_id,comment_product_id:comment_product_id},
-                success:function(data){
-                    $('.reply_comment_'+comment_id).val('');
-                     location.reload();
-                   $('#notify_comment').html('<span class="text text-alert">Trả lời bình luận thành công</span>');
-
-                }
-            });
-           });
-</script>
-<!--  duyet binh luan them vao 2 file js sweetalert.min.js va sweetalert.js vaf css sweetalert.css -->
 
 
 <!-- calendar -->

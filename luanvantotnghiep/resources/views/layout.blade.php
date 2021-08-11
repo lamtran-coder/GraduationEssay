@@ -7,7 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Free Adidas Website Template | Home :: w3layouts</title>
+<title>Shop Tiến Lên Nào</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="{{asset('public/frontend/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
@@ -123,17 +123,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
   <div class="header-top">
      <div class="wrap"> 
         <div class="logo">
-            <a href="{{URL::to('/trang-chu')}}"><img src="{{asset('public/frontend/images/logo123.jpg')}}" alt=""/></a>
+            <a href="{{URL::to('/trang-chu')}}"><img src="{{asset('public/frontend/images/logo123.JPG')}}" alt=""/></a>
         </div>
         <div class="cssmenu">
            <ul>
-            <li> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</li>
+            <li> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</li>
             <ul class="icon2 sub-icon2 profile_img">
-            <li><a class="" href="{{URL::to('/login-user')}}"><i class="fa fa-user fa-user-styling"></i></a>
+            <li><i class="fa fa-user fa-user-styling"></i>
                 <ul class="sub-icon2 list user-styling">
                     <li><a href="">
                 <?php $username=Session::get('username');
                       $user_id=Session::get('user_id');
+                      $user_id=Crypt::encryptString($user_id);
+
                     if ($username!=null) { ?>
                     <li><a style="color: #FFF;" href="{{URL::to('/thong-tin-ca-nhan')}}">Thông Tin Cá Nhân</a></li>
                     <li><a style="color: #FFF;" href="{{URL::to('/show-order/'.$user_id)}}">Đơn Mua</a></li>
@@ -147,8 +149,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <?php $username=Session::get('username');
                       $user_id=Session::get('user_id');
                     if ($username!=null) { ?>
-            <li><a href=""><p style="font-weight: bolder;"><?php echo ucwords($username); ?></p></a></li>
-            <?php }?>
+                 <li><a href="{{URL::to('/thong-tin-ca-nhan')}}"><p style="font-weight: bolder;"><?php echo $username; ?></p></a></li>
+                    <?php }else{?>
+                <li><a href="{{URL::to('/sign-up')}}"><p style="font-weight: bolder;">Đăng Ký</p></a></li>
+                    <?php } ?>
             </ul>
            </ul>
         </div>
@@ -278,7 +282,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         if($fl==false){ ?>
                         <li style="color:black;">Chưa Có Thông Báo Mới...</li>
                         <?php } ?>
-                    <?php } ?>
+                    <?php }else{?>
+                        <li style="color:black;">Chưa Đăng Nhập</li>
+                    <?php   } ?> 
                     </ul>
                 </li>
                 </ul>

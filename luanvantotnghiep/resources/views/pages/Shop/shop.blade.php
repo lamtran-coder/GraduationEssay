@@ -1,7 +1,7 @@
 @extends('layout')
 @section('index_content')
  <div class="login">
-        <div class="wrap">
+        <div class="wrap shop">
      	    <div class="rsidebar span_1_of_left">
 	<!-- danh mục lọc -->
 		<section  class="sky-form">
@@ -28,7 +28,7 @@
 	             </form>
 		</div>
   		<form action="">
-  		<div style="padding: 10px;"><button style="width: 200px;">Tìm kiếm</button></div>
+  		<div style="padding: 10px;"><button style="width: 100%;">Tìm kiếm</button></div>
         <h4>Thiết Kế</h4>
 		<div class="row row1 ">
 		<div class="col col-4">
@@ -124,7 +124,7 @@
 				  	<h3 class="m_1">{{$value_pro->ma_sp}}</h3>
 				  	<p class="m_2">{{$value_pro->ten_sp}}</p>
 			         	<div class="grid_img">
-					   <div class="css3"><img src="public/uploads/product/{{$value_pro->hinhanh}}" width="250px" height="300px" alt=""/></div>
+					   <div class="css3"><img src="public/uploads/product/{{$value_pro->hinhanh}}" width="100%" height="200em" alt=""/></div>
 				          <div class="mask1">
 		         		<div class="info">Chi tiết</div>
 		                  	</div>
@@ -132,7 +132,7 @@
 		  			 <div class="price"><strike>{{$value_pro->gia_goc}}</strike>&emsp;{{$value_pro->gia_sale}}VND</div>
 			   	</div>
 			</div>
-			<div>
+			<div style="background:#656363;">
 			<span class="rating Raiting-shop" style="height: 21px;">
                         <ul class="list-inline" style="display: -webkit-box;" title="Average Raiting">
                        

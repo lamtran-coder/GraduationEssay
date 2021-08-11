@@ -62,7 +62,16 @@
 				<p><a class="dangnhapngay" href="{{URL::to('/login-user')}}"> ĐĂNG NHẬP NGAY</a></p>
 			</div>
 		</div>
-		
+		<?php 
+          $message=Session::get('message');
+           if($message){ ?>
+             <script type="text/javascript">
+                $(document).ready(function(){
+                    alert('<?php echo $message; ?>')
+                });
+             </script>   
+            <?php Session::put('message',null); 
+        }?> 
 		<ul class="colorlib-bubbles">
 			<li></li>
 			<li></li>

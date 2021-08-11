@@ -267,7 +267,5 @@ tr.thanhloc>th {
     border: 2px solid #9d9b9b;
 }
 span.text-ellipsis:hover {
-    font-size: 15px;
     color: red;
-    font-weight: bolder;
 }

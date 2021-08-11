@@ -7,17 +7,19 @@
     <div class="panel-heading">
       Liệt Kê Danh Sách sản phẩm
     </div>
-   <div class="row w3-res-tb">
-    <div class="col-sm-4 m-b-xs">           
-      </div>
-      
-      <div class="col-sm-8">
+   <div class="row w3-res-tb">      
+      <div class="col-sm-12">
+        <?php 
+          if(isset($_GET['keywords_search'])){
+            $keywords_search=$_GET['keywords_search'];
+          }else{$keywords_search="";}
+         ?>
        <form>
-        <div class="input-group">
-          <input type="text" class="input-sm form-control"name="keywords_search" placeholder="nhập mã sản phẩm, tên sản phẩm, mã danh mục" >
-          <span class="input-group-btn">
-            <input type="button" class="btn btn-sm btn-default" value="Tìm" >
-          </span>
+        <div class="input-group" style="display:flex;">
+          <input type="text" class="input-lg form-control"name="keywords_search" placeholder="nhập mã sản phẩm, tên sản phẩm, mã danh mục" value="<?php echo $keywords_search ?>">
+         
+            <button class="btn">Tìm</button>
+    
          </div>
         </form>
         </div>

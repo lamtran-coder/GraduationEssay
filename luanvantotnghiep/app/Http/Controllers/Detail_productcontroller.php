@@ -20,12 +20,29 @@ class Detail_productcontroller extends Controller
       }
     }
     //chi tiết sản phẩm
-        //
     public function add_detail_product($ma_sp){
         $this->AuthLogin();
         $product_id=DB::table('san_pham')->where('ma_sp',$ma_sp)->orderby('ten_sp','desc')->get();
         $color_id=DB::table('mau')->orderby('ten_mau','desc')->get();
-        $size_id=DB::table('size')->orderby('ma_size','desc')->get();
+        $loai=substr($ma_sp,0,2);
+        if ($loai=='AO') {
+            $size_id=DB::table('size')
+            ->where('ma_size','regexp',"^[a-z ,.'-]")
+            ->orderby('ma_size','desc')
+            ->get();
+        }elseif($loai=='PK'){
+            $size_id=DB::table('size')
+            ->where('ma_size','regexp',"[0-9]")
+            ->orderby('ma_size','desc')
+            ->get();
+        }
+        else{
+            $size_id=DB::table('size')
+            ->where('ma_size','regexp',"[0-9]")
+            ->where('ma_size','>','0')
+            ->orderby('ma_size','desc')
+            ->get();
+        }
         $detail_product_id=DB::table('chi_tiet_san_pham')->where('ma_sp',$ma_sp)->get();
         //thong báo
         $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->where('che_do',null)->get();

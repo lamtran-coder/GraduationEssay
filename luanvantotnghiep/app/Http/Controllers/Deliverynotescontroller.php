@@ -311,11 +311,10 @@ class Deliverynotescontroller extends Controller
         ->with('message_id',$message_id);
     }
     //cập nhật trang thái phiếu giao
-    public function unactive_delivery($ma_pg){
+    public function update_delivery($ma_pg,Request $request){
         $this->AuthLogin();
+        if ($request->update_status_de==1) {
         DB::table('phieu_giao')->where('ma_pg',$ma_pg)->update(['trangthai'=>1]);
-        
-        
         $delivery_id=DB::table('phieu_giao')
         ->join('chi_tiet_phieu_giao','chi_tiet_phieu_giao.ma_pg','=','phieu_giao.ma_pg')
         ->where('chi_tiet_phieu_giao.ma_pg',$ma_pg)
@@ -327,16 +326,31 @@ class Deliverynotescontroller extends Controller
         ->where('phieu_giao.ma_pg',$ma_pg)
         ->get();
         //xác thực sản phẩm 
-            foreach ($delivery_id as $key => $value_dn) {
-                foreach ($order_detail as $key => $value_od){
-                    //sản phẩm chi tiết phiếu giao giống chi tiêt đơn đặt hàng để cập nhật trang thái sản phẩm trong chi tiết đơn hàng từ 2->3       
-                    if (($value_dn->ma_sp==$value_od->ma_sp)&&($value_dn->size==$value_od->size)&&($value_dn->mau==$value_od->ten_mau)&&($value_dn->solg==$value_od->solg_sp)&&($value_od->trang_thai==2)) {
-                        DB::table('chi_tiet_don_hang')
-                        ->where('so_ct',$value_od->so_ct)
-                        ->where('ma_sp',$value_od->ma_sp)
-                        ->where('ten_mau',$value_od->ten_mau)
-                        ->where('size',$value_od->size)
-                        ->update(['chi_tiet_don_hang.trang_thai'=>3]);       
+        foreach ($delivery_id as $key => $value_dn) {
+            foreach ($order_detail as $key => $value_od){
+                //sản phẩm chi tiết phiếu giao giống chi tiêt đơn đặt hàng để cập nhật trang thái sản phẩm trong chi tiết đơn hàng từ 2->3       
+                if (($value_dn->ma_sp==$value_od->ma_sp)&&($value_dn->size==$value_od->size)&&($value_dn->mau==$value_od->ten_mau)&&($value_dn->solg==$value_od->solg_sp)&&($value_od->trang_thai==2)) {
+
+                    $so_luong=DB::table('chi_tiet_san_pham')
+                    ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
+                    ->where('ma_sp',$value_od->ma_sp)
+                    ->where('mau.ten_mau',$value_od->ten_mau)
+                    ->where('ma_size',$value_od->size)->get(['so_lg']);
+                    foreach ($so_luong as $key => $val) {
+                        $result_sl=$val->so_lg-$value_od->solg_sp; 
+                    }
+                    DB::table('chi_tiet_don_hang')
+                    ->where('so_ct',$value_od->so_ct)
+                    ->where('ma_sp',$value_od->ma_sp)
+                    ->where('ten_mau',$value_od->ten_mau)
+                    ->where('size',$value_od->size)
+                    ->update(['chi_tiet_don_hang.trang_thai'=>3]);
+                    DB::table('chi_tiet_san_pham')
+                    ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
+                    ->where('ma_sp',$value_od->ma_sp)
+                    ->where('mau.ten_mau',$value_od->ten_mau)
+                    ->where('ma_size',$value_od->size)
+                    ->update(['so_lg'=>$result_sl]);       
                 }
             }
         }
@@ -364,10 +378,46 @@ class Deliverynotescontroller extends Controller
             ->update(['don_dat_hang.trangthai'=>3]);
 
         }
-
-         return Redirect::to('/all-delivery-notes');
-    }
-
+        }elseif ($request->update_status_de==2) {
+           DB::table('phieu_giao')->where('ma_pg',$ma_pg)->update(['trangthai'=>2]);
+           $delivery_id=DB::table('phieu_giao')
+            ->join('chi_tiet_phieu_giao','chi_tiet_phieu_giao.ma_pg','=','phieu_giao.ma_pg')
+            ->where('chi_tiet_phieu_giao.ma_pg',$ma_pg)
+            ->get();
+            $order_detail=DB::table('don_dat_hang')
+            ->join('chi_tiet_don_hang','chi_tiet_don_hang.ma_ddh','=','don_dat_hang.ma_ddh')
+            ->join('phieu_giao','phieu_giao.ma_ddh','=','don_dat_hang.ma_ddh')
+            ->select('chi_tiet_don_hang.ma_sp','chi_tiet_don_hang.trang_thai','don_dat_hang.ma_ddh','phieu_giao.ma_pg','chi_tiet_don_hang.size','chi_tiet_don_hang.ten_mau','chi_tiet_don_hang.solg_sp','.chi_tiet_don_hang.so_ct')
+            ->where('phieu_giao.ma_pg',$ma_pg)
+            ->get();
+        //xác thực sản phẩm hủy đơn
+        foreach ($delivery_id as $key => $value_dn) {
+            foreach ($order_detail as $key => $value_od){
+                //sản phẩm chi tiết phiếu giao giống chi tiêt đơn đặt hàng để cập nhật trang thái sản phẩm trong chi tiết đơn hàng từ 2->4       
+                if (($value_dn->ma_sp==$value_od->ma_sp)&&($value_dn->size==$value_od->size)&&($value_dn->mau==$value_od->ten_mau)&&($value_dn->solg==$value_od->solg_sp)&&(($value_od->trang_thai==2)|($value_od->trang_thai==1)|($value_od->trang_thai==0))) {
+                    DB::table('chi_tiet_don_hang')
+                    ->where('so_ct',$value_od->so_ct)
+                    ->where('ma_sp',$value_od->ma_sp)
+                    ->where('ten_mau',$value_od->ten_mau)
+                    ->where('size',$value_od->size)
+                    ->update(['chi_tiet_don_hang.trang_thai'=>4]);      
+                }
+            }
+        }
+        $order_detail_id=DB::table('don_dat_hang')
+        ->join('chi_tiet_don_hang','chi_tiet_don_hang.ma_ddh','=','don_dat_hang.ma_ddh')
+        ->join('phieu_giao','phieu_giao.ma_ddh','=','don_dat_hang.ma_ddh')
+        ->select('chi_tiet_don_hang.ma_sp','chi_tiet_don_hang.trang_thai','don_dat_hang.ma_ddh','phieu_giao.ma_pg','chi_tiet_don_hang.size','chi_tiet_don_hang.ten_mau','chi_tiet_don_hang.solg_sp','.chi_tiet_don_hang.so_ct')
+        ->where('phieu_giao.ma_pg',$ma_pg)
+        ->get();
+        DB::table('don_dat_hang')
+        ->join('phieu_giao','phieu_giao.ma_ddh','=','don_dat_hang.ma_ddh')
+        ->where('ma_pg',$ma_pg)
+        ->update(['don_dat_hang.trangthai'=>4]);
+     }
+        $result=$_SERVER['HTTP_REFERER'];
+        return Redirect::to($result);
+    }   
 
 
     public function print_order($checkout_code){

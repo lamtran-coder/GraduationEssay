@@ -24,23 +24,23 @@ Route::get('/chinh-sach','Homecontroller@policy');
 Route::get('/gioi-thieu','Homecontroller@about');
 //user
 //------Trang Đăng nhập
-Route::get('/login-user','UserController@login_user');
+Route::get('/login-user','Usercontroller@login_user');
 //-------------Kiểm Trả Đăng Nhập
-Route::post('/login-us','UserController@login_us');
+Route::post('/login-us','Usercontroller@login_us');
 //------Trang Đăng ký
-Route::get('/sign-up','UserController@sign_up');
+Route::get('/sign-up','Usercontroller@sign_up');
 //-------------Đăng Ký Tai Khoản Mới
-Route::post('/add-user','UserController@add_user');
+Route::post('/add-user','Usercontroller@add_user');
 //------Thêm Đăng Suất
-Route::get('/logout-us','UserController@logout_us');
+Route::get('/logout-us','Usercontroller@logout_us');
 //------Trang Thông Tin Cá Nhân
-Route::get('/thong-tin-ca-nhan','UserController@information_user');
+Route::get('/thong-tin-ca-nhan','Usercontroller@information_user');
 //------------Sửa Thông Tin
-Route::post('/update-ten-nv/{user_id}','UserController@update_user');
+Route::post('/update-ten-nv/{user_id}','Usercontroller@update_user');
 //------Trang Đổi Mật Khẩu
-Route::get('/change-pass','UserController@change_pass');
+Route::get('/change-pass','Usercontroller@change_pass');
 //------------Đổi Mật Khẩu
-Route::post('/update-pass/{user_id}','UserController@update_pass');
+Route::post('/update-pass/{user_id}','Usercontroller@update_pass');
 
 //---------Trang Cửa Hàng
 Route::get('/ke-hang','Productcontroller@show_product');
@@ -53,7 +53,7 @@ Route::post('/send-comment','Productcontroller@send_comment');
 Route::post('/allow-comment','Productcontroller@allow_comment');
 Route::post('/reply-comment','Productcontroller@reply_comment');
 Route::post('/insert-rating','Productcontroller@insert_rating');
-Route::get('/comment','ProductController@list_comment');
+Route::get('/comment','Productcontroller@list_comment');
 //------------------Xóa Binh Luận
 Route::get('/delete-comment/{ma_dm}','Productcontroller@delete_comment');
 
@@ -92,9 +92,10 @@ Route::get('/admin','Admincontroller@index');
 Route::get('/dashboard','Admincontroller@show_dashboard');
 
 Route::post('/loc-theo-ngay','Admincontroller@loc_theo_ngay');
-Route::post('/loc-nhieu-ngay','AdminController@loc_nhieu_ngay');
-Route::post('/loc-khoang-thoi-gian','AdminController@loc_khoang_thoi_gian');
-Route::post('/ban-chay-top10','AdminController@banchaytop10');
+Route::post('/loc-nhieu-ngay','Admincontroller@loc_nhieu_ngay');
+Route::post('/loc-khoang-thoi-gian','Admincontroller@loc_khoang_thoi_gian');
+Route::post('/ban-chay-top10','Admincontroller@banchaytop10');
+Route::post('/dang-gia-nhan-vien','Admincontroller@danggianhanvien');
 
 Route::get('/logout','Admincontroller@logout');
 Route::get('/trang-ca-nhan','Admincontroller@personal_information');
@@ -155,7 +156,7 @@ Route::post('/save-delivery-notes/{ma_ddh}','Deliverynotescontroller@save_delive
 Route::get('/all-delivery-notes','Deliverynotescontroller@all_delivery_notes');	
 // chi tiết phiếu giao
 Route::get('/deliverynotes-detail/{ma_pg}','Deliverynotescontroller@deliverynotes_detail');
-Route::get('/unactive-delivery/{ma_pg}','Deliverynotescontroller@unactive_delivery');
+Route::post('/update-delivery/{ma_pg}','Deliverynotescontroller@update_delivery');
 
 // in chi tiet phieu giao
 Route::get('/print-deliverynotes/{checkout_code}','Deliverynotescontroller@print_order');	

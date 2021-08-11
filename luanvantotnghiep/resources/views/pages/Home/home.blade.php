@@ -18,7 +18,7 @@
                     
              
                 <div class="slider-left {{$i==1 ? 'active' : '' }} ">
-                    <img  src="{{asset('public/uploads/slider/'.$slide->slider_image)}}" height="100%" width="100%" class=""alt="{{$slide->slider_desc}}"/> 
+                    <img  src="{{asset('public/uploads/slider/'.$slide->slider_image)}}" height="100%" width="100%" style="min-width: 100%; min-height: 100%;"  class=""alt="{{$slide->slider_desc}}"/> 
                 </div>
 
                  <div class="slider-right">
@@ -69,7 +69,7 @@
                             <p class="m_2">{{$value_pro->ten_sp}}</p>
                             <div class="grid_img">
                             <?php if ($value_pro->goc_nhin==0): ?>     
-                            <div class="css3"><img src="public/uploads/product/{{$value_pro->hinhanh}}" height="300px" width="100%" alt=""/>
+                            <div class="css3"><img src="public/uploads/product/{{$value_pro->hinhanh}}" class="img-home" alt=""/>
                             <?php endif ?>
                             </div>
                               <div class="mask">
@@ -83,7 +83,7 @@
                             <?php echo number_format($value_pro->gia_sale).' VND';  ?></div>
                         </div>
                     </div>
-                    <div style="background: #595757;">
+                    <div style="background: #656464;">
                     <span class="rating">
                         <ul class="list-inline" style="display: -webkit-box;" title="Average Raiting">
                         <?php

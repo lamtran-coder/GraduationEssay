@@ -46,6 +46,12 @@ body{
 	margin: 0 auto;
 	color: red;
 }
+img.img-home {
+    height: 20em;
+    width: 100%; 
+    min-width: 100%;
+    min-height: 20em;
+}
 .header-top{
 	background:#fff;
 	padding: 10px 0;
@@ -184,7 +190,7 @@ body{
 	list-style-type: none;
 }
 .wmuSliderPagination a {
-	display: block;
+	display: none;
 	text-indent: -9999px;
 	width:10px;
 	height:10px;
@@ -232,7 +238,7 @@ i.fa.fa-shopping-cart.fa-shopping-cart-styling {
 }
 .slider-right p{
 	color:#999;
-	font-size:0.85em;
+	font-size:1.85em;
 }
 .btn{
 	padding:8% 0;
@@ -241,7 +247,7 @@ i.fa.fa-shopping-cart.fa-shopping-cart-styling {
 	border:1px solid #ddd;
 	color: #000;
 	cursor: pointer;
-	padding: 10px 30px;
+	padding: 3.5% 16%;
 	display: inline-block;
 	font-size:0.85em;
 	outline: none;
@@ -342,6 +348,7 @@ li.dot a span {
 li.dot a span:hover {
 	background: url(../images/img-sprite.png) no-repeat -272px -230px;
 }
+
 .content-top{
 	margin:2% 0;
 }
@@ -1398,7 +1405,8 @@ h3.m_s{
 	margin:0 3.6% 0 0;
 }
 .span_2_of_a1 {
-	width: 65.1%;
+    width: 60.1%;
+    padding-left: 5%;
 }
 .cont1 {
 	display: block;
@@ -1760,6 +1768,23 @@ p.cart a:hover {
 }
 /*--responsive design--*/
 @media (max-width:1366px){
+	.header {
+    padding: 0px;
+    position: fixed;
+    width: 100%;
+    height: 120px;
+    top: 0;
+    left: 0;
+    z-index: 3;
+	}
+	.header-top {
+    background: #fff;
+    padding: 10px 0;
+	}
+	.header-bottom {
+    background: #08080b;
+    padding: 5px 0;
+	}
 	.wrap{
 		width:90%;
 	}
@@ -1811,8 +1836,128 @@ p.cart a:hover {
 		top: 120px;
 		left: 80px;
 	}
+	.new-product {
+        font-size: 150%;
+        padding: 1.5%;
+        margin-left: 3.5%;
+        margin-right: 0.5%;
+        background: #FFF;
+    }
+}
+@media (min-width:1366px){
+	.header {
+    padding: 0px;
+    position: fixed;
+    width: 100%;
+    height: 120px;
+    top: 0;
+    left: 0;
+    z-index: 3;
+	}
+	.header-top {
+    background: #fff;
+    padding: 10px 0;
+	}
+	.header-bottom {
+    background: #08080b;
+    padding: 5px 0;
+	}
+	.banner-wrap {
+        width: 80%;
+        min-width: 80%;
+    	min-height: 100%;
+        padding: 1.7%;
+        padding-right: 3%;
+        margin-left: 8%;
+        border: 1px solid #dad7d5;
+        background: azure;
+    }
+	.wrap{
+		width:90%;
+	}
+	img.img-home {
+    min-width: 100%;
+    max-height: 15em;
+    }
+	.megamenu {
+    margin-bottom: 0px;
+    padding: 0;
+    width: 100%;
+    list-style: none;
+    display: inline-block;
+    position: relative;
+	}
+	.logo {
+		margin-right: 44.5%;
+    }
+   .dropdown {
+	   padding-right: 63%;
+   }
+   .search input[type="text"] {
+  	   width: 82.7%;
+   }
+   span.m_8 {
+	    margin: 2% 4% 2% 0;
+   }
+   .icon2 ul {
+ 	   right: -50px;
+   }
+   .span_1_of_3 {
+		width: 29.5%;
+	}
+	.mens-toolbar .sort {
+		width:22.5%;
+	}
+	ul.list2 li img {
+		margin: 0 0px 0 2%;
+	}
+	.rating1 {
+		width: 49.5%;
+		padding: 2.5% 1%;
+		font-size: 0.8125em;
+	}
+	.list2 {
+		width: 50%;
+	}
+	.rating {
+		padding: 2.2% 5%;
+	}
+	.span_1_of_single1 {
+		width: 28.6%;
+	}
+	.span_2_of_c1 {
+		width: 67.2%;
+	}
+	.mens-toolbar {
+		width: 98.9%;
+	}
+	.view1 .mask1, .view1 .content {
+		top: 120px;
+		left: 80px;
+	}
+	.new-product {
+        font-size: 150%;
+        padding: 1.5%;
+        margin-left: 3.5%;
+        margin-right: 0.5%;
+        background: #FFF;
+    }
+    .slider-right h1 {
+    color: #000;
+    font-size: 4em;
+    text-transform: uppercase;
+    font-weight: 100;
+	}
 }	
 @media (max-width:1280px){
+	.banner-wrap {
+        width: 80%;
+        padding: 1.7%;
+        padding-right: 3%;
+        margin-left: 8%;
+        border: 1px solid #dad7d5;
+        background: azure;
+    }
 	.wrap{
 		width:90%;
 	}
@@ -1867,7 +2012,7 @@ p.cart a:hover {
 		left: 115px;
 	}
 	.span_2_of_a1 {
-		width: 61.1%;
+		width: 55.1%;
 		margin-left: 3.5%;
 	}
 	.view1 .mask1, .view1 .content {
@@ -1876,6 +2021,14 @@ p.cart a:hover {
 	}
 }
 @media (max-width:1024px){
+	.banner-wrap {
+        width: 80%;
+        padding: 1.7%;
+        padding-right: 5%;
+        margin-left: 8%;
+        border: 1px solid #dad7d5;
+        background: azure;
+    }
 	.wrap{
 		width:90%;
 	}
@@ -1999,7 +2152,16 @@ p.cart a:hover {
 		bottom: 50px;
 	}	
 }
+
 @media (max-width:800px){
+	.banner-wrap {
+        width: 80%;
+        padding: 1.7%;
+        padding-right: 5%;
+        margin-left: 8%;
+        border: 1px solid #dad7d5;
+        background: azure;
+    }
 	.wrap{
 		width:90%;
 	}

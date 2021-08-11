@@ -44,7 +44,7 @@
                     <tbody class="from-table">
                       <tr class="form-tr">
                         <td class="form-td"><a style="font-size: 135%;" href="{{URL::to('/product-details/'.$v_content->id)}}">{{$v_content->id}}<hr>{{$v_content->name}}</a></td>
-                        <td class="form-td"><a href="{{URL::to('/product-details/'.$v_content->id)}}"><img  width="150px" height="150px" src="{{URL::to('public/uploads/product/'.$v_content->options->anh)}}" alt=""></a></td>
+                        <td class="form-td"><a href="{{URL::to('/product-details/'.$v_content->id)}}"><img src="{{URL::to('public/uploads/product/'.$v_content->options->anh)}}" alt=""></a></td>
                         <td class="form-td"><span style="font-size: 90%">{{$v_content->options->ma_size}}<hr>{{$v_content->options->ten_mau}}
                         </span></td>
                         <td class="form-td"><span style="font-size: 90%"><?php echo number_format($v_content->price).' VND'; ?></span></td>
@@ -82,7 +82,7 @@
                                 Session::put('quasoluong',null);
                             } ?>
                         </span></td>
-                        <td class="form-td"><span style="font-size:25px;"><?php 
+                        <td class="form-td"><span class="font-size-gia"><?php 
                             $subTotal=($v_content->price*$v_content->qty)*(100-$ck_sp)/100;
                             $Sum_mony+=$subTotal;
                             echo number_format($subTotal).''.'vnd';
@@ -162,7 +162,7 @@
                                 echo $mony_deli;
                                 ?>
                             </b><p>VND</p></span></li>
-                            <li style="font-size: 35px; margin-top: 30px;" >Thành Tiền<span style="color: red"><b><?php $result_mony=$Sum_mony*(100-$chiec_khau_tong)/100;
+                            <li class="thanh-tien" >Thành Tiền<span style="color: red"><b><?php $result_mony=$Sum_mony*(100-$chiec_khau_tong)/100;
                             echo number_format($result_mony+$mony_deli); ?></b><p>VND</p></span></li>
                         </ul>
                     </div>

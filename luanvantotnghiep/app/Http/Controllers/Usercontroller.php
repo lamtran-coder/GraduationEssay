@@ -91,7 +91,7 @@ class Usercontroller extends Controller
       
       DB::table('user')->insert($data);
       Session::put('message','Tạo tài khoản thành công');
-      return Redirect::to('/sign-up');
+      return Redirect::to('/login-user');
     }
    
     public function logout_us (){
@@ -122,12 +122,12 @@ class Usercontroller extends Controller
      ->where('matkhau',$password)
      ->first();
      if(($result_user)&&($result_user->trang_thai==0)){
-          Session::put('username',$result_user->ten_nd);
-          Session::put('user_id',$result_user->user_id);
-          Session::put('phone',$result_user->sodt);
-          Session::put('address',$result_user->diachi);
-          Session::put('email',$result_user->email);
-          return Redirect('/trang-chu');
+      Session::put('username',$result_user->ten_nd);
+      Session::put('user_id',$result_user->user_id);
+      Session::put('phone',$result_user->sodt);
+      Session::put('address',$result_user->diachi);
+      Session::put('email',$result_user->email);
+      return Redirect('/trang-chu');
      }
      elseif(($result_user)&&($result_user->trang_thai==1)) {
          Session::put('message','Khách Hàng Đã Boom Hàng Nhiều Lần tạm khóa 7 ngày');

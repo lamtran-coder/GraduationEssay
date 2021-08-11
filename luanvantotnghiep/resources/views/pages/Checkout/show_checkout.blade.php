@@ -58,12 +58,20 @@
                                     </li>
                             <?php  }}}}
                             }?>
-                            <hr>
                         
                         </ul>    
                             <button class="btn_checkout">Tiếp Theo</button>
                     </form>
-                    
+                    <?php 
+                  $message=Session::get('message');
+                 if($message){ ?>
+                     <script type="text/javascript">
+                        $(document).ready(function(){
+                            alert('<?php echo $message; ?>')
+                        });
+                     </script>   
+                    <?php Session::put('message',null); 
+                    }?>  
                 </div>
             </div>
         </section>

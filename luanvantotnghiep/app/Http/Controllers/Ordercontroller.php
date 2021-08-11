@@ -10,6 +10,7 @@ use Carbon;
 use PDF;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Crypt;
 session_start();
 class Ordercontroller extends Controller
 {   
@@ -103,30 +104,15 @@ class Ordercontroller extends Controller
             $data_detail['chiet_khau']=$ck_sp;
             $data_detail['sotien']=($v_content->qty)*($v_content->price)*(100-$ck_sp)/100;
             DB::table('chi_tiet_don_hang')->insert($data_detail);
-
-            $details_product=DB::table('chi_tiet_san_pham')
-            ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
-            ->get();
-            //cập nhật số lượng sản phẩm bên bảng chi tiết sản phẩm
-            foreach ($details_product as $key => $value_det_pro) {
-                if (($value_det_pro->ten_mau==$v_content->options->ten_mau) && ($value_det_pro->ma_size == $v_content->options->ma_size)&&($value_det_pro->ma_sp==$v_content->id)) 
-                {
-                    $Sub_detail_sp['so_lg']=$value_det_pro->so_lg-($v_content->qty);
-                    DB::table('chi_tiet_san_pham')
-                    ->where('ma_sp',$value_det_pro->ma_sp)
-                    ->where('ma_size',$value_det_pro->ma_size)
-                    ->where('ma_mau',$value_det_pro->ma_mau)->update($Sub_detail_sp);
-                }
-            }
-
-                
-        }     
+        }    
+        cart::destroy(); 
         return Redirect::to('/show-order/'.$user_id); 
 
     }
 
     public function show_order($user_id){
         $this->AuthLogin_user();
+        $user_id=Crypt::decryptString($user_id);
         $cate_product = DB::table('danh_muc_sp')
             ->select('danh_muc')
             ->groupBy('danh_muc')
@@ -163,6 +149,7 @@ class Ordercontroller extends Controller
             ->orderby('ngdat','ASC')
             ->paginate(5);
         }
+
         return view('pages.show_order')
         ->with('cate_product',$cate_product)
         ->with('design_id',$design_id)
@@ -205,7 +192,7 @@ class Ordercontroller extends Controller
         ->where('chi_tiet_don_hang.ma_ddh',$ma_ddh)
         ->paginate(5);
         }   
-        
+        Session::put('ma_ddh',$ma_ddh);
         return view('pages.order_detail')
         ->with('cate_product',$cate_product)
         ->with('design_id',$design_id)
@@ -224,24 +211,7 @@ class Ordercontroller extends Controller
         ->join('user','user.email','=','khach_hang.email')
         ->where('chi_tiet_don_hang.ma_ddh',$ma_ddh)->get();
         foreach ($details_order_id as $key => $val_od) {
-            if ($val_od->trang_thai==4) {
-                
-                $so_luong=DB::table('chi_tiet_san_pham')
-                ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
-                ->where('ma_sp',$val_od->ma_sp)
-                ->where('mau.ten_mau',$val_od->ten_mau)
-                ->where('ma_size',$val_od->size)->get(['so_lg']);
-                foreach ($so_luong as $key => $val) {
-                    $result=$val->so_lg+$val_od->solg_sp; 
-                }
-                DB::table('chi_tiet_san_pham')
-                ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
-                ->where('ma_sp',$val_od->ma_sp)
-                ->where('mau.ten_mau',$val_od->ten_mau)
-                ->where('ma_size',$val_od->size)
-                ->update(['so_lg'=>$result]);
-                $user_id=$val_od->user_id;
-            }
+            $user_id=$val_od->user_id;
         }
         $data['noi_dung']='hủy đơn '.$ma_ddh;
         $data['user_id']=$user_id;
@@ -401,7 +371,13 @@ class Ordercontroller extends Controller
             ->orderby('ngdat','ASC')->paginate(10);
         }
         else{
-        $all_oder=DB::table('don_dat_hang')->orderby('ngdat','desc')->paginate(10);
+        $all_oder=DB::table('don_dat_hang')
+        ->where('ngdat',date('Y-m-d'))
+        ->Where(function($query) {
+        $query->where('trangthai','1')
+              ->orwhere('trangthai','0');
+         })
+        ->orderby('ngdat','desc')->paginate(10);
         }
         $all_cus=DB::table('khach_hang')->get();
         //thong báo

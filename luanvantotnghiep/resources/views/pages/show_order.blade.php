@@ -8,6 +8,7 @@
                 // echo '</pre>';
 			$email=Session::get('email');
             $user_id=Session::get('user_id');
+            $user_id=Crypt::encryptString($user_id);
             ?>
     <div class="status-order">
         <ul>
@@ -27,14 +28,13 @@
                   <table class="from-table">
                     <tbody class="from-table">
                         <tr class="form-tr" style="font-size :20px">
-                            <td class="form-td" style="height :100px;">Mã Đơn <br> Đặt Hàng</td>
-                            <td class="form-td">Ngày<br> Đặt Hàng</td>
-                            <td class="form-td">Tổng<br>  Sản Phẩm</td>
-                            <td class="form-td">Thành Tiền</td>
-                            <td class="form-td">Tiền Cọc</td>
-                            <td class="form-td">Địa chỉ Nhận Hàng</td>
-                            <td class="form-td">Trang Thai</td>
-                            <td class="form-td">Chi Tiết</td>
+                            <td class="form-td don-hang">Ngày<br> Đặt Hàng</td>
+                            <td class="form-td don-hang">Tổng<br>  Sản Phẩm</td>
+                            <td class="form-td don-hang">Thành Tiền</td>
+                            <td class="form-td don-hang">Tiền Cọc</td>
+                            <td class="form-td don-hang">Địa chỉ Nhận Hàng</td>
+                            <td class="form-td don-hang">Trang Thai</td>
+                            <td class="form-td don-hang">Chi Tiết</td>
 
                            
                         </tr>
@@ -43,19 +43,18 @@
 						<?php foreach ($order_user_id as $key => $value_user): ?>
 							
                         <tr class="form-tr">
-                            <td class="form-td" style="height:100px">{{$value_user->ma_ddh}}</td>
-                            <td class="form-td"><?php echo date('d-m-Y',strtotime($value_user->ngdat)); ?></td>
+                            <td class="form-td don-hang"><?php echo date('d-m-Y',strtotime($value_user->ngdat)); ?></td>
                             
-                            <td class="form-td">{{$value_user->solg_sp}} SP</td>
+                            <td class="form-td don-hang">{{$value_user->solg_sp}} SP</td>
                             
-                            <td class="form-td"><?php echo number_format($value_user->tong_tt); ?> VND</td>
-                            <td class="form-td"><?php echo number_format($value_user->tien_coc); ?> VND</td>
-                            <td class="form-td">
+                            <td class="form-td don-hang"><?php echo number_format($value_user->tong_tt); ?> VND</td>
+                            <td class="form-td don-hang"><?php echo number_format($value_user->tien_coc); ?> VND</td>
+                            <td class="form-td don-hang">
                             	{{$value_user->ten_kh}}<hr>
                             	{{$value_user->sodt}}<hr>
                             	{{$value_user->diachi}}
                             </td> 
-                            <td class="form-td" style="font-weight: 800;">
+                            <td class="form-td don-hang" style="font-weight: 800;">
                                 <?php 
                                 if ($value_user->trangthai==0) {?>
                                     <b style="font-weight: bold;">Chờ Xác Nhận</b><hr>
@@ -76,7 +75,7 @@
 
                             </td>
 
-                           	<td class="form-td"><a href="{{URL::to('/order-detail-view/'.$value_user->ma_ddh)}}"><i class="fa fa-search" style="font-size: 30px;"></i></a></td>
+                           	<td class="form-td don-hang"><a href="{{URL::to('/order-detail-view/'.$value_user->ma_ddh)}}"><i class="fa fa-search" style="font-size: 30px;"></i></a></td>
                         </tr>				
 							
 						<?php endforeach ?>

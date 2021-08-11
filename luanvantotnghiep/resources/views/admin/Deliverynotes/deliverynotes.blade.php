@@ -68,6 +68,7 @@
             <option value="all">Hiện Thị Tất Cả</option>
             <option value="0">Đang Giao</option>
             <option value="1">Đã Giao</option>
+            <option value="2">Đã Hủy</option>
           </select>
           <button class="btn">Lọc</button>
           </div>
@@ -205,19 +206,37 @@
             ?></span></td>
             <td><span class="text-ellipsis"><?php echo number_format($value_dn->gia_thu+$phigiao); ?></span></td>
             <td><span class="text-ellipsis"><?php echo number_format($value_dn->tienconlai); ?></span></td>
-            <td><span class="text-ellipsis">
-              <?php
-              if ($value_dn->trangthai==0) {
-                ?>
-                <a href="{{URL::to('/unactive-delivery/'.$value_dn->ma_pg)}}" >Đang Giao</a>
-            <?php 
-             }else{
-              ?>
-               <a  style="color: red;">Đã Giao</a>
-            <?php
-             }
-             ?>
-            </span></td>
+            <td>
+              <form action="{{URL::to('/update-delivery/'.$value_dn->ma_pg)}}" style="display:flex;" method="post">
+                @csrf
+                <?php 
+                  if ($value_dn->trangthai==0) {
+                      $color='blue';
+                      $button="";
+                  }elseif ($value_dn->trangthai==1) {
+                      $color='red';
+                      $button='none';
+                  }elseif ($value_dn->trangthai==2) {
+                      $color='#000';
+                      $button='none';
+                  }
+                 ?>
+              <select class="input-sl form-control" name="update_status_de" style="color: <?php echo $color; ?>;font-weight: 800;">
+                <?php if ($value_dn->trangthai==0): ?>
+                <option value="0">Đang Giao</option>
+                <option value="1">Đã Giao</option>
+                <option value="2">Không Nhận</option>
+                <?php endif ?>
+                <?php if ($value_dn->trangthai==1): ?>
+                <option value="1">Đã Giao</option>
+                <?php endif ?>
+                <?php if ($value_dn->trangthai==2): ?>
+                <option value="2">Đã Hủy</option>
+                <?php endif ?>
+              </select>
+                <button style="display: <?php echo $button; ?>">Up</button>
+              </form>
+            </td>
             
             <td>
                <!-- <a href="{{URL::to('/deliverynotes-detail/'.$value_dn->ma_pg)}}"><i class="fa fa-print" style="font-size: 30px;color: yellowgreen;" aria-hidden="true"></i></a> -->

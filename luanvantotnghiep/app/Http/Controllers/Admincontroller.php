@@ -25,7 +25,7 @@ class Admincontroller extends Controller
         return view('admin_login');
     }
     public function show_dashboard(Request $request){
-         $this->AuthLogin();
+    $this->AuthLogin();
     $user_ip_address = $request->ip(); 
     $early_last_month = Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->startOfMonth()->toDateString();
 
@@ -79,12 +79,21 @@ class Admincontroller extends Controller
     ->selectRaw('noi_dung,thoi_gian,che_do')
     ->orderby('thoi_gian','desc')
     ->get();
-    
+    //Thông kê Trang Thái
+    $Dangxuly=DB::table('don_dat_hang')->where('trangthai','0')->count();
+    $Cholayhang=DB::table('don_dat_hang')->where('trangthai','1')->count();
+    $Danggiao=DB::table('don_dat_hang')->where('trangthai','2')->count();
+    $Danhan=DB::table('don_dat_hang')->where('trangthai','3')->count();
+    $Dahuy=DB::table('don_dat_hang')->where('trangthai','4')->count();
     return view('admin.dashboard')
     ->with(compact('visitors_total','visitor_count','visitor_last_month_count','visitor_this_month_count','visitor_year_count','product','comment','order','customer'))
     ->with('message_id',$message_id)
     ->with('solg_messe',$solg_messe)
-    ;
+    ->with('Dangxuly',$Dangxuly)
+    ->with('Cholayhang',$Cholayhang)
+    ->with('Danggiao',$Danggiao)
+    ->with('Danhan',$Danhan)
+    ->with('Dahuy',$Dahuy);
     }
     public function dashboard(Request $request){
 
@@ -126,9 +135,17 @@ class Admincontroller extends Controller
     //thông tin cá nhân
     public function personal_information(){
         $this->AuthLogin();
+            //thong báo
+        $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->where('che_do',null)->get();
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,che_do')
+        ->orderby('thoi_gian','desc')
+        ->get();
         $admin_id=DB::table('admin')->get();
       return view('admin.personal_information')
-      ->with('admin_id',$admin_id); 
+      ->with('admin_id',$admin_id)
+      ->with('solg_messe',$solg_messe)
+      ->with('message_id',$message_id); 
     
     }
     public function update_name(Request $request,$email){
@@ -268,18 +285,38 @@ class Admincontroller extends Controller
     //Biểu Đô 10 sản phẩm bán chạy 
     public function banchaytop10(){
         $get=DB::table('chi_tiet_don_hang')
-        ->selectRaw('SUM(solg_sp)AS solg,SUM(sotien)AS doanhso,ma_sp')
+        ->join('san_pham','san_pham.ma_sp','=','chi_tiet_don_hang.ma_sp')
+        ->selectRaw('SUM(solg_sp)AS solg,SUM(sotien)AS doanhso,san_pham.ma_sp,san_pham.ten_sp')
         ->groupBy('chi_tiet_don_hang.ma_sp')
         ->orderby('solg','desc')
         ->paginate(10);
         foreach ($get as $key => $val) {
             $chart_data_sp[]=array(
-                'ma_sp'=>$val->ma_sp,
+                'ma_sp'=>$val->ten_sp,
                 'doanhsosp'=>$val->doanhso,
                 'solgsp'=>$val->solg
             );
         }
         echo $data_sp = json_encode($chart_data_sp);
+    }
+    //Biểu Đô đáng giá nhân viên 
+    public function danggianhanvien(){
+        $get=DB::table('phieu_giao')
+        ->selectRaw('count(*)as solgxl,email')
+        ->groupBy('email')
+        ->get();
+        $admin_name=DB::table('admin')->get();
+        foreach ($get as $key => $val) {
+            foreach ($admin_name as $key => $val_ad) {
+                if ($val->email== $val_ad->email) {   
+                    $chart_data_dg[]=array(
+                        'tennv'=>$val_ad->ten,
+                        'solgxl'=>$val->solgxl
+                    );
+                }
+            }
+        }
+        echo $data_dg = json_encode($chart_data_dg);
     }
 
 }
