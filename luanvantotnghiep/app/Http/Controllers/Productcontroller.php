@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Rating;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\wherein;
 session_start();
 class Productcontroller extends Controller
 {
@@ -539,9 +540,21 @@ class Productcontroller extends Controller
             ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','san_pham.ma_sp')
             ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
             ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
-            ->orwhere('danh_muc_sp.ma_tk',$checkbox_des)
-            ->orwhere('chi_tiet_san_pham.ma_mau',$checkbox_col)
-            ->orwhere('danh_muc_sp.ma_cl',$checkbox_mat)
+            ->where(function($query)use ($checkbox_des){
+                if ($checkbox_des!="") {
+                    $query->wherein('danh_muc_sp.ma_tk',$checkbox_des);
+                }
+            })
+            ->orwhere(function($query)use ($checkbox_col){
+                if ($checkbox_col!="") {
+                    $query->wherein('chi_tiet_san_pham.ma_mau',$checkbox_col);
+                }
+            })
+            ->orwhere(function($query)use ($checkbox_mat){
+                if ($checkbox_mat!="") {
+                    $query->wherein('danh_muc_sp.ma_cl',$checkbox_mat);
+                }
+            })
             ->groupBy('san_pham.ma_sp')->paginate(12);
         }
         //Lọc sản phẩm theo giá

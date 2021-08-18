@@ -80,10 +80,10 @@ class Cartcontroller extends Controller
         $message_id=DB::table('thong_bao')
       ->selectRaw('noi_dung,thoi_gian,user_id')
       ->get();
-        $all_product=DB::table('san_pham')->where ('trang_thai','1')
+    $all_product=DB::table('san_pham')->where ('trang_thai','1')
         ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
         ->orderby('san_pham.ma_sp','desc')->get(); 
-        $all_img=DB::table('hinh_anh')->get();
+    $all_img=DB::table('hinh_anh')->get();
         return view('pages.Cart.show_cart')
         ->with('cate_product',$cate_product)
         ->with('design_id',$design_id)

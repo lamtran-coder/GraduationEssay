@@ -12,7 +12,7 @@
                 
 
                 <div class="user-billing">
-                	<?php  $username=Session::get('username');
+                	<?php  $username=Session::get('username_us');
                 		   $phone=Session::get('phone');
                 		   $address=Session::get('address');
                 		   $email=Session::get('email');
@@ -43,21 +43,16 @@
                             
                             foreach ($customer_id as $key => $value_cus){
                                 if($value_cus->email==$email){
-                                 if($value_cus->ma_kh!=null){
-                                    if($key==0){ ?> 
+                                 if($value_cus->ma_kh!=null){ ?>
                                     <li>
-                                        <span><label for="address_cus"><input name="ma_kh_address" size="20" checked="checked" id="address_cus" value="{{$value_cus->ma_kh}}" type="radio">{{$value_cus->ten_kh}}</label></span>
-                                        <span>({{$value_cus->sodt}})</span>
-                                        <span>{{$value_cus->diachi}}</span>
+                                        <input name="ma_kh_address" size="20" class="radio-addres" id="address_cus{{$key}}" value="{{$value_cus->ma_kh}}" type="radio" >
+                                        <label for="address_cus{{$key}}" class="ladel-address">
+                                        {{$value_cus->ten_kh}}
+                                        ({{$value_cus->sodt}})
+                                        {{$value_cus->diachi}}
+                                        </label>
                                     </li>
-                                <?php }else{ ?>
-                                    <li>
-                                        <span><label><input name="ma_kh_address" size="20" checked="checked" value="{{$value_cus->ma_kh}}" type="radio">{{$value_cus->ten_kh}}</label></span>
-                                        <span>({{$value_cus->sodt}})</span>
-                                        <span>{{$value_cus->diachi}}</span>
-                                    </li>
-                            <?php  }}}}
-                            }?>
+                            <?php  }}}}?>
                         
                         </ul>    
                             <button class="btn_checkout">Tiếp Theo</button>

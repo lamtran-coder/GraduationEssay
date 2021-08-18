@@ -122,7 +122,7 @@ class Usercontroller extends Controller
      ->where('matkhau',$password)
      ->first();
      if(($result_user)&&($result_user->trang_thai==0)){
-      Session::put('username',$result_user->ten_nd);
+      Session::put('username_us',$result_user->ten_nd);
       Session::put('user_id',$result_user->user_id);
       Session::put('phone',$result_user->sodt);
       Session::put('address',$result_user->diachi);

@@ -106,9 +106,13 @@
 				<h4 class="m_9">CHỌN KÍCH CỠ</h4>
 				<form action="{{URL::to('/save-cart')}}" class="form_chon" method="POST">
 				@csrf
-				<?php if ($errors->has('mau_hidden')): ?>
-                    <br><span style="color:red">{{$errors->first('mau_hidden')}}</span>
-                <?php endif ?>
+                <?php if ($errors->has('mau_hidden')): ?>
+	                    <script type="text/javascript">
+	                    	$(document).ready(function(){
+	                    		alert('<?php echo $errors->first('mau_hidden') ?>');
+	                    	});
+	                    </script>
+	            <?php endif ?>
 				<div style="height:100px;">
 					<ul>
 						<?php foreach ($all_detail_color as $key_ => $value_d_color): ?>
@@ -120,9 +124,13 @@
 						<?php endforeach ?>
 					</ul>
 				</div>
-				<?php if ($errors->has('size_hidden')): ?>
-                    <br><span style="color:red">{{$errors->first('size_hidden')}}</span>
-                <?php endif ?>
+                <?php if ($errors->has('size_hidden')): ?>
+	                    <script type="text/javascript">
+	                    	$(document).ready(function(){
+	                    		alert('<?php echo $errors->first('size_hidden') ?>');
+	                    	});
+	                    </script>
+	            <?php endif ?>
 				<div style="height:90px;">
 					<ul>
 						<?php foreach ($all_detail_size as $key => $value_size): ?>
@@ -131,7 +139,11 @@
 					</ul>
 				</div >
 				<?php if ($errors->has('quantity_h')): ?>
-	                    <br><span style="color:red">{{$errors->first('quantity_h')}}</span>
+	                    <script type="text/javascript">
+	                    	$(document).ready(function(){
+	                    		alert('<?php echo $errors->first('quantity_h') ?>');
+	                    	});
+	                    </script>
 	            <?php endif ?>
 				<div class="number-product">
 					<div class="prev">-</div>

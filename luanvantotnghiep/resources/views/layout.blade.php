@@ -132,7 +132,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <li><i class="fa fa-user fa-user-styling"></i>
                 <ul class="sub-icon2 list user-styling">
                     <li><a href="">
-                <?php $username=Session::get('username');
+                <?php $username=Session::get('username_us');
                       $user_id=Session::get('user_id');
                       $user_id=Crypt::encryptString($user_id);
 
@@ -146,9 +146,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     </a></li> 
                 </ul>
             </li>
-            <?php $username=Session::get('username');
+            <?php $username=Session::get('username_us');
                       $user_id=Session::get('user_id');
-                    if ($username!=null) { ?>
+                    if ($user_id!=null) { ?>
                  <li><a href="{{URL::to('/thong-tin-ca-nhan')}}"><p style="font-weight: bolder;"><?php echo $username; ?></p></a></li>
                     <?php }else{?>
                 <li><a href="{{URL::to('/sign-up')}}"><p style="font-weight: bolder;">Đăng Ký</p></a></li>
@@ -293,8 +293,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
            <div class="clear"></div>
         </div>
         <div class="search-product" >
+            <?php if (isset($_GET['keywords_submit'])) {
+                $keywords_submit=$_GET['keywords_submit'];
+                    }else{
+                $keywords_submit="";
+                    } 
+            ?>
             <form class="form-search-sp " action="{{URL::to('/ke-hang')}}" method="get">
-                <input type="text" class="input-search" name="keywords_submit" placeholder="nhập tên sản phẩm, danh mục, thiết kế, chất liệu,..."> 
+                <input type="text" class="input-search" name="keywords_submit" placeholder="nhập tên sản phẩm, danh mục, thiết kế, chất liệu,..." value="<?php echo $keywords_submit; ?>"> 
             </form>
         </div>
        </div>

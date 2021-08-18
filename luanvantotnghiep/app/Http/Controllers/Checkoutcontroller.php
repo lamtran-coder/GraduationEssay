@@ -64,7 +64,7 @@ class Checkoutcontroller extends Controller
    public function payment(){
      $this->AuthLogin_user();
         if (!isset($_GET['ma_kh_address'])) {
-            session::put('message','Vui Lưu Địa Chỉ Giao');
+            session::put('message','Vui Chọn Địa Chỉ Giao');
             return Redirect::to('/show-checkout');
         }
         $cate_product = DB::table('danh_muc_sp')

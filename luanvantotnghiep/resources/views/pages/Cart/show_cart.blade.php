@@ -125,13 +125,12 @@
                                 echo $sum_qty;
                                  ?>
                             </b><p>SP</p></span></li>
-                            <li>Tổng Số Tiền<span><b>
+                            <li>Tổng Tiền Chưa Giảm<span><b>
                                 <?php echo number_format($Sum_mony); ?>
                                 
                             </b><p>VND</p></span></li>
-                           
-                            <li>Giảm Tiền<span><b>
-                                <?php
+                            <li>Tiền Giảm<span><b>
+                                 <?php
                                     $chiec_khau_tong=0;
                                         if($Sum_mony>=50000000){
                                             $chiec_khau_tong=15;    
@@ -152,7 +151,7 @@
                                  <?php $tienck=($Sum_mony*$chiec_khau_tong)/100;
                                     echo number_format($tienck); ?>
                             </b><p>VND</p></span></li>
-                             <li>Phí Giao<span><b>
+                            <li>Phí Giao<span><b>
                                  
                                 <?php if($sum_qty<20){
                                     $mony_deli=35000;
@@ -162,8 +161,31 @@
                                 echo $mony_deli;
                                 ?>
                             </b><p>VND</p></span></li>
-                            <li class="thanh-tien" >Thành Tiền<span style="color: red"><b><?php $result_mony=$Sum_mony*(100-$chiec_khau_tong)/100;
-                            echo number_format($result_mony+$mony_deli); ?></b><p>VND</p></span></li>
+                            <li >Tổng Tiền<span><b>
+                            <?php $thanhtien=$Sum_mony*(100-$chiec_khau_tong)/100;
+                            echo number_format($thanhtien+$mony_deli); ?></b><p>VND</p></span></li>
+                            <li style="color:red;" class="thanh-tien">Tiền Cọc<span><b>
+                            <?php
+                                if($sum_qty>=40){
+                                    $prepayment=$thanhtien*(30/100);
+
+                                }else{
+                                    $prepayment=0;
+                                }
+                                Session::put('prepayment',$prepayment);
+                                echo number_format($prepayment);
+                            ?></b><p>VND</p></span>
+                            </li>
+                            <li style="color:red;" class="thanh-tien">Tiền Trả Sau<span><b>
+                            <?php
+                                if($sum_qty>=40){
+                                    $prepayment=$thanhtien*(70/100);
+                                }else{
+                                    $prepayment=0;
+                                }
+                                echo number_format($prepayment);
+                            ?></b><p>VND</p></span>
+                            </li>
                         </ul>
                     </div>
                     <div class="checkout-order">

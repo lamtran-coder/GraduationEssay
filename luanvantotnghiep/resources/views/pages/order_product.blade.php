@@ -4,13 +4,20 @@
     <section id="main-content">
         <section class="wrapper">
             <?php  $content=Cart::content();
-                // echo '<pre>';
-                // print_r($content);
-                // echo '</pre>';
                 $ma_kh_address=$_GET['ma_kh_address'];
                 $payment_option=$_GET['payment-options'];
             ?>
-
+            <?php  $content=Cart::content();
+                $dem_sp=0;
+                foreach ($content as $key => $value) {
+                    $dem_sp++;
+                }
+               if ($dem_sp==0) 
+            { ?> 
+                <p style="font-size:30px;padding:50px">Giỏ Hàng Hiện Không Có Mặt Hàng 
+                    <br>Đến Tại <a class="color7" href="{{URL::to('/ke-hang')}}">Cửa Hàng</a></p>
+                
+             <?php }else{ ?>
             
             <div class="main-cart">
                 <div class="panel panel-default shop-carts">
@@ -80,7 +87,7 @@
                             $Sum_mony+=$subTotal;
                             echo number_format($subTotal).''.'vnd';
                              ?></span></td>
-                        <td class="form-td"><a href="{{URL::to('/delete-to-cart/'.$v_content->rowId)}}"><i class="fa fa-trash fa-trash-styling"></i></a></td>
+                        <td class="form-td"></td>
                       </tr>
                     </tbody>
                     <?php endforeach ?>
@@ -213,6 +220,7 @@
                     </div>
                 </div>
             </div>
+        <?php }?>
         </section>
     </section>
 </section>

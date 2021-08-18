@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Mô Tả </label>
-                                        <textarea class="form-control main-styling"  name="product_desc" value="{{old('product_desc')}}"></textarea>
+                                        <textarea class="form-control"  name="product_desc" value="{{old('product_desc')}}"></textarea>
                                         <?php if ($errors->has('product_desc')): ?>
                                         <span style="color:red">{{$errors->first('product_desc')}}</span>
                                         <?php endif ?>

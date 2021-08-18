@@ -41,7 +41,7 @@
 		<div class="row row1">
 			<div class="col col-4">
 				@foreach ($all_color as $key =>$color)
-				<label class="checkbox"><input type="checkbox" name="checkbox_col" value="{{$color->ma_mau}}" ><i></i>{{$color->ten_mau}}</label>
+				<label class="checkbox"><input type="checkbox" name="checkbox_col[]" value="{{$color->ma_mau}}" ><i></i>{{$color->ten_mau}}</label>
 				@endforeach
 			</div>
 		</div>
@@ -49,7 +49,7 @@
 		<div class="row row1">
 			<div class="col col-4">
 				@foreach ($all_material as $key =>$material)
-				<label class="checkbox"><input type="checkbox" name="checkbox_mat" value="{{$material->ma_cl}}" ><i></i>{{$material->ten_cl}}</label>
+				<label class="checkbox"><input type="checkbox" name="checkbox_mat[]" value="{{$material->ma_cl}}" ><i></i>{{$material->ten_cl}}</label>
 				@endforeach
 			</div>
 		</div>
@@ -86,30 +86,6 @@
 	                {{$all_product->appends(Request::all())->links() }}
 	            </div>
 	        <ul class="styling-pager" >
-	        	<?php 
-	        		if (isset($_GET['sort_by'])){
-	        			$sort_by=$_GET['sort_by'];
-	        			if ($sort_by=="tang_dan") {
-	        				echo 'Sản Phẩm Giá:<br> "Tăng Dần"';
-	        			}elseif($sort_by=="giam_dan"){
-	        				echo 'Sản Phẩm Giá:<br> "Giảm Dần"';
-	        			}elseif($sort_by=="kytu_az"){
-	        				echo 'Sản Phẩm Từ:<br> "A - Z"';
-	        			}elseif($sort_by=="kytu_za"){
-	        				echo 'Sản Phẩm Từ:<br> "Z - A"';
-	        			}
-	        		}elseif(isset($_GET['keywords_submit'])){
-	        			$keywords_submit=$_GET['keywords_submit'];
-	        			echo 'từ khóa tìm kiếm là: "'.$keywords_submit.'"';
-	        		}elseif(isset($_GET['ma_tk_search'])){
-	        			$ma_tk_search=$_GET['ma_tk_search'];
-	        			foreach ($all_style as $key => $val_style) {
-	        				if ($val_style->ma_tk==$ma_tk_search) {
-	        					echo 'sản phẩm có thiết kế:<br>"'.$val_style->ten_tk.'"';
-	        				}
-	        			}
-	        		}
-	        	 ?>
 	        </ul>	
 		    <div class="clear"></div>
 	    	</div>
@@ -117,14 +93,13 @@
        </div>
 	<div class="box1">
 	<?php foreach ($all_product as $key => $value_pro): ?>
-		
 	   <div class="col_1_of_single1 span_1_of_single1 show-pro"><a href="{{URL::to('/product-details/'.$value_pro->ma_sp)}}">
 		     	<div class="view1 view-fifth1">
 		  	  	<div class="top_box">
 				  	<h3 class="m_1">{{$value_pro->ma_sp}}</h3>
 				  	<p class="m_2">{{$value_pro->ten_sp}}</p>
 			         	<div class="grid_img">
-					   <div class="css3"><img src="public/uploads/product/{{$value_pro->hinhanh}}" width="100%" height="200em" alt=""/></div>
+					   <div class="css3"><img src="public/uploads/product/{{$value_pro->hinhanh}}" width="100%" height="240em" alt=""/></div>
 				          <div class="mask1">
 		         		<div class="info">Chi tiết</div>
 		                  	</div>

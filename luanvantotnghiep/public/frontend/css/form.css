@@ -6,7 +6,7 @@
 }
 .sky-form h4{
 	color: #555;
-	font-size: 0.9em;
+	font-size: 1.2em;
 	padding: 5px 10px;
 	background: #F7F7F7;
 	border: 1px solid #E6E6E6;
@@ -30,7 +30,7 @@
 	border:none;
 	margin-bottom: 4px;
 	padding-left: 27px;
-	font-size: 13px;
+	font-size:1.2em;
 	line-height: 27px;
 	color: #555555;
 	cursor: pointer;
