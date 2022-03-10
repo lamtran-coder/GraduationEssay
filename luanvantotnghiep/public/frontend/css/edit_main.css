@@ -381,7 +381,7 @@ tr.form-tr {
 div.product-billing {
     float: right;
     background: #93929247;
-    width: 49.123%;
+    width: 49%;
     height: auto;
     border: 15px solid #d4cfcf;
 }
@@ -1010,7 +1010,7 @@ button.btn_mua_nhanh:hover{
     z-index: 3;
 }*/
 .index_content {
-    margin-top: 9.5em;
+    margin-top: 12.5em;
 }
 
 .price {
@@ -1802,6 +1802,13 @@ ul.danh_gia>li>p{
         border: 2px solid #00000045;
         color: floralwhite;
         border-radius: 10px;
+    }
+
+    ul.list-login {
+    display: -webkit-box;
+    }
+    ul.list-login>li{
+        padding: 5% 10%;
     }
 }
 

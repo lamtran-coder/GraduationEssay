@@ -28,23 +28,23 @@
                   <table class="from-table">
                     <tbody class="from-table">
                         <tr class="form-tr">
-                            <td class="form-td">Mã/Tên</td>
+                        
                             <td class="form-td">Hình Ảnh</td>
                             <td class="form-td">Size<hr>Màu</td>
                             <td class="form-td">Giá</td>
                             <td class="form-td">Chiết<br>khấu</td>
                             <td class="form-td">Số lượng</td>
+                            <td class="form-td">Mã Giảm Giá</td>
                             <td class="form-td">Giá Đã <br> Chiết khấu</td>
                             <td class="form-td"></td>
-                           
                         </tr>
                     </tbody>
                     <?php $Sum_mony=0;$demsi=0; ?>
                     <?php foreach ($content as $key_1 => $v_content): ?>  
                     <tbody class="from-table">
                       <tr class="form-tr">
-                        <td class="form-td"><a style="font-size: 135%;" href="{{URL::to('/product-details/'.$v_content->id)}}">{{$v_content->id}}<hr>{{$v_content->name}}</a></td>
-                        <td class="form-td"><a href="{{URL::to('/product-details/'.$v_content->id)}}"><img src="{{URL::to('public/uploads/product/'.$v_content->options->anh)}}" alt=""></a></td>
+                        <td class="form-td">
+                            <a href="{{URL::to('/product-details/'.$v_content->id)}}"><img src="{{URL::to('public/uploads/product/'.$v_content->options->anh)}}" alt=""></a></td>
                         <td class="form-td"><span style="font-size: 90%">{{$v_content->options->ma_size}}<hr>{{$v_content->options->ten_mau}}
                         </span></td>
                         <td class="form-td"><span style="font-size: 90%"><?php echo number_format($v_content->price).' VND'; ?></span></td>
@@ -82,6 +82,16 @@
                                 Session::put('quasoluong',null);
                             } ?>
                         </span></td>
+                        <td><form action="">
+                                <select>
+                                    <optgroup label="Không Có">
+                                        <option>Không Có</option>
+                                        <option>Có</option>
+                                    </optgroup>
+                                    
+                                </select>
+                            </form>
+                        </td>
                         <td class="form-td"><span class="font-size-gia"><?php 
                             $subTotal=($v_content->price*$v_content->qty)*(100-$ck_sp)/100;
                             $Sum_mony+=$subTotal;
@@ -125,6 +135,15 @@
                                 echo $sum_qty;
                                  ?>
                             </b><p>SP</p></span></li>
+                            <li style="display: flex;">Nhập Khuyến Mãi
+                                <form action="">
+                                <select>
+                                    <optgroup label="Không Có">
+                                        <option></option>
+                                    </optgroup>
+                                </select>
+                                </form>
+                            </li>
                             <li>Tổng Tiền Chưa Giảm<span><b>
                                 <?php echo number_format($Sum_mony); ?>
                                 
@@ -166,7 +185,7 @@
                             echo number_format($thanhtien+$mony_deli); ?></b><p>VND</p></span></li>
                             <li style="color:red;" class="thanh-tien">Tiền Cọc<span><b>
                             <?php
-                                if($sum_qty>=40){
+                                if($sum_qty>=20){
                                     $prepayment=$thanhtien*(30/100);
 
                                 }else{
@@ -178,7 +197,7 @@
                             </li>
                             <li style="color:red;" class="thanh-tien">Tiền Trả Sau<span><b>
                             <?php
-                                if($sum_qty>=40){
+                                if($sum_qty>=20){
                                     $prepayment=$thanhtien*(70/100);
                                 }else{
                                     $prepayment=0;
@@ -189,8 +208,8 @@
                         </ul>
                     </div>
                     <div class="checkout-order">
-                        <?php $username=Session::get('username');
-                                if ($username !=NULL) { ?>
+                        <?php $user_id=Session::get('user_id');
+                                if ($user_id !=NULL) { ?>
                        <a  href="{{URL::to('/show-checkout')}}">Tiếp Theo</a>
                         <?php }else{ ?>
                        <a  href="{{URL::to('/login-user')}}">Tiếp Theo</a>

@@ -289,7 +289,7 @@
 	     	</form>    	
 
      	</div>
-     	<?php $username=Session::get('username');?>
+     	<?php $username=Session::get('username_us');?>
      	<?php if ($username!=null): ?>
      	<?php $email=Session::get('email');?>
      	<?php $user_id=Session::get('user_id');?>

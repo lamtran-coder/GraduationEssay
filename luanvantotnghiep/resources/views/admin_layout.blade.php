@@ -174,6 +174,16 @@ Thông báo</p>
                     </ul>
                 </li>
                 <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Quản Lý Khuyến Mãi</span>
+                    </a>
+                     <ul class="sub">
+                        <li><a href="{{URL::to('/add-promotion')}}">Thêm Mã Mới</a></li>
+                        <li><a href="{{URL::to('/all-promotion')}}">Danh sách Khuyến Mãi</a></li>    
+                    </ul>
+                </li>
+                <li class="sub-menu">
                     <a href="{{URL::to('/comment')}}">
                         <i class="fa fa-book"></i>
                         <span>Danh Sách Bình luận</span>

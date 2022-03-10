@@ -51,11 +51,11 @@
 	                                    <form action="{{URL('/update-password/'.$value_ad->email)}}" method="post">
 	                                    	@csrf
 	                                    <label for="exampleInputPassword1">Mật Khẩu Cũ</label>
-	                                   	<input type="password" class="form-control" name="passwordold"  placeholder="Enter email" value="">
+	                                   	<input type="password" class="form-control" name="passwordold"   value="">
 	                                   	<label for="exampleInputPassword1">Mật Khẩu Mới</label>
-	                                   	<input type="password" class="form-control" name="passwordnew" placeholder="Enter email" value="">
+	                                   	<input type="password" class="form-control" name="passwordnew"  value="">
 	                                   	<label for="exampleInputPassword1">Mật Khẩu Nhập Lại</label>
-	                                   	<input type="password" class="form-control" name="passwordnew2"  placeholder="Enter email" value="">
+	                                   	<input type="password" class="form-control" name="passwordnew2"  value="">
 	                                    <button style="margin: 10px;margin-left: 20px;" type="submit" class="btn btn-info">Đổi Mật Khẩu</button>
 	                                 	</form>
 	                                </div>

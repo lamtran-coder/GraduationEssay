@@ -154,7 +154,7 @@ select.status_order_detail {
     font-weight: bold;
 }
 input.form-control {
-    width: 300px;
+    width: 600px;
 }
 .form-group.ca-nhan {
     display: -webkit-box;
@@ -268,4 +268,7 @@ tr.thanhloc>th {
 }
 span.text-ellipsis:hover {
     color: red;
+}
+div.list-login>a {
+    margin-left: 5%;
 }

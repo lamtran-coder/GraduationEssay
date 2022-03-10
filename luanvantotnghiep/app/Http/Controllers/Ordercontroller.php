@@ -23,6 +23,7 @@ class Ordercontroller extends Controller
          return Redirect::to('/login-user')->send();
       }
     }
+    //đặt hàng
     public function new_order(Request $request){
         $this->AuthLogin_user();
         $ma_kh_h=$request->ma_kh_address;
@@ -53,6 +54,7 @@ class Ordercontroller extends Controller
         ->with('message_id',$message_id)
         ;
     }
+    //lưu đơn đặt hàng
     public function save_order(Request $request){
         $user_id=$request->user_id;
 
@@ -109,7 +111,7 @@ class Ordercontroller extends Controller
         return Redirect::to('/show-order/'.$user_id); 
 
     }
-
+    //hiển thị đơn mua
     public function show_order($user_id){
         $this->AuthLogin_user();
         $user_id=Crypt::decryptString($user_id);
@@ -371,13 +373,11 @@ class Ordercontroller extends Controller
             ->orderby('ngdat','ASC')->paginate(10);
         }
         else{
+        $time=date('Y-m-d');
         $all_oder=DB::table('don_dat_hang')
-        ->where('ngdat',date('Y-m-d'))
-        ->Where(function($query) {
-        $query->where('trangthai','1')
-              ->orwhere('trangthai','0');
-         })
-        ->orderby('ngdat','desc')->paginate(10);
+        ->where('ngdat',$time)
+        ->orderby('trangthai','ASC')
+        ->paginate(10);
         }
         $all_cus=DB::table('khach_hang')->get();
         //thong báo

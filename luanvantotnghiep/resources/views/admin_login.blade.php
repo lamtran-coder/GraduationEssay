@@ -55,9 +55,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<h6><a href="#">Quên mật khẩu?</a></h6>
 				<div class="clearfix"></div>
 				<input type="submit" value="Đăng nhập" name="login">
-             
+				<div class="list-login">
+				<a href="{{url('/login-google')}}"><img src="{{asset('public/frontend/images/gg.png')}}" alt="đăng nhập bằng google">
+             	<a href="{{URL::to('/login-facebook')}}"><img src="{{asset('public/frontend/images/fb.png')}}" alt="đăng nhập bằng facebook"></a>
+             	</div>
+			
 		</form>
-		
 		<div>
 </div>
 </div>

@@ -8,14 +8,7 @@
                         <header class="panel-heading">
                          	cập nhập danh mục sản phẩm
                         </header>
-                        <?php 
-                            $message=Session::get('message');
-                            if($message){
-                                echo '<span class>'.$message.'<span>';
-
-                                Session::put('message',null);
-                            }
-                         ?>
+                       
                         <div class="panel-body">
                         <?php foreach ($edit_Category as $key => $edit_value):?>
                                 
@@ -28,8 +21,17 @@
                                         
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Tên danh mục sản phẩm </label>
-                                        <input type="text" class="form-control main-styling" name="category_name" placeholder="tên danh mục" value="{{$edit_value->danh_muc}}">
+                                        <label for="exampleInputEmail1">Tên danh mục sản phẩm 
+                                        <h4><?php if ($edit_value->danh_muc=="AO") {
+                                                echo 'Áo';
+                                                }elseif($edit_value->danh_muc=="QU"){
+                                                echo 'Quần';
+                                                }elseif($edit_value->danh_muc=="GI"){
+                                                echo 'Giày';
+                                                }else{
+                                                echo 'Phụ Kiện';
+                                        } ?></h4></label>
+                                    <input type="hidden" name="danh_muc" value="{{$edit_value->danh_muc}}">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Thiết kế </label><br>
@@ -71,6 +73,15 @@
                         </div>
                     </section>
             </div>
+             <?php 
+                $message=Session::get('message');
+                if($message){?>
+                    <script type="text/javascript">
+                    $(document).ready(function(){
+                        alert('{{$message}}');
+                    });
+                    </script>';
+            <?php Session::put('message',null);}?>
         </div>
     </section>
 </section>

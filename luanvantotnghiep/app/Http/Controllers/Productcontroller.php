@@ -327,6 +327,9 @@ class Productcontroller extends Controller
         $data['trang_thai']=1;
         $data['chiet_khau']=$request->discount;
         $data['ma_dm']=$request->category_product_id;
+        // echo'<pre>';
+        // print_r($data);
+        // echo'</pre>';
         DB::table('san_pham')->insert($data);
         Session::put('message','Thêm sản phẩm thành công');
         Session::put('product_name',$request->product_name);
@@ -350,56 +353,38 @@ class Productcontroller extends Controller
          ->with('material_id',$material_id)
          ->with('cate_product_id',$cate_product_id)
          ->with('solg_messe',$solg_messe)
-        ->with('message_id',$message_id);
+         ->with('message_id',$message_id);
       
     }
     public function update_product(Request $request,$ma_sp){
-         $validator=$request->validate([
-            'category_product_id'=>'required',
-            'product_name'=>'required',
-            'product_desc'=>'required',
-            'corner_price'=>'required|numeric',
-            'sale_pricee'=>'required|numeric',
-            'discount'=>'required|numeric',
-            'amount_product'=>'required|numeric'
-        ],[
-            'category_product_id.required'=>'***Chưa Chọn Danh Mục***',
-            'product_name.required'=>'***Nhập Tên Sản Phẩm***',
-            'product_desc.required'=>'***Nhập Mô Tả Sản Phẩm***',
-
-            'corner_price.required'=>'***Nhập Giá Góc Sản Phẩm***',
-            'corner_price.numeric'=>'***Nhập Giá Góc Là Số***',
-
-            'sale_pricee.required'=>'***Nhập Giá Bán Sản Phẩm***',
-            'sale_pricee.numeric'=>'***Nhập Giá Bán Là Số***',
-
-            'discount.required'=>'***Nhập Chiêt Khấu Sản Phẩm***',
-            'discount.numeric'=>'***Nhập Chiêt Khấu Sản Phẩm Là Số***',
-
-            'amount_product.required'=>'***Nhập Số Lượng Sản Phẩm***',
-            'amount_product.numeric'=>'***Nhập Số Lượng Sản Phẩm Là Số***'
-        ]);
         $data=array();
         $data['ten_sp']=$request->product_name;
-        $data['solg_sp']=$request->amount_product;
         $data['gia_goc']=$request->corner_price;
         $data['gia_sale']=$request->sale_pricee;
-        if($request->amount_product>0){
-            $data['trang_thai']=1;
-        }else{
-            $data['trang_thai']=0;
-            
-        }
         $data['chiet_khau']=$request->discount;
-        
         DB::table('san_pham')->where('ma_sp',$ma_sp)->update($data);
-        return Redirect::to('/all-product');
+        Session::put('message','cập nhật sản phẩm thành công'); 
+        return Redirect::to('/edit-product/'.$ma_sp);
     }
-
-
-
-
-
+    public function delete_product($ma_sp){
+        $info_order=DB::table('chi_tiet_don_hang')->get();
+        foreach ($info_order as $key => $value) {
+            if ($value->ma_sp==$ma_sp) {
+                Session::put('message','không thể xóa sản phẩm đã có trong đơn hàng');
+                return Redirect('/all-product'); 
+            }
+        }
+        $info_detail=DB::table('chi_tiet_san_pham')->get();
+        foreach ($info_order as $key => $val) {
+            if ($val->ma_sp==$ma_sp) {
+                Session::put('message','sản phẩm đã có size và màu không thể xóa');
+                return Redirect('/all-product'); 
+            }
+        }
+        DB::table('san_pham')->where('ma_sp',$ma_sp)->delete();
+        Session::put('message','xóa sản phẩm thành công');
+        return Redirect('/all-product'); 
+    }
     //images_product
     public function add_images_product($ma_sp){
         $this->AuthLogin();
@@ -540,6 +525,9 @@ class Productcontroller extends Controller
             ->join('chi_tiet_san_pham','chi_tiet_san_pham.ma_sp','san_pham.ma_sp')
             ->join('mau','mau.ma_mau','=','chi_tiet_san_pham.ma_mau')
             ->join('hinh_anh','hinh_anh.ma_sp','=','san_pham.ma_sp')
+            // ->wherein('danh_muc_sp.ma_tk',$checkbox_des)
+            // ->wherein('chi_tiet_san_pham.ma_mau',$checkbox_col)
+            // ->wherein('danh_muc_sp.ma_cl',$checkbox_mat)
             ->where(function($query)use ($checkbox_des){
                 if ($checkbox_des!="") {
                     $query->wherein('danh_muc_sp.ma_tk',$checkbox_des);

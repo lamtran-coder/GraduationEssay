@@ -30,9 +30,15 @@ class Usercontroller extends Controller
           ->groupBy('thiet_ke.ma_tk')
           ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
           ->get();
+        //thông báo
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,user_id')
+        ->get();  
         return view('pages.User.login_user')
         ->with('cate_product',$cate_product)
-        ->with('design_id',$design_id);
+        ->with('design_id',$design_id)
+        ->with('message_id',$message_id)
+        ;
     }
     public function sign_up(){
         $cate_product = DB::table('danh_muc_sp')
@@ -44,9 +50,14 @@ class Usercontroller extends Controller
           ->groupBy('thiet_ke.ma_tk')
           ->select('thiet_ke.ma_tk','danh_muc_sp.danh_muc','ten_tk')
           ->get();
+        //thông báo
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,user_id')
+        ->get();
         return view('pages.User.sign_up')
         ->with('cate_product',$cate_product)
-        ->with('design_id',$design_id);
+        ->with('design_id',$design_id)
+        ->with('message_id',$message_id);
     }
     public function add_user(Request $request){
       $validator=$request->validate([

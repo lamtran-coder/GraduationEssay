@@ -40,6 +40,7 @@
 		<h4>Màu Sắc</h4>
 		<div class="row row1">
 			<div class="col col-4">
+				<?php $demspcolor=0; ?>
 				@foreach ($all_color as $key =>$color)
 				<label class="checkbox"><input type="checkbox" name="checkbox_col[]" value="{{$color->ma_mau}}" ><i></i>{{$color->ten_mau}}</label>
 				@endforeach
@@ -57,9 +58,10 @@
 		
 		<h4 class="m_9" text-align="center" >Sản Phẩm Đã Xem</h4>
          <ul id="row_viewed" ></ul>
-         <div style="text-transform: capitalize;"><h4 class="m_9" text-align="center" >Sản Phẩm Yêu Thích</h4></div>
-         		<ul style="text-transform: capitalize;" id="row_wishlist" >                     
-				</ul>
+         <div style="text-transform: capitalize;">
+         	<h4 class="m_9" text-align="center" >Sản Phẩm Yêu Thích</h4>
+         </div>
+         <ul style="text-transform: capitalize;" id="row_wishlist" ></ul>
 		</section>
 		
 	<!-- 	danh mục lọc -->
@@ -72,7 +74,7 @@
 	            	@csrf
 	            <select name="sort" id="sort">
 	                   <option value="{{Request::url()}}?sort_by=none">Sắp xếp theo</option>
-	                   <option value="{{Request::url()}}?sort_by=tang_dan">Giá : Tăng đân</option>
+	                   <option value="{{Request::url()}}?sort_by=tang_dan">Giá : Tăng dần</option>
 	                   <option value="{{Request::url()}}?sort_by=giam_dan">Giá : Giảm dần</option>
 	                   <option value="{{Request::url()}}?sort_by=kytu_az">Lọc theo tên A đến Z</option>
                        <option value="{{Request::url()}}?sort_by=kytu_za">Lọc theo tên Z đến A</option>
@@ -80,12 +82,38 @@
         		</form>
         		</div>
 			</div>
-			<div></div>
+			
 	        <div class="pager styling-pager">   
 	           <div class="limiter visible-desktop">
 	                {{$all_product->appends(Request::all())->links() }}
 	            </div>
 	        <ul class="styling-pager" >
+	        	<!-- //hiển thị tìm kiếm -->
+	        	<?php 
+	        		if (isset($_GET['sort_by'])){
+	        			$sort_by=$_GET['sort_by'];
+	        			if ($sort_by=="tang_dan") {
+	        				echo 'Sản Phẩm Giá:<br> "Tăng Dần"';
+	        			}elseif($sort_by=="giam_dan"){
+	        				echo 'Sản Phẩm Giá:<br> "Giảm Dần"';
+	        			}elseif($sort_by=="kytu_az"){
+	        				echo 'Sản Phẩm Từ:<br> "A - Z"';
+	        			}elseif($sort_by=="kytu_za"){
+	        				echo 'Sản Phẩm Từ:<br> "Z - A"';
+	        			}
+	        		}elseif(isset($_GET['keywords_submit'])){
+	        			$keywords_submit=$_GET['keywords_submit'];
+	        			echo 'từ khóa tìm kiếm là: "'.$keywords_submit.'"';
+	        		}elseif(isset($_GET['ma_tk_search'])){
+	        			$ma_tk_search=$_GET['ma_tk_search'];
+	        			foreach ($all_style as $key => $val_style) {
+	        				if ($val_style->ma_tk==$ma_tk_search) {
+	        					echo 'sản phẩm có thiết kế:<br>"'.$val_style->ten_tk.'"';
+	        				}
+	        			}
+	        		}
+	        	?>
+	        	<!-- //hiển thị tìm kiếm -->
 	        </ul>	
 		    <div class="clear"></div>
 	    	</div>

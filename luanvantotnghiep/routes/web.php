@@ -25,6 +25,19 @@ Route::get('/gioi-thieu','Homecontroller@about');
 //user
 //------Trang Đăng nhập
 Route::get('/login-user','Usercontroller@login_user');
+//-----Đăng nhập bằng google
+Route::get('/login-user-google','Admincontroller@login_user_google');
+
+//Login facebook
+Route::get('/login-facebook','Admincontroller@login_facebook');
+Route::get('/admin/callback','Admincontroller@callback_facebook');
+
+//Login Google
+Route::get('/login-google','Admincontroller@login_google');
+Route::get('/google/callback','Admincontroller@callback_google');
+
+
+
 //-------------Kiểm Trả Đăng Nhập
 Route::post('/login-us','Usercontroller@login_us');
 //------Trang Đăng ký
@@ -55,7 +68,7 @@ Route::post('/reply-comment','Productcontroller@reply_comment');
 Route::post('/insert-rating','Productcontroller@insert_rating');
 Route::get('/comment','Productcontroller@list_comment');
 //------------------Xóa Binh Luận
-Route::get('/delete-comment/{ma_dm}','Productcontroller@delete_comment');
+Route::get('/delete-comment/{comment_id}','Productcontroller@delete_comment');
 
 
 
@@ -173,6 +186,10 @@ Route::post('/save-color-product','Detail_productcontroller@save_color_product')
 	//size
 Route::get('/add-size-product','Detail_productcontroller@add_size_product');
 Route::post('/save-size-product','Detail_productcontroller@save_size_product');
+	//khuyến mãi
+Route::get('/add-promotion','Promotioncontroller@add_promotion');
+Route::post('/save-promotion','Promotioncontroller@save_promotion');
+Route::get('/all-promotion','Promotioncontroller@all_promotion');
 
 
 

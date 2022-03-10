@@ -32,7 +32,7 @@
                                         <label for="exampleInputPassword1">Danh mục</label>
                                         <select name="category_product_id" class="form-control input-sm m-bot15 main-styling"  style="text-transform: capitalize;width: 550px;">
                                         <?php foreach ($cate_product as $key => $val): ?>
-                                            <option>{{$val->ma_dm}}-{{$val->ten_tk}}-{{$val->ten_cl}}</option>
+                                            <option value="{{$val->ma_dm}}">{{$val->ma_dm}}-{{$val->ten_tk}}-{{$val->ten_cl}}</option>
                                         <?php endforeach ?>
                                         </select>
                                     <?php if ($errors->has('category_product_id')): ?>

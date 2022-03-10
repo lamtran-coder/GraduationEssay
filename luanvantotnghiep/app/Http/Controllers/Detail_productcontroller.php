@@ -97,21 +97,9 @@ class Detail_productcontroller extends Controller
                            
             }
         }
-        $product_id=DB::table('san_pham')->where('ma_sp',$ma_sp)->get();
-        foreach ($product_id as $key => $value_pro) {
-            if ($value_pro->ma_sp==$ma_sp) {
-                $sum['solg_sp']=$so_lg+$value_pro->solg_sp;
-                DB::table('san_pham')
-                ->where('ma_sp',$ma_sp)
-                ->update($sum);
-            }
-        }       
-
         $result=$_SERVER['HTTP_REFERER'];
         return Redirect::to($result);
     }
-    
-           
     
     public function save_size_product(Request $request){
         $data=array();
@@ -123,12 +111,7 @@ class Detail_productcontroller extends Controller
         return Redirect::to($result);
     }
 
-
-
-
-
     //màu
-    
     public function save_color_product(Request $request){
         $data=array();
         $data['ten_mau']=$request->color_name;

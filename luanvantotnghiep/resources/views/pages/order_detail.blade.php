@@ -7,6 +7,7 @@
                 // echo '</pre>';
 			$email=Session::get('email');
             $user_id=Session::get('user_id');
+            $user_id=Crypt::encryptString($user_id);
             $ma_ddh=Session::get('ma_ddh')
             ?>
 	<h3>Chi Tiết Đơn Đặt Hàng Có Mã Đơn:<?php echo $ma_ddh; ?></h3>

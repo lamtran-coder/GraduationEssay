@@ -132,11 +132,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <li><i class="fa fa-user fa-user-styling"></i>
                 <ul class="sub-icon2 list user-styling">
                     <li><a href="">
-                <?php $username=Session::get('username_us');
+                <?php $username_us=Session::get('username_us');
                       $user_id=Session::get('user_id');
                       $user_id=Crypt::encryptString($user_id);
 
-                    if ($username!=null) { ?>
+                    if ($username_us!=null) { ?>
                     <li><a style="color: #FFF;" href="{{URL::to('/thong-tin-ca-nhan')}}">Thông Tin Cá Nhân</a></li>
                     <li><a style="color: #FFF;" href="{{URL::to('/show-order/'.$user_id)}}">Đơn Mua</a></li>
                     <li><a style="color: #FFF;" href="{{URL::to('/logout-us')}}">Đăng Xuất</a></li> 
@@ -146,10 +146,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     </a></li> 
                 </ul>
             </li>
-            <?php $username=Session::get('username_us');
+            <?php $username_us=Session::get('username_us');
                       $user_id=Session::get('user_id');
                     if ($user_id!=null) { ?>
-                 <li><a href="{{URL::to('/thong-tin-ca-nhan')}}"><p style="font-weight: bolder;"><?php echo $username; ?></p></a></li>
+                 <li><a href="{{URL::to('/thong-tin-ca-nhan')}}"><p style="font-weight: bolder;"><?php echo $username_us; ?></p></a></li>
                     <?php }else{?>
                 <li><a href="{{URL::to('/sign-up')}}"><p style="font-weight: bolder;">Đăng Ký</p></a></li>
                     <?php } ?>

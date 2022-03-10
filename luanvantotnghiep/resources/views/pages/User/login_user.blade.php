@@ -35,6 +35,22 @@
                    <span style="color:red;">{{$errors->first('username')}}</span>
                 <?php endif ?>
 				
+			<!-- //css của fb -->
+			<style type="text/css">
+				ul.list-login {
+			    margin: 10px;
+			    padding: 0;
+			    }
+			    ul.list-login>li{
+			        display: inline;
+			        margin: 5px;
+			    }
+			</style>
+			<ul class="list-login">
+            	
+            	<li><a href="{{url('/login-user-google')}}"><img src="{{asset('public/frontend/images/gg.png')}}" alt="đăng nhập bằng google"></a></li>
+            	<li><a href="#"><img src="{{asset('public/frontend/images/fb.png')}}" alt="đăng nhập bằng facebook"></a></li>
+          </ul>
 			</div>
 		</div>
 

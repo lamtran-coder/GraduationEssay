@@ -127,9 +127,8 @@
             <td>
               <a href="{{URL::to('/edit-Category/'.$value->ma_dm)}}" class="active styling-edit" ui-toggle-class="">
                 <i class="fa fa-pencil-square-o text-success text-active"></i></a>
-                <br>
-              <!-- <a href="{{URL::to('/delete-Category/'.$value->ma_dm)}}" class="active styling-edit" ui-toggle-class="" onclick="return confirm('bạn muốn xóa danh mục này?')">
-              <i class="fa fa-times text-danger text"></i></a> -->
+              <a href="{{URL::to('/delete-Category/'.$value->ma_dm)}}" class="active styling-edit" ui-toggle-class="" onclick="return confirm('bạn muốn xóa danh mục này?')">
+              <i class="fa fa-times text-danger text"></i></a>
             </td>
           </tr>
          @endforeach
@@ -147,6 +146,15 @@
         </div>
       </div>
     </footer>
+    <?php 
+      $message=Session::get('message');
+      if($message){?>
+          <script type="text/javascript">
+          $(document).ready(function(){
+              alert('{{$message}}');
+          });
+          </script>';
+  <?php Session::put('message',null);}?>
   </div>
 </div>
 </section>

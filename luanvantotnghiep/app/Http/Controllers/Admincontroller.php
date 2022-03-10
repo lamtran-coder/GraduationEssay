@@ -9,6 +9,11 @@ use App\Models\Visitors;
 use App\Models\Phan_tich_so_lieu;
 use Carbon\Carbon;
 use App\Http\Requests;
+
+use App\Models\Social; //sử dụng model Social
+use Socialite; //sử dụng Socialite
+use App\Models\Login; //sử dụng model Login
+
 use Illuminate\Support\Facades\Redirect;
 session_start();
 class Admincontroller extends Controller
@@ -20,80 +25,190 @@ class Admincontroller extends Controller
          return Redirect::to('admin')->send();
       }
     }
+
+    public function login_facebook(){
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    public function callback_facebook(){
+        $provider = Socialite::driver('facebook')->user();
+        
+        $account = Social::where('provider','facebook')
+        ->where('provider_user_id',$provider->getId())
+        ->first();
+
+        if($account){
+            //login in vao trang quan tri  
+            $account_name = Login::where('email',$account->user)->first();
+            if ($account_name) {
+               Session::put('ten',$provider->getName());
+                Session::put('email',$provider->getEmail());
+                return Redirect::to('/dashboard');
+            }echo 'không đăng nhập được';
+           
+        }else{
+            $data=array();
+            $data['user']=$provider->getEmail();
+            $data['provider_user_id'] = $provider->getId();
+            $data['provider']= 'facebook';
+            DB::table('tbl_social')->insert($data);
+            
+
+            $orang = Login::where('email',$provider->getEmail())->first();
+            
+            if(!$orang){
+                $data_ad=array();
+                $data_ad['email']=$provider->getEmail();
+                $data_ad['ten'] = $provider->getName();
+                $data_ad['matkhau']= '';
+                $data_ad['tg_tao']= date('YmdHis');
+                DB::table('admin')->insert($data_ad);
+
+                Session::put('ten',$provider->getName());
+                Session::put('email',$provider->getEmail());
+                return Redirect::to('/dashboard');
+
+            }else{
+                Session::put('ten',$provider->getName());
+                Session::put('email',$provider->getEmail());
+                return Redirect::to('/dashboard');
+            }
+        } 
+    }
+
+
+    public function login_google(){
+        return Socialite::driver('google')->redirect();
+   }
+public function callback_google(){
+        $users = Socialite::driver('google')->stateless()->user(); 
+        // echo "<pre>";
+        // print_r($users);
+        // echo "</pre";
+
+        $account=DB::table('tbl_social')->where('provider','google')
+        ->where('provider_user_id',$users->getId())->first();
+        if (isset($account)) {
+            $account_name = Login::where('email',$account->user)->first();
+            if ($account_name) {
+                Session::put('ten',$users->getName());
+                Session::put('email',$users->getEmail());
+                return Redirect::to('/dashboard');
+            }
+            else{return Redirect::to('/admin');}
+
+        }
+        else{
+        $ad_id=DB::table('admin')->where('email',$users->getEmail())->first();
+
+        //nếu không tồn tại email trong admin thì thêm new ac
+        if (!$ad_id) {
+            $data_ad=array();
+            $data_ad['email']=$users->getEmail();
+            $data_ad['ten'] = $users->getName();
+            $data_ad['matkhau']= '';
+            $data_ad['tg_tao']= date('YmdHis');
+            DB::table('admin')->insert($data_ad);
+        }
+        //nếu     
+        if ($ad_id) {
+            $data_gg=array();
+            $data_gg['user']=$users->getEmail();
+            $data_gg['provider']='google';
+            $data_gg['provider_user_id']=$users->getId();
+            DB::table('tbl_social')->insert($data_gg);         
+        }else{
+            return Redirect::to('/admin');
+        }
+        Session::put('ten',$users->getName());
+        Session::put('email',$users->getEmail());
+        return Redirect::to('/dashboard');
+        } 
+    }
+   
+
+
+
+
     public function index(){
       
         return view('admin_login');
     }
-    public function show_dashboard(Request $request){
-    $this->AuthLogin();
-    $user_ip_address = $request->ip(); 
-    $early_last_month = Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->startOfMonth()->toDateString();
 
-    $end_of_last_month = Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->endOfMonth()->toDateString();
+    public function show_dashboard(Request $request) {
+        $this->AuthLogin();
+        $user_ip_address = $request->ip(); 
+        $early_last_month = Carbon::now('Asia/Ho_Chi_Minh')
+        ->subMonth()->startOfMonth()->toDateString();
 
-    $early_this_month = Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth()->toDateString();
+        $end_of_last_month = Carbon::now('Asia/Ho_Chi_Minh')
+        ->subMonth()->endOfMonth()->toDateString();
 
-    $oneyears = Carbon::now('Asia/Ho_Chi_Minh')->subdays(365)->toDateString();
+        $early_this_month = Carbon::now('Asia/Ho_Chi_Minh')
+        ->startOfMonth()->toDateString();
 
-    $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
-        //total last month
-    $visitor_of_lastmonth = Visitors::whereBetween('date_visitor',[$early_last_month,$end_of_last_month])->get(); 
-    $visitor_last_month_count = $visitor_of_lastmonth->count();
+        $oneyears = Carbon::now('Asia/Ho_Chi_Minh')->subdays(365)->toDateString();
 
-        //total this month
-    $visitor_of_thismonth = Visitors::whereBetween('date_visitor',[$early_this_month,$now])->get(); 
-    $visitor_this_month_count = $visitor_of_thismonth->count();
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+            //total last month
+        $visitor_of_lastmonth = Visitors::whereBetween('date_visitor',[$early_last_month,$end_of_last_month])->get(); 
+        $visitor_last_month_count = $visitor_of_lastmonth->count();
 
-        //total in one year
-    $visitor_of_year = Visitors::whereBetween('date_visitor',[$oneyears,$now])->get(); 
-    $visitor_year_count = $visitor_of_year->count();
+            //total this month
+        $visitor_of_thismonth = Visitors::whereBetween('date_visitor',[$early_this_month,$now])->get(); 
+        $visitor_this_month_count = $visitor_of_thismonth->count();
 
-        //total visitors
-    $visitors = Visitors::all();
-    $visitors_total = $visitors->count();
+            //total in one year
+        $visitor_of_year = Visitors::whereBetween('date_visitor',[$oneyears,$now])->get(); 
+        $visitor_year_count = $visitor_of_year->count();
 
-        //current online
-    $visitors_current = Visitors::where('ip_address',$user_ip_address)->get();  
-    $visitor_count = $visitors_current->count();
+            //total visitors
+        $visitors = Visitors::all();
+        $visitors_total = $visitors->count();
 
-    if($visitor_count<1){
-        $visitor = new Visitors();
-        $visitor->ip_address = $user_ip_address;
-        $visitor->date_visitor = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
-        $visitor->save();
-    }
-        //total 
-    $comment= $request->all(); 
-    $product= $request->all(); 
-    $order= $request->all(); 
-    $customer= $request->all(); 
-  
-    $order = DB::table('don_dat_hang')->count();
-    $customer =DB::table('khach_hang')->count();
-    $comment=DB::table('binh_luan')->count();
-    $product=DB::table('san_pham')->count();
-    
-    //thong báo
-    $solg_messe=DB::table('thong_bao')->selectRaw('count(*)as solg')->where('che_do',null)->get();
-    $message_id=DB::table('thong_bao')
-    ->selectRaw('noi_dung,thoi_gian,che_do')
-    ->orderby('thoi_gian','desc')
-    ->get();
-    //Thông kê Trang Thái
-    $Dangxuly=DB::table('don_dat_hang')->where('trangthai','0')->count();
-    $Cholayhang=DB::table('don_dat_hang')->where('trangthai','1')->count();
-    $Danggiao=DB::table('don_dat_hang')->where('trangthai','2')->count();
-    $Danhan=DB::table('don_dat_hang')->where('trangthai','3')->count();
-    $Dahuy=DB::table('don_dat_hang')->where('trangthai','4')->count();
-    return view('admin.dashboard')
-    ->with(compact('visitors_total','visitor_count','visitor_last_month_count','visitor_this_month_count','visitor_year_count','product','comment','order','customer'))
-    ->with('message_id',$message_id)
-    ->with('solg_messe',$solg_messe)
-    ->with('Dangxuly',$Dangxuly)
-    ->with('Cholayhang',$Cholayhang)
-    ->with('Danggiao',$Danggiao)
-    ->with('Danhan',$Danhan)
-    ->with('Dahuy',$Dahuy);
+            //current online
+        $visitors_current = Visitors::where('ip_address',$user_ip_address)->get();  
+        $visitor_count = $visitors_current->count();
+
+        if($visitor_count<1){
+            $visitor = new Visitors();
+            $visitor->ip_address = $user_ip_address;
+            $visitor->date_visitor = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+            $visitor->save();
+        }
+            //total 
+        $comment= $request->all(); 
+        $product= $request->all(); 
+        $order= $request->all(); 
+        $customer= $request->all(); 
+      
+        $order = DB::table('don_dat_hang')->count();
+        $customer =DB::table('khach_hang')->count();
+        $comment=DB::table('binh_luan')->count();
+        $product=DB::table('san_pham')->count();
+        
+        //thong báo
+        $solg_messe=DB::table('thong_bao')
+        ->selectRaw('count(*)as solg')->where('che_do',null)->get();
+        $message_id=DB::table('thong_bao')
+        ->selectRaw('noi_dung,thoi_gian,che_do')
+        ->orderby('thoi_gian','desc')
+        ->get();
+        //Thông kê Trang Thái
+        $Dangxuly=DB::table('don_dat_hang')->where('trangthai','0')->count();
+        $Cholayhang=DB::table('don_dat_hang')->where('trangthai','1')->count();
+        $Danggiao=DB::table('don_dat_hang')->where('trangthai','2')->count();
+        $Danhan=DB::table('don_dat_hang')->where('trangthai','3')->count();
+        $Dahuy=DB::table('don_dat_hang')->where('trangthai','4')->count();
+        return view('admin.dashboard')
+        ->with(compact('visitors_total','visitor_count','visitor_last_month_count','visitor_this_month_count','visitor_year_count','product','comment','order','customer'))
+        ->with('message_id',$message_id)
+        ->with('solg_messe',$solg_messe)
+        ->with('Dangxuly',$Dangxuly)
+        ->with('Cholayhang',$Cholayhang)
+        ->with('Danggiao',$Danggiao)
+        ->with('Danhan',$Danhan)
+        ->with('Dahuy',$Dahuy);
     }
     public function dashboard(Request $request){
 
@@ -118,6 +233,7 @@ class Admincontroller extends Controller
             session::put('email',$result->email);
             session::put('tg_tao',$result->tg_tao);
             session::put('diachi',$result->diachi);
+            
             return Redirect::to('/dashboard');}
         else{
             session::put('message','Mật khẩu hoặc email sai. Vui lòng nhập lại');
@@ -317,6 +433,12 @@ class Admincontroller extends Controller
             }
         }
         echo $data_dg = json_encode($chart_data_dg);
+    }
+
+    //Đăng nhập user bằng google
+    public function login_user_google(){
+        $h=date('Y-m-d');
+        echo $h;
     }
 
 }

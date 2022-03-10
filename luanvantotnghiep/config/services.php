@@ -29,5 +29,19 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    
+    'facebook' => [
+        'client_id' => '1269646176857222',  //client face của bạn
+        'client_secret' => 'c96e93c361f602c46a4b1039b80eda49',  //client app service face của bạn
+        'redirect' => 'http://localhost/GraduationEssay/luanvantotnghiep/admin/callback' //callback trả về
+    ],
+
+
+    'google' => [
+        'client_id' => '400312956402-3v4e8klfk0q5s13523fvumq4g6k29lvi.apps.googleusercontent.com',
+        'client_secret' => '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',
+        'redirect' => 'http://localhost/GraduationEssay/luanvantotnghiep/google/callback' 
+    ],
+
 
 ];

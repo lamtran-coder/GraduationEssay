@@ -253,24 +253,44 @@ class Categorycontroller extends Controller
         ->with('message_id',$message_id);
     }
     public function update_Category(Request $request,$ma_dm){
+        
+        $result1=($request->danh_muc).'M'.($request->material_key).'D'.($request->design_key);
+        echo $result1;
+        $info_pro=DB::table('san_pham')->get();
+        foreach ($info_pro as $key => $val) {
+            if ($val->ma_dm==$ma_dm) {
+               Session::put('message','danh mục đã tồn tại không thể cập nhật');
+                return Redirect::to('/edit-Category/'.$ma_dm);
+            }
+        }
+        $info_cate=DB::table('danh_muc_sp')->get();
+        foreach ($info_cate as $key => $value) {
+            if ($value->ma_dm==$result1) {
+               Session::put('message','danh mục đã có sản phẩm không thể cập nhật');
+                return Redirect::to('/edit-Category/'.$ma_dm);
+            }
+        }
         $data=array();
-        $result1=($request->category_name).'M'.($request->material_key).'D'.($request->design_key);
         $data['ma_dm']=$result1;
-        $data['danh_muc']=$request->category_name;
+        $data['danh_muc']=$request->danh_muc;
         $data['ma_cl']=$request->material_key;
         $data['ma_tk']=$request->design_key;
         DB::table('danh_muc_sp')->where('ma_dm',$ma_dm)->update($data);
-        return Redirect::to('/all-Category');
+        Session::put('message','Cập nhật thành công');
+        return Redirect::to('/edit-Category/'.$result1);
     }
 
     public function delete_Category($ma_dm){
-         DB::table('san_pham')->where('ma_dm',$ma_dm)->delete();
-         DB::table('danh_muc_sp')->where('ma_dm',$ma_dm)->delete();
-         return Redirect::to('/all-Category');
+        $info_pro=DB::table('san_pham')->get();
+        foreach ($info_pro as $key => $val) {
+            if ($val->ma_dm==$ma_dm) {
+               Session::put('message','danh mục đã có sản phẩm không thể cập nhật');
+                return Redirect::to('/all-Category');
+            }
+        }
+        DB::table('danh_muc_sp')->where('ma_dm',$ma_dm)->delete();
+        return Redirect::to('/all-Category');
      }
-
-        
-
 
     //add thiết kế
     public function add_design(){

@@ -131,7 +131,7 @@
                             <img src="{{asset('public/frontend/images/momo.jpg')}}" alt="">
                              <div>Nôi Dung chuyển khoảng : <br> [Tiền Cọc/Thanh Toán][Họ tên][Số điện thoại]</div>
                             <div>Ví Dụ :Tiền Cọc - Nguyễn Văn A - 0123456789</div>
-                            <div style="font-size: 31px;color: #f37e09;">Vui Lòng Chuyển Khoảng Trong 24h Để Được Giao Hàng Dúng Giời!<br>Cảm Ơn!</div>
+                            <div style="font-size: 31px;color: #f37e09;">Vui Lòng Chuyển Khoảng Trong 24h Để Được Giao Hàng Đúng Giờ!<br>Cảm Ơn!</div>
                         <?php } ?>
                         </div>
                     </div>
@@ -195,7 +195,7 @@
                             echo number_format($thanhtien+$mony_deli); ?></b><p>VND</p></span></li>
                             <li style="color:red;">Tiền Cọc<span><b>
                             <?php
-                                if($sum_qty>=40){
+                                if($sum_qty>=20){
                                     $prepayment=$thanhtien*(30/100);
                                 }else{
                                     $prepayment=0;
@@ -205,7 +205,9 @@
                         </ul>
                     </div>
                     <div >
-                        <?php $user_id=Session::get('user_id'); ?>
+                        <?php $user_id=Session::get('user_id');
+                              $user_id=Crypt::encryptString($user_id);
+                         ?>
                         <form action="{{URL::to('/save-order')}}" class="form-order-new" method="POST">
                             @csrf
                             <input type="hidden" name="total_deductions" value="<?php echo $chiec_khau_tong; ?>">

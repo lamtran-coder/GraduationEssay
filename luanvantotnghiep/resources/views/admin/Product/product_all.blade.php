@@ -198,8 +198,8 @@
               <div class="action">
               <a href="{{URL::to('/edit-product/'.$value_pro->ma_sp)}}" class="active styling-edit" ui-toggle-class="">
               <i class="fa fa-pencil-square-o text-success text-active"></i></a>
-              <!-- <a href="{{URL::to('/delete-product/'.$value_pro->ma_sp)}}" class="active styling-edit" ui-toggle-class="" onclick="return confirm('bạn muốn xóa sản phẩm này?')">
-              <i class="fa fa-times text-danger text"></i></a>     -->
+              <a href="{{URL::to('/delete-product/'.$value_pro->ma_sp)}}" class="active styling-edit" ui-toggle-class="" onclick="return confirm('bạn muốn xóa sản phẩm này?')">
+              <i class="fa fa-times text-danger text"></i></a>    
               </div>  
             </td>
           </tr>
@@ -223,7 +223,15 @@
         </div>
       </div>
     </footer>
-   
+    <?php 
+      $message=Session::get('message');
+      if($message){?>
+          <script type="text/javascript">
+          $(document).ready(function(){
+              alert('{{$message}}');
+          });
+          </script>';
+  <?php Session::put('message',null);}?>
 
   </div>
 </div>
